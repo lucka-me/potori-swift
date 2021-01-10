@@ -1,0 +1,1133 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		84003545259F58DC003C97EA /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 84003544259F58DC003C97EA /* GTMAppAuth */; };
+		8400354F259F58E3003C97EA /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8400354E259F58E3003C97EA /* GTMAppAuth */; };
+		84003556259F613F003C97EA /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 84003555259F613F003C97EA /* AppAuth */; };
+		8400355E259F7732003C97EA /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8400355D259F7732003C97EA /* AppAuth */; };
+		842F6C6C259CAA7A0063DCFE /* PotoriCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F6C6B259CAA7A0063DCFE /* PotoriCommands.swift */; };
+		843BEF38259F07CF00FC17F9 /* TabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF37259F07CF00FC17F9 /* TabNavigation.swift */; };
+		843BEF48259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */; };
+		843BEF49259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */; };
+		843BEF6A259F36FB00FC17F9 /* AuthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF69259F36FB00FC17F9 /* AuthKit.swift */; };
+		843BEF6B259F36FB00FC17F9 /* AuthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF69259F36FB00FC17F9 /* AuthKit.swift */; };
+		84495F2E259A140D00BA238A /* potori.json in Resources */ = {isa = PBXBuildFile; fileRef = 84495F2D259A140D00BA238A /* potori.json */; };
+		84495F2F259A140D00BA238A /* potori.json in Resources */ = {isa = PBXBuildFile; fileRef = 84495F2D259A140D00BA238A /* potori.json */; };
+		84495F30259A140D00BA238A /* potori.json in Resources */ = {isa = PBXBuildFile; fileRef = 84495F2D259A140D00BA238A /* potori.json */; };
+		84495F31259A140D00BA238A /* potori.json in Resources */ = {isa = PBXBuildFile; fileRef = 84495F2D259A140D00BA238A /* potori.json */; };
+		844A9AAE25A4BD21003E44B5 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */; };
+		844A9AAF25A4BD21003E44B5 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */; };
+		844E157125A0657300A79C9E /* GTMSessionFetcher in Frameworks */ = {isa = PBXBuildFile; productRef = 844E157025A0657300A79C9E /* GTMSessionFetcher */; };
+		844E157725A0659300A79C9E /* GoogleAPIClientForREST_Gmail in Frameworks */ = {isa = PBXBuildFile; productRef = 844E157625A0659300A79C9E /* GoogleAPIClientForREST_Gmail */; };
+		844E157925A065A000A79C9E /* GTMSessionFetcher in Frameworks */ = {isa = PBXBuildFile; productRef = 844E157825A065A000A79C9E /* GTMSessionFetcher */; };
+		844E157F25A065FB00A79C9E /* GoogleAPIClientForRESTCore in Frameworks */ = {isa = PBXBuildFile; productRef = 844E157E25A065FB00A79C9E /* GoogleAPIClientForRESTCore */; };
+		844E158125A0660200A79C9E /* GoogleAPIClientForRESTCore in Frameworks */ = {isa = PBXBuildFile; productRef = 844E158025A0660200A79C9E /* GoogleAPIClientForRESTCore */; };
+		8462D078259F9C330031AD0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D077259F9C330031AD0D /* AppDelegate.swift */; };
+		8462D088259FBA030031AD0D /* MainMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D087259FBA030031AD0D /* MainMap.swift */; };
+		8462D089259FBA030031AD0D /* MainMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D087259FBA030031AD0D /* MainMap.swift */; };
+		8462D0A525A0643F0031AD0D /* GoogleAPIClientForREST_Gmail in Frameworks */ = {isa = PBXBuildFile; productRef = 8462D0A425A0643F0031AD0D /* GoogleAPIClientForREST_Gmail */; };
+		846645EC25A8DAA200DD37D1 /* GoogleDriveKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846645EB25A8DAA200DD37D1 /* GoogleDriveKit.swift */; };
+		846645ED25A8DAA200DD37D1 /* GoogleDriveKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846645EB25A8DAA200DD37D1 /* GoogleDriveKit.swift */; };
+		8468A22C25A33784009B562D /* Potori.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8468A22A25A33784009B562D /* Potori.xcdatamodeld */; };
+		8468A22D25A33784009B562D /* Potori.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8468A22A25A33784009B562D /* Potori.xcdatamodeld */; };
+		8468A22E25A33784009B562D /* Potori.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8468A22A25A33784009B562D /* Potori.xcdatamodeld */; };
+		8468A22F25A33784009B562D /* Potori.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8468A22A25A33784009B562D /* Potori.xcdatamodeld */; };
+		846CC5B725A359DD007A8AE8 /* NominationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC5B625A359DD007A8AE8 /* NominationJSON.swift */; };
+		846CC5B825A359DD007A8AE8 /* NominationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC5B625A359DD007A8AE8 /* NominationJSON.swift */; };
+		846CC62925A35EFF007A8AE8 /* Nomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC62725A35EFF007A8AE8 /* Nomination.swift */; };
+		846CC62A25A35EFF007A8AE8 /* Nomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC62725A35EFF007A8AE8 /* Nomination.swift */; };
+		846CC62B25A35EFF007A8AE8 /* Nomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC62725A35EFF007A8AE8 /* Nomination.swift */; };
+		846CC62C25A35EFF007A8AE8 /* Nomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC62725A35EFF007A8AE8 /* Nomination.swift */; };
+		849178752599F81700CD967F /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178742599F81700CD967F /* Tests_iOS.swift */; };
+		849178802599F81700CD967F /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8491787F2599F81700CD967F /* Tests_macOS.swift */; };
+		849178822599F81700CD967F /* PotoriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178592599F81600CD967F /* PotoriApp.swift */; };
+		849178832599F81700CD967F /* PotoriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178592599F81600CD967F /* PotoriApp.swift */; };
+		849178862599F81700CD967F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8491785B2599F81700CD967F /* Assets.xcassets */; };
+		849178872599F81700CD967F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8491785B2599F81700CD967F /* Assets.xcassets */; };
+		8491789B2599F92C00CD967F /* NominationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8491789A2599F92C00CD967F /* NominationItem.swift */; };
+		8491789C2599F92C00CD967F /* NominationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8491789A2599F92C00CD967F /* NominationItem.swift */; };
+		849178A7259A06E000CD967F /* NominationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178A6259A06E000CD967F /* NominationList.swift */; };
+		849178A8259A06E000CD967F /* NominationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178A6259A06E000CD967F /* NominationList.swift */; };
+		849178BE259A0D8D00CD967F /* NominationRAW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178BD259A0D8D00CD967F /* NominationRAW.swift */; };
+		849178BF259A0D8D00CD967F /* NominationRAW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178BD259A0D8D00CD967F /* NominationRAW.swift */; };
+		84A01DD725A609C7006080BF /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A01DD625A609C7006080BF /* Preferences.swift */; };
+		84A01DD825A609C7006080BF /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A01DD625A609C7006080BF /* Preferences.swift */; };
+		84A01DEB25A6E03C006080BF /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A01DEA25A6E03B006080BF /* StatsView.swift */; };
+		84A01DEC25A6E03C006080BF /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A01DEA25A6E03B006080BF /* StatsView.swift */; };
+		84BFD364259F46530047318D /* Mari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BFD363259F46530047318D /* Mari.swift */; };
+		84BFD365259F46530047318D /* Mari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BFD363259F46530047318D /* Mari.swift */; };
+		84C769A725A706A60055A3A9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84C769AA25A706A60055A3A9 /* Localizable.strings */; };
+		84C769A825A706A60055A3A9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84C769AA25A706A60055A3A9 /* Localizable.strings */; };
+		84CCEDC2259CB5470040917E /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCEDC1259CB5470040917E /* RemoteImage.swift */; };
+		84CCEDC3259CB5470040917E /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCEDC1259CB5470040917E /* RemoteImage.swift */; };
+		84DB6EA3259A2B1F00BD915B /* StatusKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6EA2259A2B1F00BD915B /* StatusKit.swift */; };
+		84DB6EA4259A2B1F00BD915B /* StatusKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6EA2259A2B1F00BD915B /* StatusKit.swift */; };
+		84DB6EAE259A2F8C00BD915B /* status.json in Resources */ = {isa = PBXBuildFile; fileRef = 84DB6EAD259A2F8C00BD915B /* status.json */; };
+		84DB6EAF259A2F8C00BD915B /* status.json in Resources */ = {isa = PBXBuildFile; fileRef = 84DB6EAD259A2F8C00BD915B /* status.json */; };
+		84DB6EB0259A2F8C00BD915B /* status.json in Resources */ = {isa = PBXBuildFile; fileRef = 84DB6EAD259A2F8C00BD915B /* status.json */; };
+		84DB6EB1259A2F8C00BD915B /* status.json in Resources */ = {isa = PBXBuildFile; fileRef = 84DB6EAD259A2F8C00BD915B /* status.json */; };
+		84DB6ED1259A3D5D00BD915B /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6ED0259A3D5D00BD915B /* Service.swift */; };
+		84DB6ED2259A3D5D00BD915B /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6ED0259A3D5D00BD915B /* Service.swift */; };
+		84DB6ED3259A3D5D00BD915B /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6ED0259A3D5D00BD915B /* Service.swift */; };
+		84DB6ED4259A3D5D00BD915B /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6ED0259A3D5D00BD915B /* Service.swift */; };
+		84E97F9025A4A4900031FE3B /* GoogleAPIClientForREST_Drive in Frameworks */ = {isa = PBXBuildFile; productRef = 84E97F8F25A4A4900031FE3B /* GoogleAPIClientForREST_Drive */; };
+		84E97F9225A4A49B0031FE3B /* GoogleAPIClientForREST_Drive in Frameworks */ = {isa = PBXBuildFile; productRef = 84E97F9125A4A49B0031FE3B /* GoogleAPIClientForREST_Drive */; };
+		84F97C71259B6978005D9AA4 /* NominationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F97C70259B6978005D9AA4 /* NominationDetails.swift */; };
+		84F97C72259B6978005D9AA4 /* NominationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F97C70259B6978005D9AA4 /* NominationDetails.swift */; };
+		84F97C78259B7474005D9AA4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F97C77259B7474005D9AA4 /* ContentView.swift */; };
+		84F97C79259B7474005D9AA4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F97C77259B7474005D9AA4 /* ContentView.swift */; };
+		84F97CBB259BADB7005D9AA4 /* NominationDetailsMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F97CBA259BADB7005D9AA4 /* NominationDetailsMap.swift */; };
+		84F97CBC259BADB7005D9AA4 /* NominationDetailsMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F97CBA259BADB7005D9AA4 /* NominationDetailsMap.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		849178712599F81700CD967F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 849178542599F81600CD967F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8491785F2599F81700CD967F;
+			remoteInfo = "Potori (iOS)";
+		};
+		8491787C2599F81700CD967F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 849178542599F81600CD967F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 849178672599F81700CD967F;
+			remoteInfo = "Potori (macOS)";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8400654125AAEBD000ED76B4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		842F6C6B259CAA7A0063DCFE /* PotoriCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotoriCommands.swift; sourceTree = "<group>"; };
+		843BEF37259F07CF00FC17F9 /* TabNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigation.swift; sourceTree = "<group>"; };
+		843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarNavigation.swift; sourceTree = "<group>"; };
+		843BEF69259F36FB00FC17F9 /* AuthKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthKit.swift; sourceTree = "<group>"; };
+		84495F2D259A140D00BA238A /* potori.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = potori.json; sourceTree = "<group>"; };
+		844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		8462D077259F9C330031AD0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8462D087259FBA030031AD0D /* MainMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMap.swift; sourceTree = "<group>"; };
+		846645EB25A8DAA200DD37D1 /* GoogleDriveKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveKit.swift; sourceTree = "<group>"; };
+		8468A22B25A33784009B562D /* Potori.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Potori.xcdatamodel; sourceTree = "<group>"; };
+		846CC5B625A359DD007A8AE8 /* NominationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationJSON.swift; sourceTree = "<group>"; };
+		846CC62725A35EFF007A8AE8 /* Nomination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nomination.swift; sourceTree = "<group>"; };
+		849178592599F81600CD967F /* PotoriApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotoriApp.swift; sourceTree = "<group>"; };
+		8491785B2599F81700CD967F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		849178602599F81700CD967F /* Potori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Potori.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		849178632599F81700CD967F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		849178682599F81700CD967F /* Potori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Potori.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8491786A2599F81700CD967F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8491786B2599F81700CD967F /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		849178702599F81700CD967F /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		849178742599F81700CD967F /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
+		849178762599F81700CD967F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8491787B2599F81700CD967F /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8491787F2599F81700CD967F /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
+		849178812599F81700CD967F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8491789A2599F92C00CD967F /* NominationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationItem.swift; sourceTree = "<group>"; };
+		849178A6259A06E000CD967F /* NominationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationList.swift; sourceTree = "<group>"; };
+		849178BD259A0D8D00CD967F /* NominationRAW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationRAW.swift; sourceTree = "<group>"; };
+		84A01DD625A609C7006080BF /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		84A01DEA25A6E03B006080BF /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		84BFD363259F46530047318D /* Mari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mari.swift; sourceTree = "<group>"; };
+		84C769A925A706A60055A3A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		84C769C325A714410055A3A9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		84CCEDC1259CB5470040917E /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
+		84DB6EA2259A2B1F00BD915B /* StatusKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusKit.swift; sourceTree = "<group>"; };
+		84DB6EAD259A2F8C00BD915B /* status.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = status.json; sourceTree = "<group>"; };
+		84DB6ED0259A3D5D00BD915B /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		84F97C70259B6978005D9AA4 /* NominationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationDetails.swift; sourceTree = "<group>"; };
+		84F97C77259B7474005D9AA4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		84F97CBA259BADB7005D9AA4 /* NominationDetailsMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationDetailsMap.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8491785D2599F81700CD967F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84E97F9225A4A49B0031FE3B /* GoogleAPIClientForREST_Drive in Frameworks */,
+				844E157F25A065FB00A79C9E /* GoogleAPIClientForRESTCore in Frameworks */,
+				8400355E259F7732003C97EA /* AppAuth in Frameworks */,
+				844E157725A0659300A79C9E /* GoogleAPIClientForREST_Gmail in Frameworks */,
+				844E157925A065A000A79C9E /* GTMSessionFetcher in Frameworks */,
+				8400354F259F58E3003C97EA /* GTMAppAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		849178652599F81700CD967F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84E97F9025A4A4900031FE3B /* GoogleAPIClientForREST_Drive in Frameworks */,
+				844E158125A0660200A79C9E /* GoogleAPIClientForRESTCore in Frameworks */,
+				84003556259F613F003C97EA /* AppAuth in Frameworks */,
+				8462D0A525A0643F0031AD0D /* GoogleAPIClientForREST_Gmail in Frameworks */,
+				844E157125A0657300A79C9E /* GTMSessionFetcher in Frameworks */,
+				84003545259F58DC003C97EA /* GTMAppAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8491786D2599F81700CD967F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		849178782599F81700CD967F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		843BEF23259F017800FC17F9 /* NominationList */ = {
+			isa = PBXGroup;
+			children = (
+				8491789A2599F92C00CD967F /* NominationItem.swift */,
+				849178A6259A06E000CD967F /* NominationList.swift */,
+			);
+			path = NominationList;
+			sourceTree = "<group>";
+		};
+		843BEF28259F018300FC17F9 /* NominationDetails */ = {
+			isa = PBXGroup;
+			children = (
+				84F97C70259B6978005D9AA4 /* NominationDetails.swift */,
+				84F97CBA259BADB7005D9AA4 /* NominationDetailsMap.swift */,
+			);
+			path = NominationDetails;
+			sourceTree = "<group>";
+		};
+		843BEF5A259F32AB00FC17F9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				843BEF37259F07CF00FC17F9 /* TabNavigation.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		843BEF66259F36DD00FC17F9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		84495F3A259A149100BA238A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				84495F2D259A140D00BA238A /* potori.json */,
+				84DB6EAD259A2F8C00BD915B /* status.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		8466460225A9F9D300DD37D1 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				84C769AA25A706A60055A3A9 /* Localizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		8468A23C25A33BD0009B562D /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				846CC62725A35EFF007A8AE8 /* Nomination.swift */,
+				846CC5B625A359DD007A8AE8 /* NominationJSON.swift */,
+				849178BD259A0D8D00CD967F /* NominationRAW.swift */,
+				8468A22A25A33784009B562D /* Potori.xcdatamodeld */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		849178532599F81600CD967F = {
+			isa = PBXGroup;
+			children = (
+				8400654125AAEBD000ED76B4 /* README.md */,
+				849178582599F81600CD967F /* Shared */,
+				849178622599F81700CD967F /* iOS */,
+				849178692599F81700CD967F /* macOS */,
+				849178732599F81700CD967F /* Tests iOS */,
+				8491787E2599F81700CD967F /* Tests macOS */,
+				849178612599F81700CD967F /* Products */,
+				843BEF66259F36DD00FC17F9 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		849178582599F81600CD967F /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				849178592599F81600CD967F /* PotoriApp.swift */,
+				8491785B2599F81700CD967F /* Assets.xcassets */,
+				8468A23C25A33BD0009B562D /* Data */,
+				8466460225A9F9D300DD37D1 /* Localization */,
+				84495F3A259A149100BA238A /* Resources */,
+				849178B8259A0B6300CD967F /* Service */,
+				849178A12599F93300CD967F /* Views */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		849178612599F81700CD967F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				849178602599F81700CD967F /* Potori.app */,
+				849178682599F81700CD967F /* Potori.app */,
+				849178702599F81700CD967F /* Tests iOS.xctest */,
+				8491787B2599F81700CD967F /* Tests macOS.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		849178622599F81700CD967F /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				849178632599F81700CD967F /* Info.plist */,
+				843BEF5A259F32AB00FC17F9 /* Views */,
+				8462D077259F9C330031AD0D /* AppDelegate.swift */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		849178692599F81700CD967F /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				8491786B2599F81700CD967F /* macOS.entitlements */,
+				8491786A2599F81700CD967F /* Info.plist */,
+				842F6C6B259CAA7A0063DCFE /* PotoriCommands.swift */,
+				84CCEDD6259CC8E30040917E /* Views */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		849178732599F81700CD967F /* Tests iOS */ = {
+			isa = PBXGroup;
+			children = (
+				849178742599F81700CD967F /* Tests_iOS.swift */,
+				849178762599F81700CD967F /* Info.plist */,
+			);
+			path = "Tests iOS";
+			sourceTree = "<group>";
+		};
+		8491787E2599F81700CD967F /* Tests macOS */ = {
+			isa = PBXGroup;
+			children = (
+				8491787F2599F81700CD967F /* Tests_macOS.swift */,
+				849178812599F81700CD967F /* Info.plist */,
+			);
+			path = "Tests macOS";
+			sourceTree = "<group>";
+		};
+		849178A12599F93300CD967F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				84F97C77259B7474005D9AA4 /* ContentView.swift */,
+				8462D087259FBA030031AD0D /* MainMap.swift */,
+				844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */,
+				84CCEDC1259CB5470040917E /* RemoteImage.swift */,
+				843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */,
+				84A01DE925A6DF93006080BF /* Stats */,
+				843BEF28259F018300FC17F9 /* NominationDetails */,
+				843BEF23259F017800FC17F9 /* NominationList */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		849178B8259A0B6300CD967F /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				843BEF69259F36FB00FC17F9 /* AuthKit.swift */,
+				84BFD363259F46530047318D /* Mari.swift */,
+				84DB6ED0259A3D5D00BD915B /* Service.swift */,
+				84DB6EA2259A2B1F00BD915B /* StatusKit.swift */,
+				84A01DD625A609C7006080BF /* Preferences.swift */,
+				846645EB25A8DAA200DD37D1 /* GoogleDriveKit.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		84A01DE925A6DF93006080BF /* Stats */ = {
+			isa = PBXGroup;
+			children = (
+				84A01DEA25A6E03B006080BF /* StatsView.swift */,
+			);
+			path = Stats;
+			sourceTree = "<group>";
+		};
+		84CCEDD6259CC8E30040917E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8491785F2599F81700CD967F /* Potori (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8491788A2599F81700CD967F /* Build configuration list for PBXNativeTarget "Potori (iOS)" */;
+			buildPhases = (
+				8491785C2599F81700CD967F /* Sources */,
+				8491785D2599F81700CD967F /* Frameworks */,
+				8491785E2599F81700CD967F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Potori (iOS)";
+			packageProductDependencies = (
+				8400354E259F58E3003C97EA /* GTMAppAuth */,
+				8400355D259F7732003C97EA /* AppAuth */,
+				844E157625A0659300A79C9E /* GoogleAPIClientForREST_Gmail */,
+				844E157825A065A000A79C9E /* GTMSessionFetcher */,
+				844E157E25A065FB00A79C9E /* GoogleAPIClientForRESTCore */,
+				84E97F9125A4A49B0031FE3B /* GoogleAPIClientForREST_Drive */,
+			);
+			productName = "Potori (iOS)";
+			productReference = 849178602599F81700CD967F /* Potori.app */;
+			productType = "com.apple.product-type.application";
+		};
+		849178672599F81700CD967F /* Potori (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8491788D2599F81700CD967F /* Build configuration list for PBXNativeTarget "Potori (macOS)" */;
+			buildPhases = (
+				849178642599F81700CD967F /* Sources */,
+				849178652599F81700CD967F /* Frameworks */,
+				849178662599F81700CD967F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Potori (macOS)";
+			packageProductDependencies = (
+				84003544259F58DC003C97EA /* GTMAppAuth */,
+				84003555259F613F003C97EA /* AppAuth */,
+				8462D0A425A0643F0031AD0D /* GoogleAPIClientForREST_Gmail */,
+				844E157025A0657300A79C9E /* GTMSessionFetcher */,
+				844E158025A0660200A79C9E /* GoogleAPIClientForRESTCore */,
+				84E97F8F25A4A4900031FE3B /* GoogleAPIClientForREST_Drive */,
+			);
+			productName = "Potori (macOS)";
+			productReference = 849178682599F81700CD967F /* Potori.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8491786F2599F81700CD967F /* Tests iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 849178902599F81700CD967F /* Build configuration list for PBXNativeTarget "Tests iOS" */;
+			buildPhases = (
+				8491786C2599F81700CD967F /* Sources */,
+				8491786D2599F81700CD967F /* Frameworks */,
+				8491786E2599F81700CD967F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				849178722599F81700CD967F /* PBXTargetDependency */,
+			);
+			name = "Tests iOS";
+			productName = "Tests iOS";
+			productReference = 849178702599F81700CD967F /* Tests iOS.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		8491787A2599F81700CD967F /* Tests macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 849178932599F81700CD967F /* Build configuration list for PBXNativeTarget "Tests macOS" */;
+			buildPhases = (
+				849178772599F81700CD967F /* Sources */,
+				849178782599F81700CD967F /* Frameworks */,
+				849178792599F81700CD967F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8491787D2599F81700CD967F /* PBXTargetDependency */,
+			);
+			name = "Tests macOS";
+			productName = "Tests macOS";
+			productReference = 8491787B2599F81700CD967F /* Tests macOS.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		849178542599F81600CD967F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1230;
+				LastUpgradeCheck = 1230;
+				TargetAttributes = {
+					8491785F2599F81700CD967F = {
+						CreatedOnToolsVersion = 12.3;
+					};
+					849178672599F81700CD967F = {
+						CreatedOnToolsVersion = 12.3;
+					};
+					8491786F2599F81700CD967F = {
+						CreatedOnToolsVersion = 12.3;
+						TestTargetID = 8491785F2599F81700CD967F;
+					};
+					8491787A2599F81700CD967F = {
+						CreatedOnToolsVersion = 12.3;
+						TestTargetID = 849178672599F81700CD967F;
+					};
+				};
+			};
+			buildConfigurationList = 849178572599F81600CD967F /* Build configuration list for PBXProject "Potori" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				"zh-Hans",
+			);
+			mainGroup = 849178532599F81600CD967F;
+			packageReferences = (
+				84003543259F58DC003C97EA /* XCRemoteSwiftPackageReference "GTMAppAuth" */,
+				84003554259F613F003C97EA /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
+				8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */,
+				844E156F25A0657300A79C9E /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */,
+			);
+			productRefGroup = 849178612599F81700CD967F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8491785F2599F81700CD967F /* Potori (iOS) */,
+				849178672599F81700CD967F /* Potori (macOS) */,
+				8491786F2599F81700CD967F /* Tests iOS */,
+				8491787A2599F81700CD967F /* Tests macOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8491785E2599F81700CD967F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84495F2E259A140D00BA238A /* potori.json in Resources */,
+				84C769A725A706A60055A3A9 /* Localizable.strings in Resources */,
+				849178862599F81700CD967F /* Assets.xcassets in Resources */,
+				84DB6EAE259A2F8C00BD915B /* status.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		849178662599F81700CD967F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84495F2F259A140D00BA238A /* potori.json in Resources */,
+				84C769A825A706A60055A3A9 /* Localizable.strings in Resources */,
+				849178872599F81700CD967F /* Assets.xcassets in Resources */,
+				84DB6EAF259A2F8C00BD915B /* status.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8491786E2599F81700CD967F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84495F30259A140D00BA238A /* potori.json in Resources */,
+				84DB6EB0259A2F8C00BD915B /* status.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		849178792599F81700CD967F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84495F31259A140D00BA238A /* potori.json in Resources */,
+				84DB6EB1259A2F8C00BD915B /* status.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8491785C2599F81700CD967F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84F97CBB259BADB7005D9AA4 /* NominationDetailsMap.swift in Sources */,
+				846CC62925A35EFF007A8AE8 /* Nomination.swift in Sources */,
+				84DB6EA3259A2B1F00BD915B /* StatusKit.swift in Sources */,
+				84F97C71259B6978005D9AA4 /* NominationDetails.swift in Sources */,
+				84CCEDC2259CB5470040917E /* RemoteImage.swift in Sources */,
+				843BEF6A259F36FB00FC17F9 /* AuthKit.swift in Sources */,
+				8462D088259FBA030031AD0D /* MainMap.swift in Sources */,
+				844A9AAE25A4BD21003E44B5 /* PreferencesView.swift in Sources */,
+				8491789B2599F92C00CD967F /* NominationItem.swift in Sources */,
+				843BEF48259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */,
+				8462D078259F9C330031AD0D /* AppDelegate.swift in Sources */,
+				849178822599F81700CD967F /* PotoriApp.swift in Sources */,
+				846CC5B725A359DD007A8AE8 /* NominationJSON.swift in Sources */,
+				84F97C78259B7474005D9AA4 /* ContentView.swift in Sources */,
+				846645EC25A8DAA200DD37D1 /* GoogleDriveKit.swift in Sources */,
+				84DB6ED1259A3D5D00BD915B /* Service.swift in Sources */,
+				849178A7259A06E000CD967F /* NominationList.swift in Sources */,
+				849178BE259A0D8D00CD967F /* NominationRAW.swift in Sources */,
+				84A01DEB25A6E03C006080BF /* StatsView.swift in Sources */,
+				84A01DD725A609C7006080BF /* Preferences.swift in Sources */,
+				843BEF38259F07CF00FC17F9 /* TabNavigation.swift in Sources */,
+				8468A22C25A33784009B562D /* Potori.xcdatamodeld in Sources */,
+				84BFD364259F46530047318D /* Mari.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		849178642599F81700CD967F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8468A22D25A33784009B562D /* Potori.xcdatamodeld in Sources */,
+				84F97CBC259BADB7005D9AA4 /* NominationDetailsMap.swift in Sources */,
+				844A9AAF25A4BD21003E44B5 /* PreferencesView.swift in Sources */,
+				84DB6EA4259A2B1F00BD915B /* StatusKit.swift in Sources */,
+				846CC62A25A35EFF007A8AE8 /* Nomination.swift in Sources */,
+				84F97C72259B6978005D9AA4 /* NominationDetails.swift in Sources */,
+				8491789C2599F92C00CD967F /* NominationItem.swift in Sources */,
+				843BEF6B259F36FB00FC17F9 /* AuthKit.swift in Sources */,
+				84A01DD825A609C7006080BF /* Preferences.swift in Sources */,
+				84CCEDC3259CB5470040917E /* RemoteImage.swift in Sources */,
+				84A01DEC25A6E03C006080BF /* StatsView.swift in Sources */,
+				849178832599F81700CD967F /* PotoriApp.swift in Sources */,
+				843BEF49259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */,
+				842F6C6C259CAA7A0063DCFE /* PotoriCommands.swift in Sources */,
+				846645ED25A8DAA200DD37D1 /* GoogleDriveKit.swift in Sources */,
+				84F97C79259B7474005D9AA4 /* ContentView.swift in Sources */,
+				846CC5B825A359DD007A8AE8 /* NominationJSON.swift in Sources */,
+				84DB6ED2259A3D5D00BD915B /* Service.swift in Sources */,
+				8462D089259FBA030031AD0D /* MainMap.swift in Sources */,
+				849178A8259A06E000CD967F /* NominationList.swift in Sources */,
+				849178BF259A0D8D00CD967F /* NominationRAW.swift in Sources */,
+				84BFD365259F46530047318D /* Mari.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8491786C2599F81700CD967F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				849178752599F81700CD967F /* Tests_iOS.swift in Sources */,
+				846CC62B25A35EFF007A8AE8 /* Nomination.swift in Sources */,
+				8468A22E25A33784009B562D /* Potori.xcdatamodeld in Sources */,
+				84DB6ED3259A3D5D00BD915B /* Service.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		849178772599F81700CD967F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				849178802599F81700CD967F /* Tests_macOS.swift in Sources */,
+				846CC62C25A35EFF007A8AE8 /* Nomination.swift in Sources */,
+				8468A22F25A33784009B562D /* Potori.xcdatamodeld in Sources */,
+				84DB6ED4259A3D5D00BD915B /* Service.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		849178722599F81700CD967F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8491785F2599F81700CD967F /* Potori (iOS) */;
+			targetProxy = 849178712599F81700CD967F /* PBXContainerItemProxy */;
+		};
+		8491787D2599F81700CD967F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 849178672599F81700CD967F /* Potori (macOS) */;
+			targetProxy = 8491787C2599F81700CD967F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		84C769AA25A706A60055A3A9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84C769A925A706A60055A3A9 /* en */,
+				84C769C325A714410055A3A9 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		849178882599F81700CD967F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"SWIFT_PACKAGE=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG SWIFT_PACKAGE";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		849178892599F81700CD967F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "SWIFT_PACKAGE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		8491788B2599F81700CD967F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6JSH2PZAX2;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = labs.lucka.Potori;
+				PRODUCT_NAME = Potori;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8491788C2599F81700CD967F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6JSH2PZAX2;
+				ENABLE_PREVIEWS = NO;
+				INFOPLIST_FILE = iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = labs.lucka.Potori;
+				PRODUCT_NAME = Potori;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8491788E2599F81700CD967F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 6JSH2PZAX2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = macOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = labs.lucka.Potori;
+				PRODUCT_NAME = Potori;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		8491788F2599F81700CD967F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 6JSH2PZAX2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = macOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = labs.lucka.Potori;
+				PRODUCT_NAME = Potori;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		849178912599F81700CD967F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6JSH2PZAX2;
+				INFOPLIST_FILE = "Tests iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "labs.lucka.Tests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Potori (iOS)";
+			};
+			name = Debug;
+		};
+		849178922599F81700CD967F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6JSH2PZAX2;
+				INFOPLIST_FILE = "Tests iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "labs.lucka.Tests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Potori (iOS)";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		849178942599F81700CD967F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 6JSH2PZAX2;
+				INFOPLIST_FILE = "Tests macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "labs.lucka.Tests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Potori (macOS)";
+			};
+			name = Debug;
+		};
+		849178952599F81700CD967F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 6JSH2PZAX2;
+				INFOPLIST_FILE = "Tests macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "labs.lucka.Tests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Potori (macOS)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		849178572599F81600CD967F /* Build configuration list for PBXProject "Potori" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				849178882599F81700CD967F /* Debug */,
+				849178892599F81700CD967F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8491788A2599F81700CD967F /* Build configuration list for PBXNativeTarget "Potori (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8491788B2599F81700CD967F /* Debug */,
+				8491788C2599F81700CD967F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8491788D2599F81700CD967F /* Build configuration list for PBXNativeTarget "Potori (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8491788E2599F81700CD967F /* Debug */,
+				8491788F2599F81700CD967F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		849178902599F81700CD967F /* Build configuration list for PBXNativeTarget "Tests iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				849178912599F81700CD967F /* Debug */,
+				849178922599F81700CD967F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		849178932599F81700CD967F /* Build configuration list for PBXNativeTarget "Tests macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				849178942599F81700CD967F /* Debug */,
+				849178952599F81700CD967F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		84003543259F58DC003C97EA /* XCRemoteSwiftPackageReference "GTMAppAuth" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lucka-me/GTMAppAuth.git";
+			requirement = {
+				branch = "fix-spm";
+				kind = branch;
+			};
+		};
+		84003554259F613F003C97EA /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.0;
+			};
+		};
+		844E156F25A0657300A79C9E /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/woxtu/gtm-session-fetcher.git";
+			requirement = {
+				branch = "fix-spm";
+				kind = branch;
+			};
+		};
+		8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/woxtu/google-api-objectivec-client-for-rest.git";
+			requirement = {
+				branch = "fix-spm";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		84003544259F58DC003C97EA /* GTMAppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84003543259F58DC003C97EA /* XCRemoteSwiftPackageReference "GTMAppAuth" */;
+			productName = GTMAppAuth;
+		};
+		8400354E259F58E3003C97EA /* GTMAppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84003543259F58DC003C97EA /* XCRemoteSwiftPackageReference "GTMAppAuth" */;
+			productName = GTMAppAuth;
+		};
+		84003555259F613F003C97EA /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84003554259F613F003C97EA /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
+		};
+		8400355D259F7732003C97EA /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84003554259F613F003C97EA /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
+		};
+		844E157025A0657300A79C9E /* GTMSessionFetcher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 844E156F25A0657300A79C9E /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			productName = GTMSessionFetcher;
+		};
+		844E157625A0659300A79C9E /* GoogleAPIClientForREST_Gmail */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			productName = GoogleAPIClientForREST_Gmail;
+		};
+		844E157825A065A000A79C9E /* GTMSessionFetcher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 844E156F25A0657300A79C9E /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
+			productName = GTMSessionFetcher;
+		};
+		844E157E25A065FB00A79C9E /* GoogleAPIClientForRESTCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			productName = GoogleAPIClientForRESTCore;
+		};
+		844E158025A0660200A79C9E /* GoogleAPIClientForRESTCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			productName = GoogleAPIClientForRESTCore;
+		};
+		8462D0A425A0643F0031AD0D /* GoogleAPIClientForREST_Gmail */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			productName = GoogleAPIClientForREST_Gmail;
+		};
+		84E97F8F25A4A4900031FE3B /* GoogleAPIClientForREST_Drive */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			productName = GoogleAPIClientForREST_Drive;
+		};
+		84E97F9125A4A49B0031FE3B /* GoogleAPIClientForREST_Drive */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			productName = GoogleAPIClientForREST_Drive;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		8468A22A25A33784009B562D /* Potori.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8468A22B25A33784009B562D /* Potori.xcdatamodel */,
+			);
+			currentVersion = 8468A22B25A33784009B562D /* Potori.xcdatamodel */;
+			path = Potori.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 849178542599F81600CD967F /* Project object */;
+}

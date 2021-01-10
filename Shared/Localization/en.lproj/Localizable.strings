@@ -1,0 +1,76 @@
+/* 
+  Localizable.strings
+  Potori
+
+  Created by Lucka on 7/1/2021.
+  
+*/
+/* Data */
+// Status
+"data.pending"  = "Pending";
+"data.accepted" = "Accepted";
+"data.rejected" = "Rejected";
+// Reason
+"data.undeclared"   = "Undeclared";
+"data.duplicated"   = "Duplicated";
+"data.close"        = "Too Close";
+"data.criteriaCriteria"     = "Criteria";
+"data.criteriaGeneric"      = "Generic Store";
+"data.criteriaTemporary"    = "Temporary";
+"data.locationPrivate"  = "Private";
+"data.photoPlate"   = "License Plate";
+"data.photoQuality" = "Photo Quality";
+
+/* View */
+// Navigation
+"view.panels"   = "Panels";
+"view.misc"     = "Misc";
+"view.toggleSidebar"    = "Toggle Sidebar";
+"view.nominations"  = "Nominations";
+"view.stats"        = "Stats";
+"view.map"          = "Map";
+"view.preferences"  = "Preferences";
+
+// Nominations
+"view.nominations.refresh"  = "Refresh";
+"view.nominations.processingMails"  = "Processing Mails";
+"view.nominations.selectPrompt" = "Select a nomination";
+"view.nominations.linkPrompt"   = "Link your Google Account to start";
+"view.nominations.menuBrainstorming"    = "Brainstorming";
+"view.nominations.menuIntel"    = "Intel Maps";
+// Details
+"view.nominations.details.confirmed"    = "Confirmed";
+"view.nominations.details.scanner"  = "Scanner";
+"view.nominations.details.rejectedFor"  = "Rejected For";
+"view.nominations.details.location" = "Location";
+"view.nominations.details.location.notAvailable"    = "Not avaliable";
+
+// Stats
+"view.stats.total"  = "Total";
+"view.stats.total.nominations"  = "Nominations";
+"view.stats.status" = "Status";
+"view.stats.reasons"    = "Reasons";
+
+// Preferences
+"view.preferences.general"  = "General";
+"view.preferences.account"  = "Account";
+"view.preferences.data"     = "Data";
+"view.preferences.general.refreshOnOpen"    = "Refresh On Open";
+"view.preferences.account.google"           = "Google";
+"view.preferences.account.googleAccount"    = "Google Account";
+"view.preferences.account.link"     = "Link";
+"view.preferences.account.unlink"   = "Unlink";
+"view.preferences.account.linked"       = "Linked";
+"view.preferences.account.notLinked"    = "Not Linked";
+"view.preferences.account.googleSync"   = "Sync with Google Drive";
+"view.preferences.account.googleSyncNow"    = "Sync Now";
+"view.preferences.account.googleUploadNow"  = "Upload Now";
+"view.preferences.data.importExport"    = "Import / Export";
+"view.preferences.data.exportNominations"  = "Export Nominations";
+"view.preferences.data.importNominations"  = "Import Nominations";
+"view.preferences.data.clearNominations"        = "Clear Nominations";
+"view.preferences.data.clearNominations.alert"  = "You can not undo this operation.";
+"view.preferences.data.clearNominations.clear"  = "Clear";
+"view.preferences.about"    = "About";
+"view.preferences.about.repo"   = "Code Repository";
+"view.preferences.about.version"    = "Version";

@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "AppAuth",
+        "repositoryURL": "https://github.com/openid/AppAuth-iOS.git",
+        "state": {
+          "branch": null,
+          "revision": "01131d68346c8ae552961c768d583c715fbe1410",
+          "version": "1.4.0"
+        }
+      },
+      {
+        "package": "GoogleAPIClientForREST",
+        "repositoryURL": "https://github.com/woxtu/google-api-objectivec-client-for-rest.git",
+        "state": {
+          "branch": "fix-spm",
+          "revision": "3764dff839ff6a1ddc8000842b858bed398b15b6",
+          "version": null
+        }
+      },
+      {
+        "package": "GTMSessionFetcher",
+        "repositoryURL": "https://github.com/woxtu/gtm-session-fetcher.git",
+        "state": {
+          "branch": "fix-spm",
+          "revision": "371d65b9b82194b59fedf269635cb2d3ea734dd2",
+          "version": null
+        }
+      },
+      {
+        "package": "GTMAppAuth",
+        "repositoryURL": "https://github.com/lucka-me/GTMAppAuth.git",
+        "state": {
+          "branch": "fix-spm",
+          "revision": "4f0e533a5d114baf03ac2449156d5d595187b87f",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
