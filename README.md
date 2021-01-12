@@ -12,7 +12,7 @@ This is the Swift implementation of [the web app](https://github.com/lucka-me/po
 ## Requirements
 - Xcode 12+
 - macOS 11+
-- iOS 13+
+- iOS 14+
 
 ## Build & Run
 
@@ -27,7 +27,7 @@ In this project, we implemented a new data structure without fully backward comp
 For Google Drive sync, this app will download `nominations.json` if it exists, or `potori.json` if not, and upload data to `nominations.json`, it will not update `potori.json` used by the current web app.
 
 ## Task List
-We hope to implement all features of the web app, and bring more feature with platform support.
+We hope to implement all features of the web app, and bring more with platform support.
 
 - [x] Core Features
   - [x] Data structure for nominations
@@ -46,6 +46,7 @@ We hope to implement all features of the web app, and bring more feature with pl
   - [x] Navigation for all platform
   - [x] Nomination List
   - [x] Nomination Details
+  - [ ] Manual Match
   - [ ] Nomination Editor
   - [ ] Filter
   - [ ] Re-order
