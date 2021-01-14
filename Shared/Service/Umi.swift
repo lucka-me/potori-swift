@@ -169,7 +169,7 @@ final class Umi {
     
     private init() {
         
-        let file = Bundle.main.url(forResource: "status.json", withExtension: nil)!
+        let file = Bundle.main.url(forResource: "umi.json", withExtension: nil)!
         let data = (try? Data(contentsOf: file))!
         let decoder = JSONDecoder()
         let dataJSON = (try? decoder.decode(DataJSON.self, from: data))!

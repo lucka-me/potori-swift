@@ -268,7 +268,7 @@ final class Service: ObservableObject {
         let forPreview = Service(inMemory: true)
         let viewContext = forPreview.containerContext
         do {
-            try forPreview.importNominations(url: Bundle.main.url(forResource: "potori.json", withExtension: nil)!)
+            try forPreview.importNominations(url: Bundle.main.url(forResource: "nominations.json", withExtension: nil)!)
             try viewContext.save()
         } catch {
             fatalError("Unresolved error: \(error.localizedDescription)")
