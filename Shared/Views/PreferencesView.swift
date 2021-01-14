@@ -248,7 +248,7 @@ fileprivate struct AboutGroup: View, PreferenceGroup {
                 #if os(iOS)
                 Spacer()
                 #endif
-                Text("\(version)-d\(StatusKit.shared.version) (\(build))")
+                Text("\(version)-d\(Umi.shared.version) (\(build))")
             }
         }
     }

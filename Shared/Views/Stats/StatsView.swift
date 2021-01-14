@@ -55,7 +55,7 @@ struct StatsView: View {
     private var statusSection: some View {
         Section(header: Text("view.stats.status")) {
             let stat = statStatus
-            ForEach(StatusKit.shared.statusAll, id: \.code) { status in
+            ForEach(Umi.shared.statusAll, id: \.code) { status in
                 HStack {
                     Label(status.title, systemImage: status.icon)
                     Spacer()
@@ -69,7 +69,7 @@ struct StatsView: View {
         Section(header: Text("view.stats.reasons")) {
             let stat = statReasons
             ForEach(stat, id: \.key) { (key, value) in
-                let reason = StatusKit.shared.reason[key]!
+                let reason = Umi.shared.reason[key]!
                 HStack {
                     Label(reason.title, systemImage: reason.icon)
                     Spacer()
@@ -79,7 +79,7 @@ struct StatsView: View {
         }
     }
     
-    private var statStatus: [StatusKit.StatusCode : Int] {
+    private var statStatus: [Umi.Status.Code : Int] {
         nominations.reduce(into: [:]) { dict, nomination in
             let code = nomination.statusCode
             dict[code] = (dict[code] ?? 0) + 1
@@ -91,14 +91,14 @@ struct StatsView: View {
             .filter({ $0.statusCode == .rejected })
             .reduce(into: [:] as [Int16 : Int]) { dict, nomination in
                 if nomination.reasons.isEmpty {
-                    let code = StatusKit.Reason.undeclared
+                    let code = Umi.Reason.undeclared
                     dict[code] = (dict[code] ?? 0) + 1
                 } else {
                     for code in nomination.reasons {
-                        if StatusKit.shared.reason.keys.contains(code) {
+                        if Umi.shared.reason.keys.contains(code) {
                             dict[code] = (dict[code] ?? 0) + 1
                         } else {
-                            let undeclared = StatusKit.Reason.undeclared
+                            let undeclared = Umi.Reason.undeclared
                             dict[undeclared] = (dict[undeclared] ?? 0) + 1
                         }
                     }

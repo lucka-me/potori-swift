@@ -98,7 +98,7 @@ struct NominationDetails: View {
                     Label(reason.title, systemImage: reason.icon)
                 }
             } else {
-                let undeclared = StatusKit.shared.reason[StatusKit.Reason.undeclared]!
+                let undeclared = Umi.shared.reason[Umi.Reason.undeclared]!
                 Label(undeclared.title, systemImage: undeclared.icon)
             }
         }

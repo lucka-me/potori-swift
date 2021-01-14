@@ -25,7 +25,7 @@ class Mari {
     
     private var nominations: [NominationRAW] = []
     private var ignoreMailIds: [String] = []
-    private var mailIds: [StatusKit.StatusCode : [StatusKit.ScannerCode : [String]]] = [:]
+    private var mailIds: [Umi.Status.Code : [Umi.Scanner.Code : [String]]] = [:]
     
     init() {
         gmailService.shouldFetchNextPages = true
@@ -53,7 +53,7 @@ class Mari {
         ignoreMailIds = self.nominations.flatMap {
             $0.resultMailId.isEmpty ? [$0.confirmationMailId] : [$0.confirmationMailId, $0.resultMailId]
         }
-        for typePair in StatusKit.shared.status {
+        for typePair in Umi.shared.status {
             self.mailIds[typePair.key] = [:]
             for queryPair in typePair.value.queries {
                 self.mailIds[typePair.key]?[queryPair.key] = []
@@ -62,7 +62,7 @@ class Mari {
         }
     }
     
-    private func queryList(_ forType: StatusKit.StatusCode, _ by: StatusKit.MailQuery) {
+    private func queryList(_ forType: Umi.Status.Code, _ by: Umi.Status.Query) {
         progress.addList()
         let query = getListQuery(by.query, nil)
         gmailService.executeQuery(query) { callbackTicket, response, error in
@@ -83,8 +83,8 @@ class Mari {
     
     private func handleListQuery(
         _ fromResponse: GTLRGmail_ListMessagesResponse,
-        _ forType: StatusKit.StatusCode,
-        _ by: StatusKit.MailQuery
+        _ forType: Umi.Status.Code,
+        _ by: Umi.Status.Query
     ) {
         guard let solidMessages = fromResponse.messages, var list = mailIds[forType]?[by.scanner] else {
             queryMessages(forType, by)
@@ -108,7 +108,7 @@ class Mari {
         }
     }
     
-    private func queryMessages(_ forType: StatusKit.StatusCode, _ by: StatusKit.MailQuery) {
+    private func queryMessages(_ forType: Umi.Status.Code, _ by: Umi.Status.Query) {
         guard let list = mailIds[forType]?[by.scanner] else {
             progress.finishList(0)
             return
@@ -134,7 +134,7 @@ class Mari {
         }
     }
     
-    private func parse(_ mail: GTLRGmail_Message, _ forType: StatusKit.StatusCode, _ by: StatusKit.MailQuery) throws -> NominationRAW {
+    private func parse(_ mail: GTLRGmail_Message, _ forType: Umi.Status.Code, _ by: Umi.Status.Query) throws -> NominationRAW {
         let nomination = NominationRAW(forType, by.scanner)
         if forType == .pending {
             nomination.confirmationMailId = mail.identifier ?? ""
@@ -201,7 +201,7 @@ class Mari {
             if forType == .rejected {
                 if let reasonRange = body.range(of: "^(.|\n|\r)+\\-NianticOps", options: .regularExpression) {
                     var indexReasons: [String.Index : Int16] = [:]
-                    for pair in StatusKit.shared.reason {
+                    for pair in Umi.shared.reason {
                         // Skip the old codes
                         if pair.key != pair.value.code {
                             continue

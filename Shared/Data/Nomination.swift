@@ -45,32 +45,32 @@ extension Nomination : Identifiable {
     static let defaultLatitude = 22.309510748206023
     static let defaultLongitude = 114.1024431532275
     
-    var scannerCode: StatusKit.ScannerCode {
+    var scannerCode: Umi.Scanner.Code {
         set { scanner = newValue.rawValue }
-        get { StatusKit.ScannerCode(rawValue: scanner) ?? .unknown }
+        get { Umi.Scanner.Code(rawValue: scanner) ?? .unknown }
     }
     
-    var scannerData: StatusKit.Scanner {
+    var scannerData: Umi.Scanner {
         set { scannerCode = newValue.code }
-        get { StatusKit.shared.scanner[scannerCode]! }
+        get { Umi.shared.scanner[scannerCode]! }
     }
     
-    var statusCode: StatusKit.StatusCode {
+    var statusCode: Umi.Status.Code {
         set { status = newValue.rawValue }
-        get { StatusKit.StatusCode(rawValue: status) ?? .pending }
+        get { Umi.Status.Code(rawValue: status) ?? .pending }
     }
 
-    var statusData: StatusKit.Status {
+    var statusData: Umi.Status {
         set { statusCode = newValue.code }
-        get { StatusKit.shared.status[statusCode]! }
+        get { Umi.shared.status[statusCode]! }
     }
-    var reasonsData: [StatusKit.Reason] {
+    var reasonsData: [Umi.Reason] {
         set {
             reasons = newValue.map { $0.code }
         }
         get {
             reasons.map {
-                (StatusKit.shared.reason[$0] ?? StatusKit.shared.reason[StatusKit.Reason.undeclared]!)
+                (Umi.shared.reason[$0] ?? Umi.shared.reason[Umi.Reason.undeclared]!)
             }
         }
     }
@@ -149,8 +149,8 @@ extension Nomination : Identifiable {
         raw.id = id
         raw.title = title
         raw.image = image
-        raw.scanner = StatusKit.ScannerCode(rawValue: scanner) ?? .unknown
-        raw.status = StatusKit.StatusCode(rawValue: status) ?? .pending
+        raw.scanner = Umi.Scanner.Code(rawValue: scanner) ?? .unknown
+        raw.status = Umi.Status.Code(rawValue: status) ?? .pending
         raw.reasons = reasons
         raw.confirmedTime = UInt64(confirmedTime.timeIntervalSince1970 * 1000)
         raw.confirmationMailId = confirmationMailId

@@ -12,9 +12,9 @@ class NominationRAW {
     var id: String = ""
     var title: String = ""
     var image: String = ""
-    var scanner: StatusKit.ScannerCode = .unknown
+    var scanner: Umi.Scanner.Code = .unknown
     
-    var status: StatusKit.StatusCode = .pending
+    var status: Umi.Status.Code = .pending
     var reasons: [Int16] = []
     
     var confirmedTime: UInt64 = 0
@@ -26,7 +26,7 @@ class NominationRAW {
     
     init() { }
     
-    init(_ forType: StatusKit.StatusCode, _ by: StatusKit.ScannerCode) {
+    init(_ forType: Umi.Status.Code, _ by: Umi.Scanner.Code) {
         status = forType
         scanner = by
     }
@@ -37,12 +37,12 @@ class NominationRAW {
         image = from.image
         
         if let solidScanner = from.scanner {
-            scanner = StatusKit.ScannerCode(rawValue: solidScanner) ?? .unknown
+            scanner = Umi.Scanner.Code(rawValue: solidScanner) ?? .unknown
         }
         
-        if from.status == StatusKit.StatusCode.pending.rawValue {
+        if from.status == Umi.Status.Code.pending.rawValue {
             status = .pending
-        } else if from.status == StatusKit.StatusCode.accepted.rawValue {
+        } else if from.status == Umi.Status.Code.accepted.rawValue {
             status = .accepted
         } else {
             status = .rejected
@@ -50,8 +50,8 @@ class NominationRAW {
                 for code in solidReasons {
                     // Prevent add old codes and undeclared
                     guard
-                        let reason = StatusKit.shared.reason[code]?.code,
-                        reason != StatusKit.Reason.undeclared
+                        let reason = Umi.shared.reason[code]?.code,
+                        reason != Umi.Reason.undeclared
                     else {
                         continue
                     }
@@ -61,8 +61,8 @@ class NominationRAW {
                 }
             } else {
                 if
-                    let reason = StatusKit.shared.reason[from.status]?.code,
-                    reason != StatusKit.Reason.undeclared {
+                    let reason = Umi.shared.reason[from.status]?.code,
+                    reason != Umi.Reason.undeclared {
                     reasons.append(reason)
                 }
             }
