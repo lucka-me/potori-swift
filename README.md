@@ -57,7 +57,7 @@ We hope to implement all features of the web app, and bring more with platform s
   - [x] Preference View
 - [ ] Platform Features
   - [ ] Background update & notification
-  - [ ] Wedget
+  - [ ] Widget
 - [ ] Project
   - [ ] CI workflow
   - [ ] Test with `XCTest`
