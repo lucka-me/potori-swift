@@ -76,7 +76,7 @@ extension Nomination : Identifiable {
     }
     
     var imageURL: String {
-        return "https://lh3.googleusercontent.com/\(image)"
+        NominationRAW.generateImageURL(image)
     }
     
     var brainstormingURL: URL {

@@ -94,9 +94,13 @@ class NominationRAW {
     }
     
     static func generateId(_ fromImage: String) -> String {
-        return fromImage
+        fromImage
             .replacingOccurrences(of: "[^a-zA-Z0-9]", with: "", options: .regularExpression)
             .suffix(10)
             .lowercased()
+    }
+    
+    static func generateImageURL(_ fromImage: String) -> String {
+        "https://lh3.googleusercontent.com/\(fromImage)"
     }
 }
