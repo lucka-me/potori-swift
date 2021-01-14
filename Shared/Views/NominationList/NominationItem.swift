@@ -40,7 +40,7 @@ struct NominationItem: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 20, height: 20)
-                .foregroundColor(Color(nomination.statusData.color))
+                .foregroundColor(nomination.statusData.color)
         }
         
         #if os(macOS)

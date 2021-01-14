@@ -21,7 +21,8 @@ struct MainMap: View {
         Map(mapRect: $rect, annotationItems: filteredNominations) { nomination in
             MapPin(
                 coordinate: nomination.location,
-                tint: Color(nomination.statusData.color))
+                tint: nomination.statusData.color
+            )
         }
         .onAppear {
             // X -> lng, Y -> lat

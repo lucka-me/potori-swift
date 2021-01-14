@@ -69,7 +69,7 @@ final class Umi {
         
         let title: LocalizedStringKey
         let icon: String
-        let color: String
+        let color: Color
 
         let code: Code
 
@@ -78,7 +78,7 @@ final class Umi {
         fileprivate init(_ from: JSON) {
             title = LocalizedStringKey(from.title)
             icon = from.icon
-            color = from.color
+            color = Color(from.color)
 
             code = Code(rawValue: from.code)!
             var queries: [Scanner.Code : Query] = [:]
