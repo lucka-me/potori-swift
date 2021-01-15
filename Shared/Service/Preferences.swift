@@ -11,9 +11,26 @@ class Preferences {
     struct General {
         static let keyRefreshOnOpen = "pref.general.refreshOnOpen"
         static var refreshOnOpen: Bool { UserDefaults.standard.bool(forKey: keyRefreshOnOpen) }
+        
+        static func register() {
+            UserDefaults.standard.register(defaults: [
+                keyRefreshOnOpen: false
+            ])
+        }
     }
-    struct Account {
-        static let keyGoogleSync = "pref.account.googleSync"
-        static var googleSync: Bool { UserDefaults.standard.bool(forKey: keyGoogleSync) }
+    struct Google {
+        static let keySync = "pref.google.sync"
+        static var sync: Bool { UserDefaults.standard.bool(forKey: keySync) }
+        
+        static func register() {
+            UserDefaults.standard.register(defaults: [
+                keySync: false
+            ])
+        }
+    }
+    
+    static func register() {
+        General.register()
+        Google.register()
     }
 }

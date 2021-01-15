@@ -92,7 +92,7 @@ final class Service: ObservableObject {
     func refresh() {
         if auth.login {
             progress = 0.0
-            if Preferences.Account.googleSync {
+            if Preferences.Google.sync {
                 download {
                     self.processMails()
                 }
@@ -254,7 +254,7 @@ final class Service: ObservableObject {
     
     private func manuallyMatch(_ raws: [NominationRAW]) {
         save(raws)
-        if Preferences.Account.googleSync {
+        if Preferences.Google.sync {
             upload {
                 self.status = .idle
             }

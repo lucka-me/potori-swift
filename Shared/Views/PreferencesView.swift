@@ -17,7 +17,7 @@ struct PreferencesView : View {
         
         let groups = Group {
             group(GeneralGroup())
-            group(AccountGroup())
+            group(GoogleGroup())
             group(DataGroup())
             group(AboutGroup())
         }
@@ -73,12 +73,12 @@ fileprivate struct GeneralGroup: View, PreferenceGroup {
     }
 }
 
-fileprivate struct AccountGroup: View, PreferenceGroup {
+fileprivate struct GoogleGroup: View, PreferenceGroup {
     
-    let title: LocalizedStringKey = "view.preferences.account"
+    let title: LocalizedStringKey = "view.preferences.google"
     let icon: String = "person.crop.circle"
     
-    @AppStorage(Preferences.Account.keyGoogleSync) var prefGoogleSync = false
+    @AppStorage(Preferences.Google.keySync) var prefGoogleSync = false
     
     @EnvironmentObject var service: Service
     #if os(iOS)
@@ -89,20 +89,20 @@ fileprivate struct AccountGroup: View, PreferenceGroup {
     var body: some View {
         #if os(macOS)
         HStack(alignment: .firstTextBaseline) {
-            Text("view.preferences.account.google")
+            Text("view.preferences.google.account")
                 .font(.headline)
-            Text(service.auth.login ? service.auth.mail : "view.preferences.account.notLinked")
-                .lineLimit(1)
+            service.auth.login ? Text(service.auth.mail) : Text("view.preferences.google.notLinked")
         }
+        .lineLimit(1)
         Button(
-            service.auth.login ? "view.preferences.account.unlink" : "view.preferences.account.link",
+            service.auth.login ? "view.preferences.google.unlink" : "view.preferences.google.link",
             action: service.auth.login ? logOut : logIn
         )
         #else
         HStack {
-            Text("view.preferences.account.google")
+            Text("view.preferences.google.account")
             Spacer()
-            Text(service.auth.login ? "view.preferences.account.linked" : "view.preferences.account.notLinked")
+            Text(service.auth.login ? "view.preferences.google.linked" : "view.preferences.google.notLinked")
                 .foregroundColor(service.auth.login ? .green : .red)
         }
         .onTapGesture {
@@ -110,23 +110,23 @@ fileprivate struct AccountGroup: View, PreferenceGroup {
         }
         .actionSheet(isPresented: $isPresentingActionSheetAccountGoogle) {
             ActionSheet(
-                title: service.auth.login ? Text(service.auth.mail) : Text("view.preferences.account.googleAccount"),
+                title: service.auth.login ? Text(service.auth.mail) : Text("view.preferences.google.account"),
                 buttons: [
                     service.auth.login
-                        ? .destructive(Text("view.preferences.account.unlink")) { service.auth.logOut() }
-                        : .default(Text("view.preferences.account.link"), action: logIn),
+                        ? .destructive(Text("view.preferences.google.unlink")) { service.auth.logOut() }
+                        : .default(Text("view.preferences.google.link"), action: logIn),
                     .cancel()
                 ]
             )
         }
         #endif
         if service.auth.login {
-            Toggle("view.preferences.account.googleSync", isOn: $prefGoogleSync)
-            Button("view.preferences.account.googleSyncNow") {
+            Toggle("view.preferences.google.sync", isOn: $prefGoogleSync)
+            Button("view.preferences.google.syncNow") {
                 service.sync()
             }
             .disabled(service.status != .idle)
-            Button("view.preferences.account.googleUploadNow") {
+            Button("view.preferences.google.uploadNow") {
                 service.sync(performDownload: false)
             }
             .disabled(service.status != .idle)

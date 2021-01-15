@@ -58,18 +58,17 @@
 
 // Preferences
 "view.preferences.general"  = "一般";
-"view.preferences.account"  = "账户";
+"view.preferences.google"   = "Google";
 "view.preferences.data"     = "数据";
 "view.preferences.general.refreshOnOpen"    = "打开时刷新";
-"view.preferences.account.google"           = "Google";
-"view.preferences.account.googleAccount"    = "Google账号";
-"view.preferences.account.link"     = "连接";
-"view.preferences.account.unlink"   = "断开连接";
-"view.preferences.account.linked"       = "已连接";
-"view.preferences.account.notLinked"    = "未连接";
-"view.preferences.account.googleSync"   = "同步Google硬盘";
-"view.preferences.account.googleSyncNow"    = "现在同步";
-"view.preferences.account.googleUploadNow"  = "现在上传";
+"view.preferences.google.account"   = "Google账号";
+"view.preferences.google.link"      = "连接";
+"view.preferences.google.unlink"    = "断开连接";
+"view.preferences.google.linked"    = "已连接";
+"view.preferences.google.notLinked" = "未连接";
+"view.preferences.google.sync"      = "同步Google硬盘";
+"view.preferences.google.syncNow"   = "现在同步";
+"view.preferences.google.uploadNow" = "现在上传";
 "view.preferences.data.importExport"    = "导入 / 导出";
 "view.preferences.data.exportNominations"  = "导出提名";
 "view.preferences.data.importNominations"  = "导入提名";

@@ -58,18 +58,17 @@
 
 // Preferences
 "view.preferences.general"  = "General";
-"view.preferences.account"  = "Account";
+"view.preferences.google"   = "Google";
 "view.preferences.data"     = "Data";
 "view.preferences.general.refreshOnOpen"    = "Refresh On Open";
-"view.preferences.account.google"           = "Google";
-"view.preferences.account.googleAccount"    = "Google Account";
-"view.preferences.account.link"     = "Link";
-"view.preferences.account.unlink"   = "Unlink";
-"view.preferences.account.linked"       = "Linked";
-"view.preferences.account.notLinked"    = "Not Linked";
-"view.preferences.account.googleSync"   = "Sync with Google Drive";
-"view.preferences.account.googleSyncNow"    = "Sync Now";
-"view.preferences.account.googleUploadNow"  = "Upload Now";
+"view.preferences.google.account"   = "Google Account";
+"view.preferences.google.link"      = "Link";
+"view.preferences.google.unlink"    = "Unlink";
+"view.preferences.google.linked"    = "Linked";
+"view.preferences.google.notLinked" = "Not Linked";
+"view.preferences.google.sync"      = "Sync with Google Drive";
+"view.preferences.google.syncNow"   = "Sync Now";
+"view.preferences.google.uploadNow" = "Upload Now";
 "view.preferences.data.importExport"    = "Import / Export";
 "view.preferences.data.exportNominations"  = "Export Nominations";
 "view.preferences.data.importNominations"  = "Import Nominations";
