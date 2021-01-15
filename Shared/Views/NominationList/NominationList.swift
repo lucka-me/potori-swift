@@ -42,19 +42,18 @@ struct NominationList: View {
         #endif
     }
     
+    @ViewBuilder
     private var content: some View {
-        Group {
-            if nominations.isEmpty && service.status == .idle {
-                emptyPrompt
-            } else {
-                #if os(macOS)
-                list
-                    .listStyle(PlainListStyle())
-                    .frame(minWidth: 250)
-                #else
-                list.listStyle(InsetGroupedListStyle())
-                #endif
-            }
+        if nominations.isEmpty && service.status == .idle {
+            emptyPrompt
+        } else {
+            #if os(macOS)
+            list
+                .listStyle(PlainListStyle())
+                .frame(minWidth: 250)
+            #else
+            list.listStyle(InsetGroupedListStyle())
+            #endif
         }
     }
     
@@ -127,14 +126,12 @@ struct NominationList: View {
     }
     
     private var refreshButton: some View {
-        Group {
-            Button(action: {
-                service.refresh()
-            }) {
-                Label("view.nominations.refresh", systemImage: "arrow.clockwise")
-            }
-            .disabled(service.status != .idle)
+        Button(action: {
+            service.refresh()
+        }) {
+            Label("view.nominations.refresh", systemImage: "arrow.clockwise")
         }
+        .disabled(service.status != .idle)
     }
     
     private var emptyPrompt: some View {
@@ -143,7 +140,7 @@ struct NominationList: View {
                 refreshButton
             } else {
                 Text("view.nominations.linkPrompt")
-                Button("view.preferences.account.link") {
+                Button("view.preferences.google.link") {
                     #if os(macOS)
                     service.auth.logIn()
                     #else

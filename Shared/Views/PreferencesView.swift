@@ -38,12 +38,13 @@ struct PreferencesView : View {
         #endif
     }
     
+    @ViewBuilder
     private func group<Content>(_ content: Content) -> some View where Content : PreferenceGroup {
         #if os(macOS)
-        return Group { Form(content: { content }) }
+        Form(content: { content })
             .tabItem { Label(content.title, systemImage: content.icon) }
         #else
-        return Section(header: Text(content.title)) { content }
+        Section(header: Text(content.title)) { content }
         #endif
     }
 }
@@ -220,14 +221,13 @@ fileprivate struct ImportExportView: View {
             )
     }
     
+    @ViewBuilder
     private var buttons: some View {
-        Group {
-            Button("view.preferences.data.importNominations") {
-                isPresentingImporter = true
-            }
-            Button("view.preferences.data.exportNominations") {
-                isPresentingExporter = true
-            }
+        Button("view.preferences.data.importNominations") {
+            isPresentingImporter = true
+        }
+        Button("view.preferences.data.exportNominations") {
+            isPresentingExporter = true
         }
     }
 }
