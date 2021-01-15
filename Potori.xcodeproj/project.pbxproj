@@ -109,6 +109,8 @@
 		8400654125AAEBD000ED76B4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8400654625AAF3AA00ED76B4 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		842F6C6B259CAA7A0063DCFE /* PotoriCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotoriCommands.swift; sourceTree = "<group>"; };
+		843463DC25B20D93008A03CB /* post-build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "post-build.sh"; sourceTree = "<group>"; };
+		843463E525B20E3D008A03CB /* pre-build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "pre-build.sh"; sourceTree = "<group>"; };
 		843BEF37259F07CF00FC17F9 /* TabNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigation.swift; sourceTree = "<group>"; };
 		843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarNavigation.swift; sourceTree = "<group>"; };
 		843BEF69259F36FB00FC17F9 /* AuthKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthKit.swift; sourceTree = "<group>"; };
@@ -196,6 +198,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		843463DB25B20D7D008A03CB /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				843463DC25B20D93008A03CB /* post-build.sh */,
+				843463E525B20E3D008A03CB /* pre-build.sh */,
+			);
+			path = Scripts;
+			sourceTree = "<group>";
+		};
 		843BEF23259F017800FC17F9 /* NominationList */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +272,7 @@
 		849178532599F81600CD967F = {
 			isa = PBXGroup;
 			children = (
+				843463DB25B20D7D008A03CB /* Scripts */,
 				8400654625AAF3AA00ED76B4 /* LICENSE */,
 				8400654125AAEBD000ED76B4 /* README.md */,
 				843BEF66259F36DD00FC17F9 /* Frameworks */,
