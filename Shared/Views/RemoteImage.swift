@@ -31,21 +31,7 @@ struct RemoteImage: View {
         let content = image.resizable()
         
         if sharable {
-            content
-                .contextMenu {
-                    Button(action: open) {
-                        Label("view.image.open", systemImage: "safari")
-                    }
-                    #if os(macOS)
-                    Button(action: copy) {
-                        Label("view.image.copy", systemImage: "doc.on.doc")
-                    }
-                    #else
-                    Button(action: share) {
-                        Label("view.image.share", systemImage: "square.and.arrow.up")
-                    }
-                    #endif
-                }
+            content.contextMenu { menuItems }
         } else {
             content
         }
@@ -57,6 +43,24 @@ struct RemoteImage: View {
         #else
         return Image(uiImage: remoteImageModel.image ?? UIImage(named: "MissingImage")!)
         #endif
+    }
+    
+    @ViewBuilder
+    private var menuItems: some View {
+        Button(action: open) {
+            Label("view.image.open", systemImage: "safari")
+        }
+        if (remoteImageModel.image != nil) {
+            #if os(macOS)
+            Button(action: copy) {
+                Label("view.image.copy", systemImage: "doc.on.doc")
+            }
+            #else
+            Button(action: share) {
+                Label("view.image.share", systemImage: "square.and.arrow.up")
+            }
+            #endif
+        }
     }
     
     private func open() {
