@@ -238,7 +238,6 @@ fileprivate struct AboutGroup: View, PreferenceGroup {
     let icon: String = "info.circle"
     
     var body: some View {
-        Link("view.preferences.about.repo", destination: URL(string: "https://github.com/lucka-me/potori-swift")!)
         if
             let infoDict = Bundle.main.infoDictionary,
             let version = infoDict["CFBundleShortVersionString"] as? String,
@@ -251,5 +250,6 @@ fileprivate struct AboutGroup: View, PreferenceGroup {
                 Text("\(version)-d\(Umi.shared.version) (\(build))")
             }
         }
+        Link("view.preferences.about.repo", destination: URL(string: "https://github.com/lucka-me/potori-swift")!)
     }
 }

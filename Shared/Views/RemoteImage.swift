@@ -14,21 +14,72 @@ typealias UNImage = UIImage
 #endif
 
 struct RemoteImage: View {
-    @ObservedObject private var remoteImageModel: RemoteImageModel
     
-    init(_ url: String) {
+    @Environment(\.openURL) private var openURL
+    @ObservedObject private var remoteImageModel: RemoteImageModel
+
+    private let url: String
+    private let sharable: Bool
+    
+    init(_ url: String, sharable: Bool = false) {
         remoteImageModel = RemoteImageModel(url)
+        self.url = url
+        self.sharable = sharable
     }
     
     var body: some View {
-        #if os(macOS)
-        let image = Image(nsImage: remoteImageModel.image ?? NSImage(named: "MissingImage")!)
-        #else
-        let image = Image(uiImage: remoteImageModel.image ?? UIImage(named: "MissingImage")!)
-        #endif
+        let content = image.resizable()
         
-        image.resizable()
+        if sharable {
+            content
+                .contextMenu {
+                    Button(action: open) {
+                        Label("view.image.open", systemImage: "safari")
+                    }
+                    #if os(macOS)
+                    Button(action: copy) {
+                        Label("view.image.copy", systemImage: "doc.on.doc")
+                    }
+                    #else
+                    Button(action: share) {
+                        Label("view.image.share", systemImage: "square.and.arrow.up")
+                    }
+                    #endif
+                }
+        } else {
+            content
+        }
     }
+    
+    private var image: Image {
+        #if os(macOS)
+        return Image(nsImage: remoteImageModel.image ?? NSImage(named: "MissingImage")!)
+        #else
+        return Image(uiImage: remoteImageModel.image ?? UIImage(named: "MissingImage")!)
+        #endif
+    }
+    
+    private func open() {
+        openURL(URL(string: url)!)
+    }
+    
+    #if os(macOS)
+    private func copy() {
+        guard let solidImage = remoteImageModel.image else {
+            return
+        }
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setData(solidImage.tiffRepresentation, forType: .tiff)
+    }
+    #else
+    private func share() {
+        guard let solidImage = remoteImageModel.image else {
+            return
+        }
+        let shareSheet = UIActivityViewController(activityItems: [ solidImage ], applicationActivities: nil)
+        UIApplication.shared.windows.first?.rootViewController?.present(shareSheet, animated: true, completion: nil)
+    }
+    #endif
 }
 
 #if DEBUG

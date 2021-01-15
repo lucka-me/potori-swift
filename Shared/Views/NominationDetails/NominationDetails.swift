@@ -14,7 +14,7 @@ struct NominationDetails: View {
     
     var body: some View {
         let list = List {
-            RemoteImage(nomination.imageURL)
+            RemoteImage(nomination.imageURL, sharable: true)
                 .scaledToFill()
                 .frame(height: 200)
                 .listRowInsets(EdgeInsets())

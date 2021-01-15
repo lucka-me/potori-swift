@@ -1,0 +1,8 @@
+/* 
+  InfoPlist.strings
+  Potori
+
+  Created by Lucka on 15/1/2021.
+  
+*/
+NSPhotoLibraryUsageDescription = "This permission is required for saving photo of nomination to photo library.";

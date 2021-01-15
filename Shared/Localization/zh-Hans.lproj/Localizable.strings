@@ -45,6 +45,11 @@
 "view.nominations.details.location" = "位置";
 "view.nominations.details.location.notAvailable"    = "不可用";
 
+// RemoteImage
+"view.image.open"   = "打开";
+"view.image.copy"   = "拷贝";
+"view.image.share"  = "分享";
+
 // Stats
 "view.stats.total"  = "总计";
 "view.stats.total.nominations"  = "提名";

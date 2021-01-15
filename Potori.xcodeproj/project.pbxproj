@@ -38,6 +38,8 @@
 		8468A22D25A33784009B562D /* Potori.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8468A22A25A33784009B562D /* Potori.xcdatamodeld */; };
 		8468A22E25A33784009B562D /* Potori.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8468A22A25A33784009B562D /* Potori.xcdatamodeld */; };
 		8468A22F25A33784009B562D /* Potori.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8468A22A25A33784009B562D /* Potori.xcdatamodeld */; };
+		846B2F8F25B1E2CE00077E01 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 846B2F9225B1E2CE00077E01 /* InfoPlist.strings */; };
+		846B2F9025B1E2CE00077E01 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 846B2F9225B1E2CE00077E01 /* InfoPlist.strings */; };
 		846CC5B725A359DD007A8AE8 /* NominationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC5B625A359DD007A8AE8 /* NominationJSON.swift */; };
 		846CC5B825A359DD007A8AE8 /* NominationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC5B625A359DD007A8AE8 /* NominationJSON.swift */; };
 		846CC62925A35EFF007A8AE8 /* Nomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC62725A35EFF007A8AE8 /* Nomination.swift */; };
@@ -116,6 +118,8 @@
 		8462D087259FBA030031AD0D /* MainMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMap.swift; sourceTree = "<group>"; };
 		846645EB25A8DAA200DD37D1 /* GoogleDriveKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveKit.swift; sourceTree = "<group>"; };
 		8468A22B25A33784009B562D /* Potori.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Potori.xcdatamodel; sourceTree = "<group>"; };
+		846B2F9125B1E2CE00077E01 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		846B2F9725B1E2D300077E01 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		846CC5B625A359DD007A8AE8 /* NominationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationJSON.swift; sourceTree = "<group>"; };
 		846CC62725A35EFF007A8AE8 /* Nomination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nomination.swift; sourceTree = "<group>"; };
 		849178592599F81600CD967F /* PotoriApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotoriApp.swift; sourceTree = "<group>"; };
@@ -238,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				84C769AA25A706A60055A3A9 /* Localizable.strings */,
+				846B2F9225B1E2CE00077E01 /* InfoPlist.strings */,
 			);
 			path = Localization;
 			sourceTree = "<group>";
@@ -526,6 +531,7 @@
 				84C769A725A706A60055A3A9 /* Localizable.strings in Resources */,
 				849178862599F81700CD967F /* Assets.xcassets in Resources */,
 				84DB6EAE259A2F8C00BD915B /* umi.json in Resources */,
+				846B2F8F25B1E2CE00077E01 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,6 +543,7 @@
 				84C769A825A706A60055A3A9 /* Localizable.strings in Resources */,
 				849178872599F81700CD967F /* Assets.xcassets in Resources */,
 				84DB6EAF259A2F8C00BD915B /* umi.json in Resources */,
+				846B2F9025B1E2CE00077E01 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,6 +665,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		846B2F9225B1E2CE00077E01 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				846B2F9125B1E2CE00077E01 /* en */,
+				846B2F9725B1E2D300077E01 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		84C769AA25A706A60055A3A9 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

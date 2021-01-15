@@ -45,6 +45,11 @@
 "view.nominations.details.location" = "Location";
 "view.nominations.details.location.notAvailable"    = "Not avaliable";
 
+// RemoteImage
+"view.image.open"   = "Open";
+"view.image.copy"   = "Copy";
+"view.image.share"  = "Share";
+
 // Stats
 "view.stats.total"  = "Total";
 "view.stats.total.nominations"  = "Nominations";
