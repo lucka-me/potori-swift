@@ -7,4 +7,4 @@
 #  
 INFO_PLIST="${PROJECT_DIR}/${INFOPLIST_FILE}"
 
-defaults write "$INFO_PLIST" CFBundleVersion 1
+mv $INFO_PLIST.bak $INFO_PLIST

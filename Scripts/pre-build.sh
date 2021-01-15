@@ -7,6 +7,8 @@
 #  
 INFO_PLIST="${PROJECT_DIR}/${INFOPLIST_FILE}"
 
+cp $INFO_PLIST $INFO_PLIST.bak
+
 GIT_COMMIT_COUNT=$(git --git-dir="${PROJECT_DIR}/.git" --work-tree="${PROJECT_DIR}" rev-list --count HEAD)
 
 defaults write "$INFO_PLIST" CFBundleVersion "$GIT_COMMIT_COUNT"
