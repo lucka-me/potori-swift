@@ -21,4 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
         }
         return false
     }
+    
+    func applicationDidFinishLaunching(_ application: UIApplication) {
+        Preferences.register()
+    }
 }
