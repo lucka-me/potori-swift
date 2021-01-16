@@ -223,27 +223,10 @@ final class Service: ObservableObject {
             // Merge
             var merged = false
             for target in list {
-                if target.id != raw.id {
-                    continue
+                if target.merge(raw) {
+                    merged = true
+                    break
                 }
-                if target.status == .pending {
-                    target.title = raw.title
-                    target.status = raw.status
-                    target.reasons = raw.reasons
-                    target.resultTime = raw.resultTime
-                    target.resultMailId = raw.resultMailId
-                    if raw.lngLat != nil {
-                        target.lngLat = raw.lngLat
-                    }
-                } else {
-                    target.confirmedTime = raw.confirmedTime
-                    target.confirmationMailId = raw.confirmationMailId
-                    if target.lngLat == nil {
-                        target.lngLat = raw.lngLat
-                    }
-                }
-                merged = true
-                break
             }
             if !merged {
                 list.append(raw)
@@ -256,9 +239,11 @@ final class Service: ObservableObject {
         save(raws)
         if Preferences.Google.sync {
             upload {
+                self.progress = 1.0
                 self.status = .idle
             }
         } else {
+            self.progress = 1.0
             status = .idle
         }
     }

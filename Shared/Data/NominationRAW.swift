@@ -93,6 +93,29 @@ class NominationRAW {
         )
     }
     
+    func merge(_ from: NominationRAW) -> Bool {
+        if id != from.id {
+            return false
+        }
+        if status == .pending {
+            title = from.title
+            status = from.status
+            reasons = from.reasons
+            resultTime = from.resultTime
+            resultMailId = from.resultMailId
+            if lngLat != nil {
+                lngLat = from.lngLat
+            }
+        } else {
+            confirmedTime = from.confirmedTime
+            confirmationMailId = from.confirmationMailId
+            if lngLat == nil {
+                lngLat = from.lngLat
+            }
+        }
+        return true
+    }
+    
     static func generateId(_ fromImage: String) -> String {
         fromImage
             .replacingOccurrences(of: "[^a-zA-Z0-9]", with: "", options: .regularExpression)
