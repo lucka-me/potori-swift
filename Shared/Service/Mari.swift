@@ -228,11 +228,11 @@ class Mari {
     }
 }
 
-fileprivate struct ProgressItem {
+fileprivate class ProgressItem {
     var total = 0
     var finished = 0
     
-    mutating func clear() {
+    func clear() {
         total = 0
         finished = 0
     }
@@ -246,7 +246,7 @@ fileprivate struct ProgressItem {
     }
 }
 
-fileprivate struct Progress {
+fileprivate class Progress {
     
     var onProgress: Mari.OnProgressCallback = { _ in }
     var onFinished: () -> Void = { }
@@ -254,17 +254,17 @@ fileprivate struct Progress {
     private var lists = ProgressItem()
     private var messages = ProgressItem()
     
-    mutating func clear() {
+    func clear() {
         lists.clear()
         messages.clear()
     }
     
-    mutating func addList() {
+    func addList() {
         lists.total += 1
         onProgress(percent)
     }
     
-    mutating func finishList(_ bringsMessages: Int) {
+    func finishList(_ bringsMessages: Int) {
         lists.finished += 1
         messages.total += bringsMessages
         onProgress(percent)
@@ -273,7 +273,7 @@ fileprivate struct Progress {
         }
     }
     
-    mutating func finishMessage() {
+    func finishMessage() {
         messages.finished += 1
         onProgress(percent)
         if !left {
