@@ -11,6 +11,10 @@
 		8400354F259F58E3003C97EA /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8400354E259F58E3003C97EA /* GTMAppAuth */; };
 		84003556259F613F003C97EA /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 84003555259F613F003C97EA /* AppAuth */; };
 		8400355E259F7732003C97EA /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8400355D259F7732003C97EA /* AppAuth */; };
+		84177FB225B2DE81009CC4E9 /* MatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84177FB125B2DE81009CC4E9 /* MatchManager.swift */; };
+		84177FB325B2DE81009CC4E9 /* MatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84177FB125B2DE81009CC4E9 /* MatchManager.swift */; };
+		84177FB925B2F079009CC4E9 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84177FB825B2F079009CC4E9 /* MatchView.swift */; };
+		84177FBA25B2F079009CC4E9 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84177FB825B2F079009CC4E9 /* MatchView.swift */; };
 		842F6C6C259CAA7A0063DCFE /* PotoriCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F6C6B259CAA7A0063DCFE /* PotoriCommands.swift */; };
 		843BEF38259F07CF00FC17F9 /* TabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF37259F07CF00FC17F9 /* TabNavigation.swift */; };
 		843BEF48259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */; };
@@ -108,6 +112,8 @@
 /* Begin PBXFileReference section */
 		8400654125AAEBD000ED76B4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8400654625AAF3AA00ED76B4 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		84177FB125B2DE81009CC4E9 /* MatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchManager.swift; sourceTree = "<group>"; };
+		84177FB825B2F079009CC4E9 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
 		842F6C6B259CAA7A0063DCFE /* PotoriCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotoriCommands.swift; sourceTree = "<group>"; };
 		843463DC25B20D93008A03CB /* post-build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "post-build.sh"; sourceTree = "<group>"; };
 		843463E525B20E3D008A03CB /* pre-build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "pre-build.sh"; sourceTree = "<group>"; };
@@ -272,13 +278,13 @@
 		849178532599F81600CD967F = {
 			isa = PBXGroup;
 			children = (
-				843463DB25B20D7D008A03CB /* Scripts */,
 				8400654625AAF3AA00ED76B4 /* LICENSE */,
 				8400654125AAEBD000ED76B4 /* README.md */,
 				843BEF66259F36DD00FC17F9 /* Frameworks */,
 				849178622599F81700CD967F /* iOS */,
 				849178692599F81700CD967F /* macOS */,
 				849178612599F81700CD967F /* Products */,
+				843463DB25B20D7D008A03CB /* Scripts */,
 				849178582599F81600CD967F /* Shared */,
 				849178732599F81700CD967F /* Tests iOS */,
 				8491787E2599F81700CD967F /* Tests macOS */,
@@ -354,12 +360,13 @@
 			children = (
 				84F97C77259B7474005D9AA4 /* ContentView.swift */,
 				8462D087259FBA030031AD0D /* MainMap.swift */,
+				84177FB825B2F079009CC4E9 /* MatchView.swift */,
 				844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */,
 				84CCEDC1259CB5470040917E /* RemoteImage.swift */,
 				843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */,
-				84A01DE925A6DF93006080BF /* Stats */,
 				843BEF28259F018300FC17F9 /* NominationDetails */,
 				843BEF23259F017800FC17F9 /* NominationList */,
+				84A01DE925A6DF93006080BF /* Stats */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -373,6 +380,7 @@
 				84DB6EA2259A2B1F00BD915B /* Umi.swift */,
 				84A01DD625A609C7006080BF /* Preferences.swift */,
 				846645EB25A8DAA200DD37D1 /* GoogleDriveKit.swift */,
+				84177FB125B2DE81009CC4E9 /* MatchManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -590,6 +598,7 @@
 				84F97C71259B6978005D9AA4 /* NominationDetails.swift in Sources */,
 				84CCEDC2259CB5470040917E /* RemoteImage.swift in Sources */,
 				843BEF6A259F36FB00FC17F9 /* AuthKit.swift in Sources */,
+				84177FB925B2F079009CC4E9 /* MatchView.swift in Sources */,
 				8462D088259FBA030031AD0D /* MainMap.swift in Sources */,
 				844A9AAE25A4BD21003E44B5 /* PreferencesView.swift in Sources */,
 				8491789B2599F92C00CD967F /* NominationItem.swift in Sources */,
@@ -597,6 +606,7 @@
 				8462D078259F9C330031AD0D /* AppDelegate.swift in Sources */,
 				849178822599F81700CD967F /* PotoriApp.swift in Sources */,
 				846CC5B725A359DD007A8AE8 /* NominationJSON.swift in Sources */,
+				84177FB225B2DE81009CC4E9 /* MatchManager.swift in Sources */,
 				84F97C78259B7474005D9AA4 /* ContentView.swift in Sources */,
 				846645EC25A8DAA200DD37D1 /* GoogleDriveKit.swift in Sources */,
 				84DB6ED1259A3D5D00BD915B /* Service.swift in Sources */,
@@ -624,9 +634,11 @@
 				843BEF6B259F36FB00FC17F9 /* AuthKit.swift in Sources */,
 				84A01DD825A609C7006080BF /* Preferences.swift in Sources */,
 				84CCEDC3259CB5470040917E /* RemoteImage.swift in Sources */,
+				84177FBA25B2F079009CC4E9 /* MatchView.swift in Sources */,
 				84A01DEC25A6E03C006080BF /* StatsView.swift in Sources */,
 				849178832599F81700CD967F /* PotoriApp.swift in Sources */,
 				843BEF49259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */,
+				84177FB325B2DE81009CC4E9 /* MatchManager.swift in Sources */,
 				842F6C6C259CAA7A0063DCFE /* PotoriCommands.swift in Sources */,
 				846645ED25A8DAA200DD37D1 /* GoogleDriveKit.swift in Sources */,
 				84F97C79259B7474005D9AA4 /* ContentView.swift in Sources */,

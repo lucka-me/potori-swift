@@ -12,12 +12,29 @@ struct ContentView: View {
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
+    @EnvironmentObject private var service: Service
 
     var body: some View {
+        if let solidPack = service.match.pack {
+            let matchView = MatchView(pack: solidPack)
+            navigation
+                .sheet(isPresented: .constant(true)) {
+                    if !matchView.confirmed {
+                        service.match.match(solidPack, nil)
+                    }
+                } content: {
+                    matchView
+                }
+        } else {
+            navigation
+        }
+    }
+    
+    @ViewBuilder
+    private var navigation: some View {
         #if os(macOS)
         SidebarNavigation()
         #else
-        //TabNavigation()
         if horizontalSizeClass == .compact {
             TabNavigation()
         } else {

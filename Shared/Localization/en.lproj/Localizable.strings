@@ -79,3 +79,10 @@
 "view.preferences.about.appVersion"     = "App Version";
 "view.preferences.about.dataVersion"    = "Data Version";
 "view.preferences.about.repo"   = "Code Repository";
+
+// Match
+"view.match"    = "Manually Match";
+"view.match.confirm"    = "Confirm";
+"view.match.target" = "Match Target";
+"view.match.candidates" = "Candidates";
+"view.match.candidates.desc" = "Choose the corresponding nomination.";

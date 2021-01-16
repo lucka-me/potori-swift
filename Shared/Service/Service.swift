@@ -27,6 +27,7 @@ final class Service: ObservableObject {
     static let shared = Service()
     
     private static let progressPartMari = 0.8
+    private static let progressPartMatch = 0.2
     
     @Published var status: ServiceStatus = .idle
     @Published var progress = 0.0
@@ -34,10 +35,12 @@ final class Service: ObservableObject {
     let containerContext: NSManagedObjectContext
 
     @Published var auth = AuthKit()
+    @Published var match = MatchManager()
     private let mari = Mari()
     private let googleDrive = GoogleDriveKit()
 
     private var authAnyCancellable: AnyCancellable? = nil
+    private var matchAnyCancellable: AnyCancellable? = nil
     
     private init(inMemory: Bool = false) {
         let container = NSPersistentCloudKitContainer(name: "Potori")
@@ -51,17 +54,27 @@ final class Service: ObservableObject {
             }
         }
         containerContext = container.viewContext
+        
         mari.onProgress { progress in
-            self.handleMariProgress(progress)
+            self.progress = progress * Service.progressPartMari
         }
         mari.onFinished { nominations in
             self.arrange(nominations)
         }
         mari.updateAuth(auth.auth)
+        
+        match.onProgress { progress in
+            self.progress = Service.progressPartMari + progress * Service.progressPartMatch
+        }
+        
         googleDrive.updateAuth(auth.auth)
+        
         authAnyCancellable = auth.objectWillChange.sink {
             self.mari.updateAuth(self.auth.auth)
             self.googleDrive.updateAuth(self.auth.auth)
+            self.objectWillChange.send()
+        }
+        matchAnyCancellable = match.objectWillChange.sink {
             self.objectWillChange.send()
         }
     }
@@ -211,15 +224,16 @@ final class Service: ObservableObject {
         mari.start(raws)
     }
     
-    private func handleMariProgress(_ progress: Double) {
-        self.progress = progress * Service.progressPartMari
-    }
-    
     private func arrange(_ raws: [NominationRAW]) {
         self.progress = Service.progressPartMari
         var reduced: [NominationRAW] = []
+        var matchTargets: [NominationRAW] = []
         reduced.reserveCapacity(raws.capacity)
         reduced = raws.reduce(into: reduced) { list, raw in
+            if raw.id.isEmpty {
+                matchTargets.append(raw)
+                return
+            }
             // Merge
             var merged = false
             for target in list {
@@ -232,10 +246,31 @@ final class Service: ObservableObject {
                 list.append(raw)
             }
         }
-        manuallyMatch(reduced)
+        
+        if !matchTargets.isEmpty {
+            let pendings = reduced.filter { $0.status == .pending }
+            print("Service.arrange() match \(matchTargets.count) targets from \(pendings.count) candidates")
+            match.start(matchTargets, pendings) { matched in
+                reduced = matched.reduce(into: reduced) { list, raw in
+                    var merged = false
+                    for target in list {
+                        if target.merge(raw) {
+                            merged = true
+                            break
+                        }
+                    }
+                    if !merged {
+                        list.append(raw)
+                    }
+                }
+                self.saveAndSync(reduced)
+            }
+        } else {
+            saveAndSync(reduced)
+        }
     }
     
-    private func manuallyMatch(_ raws: [NominationRAW]) {
+    private func saveAndSync(_ raws: [NominationRAW]) {
         save(raws)
         if Preferences.Google.sync {
             upload {
@@ -249,7 +284,7 @@ final class Service: ObservableObject {
     }
     
     #if DEBUG
-    static var preview: Service = {
+    static var preview: Service {
         let forPreview = Service(inMemory: true)
         let viewContext = forPreview.containerContext
         do {
@@ -259,6 +294,6 @@ final class Service: ObservableObject {
             fatalError("Unresolved error: \(error.localizedDescription)")
         }
         return forPreview
-    }()
+    }
     #endif
 }

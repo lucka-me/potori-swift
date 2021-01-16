@@ -46,7 +46,7 @@ We hope to implement all features of the web app, and bring more with platform s
   - [x] Navigation for all platform
   - [x] Nomination List
   - [x] Nomination Details
-  - [ ] Manual Match
+  - [x] Manually Match
   - [ ] Nomination Editor
   - [ ] Filter
   - [ ] Re-order

@@ -79,3 +79,10 @@
 "view.preferences.about.appVersion"     = "应用版本";
 "view.preferences.about.dataVersion"    = "数据版本";
 "view.preferences.about.repo"   = "代码仓库";
+
+// Match
+"view.match"    = "手动匹配";
+"view.match.confirm"    = "确定";
+"view.match.target" = "匹配目标";
+"view.match.candidates" = "候选";
+"view.match.candidates.desc" = "选择对应的提名。";
