@@ -243,12 +243,19 @@ fileprivate struct AboutGroup: View, PreferenceGroup {
             let version = infoDict["CFBundleShortVersionString"] as? String,
             let build = infoDict["CFBundleVersion"] as? String {
             HStack {
-                Text("view.preferences.about.version")
+                Text("view.preferences.about.appVersion")
                 #if os(iOS)
                 Spacer()
                 #endif
                 Text("\(version)-d\(Umi.shared.version) (\(build))")
             }
+        }
+        HStack {
+            Text("view.preferences.about.dataVersion")
+            #if os(iOS)
+            Spacer()
+            #endif
+            Text(Umi.shared.version)
         }
         Link("view.preferences.about.repo", destination: URL(string: "https://github.com/lucka-me/potori-swift")!)
     }
