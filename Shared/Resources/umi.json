@@ -12,15 +12,15 @@
         {
             "code": 2,
             "title": "Prime"
-        },
+        }
     ],
-    "types": [
+    "statuses": [
         {
-            "key": "pending",
             "code": 0,
             "title": "data.pending",
-            "icon":  "clock",
-            "color": "StatusTypePending",
+            "iconFA": "\uf017",
+            "iconSF": "clock",
+            "color": "Umi.Status.Pending",
             "queries": [
                 {
                     "scanner": 1,
@@ -34,11 +34,11 @@
             ]
         },
         {
-            "key": "accepted",
             "code": 1,
             "title": "data.accepted",
-            "icon":  "checkmark.circle",
-            "color": "StatusTypeAccepted",
+            "iconFA": "\uf00c",
+            "iconSF": "checkmark.circle",
+            "color": "Umi.Status.Accepted",
             "queries": [
                 {
                     "scanner": 1,
@@ -51,11 +51,11 @@
             ]
         },
         {
-            "key": "rejected",
             "code": 101,
             "title": "data.rejected",
-            "icon":  "xmark.circle",
-            "color": "StatusTypeRejected",
+            "iconFA": "\uf00d",
+            "iconSF": "xmark.circle",
+            "color": "Umi.Status.Rejected",
             "queries": [
                 {
                     "scanner": 1,
@@ -70,18 +70,18 @@
     ],
     "reasons": [
         {
-            "key": "undeclared",
             "code": 101,
             "title": "data.undeclared",
-            "icon":  "questionmark.circle",
+            "iconFA": "\uf00d",
+            "iconSF": "xmark.circle",
             "color": "#B0373C",
             "keywords": [ ]
         },
         {
-            "key": "duplicated",
             "code": 102,
             "title": "data.duplicated",
-            "icon":  "doc.on.doc",
+            "iconFA": "\uf24d",
+            "iconSF": "doc.on.doc",
             "color": "#5E90B8",
             "keywords": [
                 {
@@ -95,10 +95,10 @@
             ]
         },
         {
-            "key": "close",
             "code": 103,
             "title": "data.close",
-            "icon":  "ruler",
+            "iconFA": "\uf547",
+            "iconSF": "ruler",
             "color": "#009345",
             "keywords": [
                 {
@@ -113,10 +113,10 @@
         },
 
         {
-            "key": "criteria:criteria",
             "code": 112,
             "title": "data.criteriaCriteria",
-            "icon":  "xmark.octagon",
+            "iconFA": "\uf05e",
+            "iconSF": "xmark.octagon",
             "color": "#B80233",
             "keywords": [
                 {
@@ -126,11 +126,11 @@
             ]
         },
         {
-            "key": "criteria:temporary",
             "code": 116,
             "oldCode": 104,
             "title": "data.criteriaTemporary",
-            "icon":  "circle.dashed",
+            "iconFA": "\uf1da",
+            "iconSF": "circle.dashed",
             "color": "#647372",
             "keywords": [
                 {
@@ -140,11 +140,11 @@
             ]
         },
         {
-            "key": "criteria:generic",
             "code": 117,
             "oldCode": 105,
             "title": "data.criteriaGeneric",
-            "icon":  "shippingbox",
+            "iconFA": "\uf54e",
+            "iconSF": "shippingbox",
             "color": "#F0C649",
             "keywords": [
                 {
@@ -155,10 +155,10 @@
         },
 
         {
-            "key": "location:private",
             "code": 124,
             "title": "data.locationPrivate",
-            "icon":  "lock",
+            "iconFA": "\uf023",
+            "iconSF": "lock",
             "color": "#5A4C4C",
             "keywords": [
                 {
@@ -169,11 +169,10 @@
         },
         
         {
-            "key": "photo:plate",
-            "code": 132,
-            "oldCode": 106,
+            "code": 106,
             "title": "data.photoPlate",
-            "icon":  "car",
+            "iconFA": "\uf1b9",
+            "iconSF": "car",
             "color": "#004DB5",
             "keywords": [
                 {
@@ -183,10 +182,10 @@
             ]
         },
         {
-            "key": "photo:quality",
             "code": 133,
             "title": "data.photoQuality",
-            "icon":  "photo",
+            "iconFA": "\uf03e",
+            "iconSF": "photo",
             "color": "#5A715F",
             "keywords": [
                 {

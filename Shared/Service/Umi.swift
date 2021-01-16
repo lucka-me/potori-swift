@@ -58,29 +58,30 @@ final class Umi {
         }
         
         fileprivate struct JSON: Codable {
-            let key: String
             let code: Int16
             let title: String
-            let icon: String
+            let iconSF: String
             let color: String
             
             let queries: [Query.JSON]
         }
         
+        let code: Code
+        
         let title: LocalizedStringKey
         let icon: String
         let color: Color
 
-        let code: Code
-
         let queries: [Scanner.Code : Query]
         
         fileprivate init(_ from: JSON) {
-            title = LocalizedStringKey(from.title)
-            icon = from.icon
-            color = Color(from.color)
-
+            
             code = Code(rawValue: from.code)!
+            
+            title = LocalizedStringKey(from.title)
+            icon = from.iconSF
+            color = Color(from.color)
+            
             var queries: [Scanner.Code : Query] = [:]
             for queryJSON in from.queries {
                 let query = Query(queryJSON)
@@ -112,29 +113,26 @@ final class Umi {
         }
         
         fileprivate struct JSON: Codable {
-            let key: String
             let code: Int16
             let oldCode: Int16?
             let title: String
-            let icon: String
-            let color: String
+            let iconSF: String
             
             let keywords: [Reason.Keywords.JSON]
         }
         
         static let undeclared: Code = 101
         
+        let code: Code
+        
         let title: LocalizedStringKey
         let icon: String
-        let color: String
         
-        let code: Code
         let keywords: [Scanner.Code : Reason.Keywords]
         
         fileprivate init(_ from: JSON) {
             title = LocalizedStringKey(from.title)
-            icon = from.icon
-            color = from.color
+            icon = from.iconSF
 
             code = from.code
             var keywords: [Scanner.Code : Reason.Keywords] = [:]
@@ -153,7 +151,7 @@ final class Umi {
     fileprivate struct DataJSON: Codable {
         let version: String
         let scanners: [Scanner.JSON]
-        let types: [Status.JSON]
+        let statuses: [Status.JSON]
         let reasons: [Reason.JSON]
     }
     
@@ -180,7 +178,7 @@ final class Umi {
             let scanner = Scanner(value)
             dict[scanner.code] = scanner
         }
-        status = dataJSON.types.reduce(into: [:]) { dict, value in
+        status = dataJSON.statuses.reduce(into: [:]) { dict, value in
             let type = Status(value)
             dict[type.code] = type
         }
