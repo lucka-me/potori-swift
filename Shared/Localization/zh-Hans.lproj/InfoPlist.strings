@@ -6,3 +6,4 @@
   
 */
 NSPhotoLibraryUsageDescription = "将提名照片加入相册需要此权限。";
+NSHumanReadableCopyright = "版权所有 © 2021 Lucka\n基于MIT许可证";

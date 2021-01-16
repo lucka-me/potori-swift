@@ -76,5 +76,6 @@
 "view.preferences.data.clearNominations.alert"  = "您无法撤回此操作。";
 "view.preferences.data.clearNominations.clear"  = "清空";
 "view.preferences.about"    = "关于";
+"view.preferences.about.appVersion"     = "应用版本";
+"view.preferences.about.dataVersion"    = "数据版本";
 "view.preferences.about.repo"   = "代码仓库";
-"view.preferences.about.version"    = "版本";

@@ -6,3 +6,4 @@
   
 */
 NSPhotoLibraryUsageDescription = "This permission is required for saving photo of nomination to photo library.";
+NSHumanReadableCopyright = "Copyright © 2021 Lucka\nUnder MIT License.";

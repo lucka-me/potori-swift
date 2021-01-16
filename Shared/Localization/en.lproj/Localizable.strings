@@ -76,5 +76,6 @@
 "view.preferences.data.clearNominations.alert"  = "You can not undo this operation.";
 "view.preferences.data.clearNominations.clear"  = "Clear";
 "view.preferences.about"    = "About";
+"view.preferences.about.appVersion"     = "App Version";
+"view.preferences.about.dataVersion"    = "Data Version";
 "view.preferences.about.repo"   = "Code Repository";
-"view.preferences.about.version"    = "Version";
