@@ -10,7 +10,7 @@ import SwiftUI
 struct TabNavigation: View {
     var body: some View {
         TabView {
-            NominationList()
+            NavigationView { NominationList() }
                 .tabItem { Label("view.nominations", systemImage: "list.bullet") }
             StatsView()
                 .tabItem { Label("view.stats", systemImage: "chart.bar")}

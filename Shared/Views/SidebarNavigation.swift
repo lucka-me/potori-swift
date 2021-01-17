@@ -38,12 +38,21 @@ struct SidebarNavigation: View {
     private var panelsSection: some View {
         Section(header: Text("view.panels")) {
             NavigationLink(
-                destination: NominationList(),
+                destination: nominationList,
                 isActive: $isNominationListActive
             ) { Label("view.nominations", systemImage: "list.bullet") }
             NavigationLink(destination: StatsView()) { Label("view.stats", systemImage: "chart.bar") }
             NavigationLink(destination: MainMap()) { Label("view.map", systemImage: "map") }
         }
+    }
+    
+    @ViewBuilder
+    private var nominationList: some View {
+        #if os(macOS)
+        NavigationView { NominationList() }
+        #else
+        NominationList()
+        #endif
     }
     
     #if os(macOS)
@@ -55,6 +64,7 @@ struct SidebarNavigation: View {
 
 #if DEBUG
 struct SidebarNavigation_Previews: PreviewProvider {
+
     static let service = Service.preview
     static var previews: some View {
         SidebarNavigation()

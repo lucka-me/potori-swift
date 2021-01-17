@@ -22,28 +22,9 @@ struct NominationList: View {
 
     @FetchRequest(entity: Nomination.entity(), sortDescriptors: [
         NSSortDescriptor(keyPath: \Nomination.title, ascending: true)
-    ])
-    
-    private var nominations: FetchedResults<Nomination>
+    ]) private var nominations: FetchedResults<Nomination>
     
     var body: some View {
-        #if os(macOS)
-        NavigationView {
-            content
-        }
-        #else
-        if horizontalSizeClass == .compact {
-            NavigationView {
-                content
-            }
-        } else {
-            content
-        }
-        #endif
-    }
-    
-    @ViewBuilder
-    private var content: some View {
         if nominations.isEmpty && service.status == .idle {
             emptyPrompt
         } else {
