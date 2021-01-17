@@ -42,12 +42,7 @@ struct NominationList: View {
         List { ListContent(filter.predicate) }
             .navigationTitle("view.nominations")
             .toolbar {
-                #if os(macOS)
-                let refreshPlacement: ToolbarItemPlacement = .navigation
-                #else
-                let refreshPlacement: ToolbarItemPlacement = .primaryAction
-                #endif
-                ToolbarItem(placement: refreshPlacement) {
+                ToolbarItem(placement: .navigation) {
                     #if os(macOS)
                     refreshButton
                     #else

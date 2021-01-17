@@ -29,7 +29,7 @@ struct TabNavigation: View {
         NavigationView {
             NominationList()
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
+                    ToolbarItem(placement: .primaryAction) {
                         Button {
                             self.isPresentedFilterSheet.toggle()
                         } label: {
@@ -44,7 +44,9 @@ struct TabNavigation: View {
                             .navigationTitle("view.filter")
                             .toolbar {
                                 ToolbarItem(placement: .confirmationAction) {
-                                    Button { } label: {
+                                    Button {
+                                        self.isPresentedFilterSheet.toggle()
+                                    } label: {
                                         Label("view.filter.dismiss", systemImage: "xmark")
                                     }
                                 }
