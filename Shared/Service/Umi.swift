@@ -163,7 +163,10 @@ final class Umi {
     let status: [Status.Code: Status]
     let reason: [Int16: Reason]
     
+    /// Status list sorted by code
     let statusAll: [Status]
+    /// Reason list sorted by code
+    let reasonAll: [Reason]
     
     private init() {
         
@@ -189,10 +192,12 @@ final class Umi {
                 dict[solidOldCode] = reason
             }
         }
-        statusAll = [
-            status[.pending]!,
-            status[.accepted]!,
-            status[.rejected]!
-        ]
+        statusAll = status
+            .sorted { a, b in a.key.rawValue < b.key.rawValue }
+            .map { $0.value }
+        reasonAll = reason
+            .filter { $0.key == $0.value.code }
+            .sorted { a, b in a.key < b.key }
+            .map { $0.value }
     }
 }
