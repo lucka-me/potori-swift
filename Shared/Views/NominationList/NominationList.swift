@@ -9,8 +9,6 @@ import SwiftUI
 
 struct NominationList: View {
     
-    @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.openURL) private var openURL
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @EnvironmentObject var appDelegate: AppDelegate
@@ -18,9 +16,6 @@ struct NominationList: View {
     
     @EnvironmentObject private var service: Service
     @EnvironmentObject private var filter: FilterManager
-    
-    @State private var firstAppear = true
-    @State private var selected: String? = nil
 
     @FetchRequest(
         entity: Nomination.entity(),
@@ -44,7 +39,7 @@ struct NominationList: View {
     }
     
     private var list: some View {
-        List { listContent }
+        List { ListContent(filter.predicate) }
             .navigationTitle("view.nominations")
             .toolbar {
                 #if os(macOS)
@@ -75,8 +70,74 @@ struct NominationList: View {
             }
     }
     
-    private var listContent: some View {
-        ForEach(filteredNominations) { nomination in
+    private var refreshButton: some View {
+        Button(action: {
+            service.refresh()
+        }) {
+            Label("view.nominations.refresh", systemImage: "arrow.clockwise")
+        }
+        .disabled(service.status != .idle)
+    }
+    
+    private var emptyPrompt: some View {
+        VStack {
+            if service.auth.login {
+                refreshButton
+            } else {
+                Text("view.nominations.linkPrompt")
+                Button("view.preferences.google.link") {
+                    #if os(macOS)
+                    service.auth.logIn()
+                    #else
+                    service.auth.logIn(appDelegate: appDelegate)
+                    #endif
+                }
+            }
+        }
+        .navigationTitle("view.nominations")
+        .padding()
+    }
+}
+
+#if DEBUG
+struct NominationList_Previews: PreviewProvider {
+
+    static let service = Service.preview
+    static let filter = FilterManager()
+
+    static var previews: some View {
+        NominationList()
+            .environmentObject(service)
+            .environmentObject(filter)
+            .environment(\.managedObjectContext, service.containerContext)
+    }
+}
+#endif
+
+fileprivate struct ListContent: View {
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.openURL) private var openURL
+    @EnvironmentObject private var service: Service
+    
+    private let fetchRequest: FetchRequest<Nomination>
+    private var nominations: FetchedResults<Nomination> {
+        fetchRequest.wrappedValue
+    }
+    
+    @State private var firstAppear = true
+    @State private var selected: String? = nil
+    
+    init(_ predicate: NSPredicate) {
+        fetchRequest = .init(
+            entity: Nomination.entity(),
+            sortDescriptors: [ NSSortDescriptor(keyPath: \Nomination.title, ascending: true) ],
+            predicate: predicate
+        )
+    }
+    
+    var body: some View {
+        ForEach(nominations) { nomination in
             NavigationLink(
                 destination: NominationDetails(nomination: nomination),
                 tag: nomination.id,
@@ -111,40 +172,6 @@ struct NominationList: View {
         }
     }
     
-    private var refreshButton: some View {
-        Button(action: {
-            service.refresh()
-        }) {
-            Label("view.nominations.refresh", systemImage: "arrow.clockwise")
-        }
-        .disabled(service.status != .idle)
-    }
-    
-    private var emptyPrompt: some View {
-        VStack {
-            if service.auth.login {
-                refreshButton
-            } else {
-                Text("view.nominations.linkPrompt")
-                Button("view.preferences.google.link") {
-                    #if os(macOS)
-                    service.auth.logIn()
-                    #else
-                    service.auth.logIn(appDelegate: appDelegate)
-                    #endif
-                }
-            }
-        }
-        .navigationTitle("view.nominations")
-        .padding()
-    }
-    
-    private var filteredNominations: [Nomination] {
-        nominations.filter {
-            filter.status[$0.statusCode]?.isOn ?? false
-        }
-    }
-    
     private func delete(_ indexSet: IndexSet) {
         for index in indexSet {
             if index < nominations.endIndex {
@@ -154,18 +181,3 @@ struct NominationList: View {
         service.save()
     }
 }
-
-#if DEBUG
-struct NominationList_Previews: PreviewProvider {
-
-    static let service = Service.preview
-    static let filter = FilterManager()
-
-    static var previews: some View {
-        NominationList()
-            .environmentObject(service)
-            .environmentObject(filter)
-            .environment(\.managedObjectContext, service.containerContext)
-    }
-}
-#endif
