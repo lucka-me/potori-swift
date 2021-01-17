@@ -66,6 +66,10 @@
 		84A01DD825A609C7006080BF /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A01DD625A609C7006080BF /* Preferences.swift */; };
 		84A01DEB25A6E03C006080BF /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A01DEA25A6E03B006080BF /* StatsView.swift */; };
 		84A01DEC25A6E03C006080BF /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A01DEA25A6E03B006080BF /* StatsView.swift */; };
+		84ABD86425B4351A00DAA2DB /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ABD86325B4351A00DAA2DB /* FilterView.swift */; };
+		84ABD86525B4351A00DAA2DB /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ABD86325B4351A00DAA2DB /* FilterView.swift */; };
+		84ABD86F25B43EDC00DAA2DB /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ABD86E25B43EDC00DAA2DB /* FilterManager.swift */; };
+		84ABD87025B43EDC00DAA2DB /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ABD86E25B43EDC00DAA2DB /* FilterManager.swift */; };
 		84BFD364259F46530047318D /* Mari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BFD363259F46530047318D /* Mari.swift */; };
 		84BFD365259F46530047318D /* Mari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BFD363259F46530047318D /* Mari.swift */; };
 		84C769A725A706A60055A3A9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84C769AA25A706A60055A3A9 /* Localizable.strings */; };
@@ -148,6 +152,8 @@
 		849178BD259A0D8D00CD967F /* NominationRAW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationRAW.swift; sourceTree = "<group>"; };
 		84A01DD625A609C7006080BF /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		84A01DEA25A6E03B006080BF /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		84ABD86325B4351A00DAA2DB /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		84ABD86E25B43EDC00DAA2DB /* FilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
 		84BFD363259F46530047318D /* Mari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mari.swift; sourceTree = "<group>"; };
 		84C769A925A706A60055A3A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		84C769C325A714410055A3A9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -239,13 +245,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		843BEF66259F36DD00FC17F9 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		84495F3A259A149100BA238A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,8 +257,8 @@
 		8466460225A9F9D300DD37D1 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
-				84C769AA25A706A60055A3A9 /* Localizable.strings */,
 				846B2F9225B1E2CE00077E01 /* InfoPlist.strings */,
+				84C769AA25A706A60055A3A9 /* Localizable.strings */,
 			);
 			path = Localization;
 			sourceTree = "<group>";
@@ -280,7 +279,6 @@
 			children = (
 				8400654625AAF3AA00ED76B4 /* LICENSE */,
 				8400654125AAEBD000ED76B4 /* README.md */,
-				843BEF66259F36DD00FC17F9 /* Frameworks */,
 				849178622599F81700CD967F /* iOS */,
 				849178692599F81700CD967F /* macOS */,
 				849178612599F81700CD967F /* Products */,
@@ -320,8 +318,8 @@
 			isa = PBXGroup;
 			children = (
 				849178632599F81700CD967F /* Info.plist */,
-				843BEF5A259F32AB00FC17F9 /* Views */,
 				8462D077259F9C330031AD0D /* AppDelegate.swift */,
+				843BEF5A259F32AB00FC17F9 /* Views */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -332,7 +330,6 @@
 				8491786B2599F81700CD967F /* macOS.entitlements */,
 				8491786A2599F81700CD967F /* Info.plist */,
 				842F6C6B259CAA7A0063DCFE /* PotoriCommands.swift */,
-				84CCEDD6259CC8E30040917E /* Views */,
 			);
 			path = macOS;
 			sourceTree = "<group>";
@@ -359,6 +356,7 @@
 			isa = PBXGroup;
 			children = (
 				84F97C77259B7474005D9AA4 /* ContentView.swift */,
+				84ABD86325B4351A00DAA2DB /* FilterView.swift */,
 				8462D087259FBA030031AD0D /* MainMap.swift */,
 				84177FB825B2F079009CC4E9 /* MatchView.swift */,
 				844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */,
@@ -375,12 +373,13 @@
 			isa = PBXGroup;
 			children = (
 				843BEF69259F36FB00FC17F9 /* AuthKit.swift */,
+				84ABD86E25B43EDC00DAA2DB /* FilterManager.swift */,
+				846645EB25A8DAA200DD37D1 /* GoogleDriveKit.swift */,
 				84BFD363259F46530047318D /* Mari.swift */,
+				84177FB125B2DE81009CC4E9 /* MatchManager.swift */,
+				84A01DD625A609C7006080BF /* Preferences.swift */,
 				84DB6ED0259A3D5D00BD915B /* Service.swift */,
 				84DB6EA2259A2B1F00BD915B /* Umi.swift */,
-				84A01DD625A609C7006080BF /* Preferences.swift */,
-				846645EB25A8DAA200DD37D1 /* GoogleDriveKit.swift */,
-				84177FB125B2DE81009CC4E9 /* MatchManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -391,13 +390,6 @@
 				84A01DEA25A6E03B006080BF /* StatsView.swift */,
 			);
 			path = Stats;
-			sourceTree = "<group>";
-		};
-		84CCEDD6259CC8E30040917E /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -592,6 +584,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84ABD86425B4351A00DAA2DB /* FilterView.swift in Sources */,
 				84F97CBB259BADB7005D9AA4 /* NominationDetailsMap.swift in Sources */,
 				846CC62925A35EFF007A8AE8 /* Nomination.swift in Sources */,
 				84DB6EA3259A2B1F00BD915B /* Umi.swift in Sources */,
@@ -605,6 +598,7 @@
 				843BEF48259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */,
 				8462D078259F9C330031AD0D /* AppDelegate.swift in Sources */,
 				849178822599F81700CD967F /* PotoriApp.swift in Sources */,
+				84ABD86F25B43EDC00DAA2DB /* FilterManager.swift in Sources */,
 				846CC5B725A359DD007A8AE8 /* NominationJSON.swift in Sources */,
 				84177FB225B2DE81009CC4E9 /* MatchManager.swift in Sources */,
 				84F97C78259B7474005D9AA4 /* ContentView.swift in Sources */,
@@ -632,6 +626,7 @@
 				84F97C72259B6978005D9AA4 /* NominationDetails.swift in Sources */,
 				8491789C2599F92C00CD967F /* NominationItem.swift in Sources */,
 				843BEF6B259F36FB00FC17F9 /* AuthKit.swift in Sources */,
+				84ABD86525B4351A00DAA2DB /* FilterView.swift in Sources */,
 				84A01DD825A609C7006080BF /* Preferences.swift in Sources */,
 				84CCEDC3259CB5470040917E /* RemoteImage.swift in Sources */,
 				84177FBA25B2F079009CC4E9 /* MatchView.swift in Sources */,
@@ -642,6 +637,7 @@
 				842F6C6C259CAA7A0063DCFE /* PotoriCommands.swift in Sources */,
 				846645ED25A8DAA200DD37D1 /* GoogleDriveKit.swift in Sources */,
 				84F97C79259B7474005D9AA4 /* ContentView.swift in Sources */,
+				84ABD87025B43EDC00DAA2DB /* FilterManager.swift in Sources */,
 				846CC5B825A359DD007A8AE8 /* NominationJSON.swift in Sources */,
 				84DB6ED2259A3D5D00BD915B /* Service.swift in Sources */,
 				8462D089259FBA030031AD0D /* MainMap.swift in Sources */,

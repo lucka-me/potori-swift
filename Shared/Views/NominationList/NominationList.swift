@@ -9,7 +9,6 @@ import SwiftUI
 
 struct NominationList: View {
     
-    @EnvironmentObject var service: Service
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.openURL) private var openURL
     #if os(iOS)
@@ -17,12 +16,18 @@ struct NominationList: View {
     @EnvironmentObject var appDelegate: AppDelegate
     #endif
     
+    @EnvironmentObject private var service: Service
+    @EnvironmentObject private var filter: FilterManager
+    
     @State private var firstAppear = true
     @State private var selected: String? = nil
 
-    @FetchRequest(entity: Nomination.entity(), sortDescriptors: [
-        NSSortDescriptor(keyPath: \Nomination.title, ascending: true)
-    ]) private var nominations: FetchedResults<Nomination>
+    @FetchRequest(
+        entity: Nomination.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \Nomination.title, ascending: true)
+        ]
+    ) private var nominations: FetchedResults<Nomination>
     
     var body: some View {
         if nominations.isEmpty && service.status == .idle {
@@ -71,7 +76,7 @@ struct NominationList: View {
     }
     
     private var listContent: some View {
-        ForEach(nominations) { nomination in
+        ForEach(filteredNominations) { nomination in
             NavigationLink(
                 destination: NominationDetails(nomination: nomination),
                 tag: nomination.id,
@@ -134,6 +139,12 @@ struct NominationList: View {
         .padding()
     }
     
+    private var filteredNominations: [Nomination] {
+        nominations.filter {
+            filter.status[$0.statusCode]?.isOn ?? false
+        }
+    }
+    
     private func delete(_ indexSet: IndexSet) {
         for index in indexSet {
             if index < nominations.endIndex {
@@ -146,10 +157,14 @@ struct NominationList: View {
 
 #if DEBUG
 struct NominationList_Previews: PreviewProvider {
+
     static let service = Service.preview
+    static let filter = FilterManager()
+
     static var previews: some View {
         NominationList()
             .environmentObject(service)
+            .environmentObject(filter)
             .environment(\.managedObjectContext, service.containerContext)
     }
 }

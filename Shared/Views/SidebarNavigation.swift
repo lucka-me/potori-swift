@@ -22,6 +22,8 @@ struct SidebarNavigation: View {
                     NavigationLink(destination: PreferencesView()) { Label("view.preferences", systemImage: "gearshape") }
                 }
                 #endif
+                
+                FilterView()
             }
             .frame(minWidth: 150)
             .listStyle(SidebarListStyle())
@@ -66,9 +68,12 @@ struct SidebarNavigation: View {
 struct SidebarNavigation_Previews: PreviewProvider {
 
     static let service = Service.preview
+    static let filter = FilterManager()
+
     static var previews: some View {
         SidebarNavigation()
             .environmentObject(service)
+            .environmentObject(filter)
             .environment(\.managedObjectContext, service.containerContext)
     }
 }
