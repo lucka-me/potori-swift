@@ -1,5 +1,6 @@
 # ![](./Readme/title.png)
 
+[![Lines of code](https://img.shields.io/tokei/lines/github/lucka-me/potori-swift)](# "Repository")
 [![License](https://img.shields.io/github/license/lucka-me/potori-swift)](./LICENSE "License")  
 [![Telegram Channel](https://img.shields.io/badge/telegram-channel-37aee2?logo=telegram)](https://t.me/potori "Telegram Channel")
 
@@ -49,6 +50,8 @@ We hope to implement all features of the web app, and bring more with platform s
   - [x] Manually Match
   - [ ] Nomination Editor
   - [ ] Filter
+    - [x] By State
+    - [x] By Reason
   - [ ] Re-order
   - [ ] Stats Panel
     - [x] Basic stats
