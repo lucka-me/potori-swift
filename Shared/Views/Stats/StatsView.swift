@@ -86,10 +86,10 @@ struct StatsView: View {
         }
     }
     
-    private var statReasons: [(key: Int16, value: Int)] {
+    private var statReasons: [(key: Umi.Reason.Code, value: Int)] {
         nominations
             .filter({ $0.statusCode == .rejected })
-            .reduce(into: [:] as [Int16 : Int]) { dict, nomination in
+            .reduce(into: [:] as [Umi.Reason.Code : Int]) { dict, nomination in
                 if nomination.reasons.isEmpty {
                     let code = Umi.Reason.undeclared
                     dict[code] = (dict[code] ?? 0) + 1

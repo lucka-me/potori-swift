@@ -161,7 +161,7 @@ final class Umi {
     
     let scanner: [Scanner.Code: Scanner]
     let status: [Status.Code: Status]
-    let reason: [Int16: Reason]
+    let reason: [Reason.Code: Reason]
     
     /// Status list sorted by code
     let statusAll: [Status]

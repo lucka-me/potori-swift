@@ -17,7 +17,8 @@ class NominationRAW {
     var scanner: Umi.Scanner.Code = .unknown
     
     var status: Umi.Status.Code = .pending
-    var reasons: [Int16] = []
+    /// List of reason code, should not contains unknown codes
+    var reasons: [Umi.Reason.Code] = []
     
     /// Timestamp of Confirmation mail, seconds since epoch time
     var confirmedTime: UInt64 = 0
