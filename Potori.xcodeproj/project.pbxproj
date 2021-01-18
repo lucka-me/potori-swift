@@ -401,6 +401,7 @@
 			buildPhases = (
 				8491785C2599F81700CD967F /* Sources */,
 				8491785D2599F81700CD967F /* Frameworks */,
+				84ABD88225B4820F00DAA2DB /* Write Build Version */,
 				8491785E2599F81700CD967F /* Resources */,
 			);
 			buildRules = (
@@ -426,6 +427,7 @@
 			buildPhases = (
 				849178642599F81700CD967F /* Sources */,
 				849178652599F81700CD967F /* Frameworks */,
+				84ABD87925B4819B00DAA2DB /* Write Build Version */,
 				849178662599F81700CD967F /* Resources */,
 			);
 			buildRules = (
@@ -578,6 +580,47 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		84ABD87925B4819B00DAA2DB /* Write Build Version */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Write Build Version";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh ${PROJECT_DIR}/Scripts/pre-build.sh\n";
+		};
+		84ABD88225B4820F00DAA2DB /* Write Build Version */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Write Build Version";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh ${PROJECT_DIR}/Scripts/pre-build.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8491785C2599F81700CD967F /* Sources */ = {
