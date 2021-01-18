@@ -91,3 +91,4 @@
 "view.filter"   = "Filter";
 "view.filter.dismiss"   = "Dismiss";
 "view.filter.status"    = "Filter by Status";
+"view.filter.reason"    = "Filter by Reason";

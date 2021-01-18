@@ -115,6 +115,7 @@ fileprivate struct ListContent: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.openURL) private var openURL
     @EnvironmentObject private var service: Service
+    @EnvironmentObject private var filter: FilterManager
     
     private let fetchRequest: FetchRequest<Nomination>
     private var nominations: FetchedResults<Nomination> {
@@ -133,7 +134,7 @@ fileprivate struct ListContent: View {
     }
     
     var body: some View {
-        ForEach(nominations) { nomination in
+        ForEach(filteredNominations) { nomination in
             NavigationLink(
                 destination: NominationDetails(nomination: nomination),
                 tag: nomination.id,
@@ -168,10 +169,14 @@ fileprivate struct ListContent: View {
         }
     }
     
+    private var filteredNominations: [Nomination] {
+        filter.filterByReason(Array(nominations))
+    }
+    
     private func delete(_ indexSet: IndexSet) {
         for index in indexSet {
-            if index < nominations.endIndex {
-                viewContext.delete(nominations[index])
+            if index < filteredNominations.endIndex {
+                viewContext.delete(filteredNominations[index])
             }
         }
         service.save()

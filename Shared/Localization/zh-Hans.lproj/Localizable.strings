@@ -91,3 +91,4 @@
 "view.filter"   = "筛选";
 "view.filter.dismiss"   = "关闭";
 "view.filter.status"    = "筛选状态";
+"view.filter.reason"    = "筛选原因";

@@ -18,6 +18,14 @@ struct FilterView: View {
                 Toggle(status.title, isOn: $manager.status.values[index].isOn)
             }
         }
+        
+        Section(header: Text("view.filter.reason")) {
+            ForEach(Umi.shared.reasonAll, id: \.code) { reason in
+                let index = manager.reason.index(forKey: reason.code)!
+                Toggle(reason.title, isOn: $manager.reason.values[index].isOn)
+            }
+        }
+        .disabled(!manager.status[Umi.Status.Code.rejected]!.isOn)
     }
 }
 
