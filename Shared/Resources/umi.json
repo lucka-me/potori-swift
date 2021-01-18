@@ -113,7 +113,8 @@
         },
 
         {
-            "code": 112,
+            "code": 226,
+            "oldCode": 112,
             "title": "data.criteriaCriteria",
             "iconFA": "\uf05e",
             "iconSF": "xmark.octagon",
@@ -126,7 +127,7 @@
             ]
         },
         {
-            "code": 116,
+            "code": 246,
             "oldCode": 104,
             "title": "data.criteriaTemporary",
             "iconFA": "\uf1da",
@@ -140,7 +141,7 @@
             ]
         },
         {
-            "code": 117,
+            "code": 281,
             "oldCode": 105,
             "title": "data.criteriaGeneric",
             "iconFA": "\uf54e",
@@ -155,7 +156,8 @@
         },
 
         {
-            "code": 124,
+            "code": 346,
+            "oldCode": 124,
             "title": "data.locationPrivate",
             "iconFA": "\uf023",
             "iconSF": "lock",
@@ -169,7 +171,8 @@
         },
         
         {
-            "code": 106,
+            "code": 426,
+            "oldCode": 106,
             "title": "data.photoPlate",
             "iconFA": "\uf1b9",
             "iconSF": "car",
@@ -182,7 +185,8 @@
             ]
         },
         {
-            "code": 133,
+            "code": 431,
+            "oldCode": 133,
             "title": "data.photoQuality",
             "iconFA": "\uf03e",
             "iconSF": "photo",
