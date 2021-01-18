@@ -92,11 +92,11 @@ class NominationRAW {
             image: image,
             scanner: scanner.rawValue,
             status: status.rawValue,
-            reasons: reasons,
+            reasons: reasons.isEmpty ? nil : reasons,
             confirmedTime: confirmedTime,
             confirmationMailId: confirmationMailId,
-            resultTime: resultTime,
-            resultMailId: resultMailId,
+            resultTime: resultTime == 0 ? nil : resultTime,
+            resultMailId: resultMailId.isEmpty ? nil : resultMailId,
             lngLat: lngLat
         )
     }
@@ -111,15 +111,12 @@ class NominationRAW {
             reasons = from.reasons
             resultTime = from.resultTime
             resultMailId = from.resultMailId
-            if lngLat != nil {
-                lngLat = from.lngLat
-            }
         } else {
             confirmedTime = from.confirmedTime
             confirmationMailId = from.confirmationMailId
-            if lngLat == nil {
-                lngLat = from.lngLat
-            }
+        }
+        if lngLat == nil {
+            lngLat = from.lngLat
         }
         return true
     }
