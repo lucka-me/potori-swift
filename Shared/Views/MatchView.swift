@@ -95,8 +95,8 @@ fileprivate struct MatchItem: View {
                     .font(.title2)
                     .lineLimit(1)
                 let status = Umi.shared.status[nomination.status]!
-                let intervalMS = nomination.status == .pending ? nomination.confirmedTime : nomination.resultTime
-                let date = Date(timeIntervalSince1970: TimeInterval(intervalMS / 1000))
+                let interval = nomination.status == .pending ? nomination.confirmedTime : nomination.resultTime
+                let date = Date(timeIntervalSince1970: TimeInterval(interval))
                 let dateString = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
                 Text(status.title)
                     .foregroundColor(status.color)

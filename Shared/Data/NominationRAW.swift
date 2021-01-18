@@ -9,6 +9,8 @@ import Foundation
 
 class NominationRAW {
     
+    private static let timestampSecondBound: UInt64 = UInt64(1E12)
+    
     var id: String = ""
     var title: String = ""
     var image: String = ""
@@ -17,8 +19,10 @@ class NominationRAW {
     var status: Umi.Status.Code = .pending
     var reasons: [Int16] = []
     
+    /// Timestamp of Confirmation mail, seconds since epoch time
     var confirmedTime: UInt64 = 0
     var confirmationMailId: String = ""
+    /// Timestamp of Result mail, seconds since epoch time
     var resultTime: UInt64 = 0
     var resultMailId: String = ""
     
@@ -70,10 +74,13 @@ class NominationRAW {
         
         lngLat = from.lngLat
         
-        confirmedTime = from.confirmedTime
+        confirmedTime = from.confirmedTime > NominationRAW.timestampSecondBound ? from.confirmedTime / 1000 : from.confirmedTime
         confirmationMailId = from.confirmationMailId
 
-        resultTime = from.resultTime ?? 0
+        if let solidResultTime = from.resultTime {
+            resultTime = solidResultTime > NominationRAW.timestampSecondBound ? solidResultTime / 1000 : solidResultTime
+        }
+
         resultMailId = from.resultMailId ?? ""
     }
     

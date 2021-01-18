@@ -123,13 +123,13 @@ extension Nomination : Identifiable {
         }
         
         if !merge || raw.confirmedTime > 0 {
-            confirmedTime = Date(timeIntervalSince1970: TimeInterval(raw.confirmedTime / 1000))
+            confirmedTime = Date(timeIntervalSince1970: TimeInterval(raw.confirmedTime))
         }
         if !merge || !raw.confirmationMailId.isEmpty {
             confirmationMailId = raw.confirmationMailId
         }
         if !merge || raw.resultTime > 0 {
-            resultTime = Date(timeIntervalSince1970: TimeInterval(raw.resultTime / 1000))
+            resultTime = Date(timeIntervalSince1970: TimeInterval(raw.resultTime))
         }
         if !merge || !raw.resultMailId.isEmpty {
             resultMailId = raw.resultMailId
@@ -152,9 +152,9 @@ extension Nomination : Identifiable {
         raw.scanner = Umi.Scanner.Code(rawValue: scanner) ?? .unknown
         raw.status = Umi.Status.Code(rawValue: status) ?? .pending
         raw.reasons = reasons
-        raw.confirmedTime = UInt64(confirmedTime.timeIntervalSince1970 * 1000)
+        raw.confirmedTime = UInt64(confirmedTime.timeIntervalSince1970)
         raw.confirmationMailId = confirmationMailId
-        raw.resultTime = UInt64(resultTime.timeIntervalSince1970 * 1000)
+        raw.resultTime = UInt64(resultTime.timeIntervalSince1970)
         raw.resultMailId = resultMailId
         if hasLngLat {
             raw.lngLat = LngLat(lng: longitude, lat: latitude)

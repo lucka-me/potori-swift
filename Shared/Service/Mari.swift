@@ -138,10 +138,10 @@ class Mari {
         let nomination = NominationRAW(forType, by.scanner)
         if forType == .pending {
             nomination.confirmationMailId = mail.identifier ?? ""
-            nomination.confirmedTime = mail.internalDate?.uint64Value ?? 0
+            nomination.confirmedTime = (mail.internalDate?.uint64Value ?? 0) / 1000
         } else {
             nomination.resultMailId = mail.identifier ?? ""
-            nomination.resultTime = mail.internalDate?.uint64Value ?? 0
+            nomination.resultTime = (mail.internalDate?.uint64Value ?? 0) / 1000
         }
 
         // Subject -> Title
@@ -200,20 +200,16 @@ class Mari {
             // Reason
             if forType == .rejected {
                 if let reasonRange = body.range(of: "^(.|\n|\r)+\\-NianticOps", options: .regularExpression) {
-                    var indexReasons: [String.Index : Int16] = [:]
-                    for pair in Umi.shared.reason {
-                        // Skip the old codes
-                        if pair.key != pair.value.code {
-                            continue
-                        }
-                        guard let keywords = pair.value.keywords[by.scanner] else {
+                    var indexReasons: [String.Index : Umi.Reason.Code] = [:]
+                    for reason in Umi.shared.reasonAll {
+                        guard let keywords = reason.keywords[by.scanner] else {
                             continue
                         }
                         for keyword in keywords.keywords {
                             guard let range = body.range(of: keyword, options: .literal, range: reasonRange) else {
                                 continue
                             }
-                            indexReasons[range.lowerBound] = pair.key
+                            indexReasons[range.lowerBound] = reason.code
                             break
                         }
                     }
