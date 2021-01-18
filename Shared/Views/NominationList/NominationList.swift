@@ -25,21 +25,7 @@ struct NominationList: View {
     ) private var nominations: FetchedResults<Nomination>
     
     var body: some View {
-        if nominations.isEmpty && service.status == .idle {
-            emptyPrompt
-        } else {
-            #if os(macOS)
-            list
-                .listStyle(PlainListStyle())
-                .frame(minWidth: 250)
-            #else
-            list.listStyle(InsetGroupedListStyle())
-            #endif
-        }
-    }
-    
-    private var list: some View {
-        List { ListContent(filter.predicate) }
+        content
             .navigationTitle("view.nominations")
             .toolbar {
                 ToolbarItem(placement: .navigation) {
@@ -63,6 +49,22 @@ struct NominationList: View {
                 }
                 #endif
             }
+    }
+    
+    @ViewBuilder
+    private var content: some View {
+        if nominations.isEmpty && service.status == .idle {
+            emptyPrompt
+        } else {
+            #if os(macOS)
+            List { ListContent(filter.predicate) }
+                .listStyle(PlainListStyle())
+                .frame(minWidth: 250)
+            #else
+            List { ListContent(filter.predicate) }
+                .listStyle(InsetGroupedListStyle())
+            #endif
+        }
     }
     
     private var refreshButton: some View {
@@ -89,7 +91,6 @@ struct NominationList: View {
                 }
             }
         }
-        .navigationTitle("view.nominations")
         .padding()
     }
 }
