@@ -831,6 +831,7 @@
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_PREFIX_HEADER = Shared/info_plist_preprocessor.h;
+				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -856,6 +857,7 @@
 				ENABLE_PREVIEWS = NO;
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_PREFIX_HEADER = Shared/info_plist_preprocessor.h;
+				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
