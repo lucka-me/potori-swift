@@ -35,6 +35,7 @@ We hope to implement all features of the web app, and bring more with platform s
   - [x] Status data manager
   - [x] Login Google account
   - [x] Mail processor
+  - [x] Manually Match
 - [x] Data Manager
   - [x] Store data with Core Data
   - [x] Export / Import nominations to / from JSON file
@@ -47,9 +48,8 @@ We hope to implement all features of the web app, and bring more with platform s
   - [x] Navigation for all platform
   - [x] Nomination List
   - [x] Nomination Details
-  - [x] Manually Match
   - [ ] Nomination Editor
-  - [ ] Filter
+  - [x] Filter
     - [x] By State
     - [x] By Reason
   - [ ] Re-order
@@ -58,6 +58,8 @@ We hope to implement all features of the web app, and bring more with platform s
     - [ ] Charts
   - [x] Map Panel
   - [x] Preference View
+- [ ] Brand-new Features
+ - [ ] Only process mails later than latest one
 - [ ] Platform Features
   - [ ] Background update & notification
   - [ ] Widget
