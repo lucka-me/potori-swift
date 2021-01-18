@@ -119,7 +119,6 @@
 		84177FB125B2DE81009CC4E9 /* MatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchManager.swift; sourceTree = "<group>"; };
 		84177FB825B2F079009CC4E9 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
 		842F6C6B259CAA7A0063DCFE /* PotoriCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotoriCommands.swift; sourceTree = "<group>"; };
-		843463DC25B20D93008A03CB /* post-build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "post-build.sh"; sourceTree = "<group>"; };
 		843463E525B20E3D008A03CB /* pre-build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "pre-build.sh"; sourceTree = "<group>"; };
 		843BEF37259F07CF00FC17F9 /* TabNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigation.swift; sourceTree = "<group>"; };
 		843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarNavigation.swift; sourceTree = "<group>"; };
@@ -213,7 +212,6 @@
 		843463DB25B20D7D008A03CB /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
-				843463DC25B20D93008A03CB /* post-build.sh */,
 				843463E525B20E3D008A03CB /* pre-build.sh */,
 			);
 			path = Scripts;
@@ -401,7 +399,6 @@
 			buildPhases = (
 				8491785C2599F81700CD967F /* Sources */,
 				8491785D2599F81700CD967F /* Frameworks */,
-				84ABD88225B4820F00DAA2DB /* Write Build Version */,
 				8491785E2599F81700CD967F /* Resources */,
 			);
 			buildRules = (
@@ -427,7 +424,6 @@
 			buildPhases = (
 				849178642599F81700CD967F /* Sources */,
 				849178652599F81700CD967F /* Frameworks */,
-				84ABD87925B4819B00DAA2DB /* Write Build Version */,
 				849178662599F81700CD967F /* Resources */,
 			);
 			buildRules = (
@@ -580,47 +576,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		84ABD87925B4819B00DAA2DB /* Write Build Version */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Write Build Version";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/sh ${PROJECT_DIR}/Scripts/pre-build.sh\n";
-		};
-		84ABD88225B4820F00DAA2DB /* Write Build Version */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 12;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Write Build Version";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/sh ${PROJECT_DIR}/Scripts/pre-build.sh\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8491785C2599F81700CD967F /* Sources */ = {
@@ -875,6 +830,7 @@
 				DEVELOPMENT_TEAM = 6JSH2PZAX2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
+				INFOPLIST_PREFIX_HEADER = Shared/info_plist_preprocessor.h;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -899,6 +855,7 @@
 				DEVELOPMENT_TEAM = 6JSH2PZAX2;
 				ENABLE_PREVIEWS = NO;
 				INFOPLIST_FILE = iOS/Info.plist;
+				INFOPLIST_PREFIX_HEADER = Shared/info_plist_preprocessor.h;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -926,6 +883,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = macOS/Info.plist;
+				INFOPLIST_PREFIX_HEADER = Shared/info_plist_preprocessor.h;
+				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -951,6 +910,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = macOS/Info.plist;
+				INFOPLIST_PREFIX_HEADER = Shared/info_plist_preprocessor.h;
+				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
