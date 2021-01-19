@@ -53,15 +53,11 @@ class NominationRAW {
             status = .rejected
             if let solidReasons = from.reasons {
                 for code in solidReasons {
-                    // Prevent add old codes and undeclared
-                    guard
-                        let reason = Umi.shared.reason[code]?.code,
-                        reason != Umi.Reason.undeclared
-                    else {
-                        continue
-                    }
-                    if !reasons.contains(reason) {
-                        reasons.append(reason)
+                    if
+                        Umi.shared.reason.keys.contains(code),
+                        code != Umi.Reason.undeclared,
+                        !reasons.contains(code) {
+                        reasons.append(code)
                     }
                 }
             } else {

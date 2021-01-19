@@ -103,7 +103,7 @@ fileprivate final class RemoteImageModel: ObservableObject {
             return
         }
         let request = URLRequest(url: taskUrl, cachePolicy: .returnCacheDataElseLoad)
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        URLSession.shared.dataTask(with: request) { (data, _, _) in
             guard let solidData = data else {
                 return
             }

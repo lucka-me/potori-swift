@@ -69,9 +69,7 @@ extension Nomination : Identifiable {
             reasons = newValue.map { $0.code }
         }
         get {
-            reasons.map {
-                (Umi.shared.reason[$0] ?? Umi.shared.reason[Umi.Reason.undeclared]!)
-            }
+            reasons.compactMap { Umi.shared.reason[$0] }
         }
     }
     
