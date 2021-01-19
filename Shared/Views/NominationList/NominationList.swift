@@ -134,7 +134,8 @@ fileprivate struct ListContent: View {
     }
     
     var body: some View {
-        ForEach(filteredNominations) { nomination in
+        let filtered = filter.filterByReason(Array(nominations))
+        ForEach(filtered) { nomination in
             NavigationLink(
                 destination: NominationDetails(nomination: nomination),
                 tag: nomination.id,
@@ -157,7 +158,14 @@ fileprivate struct ListContent: View {
                 }
             }
         }
-        .onDelete(perform: delete)
+        .onDelete { indexSet in
+            for index in indexSet {
+                if index < filtered.endIndex {
+                    viewContext.delete(filtered[index])
+                }
+            }
+            service.save()
+        }
         .deleteDisabled(service.status != .idle)
         .onAppear {
             #if os(macOS)
@@ -167,18 +175,5 @@ fileprivate struct ListContent: View {
             }
             #endif
         }
-    }
-    
-    private var filteredNominations: [Nomination] {
-        filter.filterByReason(Array(nominations))
-    }
-    
-    private func delete(_ indexSet: IndexSet) {
-        for index in indexSet {
-            if index < filteredNominations.endIndex {
-                viewContext.delete(filteredNominations[index])
-            }
-        }
-        service.save()
     }
 }
