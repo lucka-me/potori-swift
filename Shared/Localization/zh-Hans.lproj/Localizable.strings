@@ -15,8 +15,9 @@
 "data.duplicated" = "重复";
 "data.close"      = "过近";
 "data.criteriaCriteria"     = "不合标准";
-"data.criteriaGeneric"      = "一般商家";
 "data.criteriaTemporary"    = "临时";
+"data.criteriaGeneric"      = "一般商家";
+"data.locationMismatched"   = "地点不符";
 "data.locationPrivate"  = "私人";
 "data.photoPlate"   = "车牌";
 "data.photoQuality" = "照片质量";

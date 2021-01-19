@@ -114,7 +114,6 @@ final class Umi {
         
         fileprivate struct JSON: Codable {
             let code: Int16
-            let oldCode: Int16?
             let title: String
             let iconSF: String
             
@@ -188,15 +187,11 @@ final class Umi {
         reason = dataJSON.reasons.reduce(into: [:]) { dict, value in
             let reason = Reason(value)
             dict[reason.code] = reason
-            if let solidOldCode = value.oldCode {
-                dict[solidOldCode] = reason
-            }
         }
         statusAll = status
             .sorted { a, b in a.key.rawValue < b.key.rawValue }
             .map { $0.value }
         reasonAll = reason
-            .filter { $0.key == $0.value.code }
             .sorted { a, b in a.key < b.key }
             .map { $0.value }
     }

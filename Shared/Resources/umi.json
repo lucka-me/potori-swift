@@ -114,7 +114,6 @@
 
         {
             "code": 226,
-            "oldCode": 112,
             "title": "data.criteriaCriteria",
             "iconFA": "\uf05e",
             "iconSF": "xmark.octagon",
@@ -128,7 +127,6 @@
         },
         {
             "code": 246,
-            "oldCode": 104,
             "title": "data.criteriaTemporary",
             "iconFA": "\uf1da",
             "iconSF": "circle.dashed",
@@ -142,7 +140,6 @@
         },
         {
             "code": 281,
-            "oldCode": 105,
             "title": "data.criteriaGeneric",
             "iconFA": "\uf54e",
             "iconSF": "shippingbox",
@@ -156,8 +153,20 @@
         },
 
         {
+            "code": 331,
+            "title": "data.locationMismatched",
+            "iconFA": "\uf041",
+            "iconSF": "mappin.slash",
+            "color": "#C28282",
+            "keywords": [
+                {
+                    "scanner": 2,
+                    "keywords": [ "accurately reflects the submitted" ]
+                }
+            ]
+        },
+        {
             "code": 346,
-            "oldCode": 124,
             "title": "data.locationPrivate",
             "iconFA": "\uf023",
             "iconSF": "lock",
@@ -172,7 +181,6 @@
         
         {
             "code": 426,
-            "oldCode": 106,
             "title": "data.photoPlate",
             "iconFA": "\uf1b9",
             "iconSF": "car",
@@ -186,7 +194,6 @@
         },
         {
             "code": 431,
-            "oldCode": 133,
             "title": "data.photoQuality",
             "iconFA": "\uf03e",
             "iconSF": "photo",

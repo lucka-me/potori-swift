@@ -172,8 +172,6 @@ final class Service: ObservableObject {
                 } catch {
                     return true
                 }
-            } else if file == .standard {
-                self.download(.legacy, callback)
             } else {
                 callback()
             }

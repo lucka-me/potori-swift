@@ -15,8 +15,9 @@
 "data.duplicated"   = "Duplicated";
 "data.close"        = "Too Close";
 "data.criteriaCriteria"     = "Criteria";
-"data.criteriaGeneric"      = "Generic Store";
 "data.criteriaTemporary"    = "Temporary";
+"data.criteriaGeneric"      = "Generic Store";
+"data.locationMismatched"   = "Mismatched";
 "data.locationPrivate"  = "Private";
 "data.photoPlate"   = "License Plate";
 "data.photoQuality" = "Photo Quality";
