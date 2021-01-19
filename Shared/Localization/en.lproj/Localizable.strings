@@ -70,6 +70,9 @@
 "view.preferences.google.sync"      = "Sync with Google Drive";
 "view.preferences.google.syncNow"   = "Sync Now";
 "view.preferences.google.uploadNow" = "Upload Now";
+"view.preferences.google.migrate"   = "Migrate Data";
+"view.preferences.google.migrate.alert"   = "Some reasons might be lost during migrating, it's highly recommended to refresh before migrate.";
+"view.preferences.google.migrate.alert.confirm" = "Migrate";
 "view.preferences.data.importExport"    = "Import / Export";
 "view.preferences.data.exportNominations"  = "Export Nominations";
 "view.preferences.data.importNominations"  = "Import Nominations";

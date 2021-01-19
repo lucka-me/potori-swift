@@ -102,6 +102,13 @@ final class Service: ObservableObject {
         }
     }
     
+    /// Migrate data from potori.json
+    func migrateFromGoogleDrive() {
+        download(.legacy) {
+            self.status = .idle
+        }
+    }
+    
     func refresh() {
         if auth.login {
             progress = 0.0

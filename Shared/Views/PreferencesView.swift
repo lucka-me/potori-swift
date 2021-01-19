@@ -79,13 +79,14 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
     let title: LocalizedStringKey = "view.preferences.google"
     let icon: String = "person.crop.circle"
     
-    @AppStorage(Preferences.Google.keySync) var prefGoogleSync = false
+    @AppStorage(Preferences.Google.keySync) var prefSync = false
     
     @EnvironmentObject var service: Service
     #if os(iOS)
     @EnvironmentObject var appDelegate: AppDelegate
-    @State private var isPresentingActionSheetAccountGoogle = false
+    @State private var isPresentingActionSheetAccount = false
     #endif
+    @State private var isPresentingAlertMigrate = false
     
     var body: some View {
         #if os(macOS)
@@ -107,9 +108,9 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
                 .foregroundColor(service.auth.login ? .green : .red)
         }
         .onTapGesture {
-            self.isPresentingActionSheetAccountGoogle = true
+            self.isPresentingActionSheetAccount = true
         }
-        .actionSheet(isPresented: $isPresentingActionSheetAccountGoogle) {
+        .actionSheet(isPresented: $isPresentingActionSheetAccount) {
             ActionSheet(
                 title: service.auth.login ? Text(service.auth.mail) : Text("view.preferences.google.account"),
                 buttons: [
@@ -122,15 +123,32 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
         }
         #endif
         if service.auth.login {
-            Toggle("view.preferences.google.sync", isOn: $prefGoogleSync)
+            Toggle("view.preferences.google.sync", isOn: $prefSync)
+
             Button("view.preferences.google.syncNow") {
                 service.sync()
             }
             .disabled(service.status != .idle)
+
             Button("view.preferences.google.uploadNow") {
                 service.sync(performDownload: false)
             }
             .disabled(service.status != .idle)
+            
+            Button("view.preferences.google.migrate") {
+                self.isPresentingAlertMigrate = true
+            }
+            .disabled(service.status != .idle)
+            .alert(isPresented: $isPresentingAlertMigrate) {
+                Alert(
+                    title: Text("view.preferences.google.migrate"),
+                    message: Text("view.preferences.google.migrate.alert"),
+                    primaryButton: Alert.Button.destructive(Text("view.preferences.google.migrate.alert.confirm")) {
+                        service.migrateFromGoogleDrive()
+                    },
+                    secondaryButton: Alert.Button.cancel()
+                )
+            }
         }
     }
     
