@@ -36,6 +36,7 @@
 "view.nominations.refresh"  = "刷新";
 "view.nominations.processingMails"  = "正在处理邮件";
 "view.nominations.selectPrompt" = "请选择一个提名";
+"view.nominations.refreshPrompt"    = "刷新以开始";
 "view.nominations.linkPrompt"   = "从连接Google账号开始";
 "view.nominations.menuBrainstorming"    = "Brainstorming";
 "view.nominations.menuIntel"    = "Intel Maps";

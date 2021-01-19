@@ -79,7 +79,7 @@ struct NominationList: View {
     private var emptyPrompt: some View {
         VStack {
             if service.auth.login {
-                refreshButton
+                Text("view.nominations.refreshPrompt")
             } else {
                 Text("view.nominations.linkPrompt")
                 Button("view.preferences.google.link") {

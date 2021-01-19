@@ -36,6 +36,7 @@
 "view.nominations.refresh"  = "Refresh";
 "view.nominations.processingMails"  = "Processing Mails";
 "view.nominations.selectPrompt" = "Select a nomination";
+"view.nominations.refreshPrompt"    = "Refresh to start";
 "view.nominations.linkPrompt"   = "Link your Google Account to start";
 "view.nominations.menuBrainstorming"    = "Brainstorming";
 "view.nominations.menuIntel"    = "Intel Maps";
