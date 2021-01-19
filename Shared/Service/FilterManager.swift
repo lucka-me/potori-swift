@@ -46,16 +46,19 @@ class FilterManager: ObservableObject {
         .init(format: "status IN %@", status.filter { $0.value.isOn }.map { $0.key.rawValue })
     }
     
-    func filterByReason(_ inList: [Nomination]) -> [Nomination] {
-        if allReasonsEnabled {
-            return inList
+    /// Filter nominations by reasons
+    /// - Parameter fromNominations: Array of Nominations to filter, should already be filtered by the predicate
+    /// - Returns: The filtered array
+    func filterByReason(_ fromNominations: [Nomination]) -> [Nomination] {
+        if !status[Umi.Status.Code.rejected]!.isOn || allReasonsEnabled {
+            return fromNominations
         }
         if allReasonsDisabled {
-            return inList.filter { $0.status != Umi.Status.Code.rejected.rawValue }
+            return fromNominations.filter { $0.status != Umi.Status.Code.rejected.rawValue }
         }
         let enabled = enabledReasons
         let enabledUndeclared = enabledReasons.contains(Umi.Reason.undeclared)
-        return inList.filter { nomination in
+        return fromNominations.filter { nomination in
             if nomination.status != Umi.Status.Code.rejected.rawValue {
                 return true
             }
