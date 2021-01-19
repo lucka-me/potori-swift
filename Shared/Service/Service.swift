@@ -13,10 +13,10 @@ final class Service: ObservableObject {
     
     typealias BasicCallback = () -> Void
     
-    enum ServiceStatus {
-        case idle
-        case syncing
-        case processingMails
+    enum ServiceStatus: String {
+        case idle               = "service.status.idle"
+        case syncing            = "service.status.syncing"
+        case processingMails    = "service.status.processingMails"
     }
     
     private enum NominationFile: String {

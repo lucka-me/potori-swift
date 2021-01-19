@@ -5,7 +5,7 @@
   Created by Lucka on 7/1/2021.
   
 */
-/* Data */
+/* Umi */
 // Status
 "data.pending"  = "审核中";
 "data.accepted" = "批准";
@@ -21,6 +21,10 @@
 "data.locationPrivate"  = "私人";
 "data.photoPlate"   = "车牌";
 "data.photoQuality" = "照片质量";
+
+/* Service */
+"service.status.idle"   = "空闲";
+"service.status.syncing"    = "同步中";
 
 /* View */
 // Navigation

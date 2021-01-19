@@ -16,39 +16,56 @@ struct NominationList: View {
     
     @EnvironmentObject private var service: Service
     @EnvironmentObject private var filter: FilterManager
-
-    @FetchRequest(
-        entity: Nomination.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \Nomination.title, ascending: true)
-        ]
-    ) private var nominations: FetchedResults<Nomination>
     
     var body: some View {
         content
             .navigationTitle("view.nominations")
             .toolbar {
-                ToolbarItem(placement: .navigation) {
-                    #if os(macOS)
-                    refreshButton
-                    #else
+                ToolbarItem(placement: refreshPlacement) {
+                    Button(action: {
+                        service.refresh()
+                    }) {
+                        Label("view.nominations.refresh", systemImage: "arrow.clockwise")
+                    }
+                    .disabled(service.status != .idle)
                     if service.status == .processingMails {
                         ProgressView(value: service.progress, total: 1.0)
-                            .frame(idealWidth: 100)
+                            .frame(idealWidth: progressIdealWidth)
                     } else {
                         refreshButton
                     }
-                    #endif
                 }
-                #if os(macOS)
                 ToolbarItem(placement: .principal) {
-                    if service.status == .processingMails {
+                    switch service.status {
+                    case .processingMails:
                         ProgressView(value: service.progress, total: 1.0)
-                            .frame(idealWidth: 150)
+                            .frame(idealWidth: progressIdealWidth)
+                    default:
+                        Text(LocalizedStringKey(service.status.rawValue))
+                            .foregroundColor(.secondary)
+                            .font(.subheadline)
                     }
                 }
-                #endif
             }
+    }
+    
+    private var refreshPlacement: ToolbarItemPlacement {
+        #if os(macOS)
+        return .navigation
+        #else
+        if horizontalSizeClass == .compact {
+            return .navigation
+        }
+        return .primaryAction
+        #endif
+    }
+    
+    private var progressIdealWidth: CGFloat {
+        #if os(macOS)
+        return 150
+        #else
+        return 100
+        #endif
     }
     
     @ViewBuilder

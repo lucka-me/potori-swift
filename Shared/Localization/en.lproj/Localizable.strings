@@ -5,7 +5,7 @@
   Created by Lucka on 7/1/2021.
   
 */
-/* Data */
+/* Umi */
 // Status
 "data.pending"  = "Pending";
 "data.accepted" = "Accepted";
@@ -21,6 +21,10 @@
 "data.locationPrivate"  = "Private";
 "data.photoPlate"   = "License Plate";
 "data.photoQuality" = "Photo Quality";
+
+/* Service */
+"service.status.idle"   = "Idle";
+"service.status.syncing"    = "Syncing";
 
 /* View */
 // Navigation
