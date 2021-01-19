@@ -28,12 +28,6 @@ struct NominationList: View {
                         Label("view.nominations.refresh", systemImage: "arrow.clockwise")
                     }
                     .disabled(service.status != .idle)
-                    if service.status == .processingMails {
-                        ProgressView(value: service.progress, total: 1.0)
-                            .frame(idealWidth: progressIdealWidth)
-                    } else {
-                        refreshButton
-                    }
                 }
                 ToolbarItem(placement: .principal) {
                     switch service.status {
@@ -82,15 +76,6 @@ struct NominationList: View {
                 .listStyle(InsetGroupedListStyle())
             #endif
         }
-    }
-    
-    private var refreshButton: some View {
-        Button(action: {
-            service.refresh()
-        }) {
-            Label("view.nominations.refresh", systemImage: "arrow.clockwise")
-        }
-        .disabled(service.status != .idle)
     }
     
     private var emptyPrompt: some View {
