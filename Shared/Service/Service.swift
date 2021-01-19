@@ -88,6 +88,10 @@ final class Service: ObservableObject {
         return []
     }
     
+    var isNominationsEmpty: Bool {
+        (try? containerContext.count(for: Nomination.fetchRequest())) == 0
+    }
+    
     func clear() {
         for nomination in nominations {
             containerContext.delete(nomination)

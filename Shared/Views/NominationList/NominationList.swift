@@ -53,7 +53,7 @@ struct NominationList: View {
     
     @ViewBuilder
     private var content: some View {
-        if nominations.isEmpty && service.status == .idle {
+        if service.status == .idle && service.isNominationsEmpty {
             emptyPrompt
         } else {
             #if os(macOS)
