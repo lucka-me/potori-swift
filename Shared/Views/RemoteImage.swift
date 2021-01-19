@@ -94,49 +94,16 @@ struct RemoteImage_Previews: PreviewProvider {
 }
 #endif
 
-fileprivate class CachedImage {
-    
-    static let shared = CachedImage()
-    
-    private var cache = NSCache<NSString, UNImage>()
-    
-    func get(_ forKey: String) -> UNImage? {
-        return cache.object(forKey: NSString(string: forKey))
-    }
-    
-    func set(forKey: String, image: UNImage) {
-        cache.setObject(image, forKey: NSString(string: forKey))
-    }
-}
-
-fileprivate class RemoteImageModel: ObservableObject {
+fileprivate final class RemoteImageModel: ObservableObject {
     
     @Published var image: UNImage?
-    var url: String
-
-    private var cache = CachedImage.shared
     
     init(_ url: String) {
-        self.url = url
-        if !cached {
-            fetch()
-        }
-    }
-    
-    var cached: Bool {
-        guard let cacheImage = cache.get(url) else {
-            return false
-        }
-        image = cacheImage
-        return true
-    }
-    
-    private func fetch() {
-        
         guard let taskUrl = URL(string: url) else {
             return
         }
-        URLSession.shared.dataTask(with: taskUrl) { (data, response, error) in
+        let request = URLRequest(url: taskUrl, cachePolicy: .returnCacheDataElseLoad)
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let solidData = data else {
                 return
             }
@@ -144,7 +111,6 @@ fileprivate class RemoteImageModel: ObservableObject {
                 guard let remoteImage = UNImage(data: solidData) else {
                     return
                 }
-                self.cache.set(forKey: self.url, image: remoteImage)
                 self.image = remoteImage
             }
         }
