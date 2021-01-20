@@ -40,23 +40,23 @@ We hope to implement all features of the web app, and bring more with platform s
   - [x] Store data with Core Data
   - [x] Export / Import nominations to / from JSON file
   - [x] Sync with Google Drive
+  - [x] Migrate from `potori.json` in Google Drive
 - [ ] Brainstorming
   - [ ] Data structure
   - [ ] Store data with Core Data
   - [ ] Firebase query
 - [ ] User Interface with SwiftUI 2.0
   - [x] Navigation for all platform
+  - [ ] Dashboard
+    - [x] Basic
+    - [ ] Reasons
+    - [ ] Last 30 Days
+    - [ ] Map
+    - [ ] Charts
   - [x] Nomination List
   - [x] Nomination Details
   - [ ] Nomination Editor
-  - [x] Filter
-    - [x] By State
-    - [x] By Reason
-  - [ ] Re-order
-  - [ ] Stats Panel
-    - [x] Basic stats
-    - [ ] Charts
-  - [x] Map Panel
+  - [ ] Order
   - [x] Preference View
 - [ ] Brand-new Features
  - [ ] Only process mails later than latest one
