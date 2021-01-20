@@ -7,27 +7,44 @@
 
 import SwiftUI
 
-struct DashboardCardView<Label: View>: View {
+struct DashboardCardView<Label: View, Destination: View>: View {
     
     var text: Text
     private var label: Label
+    private var destination: Destination?
     
-    init(_ text: Text, @ViewBuilder label: @escaping () -> Label) {
+    init(_ text: Text, @ViewBuilder label: @escaping () -> Label) where Destination == EmptyView {
         self.text = text
+        self.destination = nil
+        self.label = label()
+    }
+    
+    init(_ text: Text, destination: Destination, @ViewBuilder label: @escaping () -> Label) {
+        self.text = text
+        self.destination = destination
         self.label = label()
     }
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color.gray.opacity(0.3))
+            
+            if let solidDestination = destination {
+                NavigationLink(destination: solidDestination) {
+                    background
+                }
+                .buttonStyle(PlainButtonStyle())
+            } else {
+                background
+            }
 
             VStack(alignment: .leading) {
                 HStack {
                     label
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundColor(.secondary)
+                    if destination != nil {
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.secondary)
+                    }
                 }
                 text
                     .font(.system(.largeTitle, design: .rounded))
@@ -37,6 +54,12 @@ struct DashboardCardView<Label: View>: View {
             .foregroundColor(.black)
             .padding()
         }
+    }
+    
+    @ViewBuilder
+    private var background: some View {
+        RoundedRectangle(cornerRadius: 20, style: .continuous)
+            .fill(Color.gray.opacity(0.3))
     }
 }
 

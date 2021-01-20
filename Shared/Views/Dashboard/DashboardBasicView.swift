@@ -17,7 +17,7 @@ struct DashboardBasicView: View {
     
     var body: some View {
         LazyVGrid(columns: columns, alignment: .leading) {
-            DashboardCardView(Text("\(service.count())")) {
+            DashboardCardView(Text("\(service.count())"), destination: NominationList()) {
                 Label("view.dashboard.basic.nominations", systemImage: "arrow.up.circle")
                     .foregroundColor(.accentColor)
             }
@@ -32,7 +32,7 @@ struct DashboardBasicView: View {
     
     private var columns: [GridItem] {
         #if os(macOS)
-        let count = 4
+        let count = 2
         #else
         let count = horizontalSizeClass == .compact ? 2 : 4
         #endif
