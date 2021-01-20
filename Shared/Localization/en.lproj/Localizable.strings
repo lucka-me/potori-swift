@@ -35,6 +35,7 @@
 
 // Dashboard
 "view.dashboard"    = "Dashboard";
+"view.dashboard.refresh"    = "Refresh";
 "view.dashboard.basic.nominations"  = "Nominations";
 "view.dashboard.reasons"    = "Reasons";
 
