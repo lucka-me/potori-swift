@@ -43,7 +43,7 @@ struct SidebarNavigation: View {
                 destination: nominationList,
                 isActive: $isNominationListActive
             ) { Label("view.nominations", systemImage: "list.bullet") }
-            NavigationLink(destination: StatsView()) { Label("view.stats", systemImage: "chart.bar") }
+            NavigationLink(destination: DashboardView()) { Label("view.dashboard", systemImage: "gauge") }
             NavigationLink(destination: MainMap()) { Label("view.map", systemImage: "map") }
         }
     }

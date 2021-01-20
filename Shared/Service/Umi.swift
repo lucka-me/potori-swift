@@ -89,6 +89,8 @@ final class Umi {
             }
             self.queries = queries
         }
+        
+        var predicate: NSPredicate { .init(format: "status = %d", code.rawValue) }
     }
     
     // Reason

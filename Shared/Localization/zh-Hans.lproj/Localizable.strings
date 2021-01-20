@@ -36,6 +36,11 @@
 "view.map"          = "地图";
 "view.preferences"  = "偏好设置";
 
+// Dashboard
+"view.dashboard"    = "仪表盘";
+"view.dashboard.basic.nominations"  = "提名";
+"view.dashboard.reasons"    = "原因";
+
 // Nominations
 "view.nominations.refresh"  = "刷新";
 "view.nominations.processingMails"  = "正在处理邮件";

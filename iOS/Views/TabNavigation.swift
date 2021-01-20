@@ -15,8 +15,8 @@ struct TabNavigation: View {
         TabView {
             nominationList
                 .tabItem { Label("view.nominations", systemImage: "list.bullet") }
-            StatsView()
-                .tabItem { Label("view.stats", systemImage: "chart.bar")}
+            dashboard
+                .tabItem { Label("view.dashboard", systemImage: "gauge")}
             MainMap()
                 .tabItem { Label("view.map", systemImage: "map") }
             PreferencesView()
@@ -53,6 +53,14 @@ struct TabNavigation: View {
                             }
                     }
                 }
+        }
+    }
+    
+    @ViewBuilder
+    private var dashboard: some View {
+        NavigationView {
+            DashboardView()
+                .navigationTitle("view.dashboard")
         }
     }
 }

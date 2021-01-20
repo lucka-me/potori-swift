@@ -36,6 +36,11 @@
 "view.map"          = "Map";
 "view.preferences"  = "Preferences";
 
+// Dashboard
+"view.dashboard"    = "Dashboard";
+"view.dashboard.basic.nominations"  = "Nominations";
+"view.dashboard.reasons"    = "Reasons";
+
 // Nominations
 "view.nominations.refresh"  = "Refresh";
 "view.nominations.processingMails"  = "Processing Mails";

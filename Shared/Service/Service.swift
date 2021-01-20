@@ -80,6 +80,12 @@ final class Service: ObservableObject {
         }
     }
     
+    func count(_ predicate: NSPredicate? = nil) -> Int {
+        let request: NSFetchRequest<Nomination> = Nomination.fetchRequest()
+        request.predicate = predicate
+        return (try? containerContext.count(for: request)) ?? 0
+    }
+    
     var nominations: [Nomination] {
         do {
             return try containerContext.fetch(Nomination.fetchRequest())
