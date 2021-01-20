@@ -12,18 +12,21 @@ struct NominationList: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.openURL) private var openURL
     @EnvironmentObject private var service: Service
-    @EnvironmentObject private var filter: FilterManager
     
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
     
+    private let title: LocalizedStringKey
     private let fetchRequest: FetchRequest<Nomination>
     private var nominations: FetchedResults<Nomination> {
         fetchRequest.wrappedValue
     }
     
-    init(_ predicate: NSPredicate? = nil) {
+    init(_ title: LocalizedStringKey, _ predicate: NSPredicate? = nil) {
+        
+        self.title = title
+        
         fetchRequest = .init(
             entity: Nomination.entity(),
             sortDescriptors: [ NSSortDescriptor(keyPath: \Nomination.title, ascending: true) ],
@@ -34,11 +37,11 @@ struct NominationList: View {
     var body: some View {
         #if os(macOS)
         NavigationView {
-            content.navigationTitle("view.nominations")
+            content.navigationTitle(title)
         }
         #else
         content
-            .navigationTitle("view.nominations")
+            .navigationTitle(title)
         #endif
         
     }
@@ -93,12 +96,10 @@ struct NominationList: View {
 struct NominationList_Previews: PreviewProvider {
 
     static let service = Service.preview
-    static let filter = FilterManager()
 
     static var previews: some View {
-        NominationList()
+        NominationList("view.dashboard.basic.nominations")
             .environmentObject(service)
-            .environmentObject(filter)
             .environment(\.managedObjectContext, service.containerContext)
     }
 }

@@ -223,9 +223,9 @@
 		8418510225B823900094470A /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				84F7359A25B830E8003DE878 /* DashboardView.swift */,
 				84F735A525B83169003DE878 /* DashboardBasicView.swift */,
 				84B8A54625B85045000B0C0E /* DashboardCardView.swift */,
+				84F7359A25B830E8003DE878 /* DashboardView.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -375,7 +375,6 @@
 		849178A12599F93300CD967F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8418510225B823900094470A /* Dashboard */,
 				84F97C77259B7474005D9AA4 /* ContentView.swift */,
 				84ABD86325B4351A00DAA2DB /* FilterView.swift */,
 				8462D087259FBA030031AD0D /* MainMap.swift */,
@@ -383,6 +382,7 @@
 				844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */,
 				84CCEDC1259CB5470040917E /* RemoteImage.swift */,
 				843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */,
+				8418510225B823900094470A /* Dashboard */,
 				843BEF28259F018300FC17F9 /* NominationDetails */,
 				843BEF23259F017800FC17F9 /* NominationList */,
 			);

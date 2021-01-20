@@ -17,12 +17,19 @@ struct DashboardBasicView: View {
     
     var body: some View {
         LazyVGrid(columns: columns, alignment: .leading) {
-            DashboardCardView(Text("\(service.count())"), destination: NominationList()) {
+            DashboardCardView(
+                Text("\(service.count())"),
+                destination: NominationList("view.dashboard.basic.nominations")
+            ) {
                 Label("view.dashboard.basic.nominations", systemImage: "arrow.up.circle")
                     .foregroundColor(.accentColor)
             }
             ForEach(Umi.shared.statusAll, id: \.code) { status in
-                DashboardCardView(Text("\(service.count(status.predicate))"))  {
+                let predicate = status.predicate
+                DashboardCardView(
+                    Text("\(service.count(predicate))"),
+                    destination: NominationList(status.title, predicate)
+                ) {
                     Label(status.title, systemImage: status.icon)
                         .foregroundColor(status.color)
                 }
