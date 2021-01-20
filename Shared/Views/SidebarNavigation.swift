@@ -10,50 +10,46 @@ import SwiftUI
 struct SidebarNavigation: View {
     
     @EnvironmentObject var service: Service
-    @State private var isNominationListActive = true
+    @State private var isDashboardActive = true
 
     var body: some View {
         NavigationView {
             List {
-                panelsSection
+                NavigationLink(destination: dashboard, isActive: $isDashboardActive) {
+                    Label("view.dashboard", systemImage: "gauge")
+                }
                 
                 #if os(iOS)
                 Section(header: Text("view.misc")) {
-                    NavigationLink(destination: PreferencesView()) { Label("view.preferences", systemImage: "gearshape") }
+                    NavigationLink(destination: PreferencesView()) {
+                        Label("view.preferences", systemImage: "gearshape")
+                    }
                 }
                 #endif
-                
-                FilterView()
             }
             .frame(minWidth: 150)
             .listStyle(SidebarListStyle())
             .toolbar {
                 ToolbarItemGroup {
                     #if os(macOS)
-                    Button(action: toggleSidebar) { Label("Toggle Sidebar", systemImage: "sidebar.left") }
+                    Button(action: toggleSidebar) {
+                        Label("Toggle Sidebar", systemImage: "sidebar.left")
+                    }
                     #endif
                 }
             }
         }
     }
     
-    private var panelsSection: some View {
-        Section(header: Text("view.panels")) {
-            NavigationLink(
-                destination: nominationList,
-                isActive: $isNominationListActive
-            ) { Label("view.nominations", systemImage: "list.bullet") }
-            NavigationLink(destination: DashboardView()) { Label("view.dashboard", systemImage: "gauge") }
-            NavigationLink(destination: MainMap()) { Label("view.map", systemImage: "map") }
-        }
-    }
-    
     @ViewBuilder
-    private var nominationList: some View {
+    private var dashboard: some View {
         #if os(macOS)
-        NavigationView { NominationList() }
+        NavigationView {
+            DashboardView()
+                .frame(minWidth: 350)
+        }
         #else
-        NominationList()
+        DashboardView()
         #endif
     }
     

@@ -8,59 +8,15 @@
 import SwiftUI
 
 struct TabNavigation: View {
-    
-    @State private var isPresentedFilterSheet = false
-    
     var body: some View {
         TabView {
-            nominationList
-                .tabItem { Label("view.nominations", systemImage: "list.bullet") }
-            dashboard
-                .tabItem { Label("view.dashboard", systemImage: "gauge")}
-            MainMap()
-                .tabItem { Label("view.map", systemImage: "map") }
+            NavigationView {
+                DashboardView()
+                    .navigationTitle("view.dashboard")
+            }
+            .tabItem { Label("view.dashboard", systemImage: "gauge")}
             PreferencesView()
                 .tabItem { Label("view.preferences", systemImage: "gearshape") }
-        }
-    }
-    
-    @ViewBuilder
-    private var nominationList: some View {
-        NavigationView {
-            NominationList()
-                .toolbar {
-                    ToolbarItem(placement: .primaryAction) {
-                        Button {
-                            self.isPresentedFilterSheet.toggle()
-                        } label: {
-                            Label("Filter", systemImage: "line.horizontal.3.decrease.circle")
-                        }
-                    }
-                }
-                .sheet(isPresented: $isPresentedFilterSheet) {
-                    NavigationView {
-                        List { FilterView() }
-                            .listStyle(InsetGroupedListStyle())
-                            .navigationTitle("view.filter")
-                            .toolbar {
-                                ToolbarItem(placement: .confirmationAction) {
-                                    Button {
-                                        self.isPresentedFilterSheet.toggle()
-                                    } label: {
-                                        Label("view.filter.dismiss", systemImage: "xmark")
-                                    }
-                                }
-                            }
-                    }
-                }
-        }
-    }
-    
-    @ViewBuilder
-    private var dashboard: some View {
-        NavigationView {
-            DashboardView()
-                .navigationTitle("view.dashboard")
         }
     }
 }
