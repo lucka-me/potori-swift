@@ -15,7 +15,6 @@ struct PotoriApp: App {
     #endif
     
     private let service = Service.shared
-    private let filter = FilterManager()
     
     @State private var firstAppear = true
 
@@ -23,7 +22,6 @@ struct PotoriApp: App {
         let mainWindow = WindowGroup {
             ContentView()
                 .environmentObject(service)
-                .environmentObject(filter)
                 .environment(\.managedObjectContext, service.containerContext)
                 .onAppear {
                     if firstAppear && Preferences.General.refreshOnOpen {

@@ -25,31 +25,23 @@
 /* Service */
 "service.status.idle"   = "空闲";
 "service.status.syncing"    = "同步中";
+"service.status.processingMails"  = "正在处理邮件";
 
 /* View */
 // Navigation
-"view.panels"   = "面板";
 "view.misc"     = "其它";
 "view.toggleSidebar"    = "开关边栏";
-"view.nominations"  = "提名";
-"view.stats"        = "统计";
-"view.map"          = "地图";
 "view.preferences"  = "偏好设置";
 
 // Dashboard
 "view.dashboard"    = "仪表盘";
 "view.dashboard.basic.nominations"  = "提名";
-"view.dashboard.reasons"    = "原因";
+"view.dashboard.reasons"    = "拒绝原因";
 
-// Nominations
-"view.nominations.refresh"  = "刷新";
-"view.nominations.processingMails"  = "正在处理邮件";
-"view.nominations.selectPrompt" = "请选择一个提名";
-"view.nominations.refreshPrompt"    = "刷新以开始";
-"view.nominations.linkPrompt"   = "从连接Google账号开始";
+// Nomination List
 "view.nominations.menuBrainstorming"    = "Brainstorming";
 "view.nominations.menuIntel"    = "Intel Maps";
-// Details
+// Nomination Details
 "view.nominations.details.confirmed"    = "确认";
 "view.nominations.details.scanner"  = "扫描器";
 "view.nominations.details.rejectedFor"  = "拒绝原因";

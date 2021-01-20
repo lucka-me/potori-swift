@@ -25,15 +25,12 @@
 /* Service */
 "service.status.idle"   = "Idle";
 "service.status.syncing"    = "Syncing";
+"service.status.processingMails"  = "Processing Mails";
 
 /* View */
 // Navigation
-"view.panels"   = "Panels";
 "view.misc"     = "Misc";
 "view.toggleSidebar"    = "Toggle Sidebar";
-"view.nominations"  = "Nominations";
-"view.stats"        = "Stats";
-"view.map"          = "Map";
 "view.preferences"  = "Preferences";
 
 // Dashboard
@@ -41,15 +38,10 @@
 "view.dashboard.basic.nominations"  = "Nominations";
 "view.dashboard.reasons"    = "Reasons";
 
-// Nominations
-"view.nominations.refresh"  = "Refresh";
-"view.nominations.processingMails"  = "Processing Mails";
-"view.nominations.selectPrompt" = "Select a nomination";
-"view.nominations.refreshPrompt"    = "Refresh to start";
-"view.nominations.linkPrompt"   = "Link your Google Account to start";
+// Nomination List
 "view.nominations.menuBrainstorming"    = "Brainstorming";
 "view.nominations.menuIntel"    = "Intel Maps";
-// Details
+// Nomination Details
 "view.nominations.details.confirmed"    = "Confirmed";
 "view.nominations.details.scanner"  = "Scanner";
 "view.nominations.details.rejectedFor"  = "Rejected For";

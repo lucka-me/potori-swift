@@ -23,12 +23,12 @@ struct TabNavigation: View {
 
 #if DEBUG
 struct TabNavigation_Previews: PreviewProvider {
+
     static let service = Service.preview
-    static let filter = FilterManager()
+
     static var previews: some View {
         TabNavigation()
             .environmentObject(service)
-            .environmentObject(filter)
             .environment(\.managedObjectContext, service.containerContext)
     }
 }
