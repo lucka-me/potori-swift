@@ -19,6 +19,7 @@ struct DashboardView: View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(alignment: .leading) {
                 DashboardBasicView()
+                DashboardReasonsView()
             }
             .padding(.horizontal)
         }

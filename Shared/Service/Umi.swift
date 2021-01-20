@@ -147,6 +147,14 @@ final class Umi {
         static func == (lhs: Reason, rhs: Reason) -> Bool {
             lhs.code == rhs.code
         }
+        
+        var predicate: NSPredicate {
+            if code == Self.undeclared {
+                return .init(format: "status = %d AND reasons.@count = 0", Status.Code.rejected.rawValue)
+            } else {
+                return .init(format: "status = %d AND ANY reasons.code = %d", Status.Code.rejected.rawValue, code)
+            }
+        }
     }
     
     fileprivate struct DataJSON: Codable {
