@@ -52,13 +52,13 @@ struct DashboardCardView<Label: View, Destination: View>: View {
                     .padding(.top, 3)
             }
             .foregroundColor(.black)
-            .padding()
+            .padding(10)
         }
     }
     
     @ViewBuilder
     private var background: some View {
-        RoundedRectangle(cornerRadius: 20, style: .continuous)
+        RoundedRectangle(cornerRadius: 10, style: .continuous)
             .fill(Color.gray.opacity(0.3))
     }
 }
