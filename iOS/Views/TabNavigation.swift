@@ -10,12 +10,9 @@ import SwiftUI
 struct TabNavigation: View {
     var body: some View {
         TabView {
-            NavigationView {
-                DashboardView()
-                    .navigationTitle("view.dashboard")
-            }
-            .tabItem { Label("view.dashboard", systemImage: "gauge")}
-            PreferencesView()
+            NavigationView { DashboardView() }
+                .tabItem { Label("view.dashboard", systemImage: "gauge")}
+            NavigationView { PreferencesView() }
                 .tabItem { Label("view.preferences", systemImage: "gearshape") }
         }
     }

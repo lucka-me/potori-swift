@@ -27,14 +27,9 @@ struct PreferencesView : View {
             .frame(minWidth: 400, minHeight: 300)
             .padding()
         #else
-        let list = Form { groups }
+        Form { groups }
             .navigationTitle("view.preferences")
             .listStyle(InsetGroupedListStyle())
-        if horizontalSizeClass == .compact {
-            NavigationView { list }
-        } else {
-            list
-        }
         #endif
     }
     
