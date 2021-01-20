@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DashboardBasicRowView: View {
+struct DashboardBasicView: View {
     
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -41,12 +41,12 @@ struct DashboardBasicRowView: View {
 }
 
 #if DEBUG
-struct DashboardBasicRowView_Previews: PreviewProvider {
+struct DashboardBasicView_Previews: PreviewProvider {
     
     static let service = Service.preview
     
     static var previews: some View {
-        DashboardBasicRowView()
+        DashboardBasicView()
             .environmentObject(service)
             .environment(\.managedObjectContext, service.containerContext)
     }

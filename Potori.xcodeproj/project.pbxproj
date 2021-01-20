@@ -94,8 +94,8 @@
 		84E97F9225A4A49B0031FE3B /* GoogleAPIClientForREST_Drive in Frameworks */ = {isa = PBXBuildFile; productRef = 84E97F9125A4A49B0031FE3B /* GoogleAPIClientForREST_Drive */; };
 		84F7359B25B830E8003DE878 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F7359A25B830E8003DE878 /* DashboardView.swift */; };
 		84F7359C25B830E8003DE878 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F7359A25B830E8003DE878 /* DashboardView.swift */; };
-		84F735A625B83169003DE878 /* DashboardBasicRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F735A525B83169003DE878 /* DashboardBasicRowView.swift */; };
-		84F735A725B83169003DE878 /* DashboardBasicRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F735A525B83169003DE878 /* DashboardBasicRowView.swift */; };
+		84F735A625B83169003DE878 /* DashboardBasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F735A525B83169003DE878 /* DashboardBasicView.swift */; };
+		84F735A725B83169003DE878 /* DashboardBasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F735A525B83169003DE878 /* DashboardBasicView.swift */; };
 		84F97C71259B6978005D9AA4 /* NominationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F97C70259B6978005D9AA4 /* NominationDetails.swift */; };
 		84F97C72259B6978005D9AA4 /* NominationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F97C70259B6978005D9AA4 /* NominationDetails.swift */; };
 		84F97C78259B7474005D9AA4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F97C77259B7474005D9AA4 /* ContentView.swift */; };
@@ -170,7 +170,7 @@
 		84DB6EAD259A2F8C00BD915B /* umi.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = umi.json; sourceTree = "<group>"; };
 		84DB6ED0259A3D5D00BD915B /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		84F7359A25B830E8003DE878 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		84F735A525B83169003DE878 /* DashboardBasicRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardBasicRowView.swift; sourceTree = "<group>"; };
+		84F735A525B83169003DE878 /* DashboardBasicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardBasicView.swift; sourceTree = "<group>"; };
 		84F97C70259B6978005D9AA4 /* NominationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationDetails.swift; sourceTree = "<group>"; };
 		84F97C77259B7474005D9AA4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		84F97CBA259BADB7005D9AA4 /* NominationDetailsMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationDetailsMap.swift; sourceTree = "<group>"; };
@@ -224,7 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				84F7359A25B830E8003DE878 /* DashboardView.swift */,
-				84F735A525B83169003DE878 /* DashboardBasicRowView.swift */,
+				84F735A525B83169003DE878 /* DashboardBasicView.swift */,
 				84B8A54625B85045000B0C0E /* DashboardCardView.swift */,
 			);
 			path = Dashboard;
@@ -621,7 +621,7 @@
 				849178A7259A06E000CD967F /* NominationList.swift in Sources */,
 				849178BE259A0D8D00CD967F /* NominationRAW.swift in Sources */,
 				84A01DD725A609C7006080BF /* Preferences.swift in Sources */,
-				84F735A625B83169003DE878 /* DashboardBasicRowView.swift in Sources */,
+				84F735A625B83169003DE878 /* DashboardBasicView.swift in Sources */,
 				84F7359B25B830E8003DE878 /* DashboardView.swift in Sources */,
 				843BEF38259F07CF00FC17F9 /* TabNavigation.swift in Sources */,
 				8468A22C25A33784009B562D /* Potori.xcdatamodeld in Sources */,
@@ -651,7 +651,7 @@
 				84177FB325B2DE81009CC4E9 /* MatchManager.swift in Sources */,
 				842F6C6C259CAA7A0063DCFE /* PotoriCommands.swift in Sources */,
 				84F7359C25B830E8003DE878 /* DashboardView.swift in Sources */,
-				84F735A725B83169003DE878 /* DashboardBasicRowView.swift in Sources */,
+				84F735A725B83169003DE878 /* DashboardBasicView.swift in Sources */,
 				846645ED25A8DAA200DD37D1 /* GoogleDriveKit.swift in Sources */,
 				84F97C79259B7474005D9AA4 /* ContentView.swift in Sources */,
 				84ABD87025B43EDC00DAA2DB /* FilterManager.swift in Sources */,

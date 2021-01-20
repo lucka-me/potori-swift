@@ -18,7 +18,7 @@ struct DashboardView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(alignment: .leading) {
-                DashboardBasicRowView()
+                DashboardBasicView()
                 Text("view.dashboard.reasons")
                     .font(.title)
             }
