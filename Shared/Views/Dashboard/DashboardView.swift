@@ -22,6 +22,17 @@ struct DashboardView: View {
             }
             .padding(.horizontal)
         }
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    service.refresh()
+                } label: {
+                    Label("view.dashboard.refresh", systemImage: "arrow.clockwise")
+                }
+                .disabled(service.status != .idle)
+            }
+        }
+        .navigationTitle("view.dashboard")
         .padding(.top, 3)
     }
 }
