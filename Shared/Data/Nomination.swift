@@ -27,8 +27,8 @@ extension Nomination {
     @NSManaged public var scanner: Int16
     
     @NSManaged public var status: Int16
-    @NSManaged public var reasons: [Int16]
-    
+    @NSManaged public var reasons: NSSet
+
     @NSManaged public var confirmedTime: Date
     @NSManaged public var confirmationMailId: String
     
@@ -38,6 +38,23 @@ extension Nomination {
     @NSManaged public var hasLngLat: Bool
     @NSManaged public var longitude: Double
     @NSManaged public var latitude: Double
+}
+
+// MARK: Generated accessors for reasons
+extension Nomination {
+
+    @objc(addReasonsObject:)
+    @NSManaged public func addToReasons(_ value: Reason)
+
+    @objc(removeReasonsObject:)
+    @NSManaged public func removeFromReasons(_ value: Reason)
+
+    @objc(addReasons:)
+    @NSManaged public func addToReasons(_ values: NSSet)
+
+    @objc(removeReasons:)
+    @NSManaged public func removeFromReasons(_ values: NSSet)
+
 }
 
 extension Nomination : Identifiable {
@@ -64,13 +81,14 @@ extension Nomination : Identifiable {
         set { statusCode = newValue.code }
         get { Umi.shared.status[statusCode]! }
     }
+    
+    var reasonsCode: [Umi.Reason.Code] {
+        let typedSet = reasons as? Set<Reason> ?? []
+        return typedSet.map { $0.code }.sorted()
+    }
+
     var reasonsData: [Umi.Reason] {
-        set {
-            reasons = newValue.map { $0.code }
-        }
-        get {
-            reasons.compactMap { Umi.shared.reason[$0] }
-        }
+        reasonsCode.compactMap { Umi.shared.reason[$0] }
     }
     
     var imageURL: String {
@@ -78,15 +96,15 @@ extension Nomination : Identifiable {
     }
     
     var brainstormingURL: URL {
-        return URL(string: "https://brainstorming.azurewebsites.net/watermeter.html#\(id)")!
+        URL(string: "https://brainstorming.azurewebsites.net/watermeter.html#\(id)")!
     }
     
     var intelURL: URL {
-        return URL(string: "https://intel.ingress.com/intel?ll=\(latitude),\(longitude)&z=18")!
+        URL(string: "https://intel.ingress.com/intel?ll=\(latitude),\(longitude)&z=18")!
     }
     
     var location: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(
+        CLLocationCoordinate2D(
             latitude: hasLngLat ? latitude : Nomination.defaultLatitude,
             longitude: hasLngLat ? longitude : Nomination.defaultLongitude
         )
@@ -111,12 +129,13 @@ extension Nomination : Identifiable {
             status = raw.status.rawValue
         }
         if !merge {
-            reasons = raw.reasons
-        } else if !raw.reasons.isEmpty {
-            for reason in raw.reasons {
-                if !reasons.contains(reason) {
-                    reasons.append(reason)
-                }
+            removeFromReasons(reasons)
+        }
+        if let solidContext = managedObjectContext {
+            for code in raw.reasons {
+                let reason = Reason(context: solidContext)
+                reason.code = code
+                addToReasons(reason)
             }
         }
         
@@ -149,7 +168,7 @@ extension Nomination : Identifiable {
         raw.image = image
         raw.scanner = Umi.Scanner.Code(rawValue: scanner) ?? .unknown
         raw.status = Umi.Status.Code(rawValue: status) ?? .pending
-        raw.reasons = reasons
+        raw.reasons = reasonsCode
         raw.confirmedTime = UInt64(confirmedTime.timeIntervalSince1970)
         raw.confirmationMailId = confirmationMailId
         raw.resultTime = UInt64(resultTime.timeIntervalSince1970)

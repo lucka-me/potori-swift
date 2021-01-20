@@ -54,6 +54,7 @@ final class Service: ObservableObject {
             }
         }
         containerContext = container.viewContext
+        containerContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         
         mari.onProgress { progress in
             self.progress = progress * Service.progressPartMari

@@ -8,14 +8,29 @@
         <attribute name="image" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="latitude" attributeType="Double" minValueString="-180" maxValueString="180" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" attributeType="Double" minValueString="-180" maxValueString="180" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="reasons" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[Int16]"/>
         <attribute name="resultMailId" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="resultTime" optional="YES" attributeType="Date" defaultDateTimeInterval="-978336000" usesScalarValueType="NO"/>
         <attribute name="scanner" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String" defaultValueString=""/>
+        <relationship name="reasons" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Reason" inverseName="nominations" inverseEntity="Reason"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Reason" representedClassName="Reason" syncable="YES">
+        <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="101" usesScalarValueType="YES"/>
+        <relationship name="nominations" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Nomination" inverseName="reasons" inverseEntity="Nomination"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="code"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Nomination" positionX="-63" positionY="-18" width="128" height="224"/>
+        <element name="Nomination" positionX="-63" positionY="-18" width="128" height="238"/>
+        <element name="Reason" positionX="-349.9713134765625" positionY="29.01968383789062" width="128" height="73"/>
     </elements>
 </model>

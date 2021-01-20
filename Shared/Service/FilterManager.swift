@@ -62,10 +62,10 @@ class FilterManager: ObservableObject {
             if nomination.status != Umi.Status.Code.rejected.rawValue {
                 return true
             }
-            if nomination.reasons.isEmpty {
+            if nomination.reasons.count == 0 {
                 return enabledUndeclared
             }
-            for code in nomination.reasons {
+            for code in nomination.reasonsCode {
                 if enabled.contains(code) {
                     return true
                 }

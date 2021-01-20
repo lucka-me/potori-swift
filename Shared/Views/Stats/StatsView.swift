@@ -90,11 +90,11 @@ struct StatsView: View {
         nominations
             .filter({ $0.statusCode == .rejected })
             .reduce(into: [:] as [Umi.Reason.Code : Int]) { dict, nomination in
-                if nomination.reasons.isEmpty {
+                if nomination.reasons.count == 0 {
                     let code = Umi.Reason.undeclared
                     dict[code] = (dict[code] ?? 0) + 1
                 } else {
-                    for code in nomination.reasons {
+                    for code in nomination.reasonsCode {
                         if Umi.shared.reason.keys.contains(code) {
                             dict[code] = (dict[code] ?? 0) + 1
                         } else {
