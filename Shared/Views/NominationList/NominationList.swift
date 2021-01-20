@@ -62,7 +62,7 @@ struct NominationList: View {
         List {
             ForEach(nominations) { nomination in
                 NavigationLink(destination: NominationDetails(nomination: nomination)) {
-                    NominationItem(nomination: nomination)
+                    NominationListRow(nomination: nomination)
                 }
                 .contextMenu {
                     Button(action: {

@@ -56,8 +56,8 @@
 		849178832599F81700CD967F /* PotoriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178592599F81600CD967F /* PotoriApp.swift */; };
 		849178862599F81700CD967F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8491785B2599F81700CD967F /* Assets.xcassets */; };
 		849178872599F81700CD967F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8491785B2599F81700CD967F /* Assets.xcassets */; };
-		8491789B2599F92C00CD967F /* NominationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8491789A2599F92C00CD967F /* NominationItem.swift */; };
-		8491789C2599F92C00CD967F /* NominationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8491789A2599F92C00CD967F /* NominationItem.swift */; };
+		8491789B2599F92C00CD967F /* NominationListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8491789A2599F92C00CD967F /* NominationListRow.swift */; };
+		8491789C2599F92C00CD967F /* NominationListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8491789A2599F92C00CD967F /* NominationListRow.swift */; };
 		849178A7259A06E000CD967F /* NominationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178A6259A06E000CD967F /* NominationList.swift */; };
 		849178A8259A06E000CD967F /* NominationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178A6259A06E000CD967F /* NominationList.swift */; };
 		849178BE259A0D8D00CD967F /* NominationRAW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178BD259A0D8D00CD967F /* NominationRAW.swift */; };
@@ -150,7 +150,7 @@
 		8491787B2599F81700CD967F /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8491787F2599F81700CD967F /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		849178812599F81700CD967F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8491789A2599F92C00CD967F /* NominationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationItem.swift; sourceTree = "<group>"; };
+		8491789A2599F92C00CD967F /* NominationListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationListRow.swift; sourceTree = "<group>"; };
 		849178A6259A06E000CD967F /* NominationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationList.swift; sourceTree = "<group>"; };
 		849178BD259A0D8D00CD967F /* NominationRAW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationRAW.swift; sourceTree = "<group>"; };
 		8497C76825B81BB500B88C12 /* Reason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reason.swift; sourceTree = "<group>"; };
@@ -235,8 +235,8 @@
 		843BEF23259F017800FC17F9 /* NominationList */ = {
 			isa = PBXGroup;
 			children = (
-				8491789A2599F92C00CD967F /* NominationItem.swift */,
 				849178A6259A06E000CD967F /* NominationList.swift */,
+				8491789A2599F92C00CD967F /* NominationListRow.swift */,
 			);
 			path = NominationList;
 			sourceTree = "<group>";
@@ -597,7 +597,7 @@
 				84177FB925B2F079009CC4E9 /* MatchView.swift in Sources */,
 				8462D088259FBA030031AD0D /* MainMap.swift in Sources */,
 				844A9AAE25A4BD21003E44B5 /* PreferencesView.swift in Sources */,
-				8491789B2599F92C00CD967F /* NominationItem.swift in Sources */,
+				8491789B2599F92C00CD967F /* NominationListRow.swift in Sources */,
 				84B8A54725B85045000B0C0E /* DashboardCardView.swift in Sources */,
 				843BEF48259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */,
 				8462D078259F9C330031AD0D /* AppDelegate.swift in Sources */,
@@ -629,7 +629,7 @@
 				84DB6EA4259A2B1F00BD915B /* Umi.swift in Sources */,
 				846CC62A25A35EFF007A8AE8 /* Nomination.swift in Sources */,
 				84F97C72259B6978005D9AA4 /* NominationDetails.swift in Sources */,
-				8491789C2599F92C00CD967F /* NominationItem.swift in Sources */,
+				8491789C2599F92C00CD967F /* NominationListRow.swift in Sources */,
 				843BEF6B259F36FB00FC17F9 /* AuthKit.swift in Sources */,
 				84B8A54825B85045000B0C0E /* DashboardCardView.swift in Sources */,
 				84A01DD825A609C7006080BF /* Preferences.swift in Sources */,

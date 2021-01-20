@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NominationItem: View {
+struct NominationListRow: View {
     
     var nomination: Nomination
     
@@ -52,11 +52,11 @@ struct NominationItem: View {
 }
 
 #if DEBUG
-struct NominationItem_Previews: PreviewProvider {
+struct NominationListRow_Previews: PreviewProvider {
     static var service: Service = Service.preview
 
     static var previews: some View {
-        NominationItem(nomination: service.nominations[0])
+        NominationListRow(nomination: service.nominations[0])
     }
 }
 #endif
