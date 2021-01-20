@@ -92,9 +92,3 @@
 "view.match.target" = "匹配目标";
 "view.match.candidates" = "候选";
 "view.match.candidates.desc" = "选择对应的提名。";
-
-// Filter
-"view.filter"   = "筛选";
-"view.filter.dismiss"   = "关闭";
-"view.filter.status"    = "筛选状态";
-"view.filter.reason"    = "筛选原因";

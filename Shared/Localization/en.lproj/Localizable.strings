@@ -92,9 +92,3 @@
 "view.match.target" = "Match Target";
 "view.match.candidates" = "Candidates";
 "view.match.candidates.desc" = "Choose the corresponding nomination.";
-
-// Filter
-"view.filter"   = "Filter";
-"view.filter.dismiss"   = "Dismiss";
-"view.filter.status"    = "Filter by Status";
-"view.filter.reason"    = "Filter by Reason";

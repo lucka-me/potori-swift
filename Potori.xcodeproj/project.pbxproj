@@ -68,10 +68,6 @@
 		8497C76C25B81BB500B88C12 /* Reason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497C76825B81BB500B88C12 /* Reason.swift */; };
 		84A01DD725A609C7006080BF /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A01DD625A609C7006080BF /* Preferences.swift */; };
 		84A01DD825A609C7006080BF /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A01DD625A609C7006080BF /* Preferences.swift */; };
-		84ABD86425B4351A00DAA2DB /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ABD86325B4351A00DAA2DB /* FilterView.swift */; };
-		84ABD86525B4351A00DAA2DB /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ABD86325B4351A00DAA2DB /* FilterView.swift */; };
-		84ABD86F25B43EDC00DAA2DB /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ABD86E25B43EDC00DAA2DB /* FilterManager.swift */; };
-		84ABD87025B43EDC00DAA2DB /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ABD86E25B43EDC00DAA2DB /* FilterManager.swift */; };
 		84B8A54725B85045000B0C0E /* DashboardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8A54625B85045000B0C0E /* DashboardCardView.swift */; };
 		84B8A54825B85045000B0C0E /* DashboardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8A54625B85045000B0C0E /* DashboardCardView.swift */; };
 		84BFD364259F46530047318D /* Mari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BFD363259F46530047318D /* Mari.swift */; };
@@ -159,8 +155,6 @@
 		849178BD259A0D8D00CD967F /* NominationRAW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationRAW.swift; sourceTree = "<group>"; };
 		8497C76825B81BB500B88C12 /* Reason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reason.swift; sourceTree = "<group>"; };
 		84A01DD625A609C7006080BF /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
-		84ABD86325B4351A00DAA2DB /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
-		84ABD86E25B43EDC00DAA2DB /* FilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
 		84B8A54625B85045000B0C0E /* DashboardCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCardView.swift; sourceTree = "<group>"; };
 		84BFD363259F46530047318D /* Mari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mari.swift; sourceTree = "<group>"; };
 		84C769A925A706A60055A3A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -376,7 +370,6 @@
 			isa = PBXGroup;
 			children = (
 				84F97C77259B7474005D9AA4 /* ContentView.swift */,
-				84ABD86325B4351A00DAA2DB /* FilterView.swift */,
 				8462D087259FBA030031AD0D /* MainMap.swift */,
 				84177FB825B2F079009CC4E9 /* MatchView.swift */,
 				844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */,
@@ -393,7 +386,6 @@
 			isa = PBXGroup;
 			children = (
 				843BEF69259F36FB00FC17F9 /* AuthKit.swift */,
-				84ABD86E25B43EDC00DAA2DB /* FilterManager.swift */,
 				846645EB25A8DAA200DD37D1 /* GoogleDriveKit.swift */,
 				84BFD363259F46530047318D /* Mari.swift */,
 				84177FB125B2DE81009CC4E9 /* MatchManager.swift */,
@@ -596,7 +588,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84ABD86425B4351A00DAA2DB /* FilterView.swift in Sources */,
 				84F97CBB259BADB7005D9AA4 /* NominationDetailsMap.swift in Sources */,
 				846CC62925A35EFF007A8AE8 /* Nomination.swift in Sources */,
 				84DB6EA3259A2B1F00BD915B /* Umi.swift in Sources */,
@@ -612,7 +603,6 @@
 				8462D078259F9C330031AD0D /* AppDelegate.swift in Sources */,
 				8497C76925B81BB500B88C12 /* Reason.swift in Sources */,
 				849178822599F81700CD967F /* PotoriApp.swift in Sources */,
-				84ABD86F25B43EDC00DAA2DB /* FilterManager.swift in Sources */,
 				846CC5B725A359DD007A8AE8 /* NominationJSON.swift in Sources */,
 				84177FB225B2DE81009CC4E9 /* MatchManager.swift in Sources */,
 				84F97C78259B7474005D9AA4 /* ContentView.swift in Sources */,
@@ -642,7 +632,6 @@
 				8491789C2599F92C00CD967F /* NominationItem.swift in Sources */,
 				843BEF6B259F36FB00FC17F9 /* AuthKit.swift in Sources */,
 				84B8A54825B85045000B0C0E /* DashboardCardView.swift in Sources */,
-				84ABD86525B4351A00DAA2DB /* FilterView.swift in Sources */,
 				84A01DD825A609C7006080BF /* Preferences.swift in Sources */,
 				84CCEDC3259CB5470040917E /* RemoteImage.swift in Sources */,
 				84177FBA25B2F079009CC4E9 /* MatchView.swift in Sources */,
@@ -654,7 +643,6 @@
 				84F735A725B83169003DE878 /* DashboardBasicView.swift in Sources */,
 				846645ED25A8DAA200DD37D1 /* GoogleDriveKit.swift in Sources */,
 				84F97C79259B7474005D9AA4 /* ContentView.swift in Sources */,
-				84ABD87025B43EDC00DAA2DB /* FilterManager.swift in Sources */,
 				846CC5B825A359DD007A8AE8 /* NominationJSON.swift in Sources */,
 				84DB6ED2259A3D5D00BD915B /* Service.swift in Sources */,
 				8497C76A25B81BB500B88C12 /* Reason.swift in Sources */,
