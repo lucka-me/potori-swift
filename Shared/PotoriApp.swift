@@ -24,9 +24,12 @@ struct PotoriApp: App {
                 .environmentObject(service)
                 .environment(\.managedObjectContext, service.containerContext)
                 .onAppear {
-                    if firstAppear && Preferences.General.refreshOnOpen {
+                    if firstAppear {
                         firstAppear = false
-                        service.refresh()
+                        if Preferences.General.refreshOnOpen {
+                            service.refresh()
+                        }
+                        URLCache.shared.diskCapacity = 100 * 1024 * 1024
                     }
                 }
         }
