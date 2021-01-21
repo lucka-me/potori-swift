@@ -57,10 +57,16 @@ extension Nomination {
 
 }
 
-extension Nomination : Identifiable {
-    
+extension Nomination {
     static let defaultLatitude = 22.309510748206023
     static let defaultLongitude = 114.1024431532275
+    
+    static let sortDescriptorsByDate = [
+        NSSortDescriptor(keyPath: \Nomination.confirmedTime, ascending: false)
+    ]
+}
+
+extension Nomination : Identifiable {
     
     var scannerCode: Umi.Scanner.Code {
         set { scanner = newValue.rawValue }

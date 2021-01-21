@@ -29,7 +29,7 @@ struct NominationList: View {
         
         fetchRequest = .init(
             entity: Nomination.entity(),
-            sortDescriptors: [ NSSortDescriptor(keyPath: \Nomination.title, ascending: true) ],
+            sortDescriptors: Nomination.sortDescriptorsByDate,
             predicate: predicate
         )
     }
