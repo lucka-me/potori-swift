@@ -51,6 +51,7 @@ struct DashboardCardView<Label: View, Destination: View>: View {
                     .foregroundColor(.primary)
                     .padding(.top, 3)
             }
+            .lineLimit(1)
             .foregroundColor(.black)
             .padding(10)
         }
