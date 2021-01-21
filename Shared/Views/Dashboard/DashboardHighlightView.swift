@@ -24,22 +24,23 @@ struct DashboardHighlightView: View {
             }
             
             LazyVGrid(columns: columns, alignment: .leading) {
-                DashboardCardView(
-                    Text("\(service.countNominations())"),
-                    destination: NominationList("view.dashboard.highlight.nominations")
-                ) {
-                    Label("view.dashboard.highlight.nominations", systemImage: "arrow.up.circle")
-                        .foregroundColor(.accentColor)
+                NavigationLink(destination: NominationList("view.dashboard.highlight.nominations")) {
+                    DashboardCardView(Text("\(service.countNominations())")) {
+                        Label("view.dashboard.highlight.nominations", systemImage: "arrow.up.circle")
+                            .foregroundColor(.accentColor)
+                    }
                 }
+                .buttonStyle(PlainButtonStyle())
+                
                 ForEach(Umi.shared.statusAll, id: \.code) { status in
                     let predicate = status.predicate
-                    DashboardCardView(
-                        Text("\(service.countNominations(predicate))"),
-                        destination: NominationList(status.title, predicate)
-                    ) {
-                        Label(status.title, systemImage: status.icon)
-                            .foregroundColor(status.color)
+                    NavigationLink(destination: NominationList(status.title, predicate)) {
+                        DashboardCardView(Text("\(service.countNominations(predicate))")) {
+                            Label(status.title, systemImage: status.icon)
+                                .foregroundColor(status.color)
+                        }
                     }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
         }

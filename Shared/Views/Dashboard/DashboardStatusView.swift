@@ -26,7 +26,7 @@ struct DashboardStatusView: View {
             
             ZStack(alignment: .topLeading) {
                 DashboardCardBackground()
-                
+
                 Group {
                     if !service.auth.login {
                         Button("view.dashboard.status.linkAccount") {

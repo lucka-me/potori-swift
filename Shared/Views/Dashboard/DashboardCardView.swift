@@ -7,40 +7,27 @@
 
 import SwiftUI
 
-struct DashboardCardView<Label: View, Destination: View>: View {
+struct DashboardCardView<Label: View>: View {
     
     var text: Text
-    private var label: Label
-    private var destination: Destination?
+    private let label: Label
+    private let showLinkIndicator: Bool
     
-    init(_ text: Text, @ViewBuilder label: @escaping () -> Label) where Destination == EmptyView {
+    init(_ text: Text, _ showLinkIndicator: Bool = true, @ViewBuilder label: @escaping () -> Label) {
         self.text = text
-        self.destination = nil
         self.label = label()
-    }
-    
-    init(_ text: Text, destination: Destination, @ViewBuilder label: @escaping () -> Label) {
-        self.text = text
-        self.destination = destination
-        self.label = label()
+        self.showLinkIndicator = showLinkIndicator
     }
     
     var body: some View {
         ZStack(alignment: .topLeading) {
             
-            if let solidDestination = destination {
-                NavigationLink(destination: solidDestination) {
-                    DashboardCardBackground()
-                }
-                .buttonStyle(PlainButtonStyle())
-            } else {
-                DashboardCardBackground()
-            }
+            DashboardCardBackground()
 
             VStack(alignment: .leading) {
                 HStack {
                     label
-                    if destination != nil {
+                    if showLinkIndicator {
                         Spacer()
                         Image(systemName: "chevron.right")
                             .foregroundColor(.secondary)
