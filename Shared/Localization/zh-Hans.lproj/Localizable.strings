@@ -36,7 +36,8 @@
 // Dashboard
 "view.dashboard"    = "仪表盘";
 "view.dashboard.refresh"    = "刷新";
-"view.dashboard.basic.nominations"  = "提名";
+"view.dashboard.highlight"  = "要点";
+"view.dashboard.highlight.nominations"  = "提名";
 "view.dashboard.reasons"    = "拒绝原因";
 
 // Nomination List

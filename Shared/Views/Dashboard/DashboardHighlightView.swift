@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DashboardBasicView: View {
+struct DashboardHighlightView: View {
     
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -16,12 +16,19 @@ struct DashboardBasicView: View {
     @EnvironmentObject private var service: Service
     
     var body: some View {
+        HStack {
+            Text("view.dashboard.highlight")
+                .font(.title2)
+                .bold()
+        }
+        .padding(.top, 3)
+        
         LazyVGrid(columns: columns, alignment: .leading) {
             DashboardCardView(
                 Text("\(service.count())"),
-                destination: NominationList("view.dashboard.basic.nominations")
+                destination: NominationList("view.dashboard.highlight.nominations")
             ) {
-                Label("view.dashboard.basic.nominations", systemImage: "arrow.up.circle")
+                Label("view.dashboard.highlight.nominations", systemImage: "arrow.up.circle")
                     .foregroundColor(.accentColor)
             }
             ForEach(Umi.shared.statusAll, id: \.code) { status in
@@ -48,12 +55,12 @@ struct DashboardBasicView: View {
 }
 
 #if DEBUG
-struct DashboardBasicView_Previews: PreviewProvider {
+struct DashboardHighlightView_Previews: PreviewProvider {
     
     static let service = Service.preview
     
     static var previews: some View {
-        DashboardBasicView()
+        DashboardHighlightView()
             .environmentObject(service)
             .environment(\.managedObjectContext, service.containerContext)
     }
