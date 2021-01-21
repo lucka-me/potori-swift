@@ -18,7 +18,7 @@ struct DashboardView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(alignment: .leading) {
-                if service.status != .idle {
+                if !service.auth.login || service.status != .idle {
                     DashboardStatusView()
                 }
                 DashboardHighlightView()

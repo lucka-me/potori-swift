@@ -37,6 +37,7 @@
 "view.dashboard"    = "Dashboard";
 "view.dashboard.refresh"    = "Refresh";
 "view.dashboard.status" = "Status";
+"view.dashboard.status.linkAccount" = "Link Your Google Account";
 "view.dashboard.highlight"  = "Highlight";
 "view.dashboard.highlight.nominations"  = "Nominations";
 "view.dashboard.gallery"    = "Last 30 Days";

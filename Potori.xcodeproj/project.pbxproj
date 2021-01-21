@@ -227,11 +227,11 @@
 			isa = PBXGroup;
 			children = (
 				84B8A54625B85045000B0C0E /* DashboardCardView.swift */,
+				8469EB3425B943C800A9831D /* DashboardGalleryView.swift */,
 				84F735A525B83169003DE878 /* DashboardHighlightView.swift */,
 				8469EB1A25B88A2600A9831D /* DashboardReasonsView.swift */,
 				8469EB2925B93EF800A9831D /* DashboardStatusView.swift */,
 				84F7359A25B830E8003DE878 /* DashboardView.swift */,
-				8469EB3425B943C800A9831D /* DashboardGalleryView.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";

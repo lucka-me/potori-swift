@@ -9,6 +9,10 @@ import SwiftUI
 
 struct DashboardStatusView: View {
     
+    #if os(iOS)
+    @EnvironmentObject var appDelegate: AppDelegate
+    #endif
+    
     @EnvironmentObject private var service: Service
     
     var body: some View {
@@ -24,11 +28,23 @@ struct DashboardStatusView: View {
                 DashboardCardBackground()
                 
                 Group {
-                    switch service.status {
-                    case .processingMails:
-                        ProgressView(LocalizedStringKey(service.status.rawValue), value: service.progress)
-                    default:
-                        Text(LocalizedStringKey(service.status.rawValue))
+                    if !service.auth.login {
+                        Button("view.dashboard.status.linkAccount") {
+                            #if os(macOS)
+                            service.auth.logIn()
+                            #else
+                            service.auth.logIn(appDelegate: appDelegate)
+                            #endif
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .foregroundColor(.accentColor)
+                    } else {
+                        switch service.status {
+                        case .processingMails:
+                            ProgressView(LocalizedStringKey(service.status.rawValue), value: service.progress)
+                        default:
+                            Text(LocalizedStringKey(service.status.rawValue))
+                        }
                     }
                 }
                 .padding(10)
