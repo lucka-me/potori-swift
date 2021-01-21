@@ -25,7 +25,6 @@ struct DashboardView: View {
                 DashboardReasonsView()
             }
             .animation(.easeInOut)
-            .padding(.horizontal)
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
@@ -38,7 +37,6 @@ struct DashboardView: View {
             }
         }
         .navigationTitle("view.dashboard")
-        .padding(.top, 3)
     }
 }
 

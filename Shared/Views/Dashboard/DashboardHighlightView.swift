@@ -16,31 +16,34 @@ struct DashboardHighlightView: View {
     @EnvironmentObject private var service: Service
     
     var body: some View {
-        HStack {
-            Text("view.dashboard.highlight")
-                .font(.title2)
-                .bold()
-        }
-        
-        LazyVGrid(columns: columns, alignment: .leading) {
-            DashboardCardView(
-                Text("\(service.countNominations())"),
-                destination: NominationList("view.dashboard.highlight.nominations")
-            ) {
-                Label("view.dashboard.highlight.nominations", systemImage: "arrow.up.circle")
-                    .foregroundColor(.accentColor)
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                Text("view.dashboard.highlight")
+                    .font(.title2)
+                    .bold()
             }
-            ForEach(Umi.shared.statusAll, id: \.code) { status in
-                let predicate = status.predicate
+            
+            LazyVGrid(columns: columns, alignment: .leading) {
                 DashboardCardView(
-                    Text("\(service.countNominations(predicate))"),
-                    destination: NominationList(status.title, predicate)
+                    Text("\(service.countNominations())"),
+                    destination: NominationList("view.dashboard.highlight.nominations")
                 ) {
-                    Label(status.title, systemImage: status.icon)
-                        .foregroundColor(status.color)
+                    Label("view.dashboard.highlight.nominations", systemImage: "arrow.up.circle")
+                        .foregroundColor(.accentColor)
+                }
+                ForEach(Umi.shared.statusAll, id: \.code) { status in
+                    let predicate = status.predicate
+                    DashboardCardView(
+                        Text("\(service.countNominations(predicate))"),
+                        destination: NominationList(status.title, predicate)
+                    ) {
+                        Label(status.title, systemImage: status.icon)
+                            .foregroundColor(status.color)
+                    }
                 }
             }
         }
+        .padding(.horizontal)
     }
     
     private var columns: [GridItem] {
