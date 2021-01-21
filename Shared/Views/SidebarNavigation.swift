@@ -9,19 +9,37 @@ import SwiftUI
 
 struct SidebarNavigation: View {
     
+    private enum ActiveView: Hashable {
+        case dashboard
+        #if os(iOS)
+        case preference
+        #endif
+    }
+    
     @EnvironmentObject var service: Service
-    @State private var isDashboardActive = true
+    #if os(macOS)
+    @State private var activeView: ActiveView? = .dashboard
+    #else
+    @State private var activeView: ActiveView? = nil
+    #endif
 
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(destination: dashboard, isActive: $isDashboardActive) {
+                NavigationLink(
+                    destination: dashboard,
+                    tag: ActiveView.dashboard,
+                    selection: $activeView
+                ) {
                     Label("view.dashboard", systemImage: "gauge")
                 }
-                
                 #if os(iOS)
                 Section(header: Text("view.misc")) {
-                    NavigationLink(destination: PreferencesView()) {
+                    NavigationLink(
+                        destination: PreferencesView(),
+                        tag: ActiveView.preference,
+                        selection: $activeView
+                    ) {
                         Label("view.preferences", systemImage: "gearshape")
                     }
                 }
@@ -38,6 +56,9 @@ struct SidebarNavigation: View {
                     #endif
                 }
             }
+            #if os(iOS)
+            dashboard
+            #endif
         }
     }
     
