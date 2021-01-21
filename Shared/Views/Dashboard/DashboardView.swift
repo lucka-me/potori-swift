@@ -22,6 +22,7 @@ struct DashboardView: View {
                     DashboardStatusView()
                 }
                 DashboardHighlightView()
+                DashboardGalleryView()
                 DashboardReasonsView()
             }
             .animation(.easeInOut)
