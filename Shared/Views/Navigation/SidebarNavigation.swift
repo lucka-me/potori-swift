@@ -6,41 +6,38 @@
 //
 
 import SwiftUI
+import Combine
 
 struct SidebarNavigation: View {
-    
-    private enum ActiveView: Hashable {
-        case dashboard
-        #if os(iOS)
-        case preference
-        #endif
-    }
-    
-    @EnvironmentObject var service: Service
-    #if os(macOS)
-    @State private var activeView: ActiveView? = .dashboard
-    #else
-    @State private var activeView: ActiveView? = nil
-    #endif
+
+    @StateObject private var model: NavigationModel = .init()
 
     var body: some View {
         NavigationView {
             List {
                 NavigationLink(
                     destination: dashboard,
-                    tag: ActiveView.dashboard,
-                    selection: $activeView
+                    tag: NavigationModel.View.dashboard,
+                    selection: $model.activeView
                 ) {
-                    Label("view.dashboard", systemImage: "gauge")
+                    NavigationModel.ViewLabel.dashboard
                 }
-                #if os(iOS)
+                #if os(macOS)
+                NavigationLink(
+                    destination: NominationList(model.list).frame(minWidth: 500),
+                    tag: NavigationModel.View.list,
+                    selection: $model.activeView
+                ) {
+                    NavigationModel.ViewLabel.list
+                }
+                #else
                 Section(header: Text("view.misc")) {
                     NavigationLink(
                         destination: PreferencesView(),
-                        tag: ActiveView.preference,
-                        selection: $activeView
+                        tag: NavigationModel.View.preference,
+                        selection: $model.activeView
                     ) {
-                        Label("view.preferences", systemImage: "gearshape")
+                        NavigationModel.ViewLabel.preferences
                     }
                 }
                 #endif
@@ -51,7 +48,7 @@ struct SidebarNavigation: View {
                 ToolbarItemGroup {
                     #if os(macOS)
                     Button(action: toggleSidebar) {
-                        Label("Toggle Sidebar", systemImage: "sidebar.left")
+                        Label("view.toggleSidebar", systemImage: "sidebar.left")
                     }
                     #endif
                 }
@@ -65,10 +62,8 @@ struct SidebarNavigation: View {
     @ViewBuilder
     private var dashboard: some View {
         #if os(macOS)
-        NavigationView {
-            DashboardView()
-                .frame(minWidth: 350)
-        }
+        DashboardView(listConfig: $model.list)
+            .frame(minWidth: 500)
         #else
         DashboardView()
         #endif

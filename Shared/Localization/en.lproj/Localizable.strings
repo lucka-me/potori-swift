@@ -29,7 +29,8 @@
 
 /* View */
 // Navigation
-"view.misc"     = "Misc";
+"view.list" = "List";
+"view.misc" = "Misc";
 "view.toggleSidebar"    = "Toggle Sidebar";
 "view.preferences"  = "Preferences";
 

@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct TabNavigation: View {
+    
+    @StateObject private var model: NavigationModel = .init()
+    
     var body: some View {
-        TabView {
+        TabView(selection: $model.activeView) {
             NavigationView { DashboardView() }
-                .tabItem { Label("view.dashboard", systemImage: "gauge")}
+                .tabItem { NavigationModel.ViewLabel.dashboard }
+                .tag(NavigationModel.View.dashboard as NavigationModel.View?)
             NavigationView { PreferencesView() }
-                .tabItem { Label("view.preferences", systemImage: "gearshape") }
+                .tabItem { NavigationModel.ViewLabel.preferences }
+                .tag(NavigationModel.View.preference as NavigationModel.View?)
         }
     }
 }

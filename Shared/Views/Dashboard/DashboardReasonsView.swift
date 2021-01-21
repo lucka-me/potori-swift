@@ -9,7 +9,9 @@ import SwiftUI
 
 struct DashboardReasonsView: View {
     
-    #if os(iOS)
+    #if os(macOS)
+    @Binding var listConfig: NominationList.Configuration
+    #else
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
     
@@ -42,13 +44,12 @@ struct DashboardReasonsView: View {
                         let predicate = reason.predicate
                         let count = service.countNominations(predicate)
                         if count > 0 {
-                            NavigationLink(destination: NominationList(reason.title, predicate)) {
+                            openNominationList(.init(reason.title, predicate)) {
                                 DashboardCardView(Text("\(service.countNominations(predicate))")) {
                                     Label(reason.title, systemImage: reason.icon)
                                         .foregroundColor(.red)
                                 }
                             }
-                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                 }
@@ -59,11 +60,24 @@ struct DashboardReasonsView: View {
     
     private var columns: [GridItem] {
         #if os(macOS)
-        let columns = 2
+        let columns = 4
         #else
         let columns = horizontalSizeClass == .compact ? 2 : 4
         #endif
         return Array(repeating: .init(.flexible(), spacing: 10), count: columns)
+    }
+    
+    @ViewBuilder
+    private func openNominationList<Label: View>(
+        _ config: NominationList.Configuration,
+        @ViewBuilder _ label: () -> Label
+    ) -> some View {
+        #if os(macOS)
+        let view = Button(action: { listConfig = config }, label: label)
+        #else
+        let view = NavigationLink(destination: NominationList(config), label: label)
+        #endif
+        view.buttonStyle(PlainButtonStyle())
     }
 }
 
@@ -73,8 +87,15 @@ struct DashboardReasonsView_Previews: PreviewProvider {
     static let service = Service.preview
 
     static var previews: some View {
+        #if os(macOS)
+        DashboardReasonsView(listConfig: .constant(.init("")))
+            .environmentObject(service)
+            .environment(\.managedObjectContext, service.containerContext)
+        #else
         DashboardReasonsView()
             .environmentObject(service)
+            .environment(\.managedObjectContext, service.containerContext)
+        #endif
     }
 }
 #endif

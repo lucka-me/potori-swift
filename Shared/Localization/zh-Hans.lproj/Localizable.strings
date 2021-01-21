@@ -29,7 +29,8 @@
 
 /* View */
 // Navigation
-"view.misc"     = "其它";
+"view.list" = "列表";
+"view.misc" = "其它";
 "view.toggleSidebar"    = "开关边栏";
 "view.preferences"  = "偏好设置";
 

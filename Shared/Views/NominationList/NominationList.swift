@@ -9,6 +9,25 @@ import SwiftUI
 
 struct NominationList: View {
     
+    struct Configuration {
+        let title: LocalizedStringKey
+        let predicate: NSPredicate?
+        let selection: String?
+        #if os(macOS)
+        let open: Bool
+        #endif
+        
+        
+        init(_ title: LocalizedStringKey, _ predicate: NSPredicate? = nil, _ selection: String? = nil, open: Bool = true) {
+            self.title = title
+            self.predicate = predicate
+            self.selection = selection
+            #if os(macOS)
+            self.open = open
+            #endif
+        }
+    }
+    
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.openURL) private var openURL
     @EnvironmentObject private var service: Service
@@ -17,51 +36,46 @@ struct NominationList: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
     
-    private let title: LocalizedStringKey
+    @State private var selection: String?
+    
+    private let config: Configuration
     private let fetchRequest: FetchRequest<Nomination>
     private var nominations: FetchedResults<Nomination> {
         fetchRequest.wrappedValue
     }
     
-    init(_ title: LocalizedStringKey, _ predicate: NSPredicate? = nil) {
-        
-        self.title = title
-        
+    init(_ configuration: Configuration) {
+        config = configuration
+
         fetchRequest = .init(
             entity: Nomination.entity(),
             sortDescriptors: Nomination.sortDescriptorsByDate,
-            predicate: predicate
+            predicate: config.predicate
         )
     }
     
     var body: some View {
         #if os(macOS)
         NavigationView {
-            content.navigationTitle(title)
+            list
+                .listStyle(PlainListStyle())
+                .frame(minWidth: 250)
         }
-        #else
-        content
-            .navigationTitle(title)
-        #endif
-        
-    }
-    
-    @ViewBuilder
-    private var content: some View {
-        #if os(macOS)
-        list
-            .listStyle(PlainListStyle())
-            .frame(minWidth: 250)
         #else
         list.listStyle(InsetGroupedListStyle())
         #endif
+        
     }
     
     @ViewBuilder
     private var list: some View {
         List {
             ForEach(nominations) { nomination in
-                NavigationLink(destination: NominationDetails(nomination: nomination)) {
+                NavigationLink(
+                    destination: NominationDetails(nomination: nomination),
+                    tag: nomination.id,
+                    selection: $selection
+                ) {
                     NominationListRow(nomination: nomination)
                 }
                 .contextMenu {
@@ -89,6 +103,10 @@ struct NominationList: View {
             }
             .deleteDisabled(service.status != .idle)
         }
+        .navigationTitle(config.title)
+        .onAppear {
+            selection = config.selection
+        }
     }
 }
 
@@ -98,7 +116,7 @@ struct NominationList_Previews: PreviewProvider {
     static let service = Service.preview
 
     static var previews: some View {
-        NominationList("view.dashboard.basic.nominations")
+        NominationList(.init("view.dashboard.highlight.nominations"))
             .environmentObject(service)
             .environment(\.managedObjectContext, service.containerContext)
     }

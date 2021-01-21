@@ -9,7 +9,9 @@ import SwiftUI
 
 struct DashboardView: View {
     
-    #if os(iOS)
+    #if os(macOS)
+    @Binding var listConfig: NominationList.Configuration
+    #else
     @EnvironmentObject var appDelegate: AppDelegate
     #endif
     
@@ -21,9 +23,15 @@ struct DashboardView: View {
                 if !service.auth.login || service.status != .idle {
                     DashboardStatusView()
                 }
+                #if os(macOS)
+                DashboardHighlightView(listConfig: $listConfig)
+                DashboardGalleryView(listConfig: $listConfig)
+                DashboardReasonsView(listConfig: $listConfig)
+                #else
                 DashboardHighlightView()
                 DashboardGalleryView()
                 DashboardReasonsView()
+                #endif
             }
             .animation(.easeInOut)
         }
@@ -47,9 +55,15 @@ struct DashboardView_Previews: PreviewProvider {
     static let service = Service.preview
     
     static var previews: some View {
+        #if os(macOS)
+        DashboardView(listConfig: .constant(.init("")))
+            .environmentObject(service)
+            .environment(\.managedObjectContext, service.containerContext)
+        #else
         DashboardView()
             .environmentObject(service)
             .environment(\.managedObjectContext, service.containerContext)
+        #endif
     }
 }
 #endif

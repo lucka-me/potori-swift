@@ -48,6 +48,8 @@
 		8469EB2B25B93EF800A9831D /* DashboardStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8469EB2925B93EF800A9831D /* DashboardStatusView.swift */; };
 		8469EB3525B943C800A9831D /* DashboardGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8469EB3425B943C800A9831D /* DashboardGalleryView.swift */; };
 		8469EB3625B943C800A9831D /* DashboardGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8469EB3425B943C800A9831D /* DashboardGalleryView.swift */; };
+		8469EB4D25B9D25100A9831D /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8469EB4C25B9D25100A9831D /* NavigationModel.swift */; };
+		8469EB5625B9D28600A9831D /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8469EB4C25B9D25100A9831D /* NavigationModel.swift */; };
 		846B2F8F25B1E2CE00077E01 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 846B2F9225B1E2CE00077E01 /* InfoPlist.strings */; };
 		846B2F9025B1E2CE00077E01 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 846B2F9225B1E2CE00077E01 /* InfoPlist.strings */; };
 		846CC5B725A359DD007A8AE8 /* NominationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC5B625A359DD007A8AE8 /* NominationJSON.swift */; };
@@ -142,6 +144,7 @@
 		8469EB1A25B88A2600A9831D /* DashboardReasonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardReasonsView.swift; sourceTree = "<group>"; };
 		8469EB2925B93EF800A9831D /* DashboardStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardStatusView.swift; sourceTree = "<group>"; };
 		8469EB3425B943C800A9831D /* DashboardGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardGalleryView.swift; sourceTree = "<group>"; };
+		8469EB4C25B9D25100A9831D /* NavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModel.swift; sourceTree = "<group>"; };
 		846B2F9125B1E2CE00077E01 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		846B2F9725B1E2D300077E01 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		846CC5B625A359DD007A8AE8 /* NominationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationJSON.swift; sourceTree = "<group>"; };
@@ -300,6 +303,15 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		8469EB4B25B9D24300A9831D /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				8469EB4C25B9D25100A9831D /* NavigationModel.swift */,
+				843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
 		849178532599F81600CD967F = {
 			isa = PBXGroup;
 			children = (
@@ -381,12 +393,12 @@
 		849178A12599F93300CD967F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8469EB4B25B9D24300A9831D /* Navigation */,
 				84F97C77259B7474005D9AA4 /* ContentView.swift */,
 				8462D087259FBA030031AD0D /* MainMap.swift */,
 				84177FB825B2F079009CC4E9 /* MatchView.swift */,
 				844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */,
 				84CCEDC1259CB5470040917E /* RemoteImage.swift */,
-				843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */,
 				8418510225B823900094470A /* Dashboard */,
 				843BEF28259F018300FC17F9 /* NominationDetails */,
 				843BEF23259F017800FC17F9 /* NominationList */,
@@ -627,6 +639,7 @@
 				849178BE259A0D8D00CD967F /* NominationRAW.swift in Sources */,
 				84A01DD725A609C7006080BF /* Preferences.swift in Sources */,
 				84F735A625B83169003DE878 /* DashboardHighlightView.swift in Sources */,
+				8469EB4D25B9D25100A9831D /* NavigationModel.swift in Sources */,
 				84F7359B25B830E8003DE878 /* DashboardView.swift in Sources */,
 				843BEF38259F07CF00FC17F9 /* TabNavigation.swift in Sources */,
 				8468A22C25A33784009B562D /* Potori.xcdatamodeld in Sources */,
@@ -664,6 +677,7 @@
 				846CC5B825A359DD007A8AE8 /* NominationJSON.swift in Sources */,
 				84DB6ED2259A3D5D00BD915B /* Service.swift in Sources */,
 				8497C76A25B81BB500B88C12 /* Reason.swift in Sources */,
+				8469EB5625B9D28600A9831D /* NavigationModel.swift in Sources */,
 				8462D089259FBA030031AD0D /* MainMap.swift in Sources */,
 				849178A8259A06E000CD967F /* NominationList.swift in Sources */,
 				849178BF259A0D8D00CD967F /* NominationRAW.swift in Sources */,
