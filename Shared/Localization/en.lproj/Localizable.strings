@@ -39,6 +39,8 @@
 "view.dashboard.highlight"  = "Highlight";
 "view.dashboard.highlight.nominations"  = "Nominations";
 "view.dashboard.reasons"    = "Reasons";
+"view.dashboard.reasons.more"   = "More";
+"view.dashboard.reasons.less"   = "Less";
 
 // Nomination List
 "view.nominations.menuBrainstorming"    = "Brainstorming";

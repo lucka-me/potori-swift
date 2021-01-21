@@ -15,21 +15,38 @@ struct DashboardReasonsView: View {
     
     @EnvironmentObject private var service: Service
     
+    @State private var showMore = false
+    
     var body: some View {
-        HStack {
+        HStack(alignment: .firstTextBaseline) {
             Text("view.dashboard.reasons")
+                .font(.title2)
+                .bold()
+            Spacer()
+            Button(showMore ? "Less" : "More") {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    showMore.toggle()
+                }
+            }
+            .buttonStyle(BorderlessButtonStyle())
         }
         .padding(.top, 3)
         
         LazyVGrid(columns: columns, alignment: .leading) {
-            ForEach(Umi.shared.reasonAll, id: \.code) { reason in
-                let predicate = reason.predicate
-                DashboardCardView(
-                    Text("\(service.count(predicate))"),
-                    destination: NominationList(reason.title, predicate)
-                ) {
-                    Label(reason.title, systemImage: reason.icon)
-                        .foregroundColor(.red)
+            ForEach(0 ..< Umi.shared.reasonAll.count) { index in
+                let reason = Umi.shared.reasonAll[index]
+                if index < 4 || showMore {
+                    let predicate = reason.predicate
+                    let count = service.count(predicate)
+                    if count > 0 {
+                        DashboardCardView(
+                            Text("\(service.count(predicate))"),
+                            destination: NominationList(reason.title, predicate)
+                        ) {
+                            Label(reason.title, systemImage: reason.icon)
+                                .foregroundColor(.red)
+                        }
+                    }
                 }
             }
         }
