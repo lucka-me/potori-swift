@@ -21,7 +21,6 @@ struct DashboardHighlightView: View {
                 .font(.title2)
                 .bold()
         }
-        .padding(.top, 3)
         
         LazyVGrid(columns: columns, alignment: .leading) {
             DashboardCardView(

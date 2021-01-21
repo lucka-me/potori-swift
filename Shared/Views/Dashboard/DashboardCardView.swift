@@ -30,11 +30,11 @@ struct DashboardCardView<Label: View, Destination: View>: View {
             
             if let solidDestination = destination {
                 NavigationLink(destination: solidDestination) {
-                    background
+                    DashboardCardBackground()
                 }
                 .buttonStyle(PlainButtonStyle())
             } else {
-                background
+                DashboardCardBackground()
             }
 
             VStack(alignment: .leading) {
@@ -48,19 +48,11 @@ struct DashboardCardView<Label: View, Destination: View>: View {
                 }
                 text
                     .font(.system(.largeTitle, design: .rounded))
-                    .foregroundColor(.primary)
                     .padding(.top, 3)
             }
             .lineLimit(1)
-            .foregroundColor(.black)
             .padding(10)
         }
-    }
-    
-    @ViewBuilder
-    private var background: some View {
-        RoundedRectangle(cornerRadius: 10, style: .continuous)
-            .fill(Color.gray.opacity(0.3))
     }
 }
 
@@ -74,3 +66,10 @@ struct DashboardCardView_Previews: PreviewProvider {
     }
 }
 #endif
+
+struct DashboardCardBackground: View {
+    var body: some View {
+        RoundedRectangle(cornerRadius: 10, style: .continuous)
+            .fill(Color.gray.opacity(0.15))
+    }
+}

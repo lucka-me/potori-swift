@@ -26,9 +26,7 @@ struct DashboardReasonsView: View {
             if service.countReasons(Umi.Reason.hasNominationsPredicate) + undeclaredCount > 4 {
                 Spacer()
                 Button(showMore ? "view.dashboard.reasons.less" : "view.dashboard.reasons.more") {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        showMore.toggle()
-                    }
+                    showMore.toggle()
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .foregroundColor(.accentColor)
