@@ -155,6 +155,10 @@ final class Umi {
                 return .init(format: "status = %d AND ANY reasons.code = %d", Status.Code.rejected.rawValue, code)
             }
         }
+        
+        static var hasNominationsPredicate: NSPredicate {
+            .init(format: "nominations.@count > 0")
+        }
     }
     
     fileprivate struct DataJSON: Codable {

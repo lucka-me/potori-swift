@@ -80,9 +80,15 @@ final class Service: ObservableObject {
         }
     }
     
-    func count(_ predicate: NSPredicate? = nil) -> Int {
+    func countNominations(_ withPredicate: NSPredicate? = nil) -> Int {
         let request: NSFetchRequest<Nomination> = Nomination.fetchRequest()
-        request.predicate = predicate
+        request.predicate = withPredicate
+        return (try? containerContext.count(for: request)) ?? 0
+    }
+    
+    func countReasons(_ withPredicate: NSPredicate? = nil) -> Int {
+        let request: NSFetchRequest<Reason> = Reason.fetchRequest()
+        request.predicate = withPredicate
         return (try? containerContext.count(for: request)) ?? 0
     }
     

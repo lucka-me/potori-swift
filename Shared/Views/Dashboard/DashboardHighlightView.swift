@@ -25,7 +25,7 @@ struct DashboardHighlightView: View {
         
         LazyVGrid(columns: columns, alignment: .leading) {
             DashboardCardView(
-                Text("\(service.count())"),
+                Text("\(service.countNominations())"),
                 destination: NominationList("view.dashboard.highlight.nominations")
             ) {
                 Label("view.dashboard.highlight.nominations", systemImage: "arrow.up.circle")
@@ -34,7 +34,7 @@ struct DashboardHighlightView: View {
             ForEach(Umi.shared.statusAll, id: \.code) { status in
                 let predicate = status.predicate
                 DashboardCardView(
-                    Text("\(service.count(predicate))"),
+                    Text("\(service.countNominations(predicate))"),
                     destination: NominationList(status.title, predicate)
                 ) {
                     Label(status.title, systemImage: status.icon)
@@ -46,11 +46,11 @@ struct DashboardHighlightView: View {
     
     private var columns: [GridItem] {
         #if os(macOS)
-        let count = 2
+        let columns = 2
         #else
-        let count = horizontalSizeClass == .compact ? 2 : 4
+        let columns = horizontalSizeClass == .compact ? 2 : 4
         #endif
-        return Array(repeating: .init(.flexible(), spacing: 10), count: count)
+        return Array(repeating: .init(.flexible(), spacing: 10), count: columns)
     }
 }
 

@@ -22,13 +22,17 @@ struct DashboardReasonsView: View {
             Text("view.dashboard.reasons")
                 .font(.title2)
                 .bold()
-            Spacer()
-            Button(showMore ? "Less" : "More") {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    showMore.toggle()
+            let undeclaredCount = service.countNominations(Umi.shared.reason[Umi.Reason.undeclared]!.predicate) > 0 ? 1 : 0
+            if service.countReasons(Umi.Reason.hasNominationsPredicate) + undeclaredCount > 4 {
+                Spacer()
+                Button(showMore ? "view.dashboard.reasons.less" : "view.dashboard.reasons.more") {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        showMore.toggle()
+                    }
                 }
+                .buttonStyle(BorderlessButtonStyle())
+                .foregroundColor(.accentColor)
             }
-            .buttonStyle(BorderlessButtonStyle())
         }
         .padding(.top, 3)
         
@@ -37,10 +41,10 @@ struct DashboardReasonsView: View {
                 let reason = Umi.shared.reasonAll[index]
                 if index < 4 || showMore {
                     let predicate = reason.predicate
-                    let count = service.count(predicate)
+                    let count = service.countNominations(predicate)
                     if count > 0 {
                         DashboardCardView(
-                            Text("\(service.count(predicate))"),
+                            Text("\(service.countNominations(predicate))"),
                             destination: NominationList(reason.title, predicate)
                         ) {
                             Label(reason.title, systemImage: reason.icon)
@@ -54,11 +58,11 @@ struct DashboardReasonsView: View {
     
     private var columns: [GridItem] {
         #if os(macOS)
-        let count = 2
+        let columns = 2
         #else
-        let count = horizontalSizeClass == .compact ? 2 : 4
+        let columns = horizontalSizeClass == .compact ? 2 : 4
         #endif
-        return Array(repeating: .init(.flexible(), spacing: 10), count: count)
+        return Array(repeating: .init(.flexible(), spacing: 10), count: columns)
     }
 }
 
