@@ -40,21 +40,16 @@ struct DashboardGalleryView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(nominations) { nomination in
-                            let image = RemoteImage(nomination.imageURL)
-                                .scaledToFill()
-                                .frame(width: 100, height: 100, alignment: .center)
-                                .overlay(caption(nomination), alignment: .bottomLeading)
-                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                            #if os(macOS)
-                            let view = Button {
-                                navigation.openNominations = .init(
-                                    "view.dashboard.gallery", Self.predicate, nomination.id, panel: .list
-                                )
-                            } label: { image }
-                            #else
-                            let view = NavigationLink(destination: NominationDetails(nomination: nomination)) { image }
-                            #endif
-                            view.buttonStyle(PlainButtonStyle())
+                            openNominationDetails(
+                                .init("view.dashboard.gallery", Self.predicate, nomination.id, panel: .list),
+                                nomination: nomination
+                            ) {
+                                RemoteImage(nomination.imageURL)
+                                    .scaledToFill()
+                                    .frame(width: 100, height: 100, alignment: .center)
+                                    .overlay(caption(nomination), alignment: .bottomLeading)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            }
                         }
                     }
                     .padding(.horizontal)
@@ -76,14 +71,15 @@ struct DashboardGalleryView: View {
     }
     
     @ViewBuilder
-    private func openNominationList<Label: View>(
+    private func openNominationDetails<Label: View>(
         _ config: Navigation.OpenNominationsConfiguration,
-        @ViewBuilder _ label: () -> Label
+        nomination: Nomination,
+        @ViewBuilder _ label: @escaping () -> Label
     ) -> some View {
         #if os(macOS)
         let view = Button(action: { navigation.openNominations = config }, label: label)
         #else
-        let view = NavigationLink(destination: NominationList(config), label: label)
+        let view = NavigationLink(destination: NominationDetails(nomination: nomination), label: label)
         #endif
         view.buttonStyle(PlainButtonStyle())
     }
