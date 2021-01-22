@@ -43,7 +43,7 @@ struct DashboardReasonsView: View {
                         let predicate = reason.predicate
                         let count = service.countNominations(predicate)
                         if count > 0 {
-                            OpenNominationListLink(.init(reason.title, predicate, panel: .list)) {
+                            OpenNominationListLink(.init(reason.title, predicate)) {
                                 DashboardCardView(Text("\(service.countNominations(predicate))")) {
                                     Label(reason.title, systemImage: reason.icon)
                                         .foregroundColor(.red)

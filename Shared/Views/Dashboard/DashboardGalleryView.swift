@@ -41,7 +41,7 @@ struct DashboardGalleryView: View {
                     LazyHStack {
                         ForEach(nominations) { nomination in
                             OpenNominationDetailsLink(
-                                .init("view.dashboard.gallery", Self.predicate, nomination.id, panel: .list),
+                                .init("view.dashboard.gallery", Self.predicate),
                                 nomination
                             ) {
                                 RemoteImage(nomination.imageURL)

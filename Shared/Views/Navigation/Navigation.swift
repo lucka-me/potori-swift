@@ -75,7 +75,7 @@ struct OpenNominationListLink<Label: View>: View {
     private let label: () -> Label
     
     init(_ config: Navigation.OpenNominationsConfiguration, @ViewBuilder _ label: @escaping () -> Label) {
-        self.config = config
+        self.config = .init(config.title, config.predicate, panel: .list)
         self.label = label
     }
     
@@ -98,7 +98,7 @@ struct OpenNominationDetailsLink<Label: View>: View {
     private let label: () -> Label
     
     init(_ config: Navigation.OpenNominationsConfiguration, _ nomination: Nomination, @ViewBuilder _ label: @escaping () -> Label) {
-        self.config = config
+        self.config = .init(config.title, config.predicate, nomination.id, panel: .list)
         self.nomination = nomination
         self.label = label
     }

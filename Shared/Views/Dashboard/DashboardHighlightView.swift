@@ -27,7 +27,7 @@ struct DashboardHighlightView: View {
             }
             
             LazyVGrid(columns: DashboardView.columns, alignment: .leading) {
-                OpenNominationListLink(.init("view.dashboard.highlight.nominations", panel: .list)) {
+                OpenNominationListLink(.init("view.dashboard.highlight.nominations")) {
                     DashboardCardView(Text("\(service.countNominations())")) {
                         Label("view.dashboard.highlight.nominations", systemImage: "arrow.up.circle")
                             .foregroundColor(.accentColor)
@@ -36,7 +36,7 @@ struct DashboardHighlightView: View {
                 
                 ForEach(Umi.shared.statusAll, id: \.code) { status in
                     let predicate = status.predicate
-                    OpenNominationListLink(.init(status.title, predicate, panel: .list)) {
+                    OpenNominationListLink(.init(status.title, predicate)) {
                         DashboardCardView(Text("\(service.countNominations(predicate))")) {
                             Label(status.title, systemImage: status.icon)
                                 .foregroundColor(status.color)
