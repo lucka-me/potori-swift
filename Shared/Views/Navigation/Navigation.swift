@@ -66,3 +66,49 @@ class Navigation: ObservableObject {
     }
     #endif
 }
+
+struct OpenNominationListLink<Label: View>: View {
+    #if os(macOS)
+    @EnvironmentObject var navigation: Navigation
+    #endif
+    private let config: Navigation.OpenNominationsConfiguration
+    private let label: () -> Label
+    
+    init(_ config: Navigation.OpenNominationsConfiguration, @ViewBuilder _ label: @escaping () -> Label) {
+        self.config = config
+        self.label = label
+    }
+    
+    var body: some View {
+        #if os(macOS)
+        let view = Button(action: { navigation.openNominations = config }, label: label)
+        #else
+        let view = NavigationLink(destination: NominationList(config), label: label)
+        #endif
+        view.buttonStyle(PlainButtonStyle())
+    }
+}
+
+struct OpenNominationDetailsLink<Label: View>: View {
+    #if os(macOS)
+    @EnvironmentObject var navigation: Navigation
+    #endif
+    private let config: Navigation.OpenNominationsConfiguration
+    private let nomination: Nomination
+    private let label: () -> Label
+    
+    init(_ config: Navigation.OpenNominationsConfiguration, _ nomination: Nomination, @ViewBuilder _ label: @escaping () -> Label) {
+        self.config = config
+        self.nomination = nomination
+        self.label = label
+    }
+    
+    var body: some View {
+        #if os(macOS)
+        let view = Button(action: { navigation.openNominations = config }, label: label)
+        #else
+        let view = NavigationLink(destination: NominationDetails(nomination: nomination), label: label)
+        #endif
+        view.buttonStyle(PlainButtonStyle())
+    }
+}

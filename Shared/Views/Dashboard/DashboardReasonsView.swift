@@ -44,7 +44,7 @@ struct DashboardReasonsView: View {
                         let predicate = reason.predicate
                         let count = service.countNominations(predicate)
                         if count > 0 {
-                            openNominationList(.init(reason.title, predicate, panel: .list)) {
+                            OpenNominationListLink(.init(reason.title, predicate, panel: .list)) {
                                 DashboardCardView(Text("\(service.countNominations(predicate))")) {
                                     Label(reason.title, systemImage: reason.icon)
                                         .foregroundColor(.red)
@@ -65,19 +65,6 @@ struct DashboardReasonsView: View {
         let columns = horizontalSizeClass == .compact ? 2 : 4
         #endif
         return Array(repeating: .init(.flexible(), spacing: 10), count: columns)
-    }
-    
-    @ViewBuilder
-    private func openNominationList<Label: View>(
-        _ config: Navigation.OpenNominationsConfiguration,
-        @ViewBuilder _ label: () -> Label
-    ) -> some View {
-        #if os(macOS)
-        let view = Button(action: { navigation.openNominations = config }, label: label)
-        #else
-        let view = NavigationLink(destination: NominationList(config), label: label)
-        #endif
-        view.buttonStyle(PlainButtonStyle())
     }
 }
 

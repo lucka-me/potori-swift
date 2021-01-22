@@ -40,9 +40,9 @@ struct DashboardGalleryView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(nominations) { nomination in
-                            openNominationDetails(
+                            OpenNominationDetailsLink(
                                 .init("view.dashboard.gallery", Self.predicate, nomination.id, panel: .list),
-                                nomination: nomination
+                                nomination
                             ) {
                                 RemoteImage(nomination.imageURL)
                                     .scaledToFill()
@@ -68,20 +68,6 @@ struct DashboardGalleryView: View {
             .padding(8)
             .frame(width: 100, alignment: .leading)
             .background(Rectangle().fill(status.color.opacity(0.5)))
-    }
-    
-    @ViewBuilder
-    private func openNominationDetails<Label: View>(
-        _ config: Navigation.OpenNominationsConfiguration,
-        nomination: Nomination,
-        @ViewBuilder _ label: @escaping () -> Label
-    ) -> some View {
-        #if os(macOS)
-        let view = Button(action: { navigation.openNominations = config }, label: label)
-        #else
-        let view = NavigationLink(destination: NominationDetails(nomination: nomination), label: label)
-        #endif
-        view.buttonStyle(PlainButtonStyle())
     }
 }
 
