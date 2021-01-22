@@ -35,7 +35,6 @@ struct DashboardReasonsView: View {
                     .foregroundColor(.accentColor)
                 }
             }
-            .padding(.top, 3)
             
             LazyVGrid(columns: columns, alignment: .leading) {
                 ForEach(0 ..< Umi.shared.reasonAll.count) { index in
@@ -55,6 +54,7 @@ struct DashboardReasonsView: View {
                 }
             }
         }
+        .padding(.top, 3)
         .padding(.horizontal)
     }
     

@@ -45,6 +45,7 @@ struct DashboardHighlightView: View {
                 }
             }
         }
+        .padding(.top, 3)
         .padding(.horizontal)
     }
     

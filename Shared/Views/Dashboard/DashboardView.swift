@@ -36,6 +36,7 @@ struct DashboardView: View {
                 } label: {
                     Label("view.dashboard.refresh", systemImage: "arrow.clockwise")
                 }
+                .keyboardShortcut(.init("r", modifiers: .command))
                 .disabled(service.status != .idle)
             }
         }

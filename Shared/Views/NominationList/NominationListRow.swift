@@ -16,7 +16,7 @@ struct NominationListRow: View {
             RemoteImage(nomination.imageURL)
                 .scaledToFill()
                 .frame(width: 50, height: 50)
-                .cornerRadius(5)
+                .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
             VStack(alignment: .leading) {
                 HStack {
                     Text(nomination.title)
