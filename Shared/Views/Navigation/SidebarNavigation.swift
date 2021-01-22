@@ -64,7 +64,7 @@ struct SidebarNavigation: View {
     private var dashboard: some View {
         #if os(macOS)
         DashboardView()
-            .frame(minWidth: 500)
+            .frame(minWidth: 350)
         #else
         DashboardView()
         #endif
