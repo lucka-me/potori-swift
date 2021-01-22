@@ -46,6 +46,7 @@ struct DashboardStatusView: View {
     }
 }
 
+#if DEBUG
 struct DashboardStatusView_Previews: PreviewProvider {
     
     static let service = Service.preview
@@ -55,3 +56,4 @@ struct DashboardStatusView_Previews: PreviewProvider {
             .environmentObject(service)
     }
 }
+#endif
