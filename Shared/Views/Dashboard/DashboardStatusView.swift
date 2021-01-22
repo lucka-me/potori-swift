@@ -16,40 +16,32 @@ struct DashboardStatusView: View {
     @EnvironmentObject private var service: Service
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack {
-                Text("view.dashboard.status")
-                    .font(.title2)
-                    .bold()
-            }
-            .padding(.top, 3)
-            
-            ZStack(alignment: .topLeading) {
-                DashboardCardBackground()
+        ZStack(alignment: .topLeading) {
+            DashboardCardBackground()
 
-                Group {
-                    if !service.auth.login {
-                        Button("view.dashboard.status.linkAccount") {
-                            #if os(macOS)
-                            service.auth.logIn()
-                            #else
-                            service.auth.logIn(appDelegate: appDelegate)
-                            #endif
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        .foregroundColor(.accentColor)
-                    } else {
-                        switch service.status {
-                        case .processingMails:
-                            ProgressView(LocalizedStringKey(service.status.rawValue), value: service.progress)
-                        default:
-                            Text(LocalizedStringKey(service.status.rawValue))
-                        }
+            Group {
+                if !service.auth.login {
+                    Button("view.dashboard.status.linkAccount") {
+                        #if os(macOS)
+                        service.auth.logIn()
+                        #else
+                        service.auth.logIn(appDelegate: appDelegate)
+                        #endif
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .foregroundColor(.accentColor)
+                } else {
+                    switch service.status {
+                    case .processingMails:
+                        ProgressView(LocalizedStringKey(service.status.rawValue), value: service.progress)
+                    default:
+                        Text(LocalizedStringKey(service.status.rawValue))
                     }
                 }
-                .padding(10)
             }
+            .padding(10)
         }
+        .padding(.top, 3)
         .padding(.horizontal)
     }
 }
