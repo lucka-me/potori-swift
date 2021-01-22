@@ -61,7 +61,6 @@ final class Umi {
             let code: Int16
             let title: String
             let iconSF: String
-            let color: String
             
             let queries: [Query.JSON]
         }
@@ -80,7 +79,14 @@ final class Umi {
             
             title = LocalizedStringKey(from.title)
             icon = from.iconSF
-            color = Color(from.color)
+            switch code {
+            case .pending:
+                color = .orange
+            case .accepted:
+                color = .green
+            case .rejected:
+                color = .red
+            }
             
             var queries: [Scanner.Code : Query] = [:]
             for queryJSON in from.queries {

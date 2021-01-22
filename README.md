@@ -49,8 +49,8 @@ We hope to implement all features of the web app, and bring more with platform s
   - [x] Navigation for all platform
   - [ ] Dashboard
     - [x] Basic
-    - [ ] Reasons
-    - [ ] Last 30 Days
+    - [x] Reasons
+    - [x] Last 30 Days
     - [ ] Map
     - [ ] Charts
   - [x] Nomination List
@@ -59,7 +59,7 @@ We hope to implement all features of the web app, and bring more with platform s
   - [ ] Order
   - [x] Preference View
 - [ ] Brand-new Features
- - [ ] Only process mails later than latest one
+  - [ ] Only process mails later than latest one
 - [ ] Platform Features
   - [ ] Background update & notification
   - [ ] Widget

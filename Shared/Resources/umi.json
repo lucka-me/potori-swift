@@ -20,7 +20,6 @@
             "title": "data.pending",
             "iconFA": "\uf017",
             "iconSF": "clock",
-            "color": "Umi.Status.Pending",
             "queries": [
                 {
                     "scanner": 1,
@@ -38,7 +37,6 @@
             "title": "data.accepted",
             "iconFA": "\uf00c",
             "iconSF": "checkmark.circle",
-            "color": "Umi.Status.Accepted",
             "queries": [
                 {
                     "scanner": 1,
@@ -55,7 +53,6 @@
             "title": "data.rejected",
             "iconFA": "\uf00d",
             "iconSF": "xmark.circle",
-            "color": "Umi.Status.Rejected",
             "queries": [
                 {
                     "scanner": 1,
