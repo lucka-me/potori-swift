@@ -85,6 +85,13 @@ struct NominationList: View {
             .deleteDisabled(service.status != .idle)
         }
         .navigationTitle(config.title)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                OpenNominationMapLink(config, plain: false) {
+                    Label("view.map", systemImage: "map")
+                }
+            }
+        }
         .onAppear {
             selection = config.selection
         }

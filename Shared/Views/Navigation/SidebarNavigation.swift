@@ -24,11 +24,18 @@ struct SidebarNavigation: View {
                 }
                 #if os(macOS)
                 NavigationLink(
-                    destination: NominationList(model.openNominations).frame(minWidth: 500),
+                    destination: NominationList(model.openNominations),
                     tag: Navigation.Panel.list,
                     selection: $model.activePanel
                 ) {
                     Navigation.PanelLabel.list
+                }
+                NavigationLink(
+                    destination: NominationMap(model.openNominations).frame(minWidth: 350),
+                    tag: Navigation.Panel.map,
+                    selection: $model.activePanel
+                ) {
+                    Navigation.PanelLabel.map
                 }
                 #else
                 Section(header: Text("view.misc")) {
@@ -43,7 +50,7 @@ struct SidebarNavigation: View {
                 #endif
             }
             .environmentObject(model)
-            .frame(minWidth: 150)
+            .frame(minWidth: 150, minHeight: 300)
             .listStyle(SidebarListStyle())
             .toolbar {
                 ToolbarItemGroup {

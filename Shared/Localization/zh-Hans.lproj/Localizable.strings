@@ -30,6 +30,7 @@
 /* View */
 // Navigation
 "view.list" = "列表";
+"view.map"  = "地图";
 "view.misc" = "其它";
 "view.toggleSidebar"    = "开关边栏";
 "view.preferences"  = "偏好设置";

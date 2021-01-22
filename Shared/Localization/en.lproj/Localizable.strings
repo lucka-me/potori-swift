@@ -30,6 +30,7 @@
 /* View */
 // Navigation
 "view.list" = "List";
+"view.map"  = "Map";
 "view.misc" = "Misc";
 "view.toggleSidebar"    = "Toggle Sidebar";
 "view.preferences"  = "Preferences";

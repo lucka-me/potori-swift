@@ -33,8 +33,8 @@
 		844E157F25A065FB00A79C9E /* GoogleAPIClientForRESTCore in Frameworks */ = {isa = PBXBuildFile; productRef = 844E157E25A065FB00A79C9E /* GoogleAPIClientForRESTCore */; };
 		844E158125A0660200A79C9E /* GoogleAPIClientForRESTCore in Frameworks */ = {isa = PBXBuildFile; productRef = 844E158025A0660200A79C9E /* GoogleAPIClientForRESTCore */; };
 		8462D078259F9C330031AD0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D077259F9C330031AD0D /* AppDelegate.swift */; };
-		8462D088259FBA030031AD0D /* MainMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D087259FBA030031AD0D /* MainMap.swift */; };
-		8462D089259FBA030031AD0D /* MainMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D087259FBA030031AD0D /* MainMap.swift */; };
+		8462D088259FBA030031AD0D /* NominationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D087259FBA030031AD0D /* NominationMap.swift */; };
+		8462D089259FBA030031AD0D /* NominationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D087259FBA030031AD0D /* NominationMap.swift */; };
 		8462D0A525A0643F0031AD0D /* GoogleAPIClientForREST_Gmail in Frameworks */ = {isa = PBXBuildFile; productRef = 8462D0A425A0643F0031AD0D /* GoogleAPIClientForREST_Gmail */; };
 		846645EC25A8DAA200DD37D1 /* GoogleDriveKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846645EB25A8DAA200DD37D1 /* GoogleDriveKit.swift */; };
 		846645ED25A8DAA200DD37D1 /* GoogleDriveKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846645EB25A8DAA200DD37D1 /* GoogleDriveKit.swift */; };
@@ -138,7 +138,7 @@
 		84495F2D259A140D00BA238A /* nominations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nominations.json; sourceTree = "<group>"; };
 		844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		8462D077259F9C330031AD0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8462D087259FBA030031AD0D /* MainMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMap.swift; sourceTree = "<group>"; };
+		8462D087259FBA030031AD0D /* NominationMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationMap.swift; sourceTree = "<group>"; };
 		846645EB25A8DAA200DD37D1 /* GoogleDriveKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveKit.swift; sourceTree = "<group>"; };
 		8468A22B25A33784009B562D /* Potori.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Potori.xcdatamodel; sourceTree = "<group>"; };
 		8469EB1A25B88A2600A9831D /* DashboardReasonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardReasonsView.swift; sourceTree = "<group>"; };
@@ -394,7 +394,7 @@
 			isa = PBXGroup;
 			children = (
 				84F97C77259B7474005D9AA4 /* ContentView.swift */,
-				8462D087259FBA030031AD0D /* MainMap.swift */,
+				8462D087259FBA030031AD0D /* NominationMap.swift */,
 				84177FB825B2F079009CC4E9 /* MatchView.swift */,
 				844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */,
 				84CCEDC1259CB5470040917E /* RemoteImage.swift */,
@@ -621,7 +621,7 @@
 				84CCEDC2259CB5470040917E /* RemoteImage.swift in Sources */,
 				843BEF6A259F36FB00FC17F9 /* AuthKit.swift in Sources */,
 				84177FB925B2F079009CC4E9 /* MatchView.swift in Sources */,
-				8462D088259FBA030031AD0D /* MainMap.swift in Sources */,
+				8462D088259FBA030031AD0D /* NominationMap.swift in Sources */,
 				8469EB2A25B93EF800A9831D /* DashboardStatusView.swift in Sources */,
 				844A9AAE25A4BD21003E44B5 /* PreferencesView.swift in Sources */,
 				8491789B2599F92C00CD967F /* NominationListRow.swift in Sources */,
@@ -678,7 +678,7 @@
 				84DB6ED2259A3D5D00BD915B /* Service.swift in Sources */,
 				8497C76A25B81BB500B88C12 /* Reason.swift in Sources */,
 				8469EB5625B9D28600A9831D /* Navigation.swift in Sources */,
-				8462D089259FBA030031AD0D /* MainMap.swift in Sources */,
+				8462D089259FBA030031AD0D /* NominationMap.swift in Sources */,
 				849178A8259A06E000CD967F /* NominationList.swift in Sources */,
 				849178BF259A0D8D00CD967F /* NominationRAW.swift in Sources */,
 				84BFD365259F46530047318D /* Mari.swift in Sources */,

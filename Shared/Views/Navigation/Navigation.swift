@@ -13,6 +13,7 @@ class Navigation: ObservableObject {
     enum Panel: Hashable {
         case dashboard
         case list
+        case map
         #if os(iOS)
         case preference
         #endif
@@ -45,6 +46,7 @@ class Navigation: ObservableObject {
     class PanelLabel {
         static let dashboard = Label("view.dashboard", systemImage: "gauge")
         static let list = Label("view.list", systemImage: "list.bullet")
+        static let map = Label("view.map", systemImage: "map")
         #if os(iOS)
         static let preferences = Label("view.preferences", systemImage: "gearshape")
         #endif
@@ -110,5 +112,33 @@ struct OpenNominationDetailsLink<Label: View>: View {
         let view = NavigationLink(destination: NominationDetails(nomination: nomination), label: label)
         #endif
         view.buttonStyle(PlainButtonStyle())
+    }
+}
+
+struct OpenNominationMapLink<Label: View>: View {
+    #if os(macOS)
+    @EnvironmentObject var navigation: Navigation
+    #endif
+    private let config: Navigation.OpenNominationsConfiguration
+    private let plain: Bool
+    private let label: () -> Label
+    
+    init(_ config: Navigation.OpenNominationsConfiguration, plain: Bool = true, @ViewBuilder _ label: @escaping () -> Label) {
+        self.config = .init(config.title, config.predicate, panel: .map)
+        self.plain = plain
+        self.label = label
+    }
+    
+    var body: some View {
+        #if os(macOS)
+        let view = Button(action: { navigation.openNominations = config }, label: label)
+        #else
+        let view = NavigationLink(destination: NominationMap(config), label: label)
+        #endif
+        if plain {
+            view.buttonStyle(PlainButtonStyle())
+        } else {
+            view
+        }
     }
 }
