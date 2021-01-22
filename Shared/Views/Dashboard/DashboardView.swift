@@ -20,18 +20,20 @@ struct DashboardView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(alignment: .leading) {
-                if !service.auth.login || service.status != .idle {
+                if service.status != .idle || !service.auth.login || service.isNominationsEmpty {
                     DashboardStatusView()
                 }
-                #if os(macOS)
-                DashboardHighlightView(listConfig: $listConfig)
-                DashboardGalleryView(listConfig: $listConfig)
-                DashboardReasonsView(listConfig: $listConfig)
-                #else
-                DashboardHighlightView()
-                DashboardGalleryView()
-                DashboardReasonsView()
-                #endif
+                if service.status == .idle && !service.isNominationsEmpty {
+                    #if os(macOS)
+                    DashboardHighlightView(listConfig: $listConfig)
+                    DashboardGalleryView(listConfig: $listConfig)
+                    DashboardReasonsView(listConfig: $listConfig)
+                    #else
+                    DashboardHighlightView()
+                    DashboardGalleryView()
+                    DashboardReasonsView()
+                    #endif
+                }
             }
             .animation(.easeInOut)
         }
