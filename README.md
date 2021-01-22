@@ -46,7 +46,7 @@ We hope to implement all features of the web app, and bring more with platform s
   - [ ] Store data with Core Data
   - [ ] Firebase query
 - [ ] User Interface with SwiftUI 2.0
-  - [x] Navigation for all platform
+  - [x] Navigation for all platforms
   - [ ] Dashboard
     - [x] Basic
     - [x] Reasons
@@ -58,8 +58,8 @@ We hope to implement all features of the web app, and bring more with platform s
   - [ ] Nomination Editor
   - [ ] Order
   - [x] Preference View
-- [ ] Brand-new Features
-  - [ ] Only process mails later than latest one
+- [ ] New Features
+  - [x] Only query mails later than latest one
 - [ ] Platform Features
   - [ ] Background update & notification
   - [ ] Widget

@@ -73,6 +73,7 @@
 "view.preferences.google"   = "Google";
 "view.preferences.data"     = "数据";
 "view.preferences.general.refreshOnOpen"    = "打开时刷新";
+"view.preferences.general.queryAfterLatest" = "仅查询最新邮件";
 "view.preferences.google.account"   = "Google账号";
 "view.preferences.google.link"      = "连接";
 "view.preferences.google.unlink"    = "断开连接";

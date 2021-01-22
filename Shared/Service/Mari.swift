@@ -25,6 +25,7 @@ class Mari {
     
     private var nominations: [NominationRAW] = []
     private var ignoreMailIds: [String] = []
+    private var latest: UInt64 = 0
     private var mailIds: [Umi.Status.Code : [Umi.Scanner.Code : [String]]] = [:]
     
     init() {
@@ -50,8 +51,13 @@ class Mari {
         nominations = withNominations
         ignoreMailIds.removeAll()
         mailIds.removeAll()
-        ignoreMailIds = self.nominations.flatMap {
+        ignoreMailIds = nominations.flatMap {
             $0.resultMailId.isEmpty ? [$0.confirmationMailId] : [$0.confirmationMailId, $0.resultMailId]
+        }
+        if Preferences.General.queryAfterLatest {
+            latest = nominations.reduce(0) { max($0, $1.confirmedTime, $1.resultTime) }
+        } else {
+            latest = 0
         }
         for typePair in Umi.shared.status {
             self.mailIds[typePair.key] = [:]
@@ -76,7 +82,7 @@ class Mari {
     
     private func getListQuery(_ q: String, _ pageToken: String?) -> GTLRGmailQuery_UsersMessagesList {
         let query = GTLRGmailQuery_UsersMessagesList.query(withUserId: Mari.userId)
-        query.q = q
+        query.q = "\(q)\(latest > 0 ? " after:\(latest)" : "")"
         query.pageToken = pageToken
         return query
     }
@@ -136,12 +142,14 @@ class Mari {
     
     private func parse(_ mail: GTLRGmail_Message, _ forType: Umi.Status.Code, _ by: Umi.Status.Query) throws -> NominationRAW {
         let nomination = NominationRAW(forType, by.scanner)
-        if forType == .pending {
-            nomination.confirmationMailId = mail.identifier ?? ""
-            nomination.confirmedTime = (mail.internalDate?.uint64Value ?? 0) / 1000
-        } else {
-            nomination.resultMailId = mail.identifier ?? ""
-            nomination.resultTime = (mail.internalDate?.uint64Value ?? 0) / 1000
+        if let solidId = mail.identifier, let solidDate = mail.internalDate?.uint64Value {
+            if forType == .pending {
+                nomination.confirmationMailId = solidId
+                nomination.confirmedTime = solidDate / 1000
+            } else {
+                nomination.resultMailId = solidId
+                nomination.resultTime = solidDate / 1000
+            }
         }
 
         // Subject -> Title

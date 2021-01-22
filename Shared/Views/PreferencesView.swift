@@ -63,9 +63,11 @@ fileprivate struct GeneralGroup: View, PreferenceGroup {
     let icon: String = "gearshape"
     
     @AppStorage(Preferences.General.keyRefreshOnOpen) var prefRefreshOnOpen = false
+    @AppStorage(Preferences.General.keyQueryAfterLatest) var prefQueryAfterLatest = true
     
     var body: some View {
         Toggle("view.preferences.general.refreshOnOpen", isOn: $prefRefreshOnOpen)
+        Toggle("view.preferences.general.queryAfterLatest", isOn: $prefQueryAfterLatest)
     }
 }
 

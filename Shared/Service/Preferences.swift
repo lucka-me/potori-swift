@@ -12,9 +12,13 @@ class Preferences {
         static let keyRefreshOnOpen = "pref.general.refreshOnOpen"
         static var refreshOnOpen: Bool { UserDefaults.standard.bool(forKey: keyRefreshOnOpen) }
         
+        static let keyQueryAfterLatest = "pref.general.queryAfterLatest"
+        static var queryAfterLatest: Bool { UserDefaults.standard.bool(forKey: keyQueryAfterLatest) }
+        
         static func register() {
             UserDefaults.standard.register(defaults: [
-                keyRefreshOnOpen: false
+                keyRefreshOnOpen: false,
+                keyQueryAfterLatest: true,
             ])
         }
     }
