@@ -47,7 +47,9 @@ struct DashboardGalleryView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                             #if os(macOS)
                             let view = Button {
-                                navigation.openNominations = .init("view.dashboard.gallery", Self.predicate, nomination.id, view: .list)
+                                navigation.openNominations = .init(
+                                    "view.dashboard.gallery", Self.predicate, nomination.id, panel: .list
+                                )
                             } label: { image }
                             #else
                             let view = NavigationLink(destination: NominationDetails(nomination: nomination)) { image }

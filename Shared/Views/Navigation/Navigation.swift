@@ -10,7 +10,7 @@ import SwiftUI
 
 class Navigation: ObservableObject {
     
-    enum View: Hashable {
+    enum Panel: Hashable {
         case dashboard
         case list
         #if os(iOS)
@@ -24,25 +24,25 @@ class Navigation: ObservableObject {
         let selection: String?
 
         #if os(macOS)
-        let view: View?
+        let panel: Panel?
         #endif
         
         init(
             _ title: LocalizedStringKey,
             _ predicate: NSPredicate? = nil,
             _ selection: String? = nil,
-            view: View? = nil
+            panel: Panel? = nil
         ) {
             self.title = title
             self.predicate = predicate
             self.selection = selection
             #if os(macOS)
-            self.view = view
+            self.panel = panel
             #endif
         }
     }
     
-    class ViewLabel {
+    class PanelLabel {
         static let dashboard = Label("view.dashboard", systemImage: "gauge")
         static let list = Label("view.list", systemImage: "list.bullet")
         #if os(iOS)
@@ -54,13 +54,13 @@ class Navigation: ObservableObject {
     @Published var openNominations: OpenNominationsConfiguration = .init("view.dashboard.highlight.nominations")
     private var openNominationsCancellable: AnyCancellable? = nil
     #endif
-    @Published var activeView: View? = .dashboard
+    @Published var activePanel: Panel? = .dashboard
     
     #if os(macOS)
     init() {
         openNominationsCancellable = $openNominations.sink { value in
-            if let solidView = value.view {
-                self.activeView = solidView
+            if let solidPanel = value.panel {
+                self.activePanel = solidPanel
             }
         }
     }

@@ -17,27 +17,27 @@ struct SidebarNavigation: View {
             List {
                 NavigationLink(
                     destination: dashboard,
-                    tag: Navigation.View.dashboard,
-                    selection: $model.activeView
+                    tag: Navigation.Panel.dashboard,
+                    selection: $model.activePanel
                 ) {
-                    Navigation.ViewLabel.dashboard
+                    Navigation.PanelLabel.dashboard
                 }
                 #if os(macOS)
                 NavigationLink(
                     destination: NominationList(model.openNominations).frame(minWidth: 500),
-                    tag: Navigation.View.list,
-                    selection: $model.activeView
+                    tag: Navigation.Panel.list,
+                    selection: $model.activePanel
                 ) {
-                    Navigation.ViewLabel.list
+                    Navigation.PanelLabel.list
                 }
                 #else
                 Section(header: Text("view.misc")) {
                     NavigationLink(
                         destination: PreferencesView(),
-                        tag: Navigation.View.preference,
-                        selection: $model.activeView
+                        tag: Navigation.Panel.preference,
+                        selection: $model.activePanel
                     ) {
-                        Navigation.ViewLabel.preferences
+                        Navigation.PanelLabel.preferences
                     }
                 }
                 #endif
