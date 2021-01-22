@@ -90,12 +90,12 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
         HStack(alignment: .firstTextBaseline) {
             Text("view.preferences.google.account")
                 .font(.headline)
-            service.auth.login ? Text(service.auth.mail) : Text("view.preferences.google.notLinked")
+            service.google.auth.login ? Text(service.google.auth.mail) : Text("view.preferences.google.notLinked")
         }
         .lineLimit(1)
         Button(
-            service.auth.login ? "view.preferences.google.unlink" : "view.preferences.google.link",
-            action: service.auth.login ? logOut : logIn
+            service.google.auth.login ? "view.preferences.google.unlink" : "view.preferences.google.link",
+            action: service.google.auth.login ? logOut : logIn
         )
         #else
         HStack {
@@ -151,7 +151,7 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
     
     private func logIn() {
         #if os(macOS)
-        service.auth.logIn()
+        service.google.auth.logIn()
         #else
         service.google.auth.logIn(appDelegate: appDelegate)
         #endif
