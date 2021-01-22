@@ -26,7 +26,7 @@ struct DashboardHighlightView: View {
                     .bold()
             }
             
-            LazyVGrid(columns: columns, alignment: .leading) {
+            LazyVGrid(columns: DashboardView.columns, alignment: .leading) {
                 OpenNominationListLink(.init("view.dashboard.highlight.nominations", panel: .list)) {
                     DashboardCardView(Text("\(service.countNominations())")) {
                         Label("view.dashboard.highlight.nominations", systemImage: "arrow.up.circle")
@@ -47,15 +47,6 @@ struct DashboardHighlightView: View {
         }
         .padding(.top, 3)
         .padding(.horizontal)
-    }
-    
-    private var columns: [GridItem] {
-        #if os(macOS)
-        let columns = 4
-        #else
-        let columns = horizontalSizeClass == .compact ? 2 : 4
-        #endif
-        return Array(repeating: .init(.flexible(), spacing: 10), count: columns)
     }
 }
 

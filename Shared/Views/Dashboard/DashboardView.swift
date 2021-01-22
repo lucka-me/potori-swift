@@ -9,6 +9,8 @@ import SwiftUI
 
 struct DashboardView: View {
     
+    static let columns: [GridItem] = [ .init(.adaptive(minimum: 150, maximum: 250), spacing: 8) ]
+    
     #if os(iOS)
     @EnvironmentObject var appDelegate: AppDelegate
     #endif
