@@ -9,9 +9,7 @@ import SwiftUI
 
 struct DashboardView: View {
     
-    #if os(macOS)
-    @Binding var listConfig: NominationList.Configuration
-    #else
+    #if os(iOS)
     @EnvironmentObject var appDelegate: AppDelegate
     #endif
     
@@ -24,15 +22,9 @@ struct DashboardView: View {
                     DashboardStatusView()
                 }
                 if service.status == .idle && !service.isNominationsEmpty {
-                    #if os(macOS)
-                    DashboardHighlightView(listConfig: $listConfig)
-                    DashboardGalleryView(listConfig: $listConfig)
-                    DashboardReasonsView(listConfig: $listConfig)
-                    #else
                     DashboardHighlightView()
                     DashboardGalleryView()
                     DashboardReasonsView()
-                    #endif
                 }
             }
             .animation(.easeInOut)
@@ -55,17 +47,13 @@ struct DashboardView: View {
 struct DashboardView_Previews: PreviewProvider {
     
     static let service = Service.preview
+    static let navigationModel: Navigation = .init()
     
     static var previews: some View {
-        #if os(macOS)
-        DashboardView(listConfig: .constant(.init("")))
-            .environmentObject(service)
-            .environment(\.managedObjectContext, service.containerContext)
-        #else
         DashboardView()
             .environmentObject(service)
+            .environmentObject(navigationModel)
             .environment(\.managedObjectContext, service.containerContext)
-        #endif
     }
 }
 #endif

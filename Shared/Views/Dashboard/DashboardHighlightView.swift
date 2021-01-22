@@ -10,7 +10,7 @@ import SwiftUI
 struct DashboardHighlightView: View {
     
     #if os(macOS)
-    @Binding var listConfig: NominationList.Configuration
+    @EnvironmentObject var navigation: Navigation
     #else
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
@@ -27,7 +27,7 @@ struct DashboardHighlightView: View {
             }
             
             LazyVGrid(columns: columns, alignment: .leading) {
-                openNominationList(.init("view.dashboard.highlight.nominations")) {
+                openNominationList(.init("view.dashboard.highlight.nominations", view: .list)) {
                     DashboardCardView(Text("\(service.countNominations())")) {
                         Label("view.dashboard.highlight.nominations", systemImage: "arrow.up.circle")
                             .foregroundColor(.accentColor)
@@ -36,7 +36,7 @@ struct DashboardHighlightView: View {
                 
                 ForEach(Umi.shared.statusAll, id: \.code) { status in
                     let predicate = status.predicate
-                    openNominationList(.init(status.title, predicate)) {
+                    openNominationList(.init(status.title, predicate, view: .list)) {
                         DashboardCardView(Text("\(service.countNominations(predicate))")) {
                             Label(status.title, systemImage: status.icon)
                                 .foregroundColor(status.color)
@@ -59,11 +59,11 @@ struct DashboardHighlightView: View {
     
     @ViewBuilder
     private func openNominationList<Label: View>(
-        _ config: NominationList.Configuration,
+        _ config: Navigation.OpenNominationsConfiguration,
         @ViewBuilder _ label: () -> Label
     ) -> some View {
         #if os(macOS)
-        let view = Button(action: { listConfig = config }, label: label)
+        let view = Button(action: { navigation.openNominations = config }, label: label)
         #else
         let view = NavigationLink(destination: NominationList(config), label: label)
         #endif
@@ -75,17 +75,13 @@ struct DashboardHighlightView: View {
 struct DashboardHighlightView_Previews: PreviewProvider {
     
     static let service = Service.preview
+    static let navigationModel: Navigation = .init()
     
     static var previews: some View {
-        #if os(macOS)
-        DashboardHighlightView(listConfig: .constant(.init("")))
-            .environmentObject(service)
-            .environment(\.managedObjectContext, service.containerContext)
-        #else
         DashboardHighlightView()
             .environmentObject(service)
+            .environmentObject(navigationModel)
             .environment(\.managedObjectContext, service.containerContext)
-        #endif
     }
 }
 #endif

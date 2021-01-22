@@ -14,7 +14,7 @@ struct DashboardGalleryView: View {
     private static let predicate = NSPredicate(format: "confirmedTime > %@ || resultTime > %@", datePast30Days, datePast30Days)
     
     #if os(macOS)
-    @Binding var listConfig: NominationList.Configuration
+    @EnvironmentObject var navigation: Navigation
     #endif
 
     @FetchRequest(
@@ -47,7 +47,7 @@ struct DashboardGalleryView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                             #if os(macOS)
                             let view = Button {
-                                listConfig = .init("view.dashboard.gallery", Self.predicate, nomination.id)
+                                navigation.openNominations = .init("view.dashboard.gallery", Self.predicate, nomination.id, view: .list)
                             } label: { image }
                             #else
                             let view = NavigationLink(destination: NominationDetails(nomination: nomination)) { image }
@@ -75,11 +75,11 @@ struct DashboardGalleryView: View {
     
     @ViewBuilder
     private func openNominationList<Label: View>(
-        _ config: NominationList.Configuration,
+        _ config: Navigation.OpenNominationsConfiguration,
         @ViewBuilder _ label: () -> Label
     ) -> some View {
         #if os(macOS)
-        let view = Button(action: { listConfig = config }, label: label)
+        let view = Button(action: { navigation.openNominations = config }, label: label)
         #else
         let view = NavigationLink(destination: NominationList(config), label: label)
         #endif
@@ -87,19 +87,17 @@ struct DashboardGalleryView: View {
     }
 }
 
+#if DEBUG
 struct DashboardGalleryView_Previews: PreviewProvider {
     
     static let service = Service.preview
+    static let navigationModel: Navigation = .init()
 
     static var previews: some View {
-        #if os(macOS)
-        DashboardGalleryView(listConfig: .constant(.init("")))
-            .environmentObject(service)
-            .environment(\.managedObjectContext, service.containerContext)
-        #else
         DashboardGalleryView()
             .environmentObject(service)
+            .environmentObject(navigationModel)
             .environment(\.managedObjectContext, service.containerContext)
-        #endif
     }
 }
+#endif

@@ -10,7 +10,7 @@ import SwiftUI
 struct DashboardReasonsView: View {
     
     #if os(macOS)
-    @Binding var listConfig: NominationList.Configuration
+    @EnvironmentObject var navigation: Navigation
     #else
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
@@ -44,7 +44,7 @@ struct DashboardReasonsView: View {
                         let predicate = reason.predicate
                         let count = service.countNominations(predicate)
                         if count > 0 {
-                            openNominationList(.init(reason.title, predicate)) {
+                            openNominationList(.init(reason.title, predicate, view: .list)) {
                                 DashboardCardView(Text("\(service.countNominations(predicate))")) {
                                     Label(reason.title, systemImage: reason.icon)
                                         .foregroundColor(.red)
@@ -69,11 +69,11 @@ struct DashboardReasonsView: View {
     
     @ViewBuilder
     private func openNominationList<Label: View>(
-        _ config: NominationList.Configuration,
+        _ config: Navigation.OpenNominationsConfiguration,
         @ViewBuilder _ label: () -> Label
     ) -> some View {
         #if os(macOS)
-        let view = Button(action: { listConfig = config }, label: label)
+        let view = Button(action: { navigation.openNominations = config }, label: label)
         #else
         let view = NavigationLink(destination: NominationList(config), label: label)
         #endif
@@ -85,17 +85,13 @@ struct DashboardReasonsView: View {
 struct DashboardReasonsView_Previews: PreviewProvider {
 
     static let service = Service.preview
+    static let navigationModel: Navigation = .init()
 
     static var previews: some View {
-        #if os(macOS)
-        DashboardReasonsView(listConfig: .constant(.init("")))
-            .environmentObject(service)
-            .environment(\.managedObjectContext, service.containerContext)
-        #else
         DashboardReasonsView()
             .environmentObject(service)
+            .environmentObject(navigationModel)
             .environment(\.managedObjectContext, service.containerContext)
-        #endif
     }
 }
 #endif

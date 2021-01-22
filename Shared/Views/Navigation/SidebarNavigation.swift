@@ -10,38 +10,39 @@ import Combine
 
 struct SidebarNavigation: View {
 
-    @StateObject private var model: NavigationModel = .init()
+    @StateObject private var model: Navigation = .init()
 
     var body: some View {
         NavigationView {
             List {
                 NavigationLink(
                     destination: dashboard,
-                    tag: NavigationModel.View.dashboard,
+                    tag: Navigation.View.dashboard,
                     selection: $model.activeView
                 ) {
-                    NavigationModel.ViewLabel.dashboard
+                    Navigation.ViewLabel.dashboard
                 }
                 #if os(macOS)
                 NavigationLink(
-                    destination: NominationList(model.list).frame(minWidth: 500),
-                    tag: NavigationModel.View.list,
+                    destination: NominationList(model.openNominations).frame(minWidth: 500),
+                    tag: Navigation.View.list,
                     selection: $model.activeView
                 ) {
-                    NavigationModel.ViewLabel.list
+                    Navigation.ViewLabel.list
                 }
                 #else
                 Section(header: Text("view.misc")) {
                     NavigationLink(
                         destination: PreferencesView(),
-                        tag: NavigationModel.View.preference,
+                        tag: Navigation.View.preference,
                         selection: $model.activeView
                     ) {
-                        NavigationModel.ViewLabel.preferences
+                        Navigation.ViewLabel.preferences
                     }
                 }
                 #endif
             }
+            .environmentObject(model)
             .frame(minWidth: 150)
             .listStyle(SidebarListStyle())
             .toolbar {
@@ -62,7 +63,7 @@ struct SidebarNavigation: View {
     @ViewBuilder
     private var dashboard: some View {
         #if os(macOS)
-        DashboardView(listConfig: $model.list)
+        DashboardView()
             .frame(minWidth: 500)
         #else
         DashboardView()
@@ -80,10 +81,12 @@ struct SidebarNavigation: View {
 struct SidebarNavigation_Previews: PreviewProvider {
 
     static let service = Service.preview
+    static let model: Navigation = .init()
 
     static var previews: some View {
         SidebarNavigation()
             .environmentObject(service)
+            .environmentObject(model)
             .environment(\.managedObjectContext, service.containerContext)
     }
 }

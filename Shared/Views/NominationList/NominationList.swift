@@ -9,25 +9,6 @@ import SwiftUI
 
 struct NominationList: View {
     
-    struct Configuration {
-        let title: LocalizedStringKey
-        let predicate: NSPredicate?
-        let selection: String?
-        #if os(macOS)
-        let open: Bool
-        #endif
-        
-        
-        init(_ title: LocalizedStringKey, _ predicate: NSPredicate? = nil, _ selection: String? = nil, open: Bool = true) {
-            self.title = title
-            self.predicate = predicate
-            self.selection = selection
-            #if os(macOS)
-            self.open = open
-            #endif
-        }
-    }
-    
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.openURL) private var openURL
     @EnvironmentObject private var service: Service
@@ -38,13 +19,13 @@ struct NominationList: View {
     
     @State private var selection: String?
     
-    private let config: Configuration
+    private let config: Navigation.OpenNominationsConfiguration
     private let fetchRequest: FetchRequest<Nomination>
     private var nominations: FetchedResults<Nomination> {
         fetchRequest.wrappedValue
     }
     
-    init(_ configuration: Configuration) {
+    init(_ configuration: Navigation.OpenNominationsConfiguration) {
         config = configuration
 
         fetchRequest = .init(

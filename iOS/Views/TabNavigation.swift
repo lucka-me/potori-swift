@@ -9,16 +9,16 @@ import SwiftUI
 
 struct TabNavigation: View {
     
-    @StateObject private var model: NavigationModel = .init()
+    @StateObject private var model: Navigation = .init()
     
     var body: some View {
         TabView(selection: $model.activeView) {
             NavigationView { DashboardView() }
-                .tabItem { NavigationModel.ViewLabel.dashboard }
-                .tag(NavigationModel.View.dashboard as NavigationModel.View?)
+                .tabItem { Navigation.ViewLabel.dashboard }
+                .tag(Navigation.View.dashboard as Navigation.View?)
             NavigationView { PreferencesView() }
-                .tabItem { NavigationModel.ViewLabel.preferences }
-                .tag(NavigationModel.View.preference as NavigationModel.View?)
+                .tabItem { Navigation.ViewLabel.preferences }
+                .tag(Navigation.View.preference as Navigation.View?)
         }
     }
 }

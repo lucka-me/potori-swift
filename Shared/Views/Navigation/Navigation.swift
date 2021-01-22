@@ -51,7 +51,7 @@ class Navigation: ObservableObject {
     }
     
     #if os(macOS)
-    @Published var openNominations: OpenNominationsConfiguration? = nil
+    @Published var openNominations: OpenNominationsConfiguration = .init("view.dashboard.highlight.nominations")
     private var openNominationsCancellable: AnyCancellable? = nil
     #endif
     @Published var activeView: View? = .dashboard
