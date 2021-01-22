@@ -101,25 +101,25 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
         HStack {
             Text("view.preferences.google.account")
             Spacer()
-            Text(service.auth.login ? "view.preferences.google.linked" : "view.preferences.google.notLinked")
-                .foregroundColor(service.auth.login ? .green : .red)
+            Text(service.google.auth.login ? "view.preferences.google.linked" : "view.preferences.google.notLinked")
+                .foregroundColor(service.google.auth.login ? .green : .red)
         }
         .onTapGesture {
             self.isPresentingActionSheetAccount = true
         }
         .actionSheet(isPresented: $isPresentingActionSheetAccount) {
             ActionSheet(
-                title: service.auth.login ? Text(service.auth.mail) : Text("view.preferences.google.account"),
+                title: service.google.auth.login ? Text(service.google.auth.mail) : Text("view.preferences.google.account"),
                 buttons: [
-                    service.auth.login
-                        ? .destructive(Text("view.preferences.google.unlink")) { service.auth.logOut() }
+                    service.google.auth.login
+                        ? .destructive(Text("view.preferences.google.unlink")) { service.google.auth.logOut() }
                         : .default(Text("view.preferences.google.link"), action: logIn),
                     .cancel()
                 ]
             )
         }
         #endif
-        if service.auth.login {
+        if service.google.auth.login {
             Toggle("view.preferences.google.sync", isOn: $prefSync)
 
             Button("view.preferences.google.syncNow") {
@@ -153,12 +153,12 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
         #if os(macOS)
         service.auth.logIn()
         #else
-        service.auth.logIn(appDelegate: appDelegate)
+        service.google.auth.logIn(appDelegate: appDelegate)
         #endif
     }
     
     private func logOut() {
-        service.auth.logOut()
+        service.google.auth.logOut()
     }
 }
 

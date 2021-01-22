@@ -20,7 +20,7 @@ struct DashboardView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(alignment: .leading) {
-                if service.status != .idle || !service.auth.login || service.isNominationsEmpty {
+                if service.status != .idle || !service.google.auth.login || service.isNominationsEmpty {
                     DashboardStatusView()
                 }
                 if service.status == .idle && !service.isNominationsEmpty {

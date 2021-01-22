@@ -31,15 +31,14 @@ final class Service: ObservableObject {
     
     @Published var status: ServiceStatus = .idle
     @Published var progress = 0.0
-    
-    let containerContext: NSManagedObjectContext
 
-    @Published var auth = AuthKit()
+    @Published var google = GoogleKit()
     @Published var match = MatchManager()
-    private let mari = Mari()
-    private let googleDrive = GoogleDriveKit()
 
-    private var authAnyCancellable: AnyCancellable? = nil
+    let containerContext: NSManagedObjectContext
+    private let mari = Mari()
+
+    private var googleAnyCancellable: AnyCancellable? = nil
     private var matchAnyCancellable: AnyCancellable? = nil
     
     private init(inMemory: Bool = false) {
@@ -62,17 +61,14 @@ final class Service: ObservableObject {
         mari.onFinished { nominations in
             self.arrange(nominations)
         }
-        mari.updateAuth(auth.auth)
+        mari.updateAuth(google.auth.auth)
         
         match.onProgress { progress in
             self.progress = Service.progressPartMari + progress * Service.progressPartMatch
         }
         
-        googleDrive.updateAuth(auth.auth)
-        
-        authAnyCancellable = auth.objectWillChange.sink {
-            self.mari.updateAuth(self.auth.auth)
-            self.googleDrive.updateAuth(self.auth.auth)
+        googleAnyCancellable = google.objectWillChange.sink {
+            self.mari.updateAuth(self.google.auth.auth)
             self.objectWillChange.send()
         }
         matchAnyCancellable = match.objectWillChange.sink {
@@ -127,7 +123,7 @@ final class Service: ObservableObject {
     }
     
     func refresh() {
-        if auth.login {
+        if google.auth.login {
             progress = 0.0
             if Preferences.Google.sync {
                 download {
@@ -188,7 +184,7 @@ final class Service: ObservableObject {
     
     private func download(_ file: NominationFile = .standard, _ callback: @escaping BasicCallback) {
         status = .syncing
-        googleDrive.download(file.rawValue) { data in
+        google.drive.download(file.rawValue) { data in
             if let solidData = data {
                 do {
                     try self.importNominations(data: solidData)
@@ -212,7 +208,7 @@ final class Service: ObservableObject {
             let encoder = JSONEncoder()
             encoder.outputFormatting = .prettyPrinted
             let data = try encoder.encode(jsonList)
-            googleDrive.upload(data , "application/json", NominationFile.standard.rawValue) {
+            google.drive.upload(data , "application/json", NominationFile.standard.rawValue) {
                 callback()
             }
         } catch {

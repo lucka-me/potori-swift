@@ -20,12 +20,12 @@ struct DashboardStatusView: View {
             DashboardCardBackground()
 
             Group {
-                if !service.auth.login {
+                if !service.google.auth.login {
                     Button("view.dashboard.status.linkAccount") {
                         #if os(macOS)
-                        service.auth.logIn()
+                        service.google.auth.logIn()
                         #else
-                        service.auth.logIn(appDelegate: appDelegate)
+                        service.google.auth.logIn(appDelegate: appDelegate)
                         #endif
                     }
                     .buttonStyle(PlainButtonStyle())

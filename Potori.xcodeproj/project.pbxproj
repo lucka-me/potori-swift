@@ -19,8 +19,6 @@
 		843BEF38259F07CF00FC17F9 /* TabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF37259F07CF00FC17F9 /* TabNavigation.swift */; };
 		843BEF48259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */; };
 		843BEF49259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */; };
-		843BEF6A259F36FB00FC17F9 /* AuthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF69259F36FB00FC17F9 /* AuthKit.swift */; };
-		843BEF6B259F36FB00FC17F9 /* AuthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF69259F36FB00FC17F9 /* AuthKit.swift */; };
 		84495F2E259A140D00BA238A /* nominations.json in Resources */ = {isa = PBXBuildFile; fileRef = 84495F2D259A140D00BA238A /* nominations.json */; };
 		84495F2F259A140D00BA238A /* nominations.json in Resources */ = {isa = PBXBuildFile; fileRef = 84495F2D259A140D00BA238A /* nominations.json */; };
 		84495F30259A140D00BA238A /* nominations.json in Resources */ = {isa = PBXBuildFile; fileRef = 84495F2D259A140D00BA238A /* nominations.json */; };
@@ -36,8 +34,8 @@
 		8462D088259FBA030031AD0D /* NominationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D087259FBA030031AD0D /* NominationMap.swift */; };
 		8462D089259FBA030031AD0D /* NominationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D087259FBA030031AD0D /* NominationMap.swift */; };
 		8462D0A525A0643F0031AD0D /* GoogleAPIClientForREST_Gmail in Frameworks */ = {isa = PBXBuildFile; productRef = 8462D0A425A0643F0031AD0D /* GoogleAPIClientForREST_Gmail */; };
-		846645EC25A8DAA200DD37D1 /* GoogleDriveKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846645EB25A8DAA200DD37D1 /* GoogleDriveKit.swift */; };
-		846645ED25A8DAA200DD37D1 /* GoogleDriveKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846645EB25A8DAA200DD37D1 /* GoogleDriveKit.swift */; };
+		846645EC25A8DAA200DD37D1 /* GoogleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846645EB25A8DAA200DD37D1 /* GoogleKit.swift */; };
+		846645ED25A8DAA200DD37D1 /* GoogleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846645EB25A8DAA200DD37D1 /* GoogleKit.swift */; };
 		8468A22C25A33784009B562D /* Potori.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8468A22A25A33784009B562D /* Potori.xcdatamodeld */; };
 		8468A22D25A33784009B562D /* Potori.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8468A22A25A33784009B562D /* Potori.xcdatamodeld */; };
 		8468A22E25A33784009B562D /* Potori.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8468A22A25A33784009B562D /* Potori.xcdatamodeld */; };
@@ -134,12 +132,11 @@
 		843463E525B20E3D008A03CB /* pre-build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "pre-build.sh"; sourceTree = "<group>"; };
 		843BEF37259F07CF00FC17F9 /* TabNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigation.swift; sourceTree = "<group>"; };
 		843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarNavigation.swift; sourceTree = "<group>"; };
-		843BEF69259F36FB00FC17F9 /* AuthKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthKit.swift; sourceTree = "<group>"; };
 		84495F2D259A140D00BA238A /* nominations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nominations.json; sourceTree = "<group>"; };
 		844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		8462D077259F9C330031AD0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8462D087259FBA030031AD0D /* NominationMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationMap.swift; sourceTree = "<group>"; };
-		846645EB25A8DAA200DD37D1 /* GoogleDriveKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveKit.swift; sourceTree = "<group>"; };
+		846645EB25A8DAA200DD37D1 /* GoogleKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleKit.swift; sourceTree = "<group>"; };
 		8468A22B25A33784009B562D /* Potori.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Potori.xcdatamodel; sourceTree = "<group>"; };
 		8469EB1A25B88A2600A9831D /* DashboardReasonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardReasonsView.swift; sourceTree = "<group>"; };
 		8469EB2925B93EF800A9831D /* DashboardStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardStatusView.swift; sourceTree = "<group>"; };
@@ -409,8 +406,7 @@
 		849178B8259A0B6300CD967F /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				843BEF69259F36FB00FC17F9 /* AuthKit.swift */,
-				846645EB25A8DAA200DD37D1 /* GoogleDriveKit.swift */,
+				846645EB25A8DAA200DD37D1 /* GoogleKit.swift */,
 				84BFD363259F46530047318D /* Mari.swift */,
 				84177FB125B2DE81009CC4E9 /* MatchManager.swift */,
 				84A01DD625A609C7006080BF /* Preferences.swift */,
@@ -619,7 +615,6 @@
 				8469EB3525B943C800A9831D /* DashboardGalleryView.swift in Sources */,
 				84F97C71259B6978005D9AA4 /* NominationDetails.swift in Sources */,
 				84CCEDC2259CB5470040917E /* RemoteImage.swift in Sources */,
-				843BEF6A259F36FB00FC17F9 /* AuthKit.swift in Sources */,
 				84177FB925B2F079009CC4E9 /* MatchView.swift in Sources */,
 				8462D088259FBA030031AD0D /* NominationMap.swift in Sources */,
 				8469EB2A25B93EF800A9831D /* DashboardStatusView.swift in Sources */,
@@ -633,7 +628,7 @@
 				846CC5B725A359DD007A8AE8 /* NominationJSON.swift in Sources */,
 				84177FB225B2DE81009CC4E9 /* MatchManager.swift in Sources */,
 				84F97C78259B7474005D9AA4 /* ContentView.swift in Sources */,
-				846645EC25A8DAA200DD37D1 /* GoogleDriveKit.swift in Sources */,
+				846645EC25A8DAA200DD37D1 /* GoogleKit.swift in Sources */,
 				84DB6ED1259A3D5D00BD915B /* Service.swift in Sources */,
 				849178A7259A06E000CD967F /* NominationList.swift in Sources */,
 				849178BE259A0D8D00CD967F /* NominationRAW.swift in Sources */,
@@ -659,7 +654,6 @@
 				846CC62A25A35EFF007A8AE8 /* Nomination.swift in Sources */,
 				84F97C72259B6978005D9AA4 /* NominationDetails.swift in Sources */,
 				8491789C2599F92C00CD967F /* NominationListRow.swift in Sources */,
-				843BEF6B259F36FB00FC17F9 /* AuthKit.swift in Sources */,
 				84B8A54825B85045000B0C0E /* DashboardCardView.swift in Sources */,
 				8469EB3625B943C800A9831D /* DashboardGalleryView.swift in Sources */,
 				84A01DD825A609C7006080BF /* Preferences.swift in Sources */,
@@ -672,7 +666,7 @@
 				842F6C6C259CAA7A0063DCFE /* PotoriCommands.swift in Sources */,
 				84F7359C25B830E8003DE878 /* DashboardView.swift in Sources */,
 				84F735A725B83169003DE878 /* DashboardHighlightView.swift in Sources */,
-				846645ED25A8DAA200DD37D1 /* GoogleDriveKit.swift in Sources */,
+				846645ED25A8DAA200DD37D1 /* GoogleKit.swift in Sources */,
 				84F97C79259B7474005D9AA4 /* ContentView.swift in Sources */,
 				846CC5B825A359DD007A8AE8 /* NominationJSON.swift in Sources */,
 				84DB6ED2259A3D5D00BD915B /* Service.swift in Sources */,
