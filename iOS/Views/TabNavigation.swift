@@ -12,13 +12,13 @@ struct TabNavigation: View {
     @StateObject private var model: Navigation = .init()
     
     var body: some View {
-        TabView(selection: $model.activeView) {
+        TabView(selection: $model.activePanel) {
             NavigationView { DashboardView() }
-                .tabItem { Navigation.ViewLabel.dashboard }
-                .tag(Navigation.View.dashboard as Navigation.View?)
+                .tabItem { Navigation.PanelLabel.dashboard }
+                .tag(Navigation.Panel.dashboard as Navigation.Panel?)
             NavigationView { PreferencesView() }
-                .tabItem { Navigation.ViewLabel.preferences }
-                .tag(Navigation.View.preference as Navigation.View?)
+                .tabItem { Navigation.PanelLabel.preferences }
+                .tag(Navigation.Panel.preference as Navigation.Panel?)
         }
     }
 }
