@@ -54,8 +54,12 @@ We hope to implement all features of the web app, and bring more with platform s
     - [ ] Charts
   - [x] Nomination List
   - [x] Map
-  - [x] Nomination Details
-  - [ ] Nomination Editor
+  - [ ] Nomination Details
+    - [x] Viewer
+    - [ ] Editor
+      - [x] Status, Result Time and Reasons
+      - [ ] Location
+        - [ ] Paste from Intel Maps URL
   - [ ] Order
   - [x] Preference View
 - [ ] New Features

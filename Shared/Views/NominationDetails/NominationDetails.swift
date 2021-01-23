@@ -19,6 +19,7 @@ struct NominationDetails: View {
     
     let nomination: Nomination
     
+    @Environment(\.managedObjectContext) private var viewContext
     @State private var mode: Mode = .view
     @ObservedObject private var editData: EditData = .init()
     
@@ -58,28 +59,35 @@ struct NominationDetails: View {
                         .frame(height: 200)
                 }
             }
-            .navigationTitle(nomination.title)
             .padding()
             .animation(.easeInOut)
-            .toolbar(content: {
-                ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        if mode == .view {
-                            editData.from(nomination)
-                            mode = .edit
-                        } else {
-                            // Save
-                            mode = .view
-                        }
-                    } label: {
-                        Label(
-                            mode == .view ? "view.details.edit" : "view.details.save",
-                            systemImage: mode == .view ? "square.and.pencil" : "checkmark"
-                        )
-                    }
-                }
-            })
         }
+        .navigationTitle(nomination.title)
+        .toolbar(content: {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    if mode == .view {
+                        editData.from(nomination)
+                        mode = .edit
+                    } else {
+                        nomination.statusCode = editData.status
+                        if editData.status != .pending {
+                            nomination.resultTime = editData.resultTime
+                            if editData.status == .rejected {
+                                nomination.reasonsCode = editData.reasons
+                            }
+                        }
+                        try? viewContext.save()
+                        mode = .view
+                    }
+                } label: {
+                    Label(
+                        mode == .view ? "view.details.edit" : "view.details.save",
+                        systemImage: mode == .view ? "square.and.pencil" : "checkmark"
+                    )
+                }
+            }
+        })
     }
     
     @ViewBuilder
@@ -156,6 +164,7 @@ struct NominationDetails: View {
         
         HStack {
             Label("view.details.scanner", systemImage: "apps.iphone")
+                .foregroundColor(.purple)
             Spacer()
             Text(nomination.scannerData.title)
         }
@@ -208,10 +217,12 @@ struct NominationDetails: View {
 
 #if DEBUG
 struct NominationDetails_Previews: PreviewProvider {
+    
     static var service: Service = Service.preview
     
     static var previews: some View {
         NominationDetails(nomination: service.nominations[0])
+            .environment(\.managedObjectContext, service.containerContext)
     }
 }
 #endif

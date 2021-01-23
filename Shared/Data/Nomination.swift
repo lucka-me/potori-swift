@@ -89,8 +89,20 @@ extension Nomination : Identifiable {
     }
     
     var reasonsCode: [Umi.Reason.Code] {
-        let typedSet = reasons as? Set<Reason> ?? []
-        return typedSet.map { $0.code }.sorted()
+        set {
+            removeFromReasons(reasons)
+            if let solidContext = managedObjectContext {
+                for code in newValue {
+                    let reason = Reason(context: solidContext)
+                    reason.code = code
+                    addToReasons(reason)
+                }
+            }
+        }
+        get {
+            let typedSet = reasons as? Set<Reason> ?? []
+            return typedSet.map { $0.code }.sorted()
+        }
     }
 
     var reasonsData: [Umi.Reason] {
