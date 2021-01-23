@@ -44,11 +44,13 @@ struct DashboardGalleryView: View {
                                 .init("view.dashboard.gallery", Self.predicate),
                                 nomination
                             ) {
-                                RemoteImage(nomination.imageURL)
-                                    .scaledToFill()
-                                    .frame(width: 100, height: 100, alignment: .center)
-                                    .overlay(caption(nomination), alignment: .bottomLeading)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                VStack(alignment: .leading) {
+                                    RemoteImage(nomination.imageURL)
+                                        .scaledToFill()
+                                        .frame(width: 100, height: 100, alignment: .center)
+                                        .overlay(caption(nomination), alignment: .bottomLeading)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                }
                             }
                         }
                     }
@@ -60,14 +62,13 @@ struct DashboardGalleryView: View {
     
     @ViewBuilder
     private func caption(_ nomination: Nomination) -> some View {
-        let status = nomination.statusData
         Text(nomination.title)
             .foregroundColor(.primary)
             .lineLimit(1)
             .font(.caption)
             .padding(8)
             .frame(width: 100, alignment: .leading)
-            .background(Rectangle().fill(status.color.opacity(0.5)))
+            .background(Rectangle().fill(nomination.statusData.color.opacity(0.6)))
     }
 }
 
