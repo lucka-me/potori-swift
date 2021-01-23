@@ -51,9 +51,9 @@ We hope to implement all features of the web app, and bring more with platform s
     - [x] Basic
     - [x] Reasons
     - [x] Last 30 Days
-    - [ ] Map
     - [ ] Charts
   - [x] Nomination List
+  - [x] Map
   - [x] Nomination Details
   - [ ] Nomination Editor
   - [ ] Order
