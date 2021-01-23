@@ -17,7 +17,7 @@ struct DashboardStatusView: View {
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            DashboardCardBackground()
+            CardBackground()
 
             Group {
                 if !service.google.auth.login {

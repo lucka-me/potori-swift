@@ -22,7 +22,7 @@ struct DashboardCardView<Label: View>: View {
     var body: some View {
         ZStack(alignment: .topLeading) {
             
-            DashboardCardBackground()
+            CardBackground()
 
             VStack(alignment: .leading) {
                 HStack {
@@ -53,10 +53,3 @@ struct DashboardCardView_Previews: PreviewProvider {
     }
 }
 #endif
-
-struct DashboardCardBackground: View {
-    var body: some View {
-        RoundedRectangle(cornerRadius: 10, style: .continuous)
-            .fill(Color.gray.opacity(0.15))
-    }
-}
