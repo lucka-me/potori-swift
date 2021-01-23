@@ -52,11 +52,14 @@
 "view.nominations.menuBrainstorming"    = "Brainstorming";
 "view.nominations.menuIntel"    = "Intel Maps";
 // Nomination Details
-"view.nominations.details.confirmed"    = "Confirmed";
-"view.nominations.details.scanner"  = "Scanner";
-"view.nominations.details.rejectedFor"  = "Rejected For";
-"view.nominations.details.location" = "Location";
-"view.nominations.details.location.notAvailable"    = "Not avaliable";
+"view.details.edit" = "Edit";
+"view.details.save" = "Save";
+"view.details.confirmed"    = "Confirmed";
+"view.details.status"   = "Status";
+"view.details.scanner"  = "Scanner";
+"view.details.rejectedFor"  = "Rejected For";
+"view.details.location" = "Location";
+"view.details.location.notAvailable"    = "Not avaliable";
 
 // RemoteImage
 "view.image.open"   = "Open";

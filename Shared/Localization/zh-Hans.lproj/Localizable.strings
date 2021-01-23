@@ -52,11 +52,14 @@
 "view.nominations.menuBrainstorming"    = "Brainstorming";
 "view.nominations.menuIntel"    = "Intel Maps";
 // Nomination Details
-"view.nominations.details.confirmed"    = "确认";
-"view.nominations.details.scanner"  = "扫描器";
-"view.nominations.details.rejectedFor"  = "拒绝原因";
-"view.nominations.details.location" = "位置";
-"view.nominations.details.location.notAvailable"    = "不可用";
+"view.details.edit" = "编辑";
+"view.details.save" = "保存";
+"view.details.confirmed"    = "确认";
+"view.details.status"   = "状态";
+"view.details.scanner"  = "扫描器";
+"view.details.rejectedFor"  = "拒绝原因";
+"view.details.location" = "位置";
+"view.details.location.notAvailable"    = "不可用";
 
 // RemoteImage
 "view.image.open"   = "打开";
