@@ -9,99 +9,123 @@ import SwiftUI
 import MapKit
 
 struct NominationDetails: View {
-
-    var nomination: Nomination
+    
+    let nomination: Nomination
+    
+    private let radius: CGFloat = 12
     
     var body: some View {
-        let list = List {
-            RemoteImage(nomination.imageURL, sharable: true)
-                .scaledToFill()
-                .frame(height: 200)
-                .listRowInsets(EdgeInsets())
-            
-            generalSection
-            
-            if nomination.statusCode == .rejected {
-                reasonsSection
-            }
-            
-            Section(header: Text("view.nominations.details.location")) {
-                if nomination.hasLngLat {
-                    NominationDetailsMap(nomination: nomination)
-                        .frame(height: 200)
-                        .listRowInsets(EdgeInsets())
-                } else {
-                    Text("view.nominations.details.location.notAvailable")
-                }
-            }
-        }
-        .toolbar(content: {
-            ToolbarItem(placement: .primaryAction) {
-                Button(
-                    action: {},
-                    label: {
-                        Image(systemName: "square.and.pencil")
-                    }
-                )
-            }
-        })
-        .navigationTitle(nomination.title)
         
         #if os(macOS)
-        list
-            .frame(minWidth: 300)
+        content.frame(minWidth: 300)
         #else
-        list
-            .listStyle(InsetGroupedListStyle())
+        content
         #endif
     }
     
-    private var generalSection: some View {
-        Section {
-            HStack {
-                Label("view.nominations.details.confirmed", systemImage: "arrow.up.circle")
-                Spacer()
-                Text(
-                    DateFormatter.localizedString(
-                        from: nomination.confirmedTime,
-                        dateStyle: .medium, timeStyle: .none
-                    )
-                )
+    @ViewBuilder
+    private var content: some View {
+        ScrollView {
+            VStack(alignment: .center) {
+                RemoteImage(nomination.imageURL, sharable: true)
+                    .scaledToFit()
+                    .frame(maxWidth: 300, maxHeight: 300)
+                    .clipShape(RoundedRectangle(cornerRadius: radius, style: .continuous))
+                
+                Divider()
+                
+                LazyVGrid(columns: [ .init(.adaptive(minimum: 200), alignment: .top) ], alignment: .center) {
+                    highlight
+                    if nomination.statusCode == .rejected {
+                        reasons
+                    }
+                }
+                .lineLimit(1)
+                
+                if nomination.hasLngLat {
+                    NominationDetailsMap(nomination: nomination)
+                        .clipShape(RoundedRectangle(cornerRadius: radius, style: .continuous))
+                        .frame(height: 200)
+                }
             }
+            .navigationTitle(nomination.title)
+            .padding()
+            .toolbar(content: {
+                ToolbarItem(placement: .primaryAction) {
+                    Button { } label: { Label("edit", systemImage: "square.and.pencil") }
+                }
+            })
+        }
+    }
+    
+    @ViewBuilder
+    private var highlight: some View {
+        ZStack(alignment: .topLeading) {
+            CardBackground(radius: radius)
             
-            let status = nomination.statusData
-            HStack {
-                Label(status.title, systemImage: status.icon)
-                Spacer()
-                if (status.code != .pending) {
+            VStack(alignment: .leading) {
+                HStack {
+                    Label("view.nominations.details.confirmed", systemImage: "arrow.up.circle")
+                        .foregroundColor(.accentColor)
+                    Spacer()
                     Text(
                         DateFormatter.localizedString(
-                            from: nomination.resultTime,
+                            from: nomination.confirmedTime,
                             dateStyle: .medium, timeStyle: .none
                         )
                     )
                 }
+                Divider()
+                let status = nomination.statusData
+                HStack {
+                    Label(status.title, systemImage: status.icon)
+                        .foregroundColor(status.color)
+                    Spacer()
+                    if (status.code != .pending) {
+                        Text(
+                            DateFormatter.localizedString(
+                                from: nomination.resultTime,
+                                dateStyle: .medium, timeStyle: .none
+                            )
+                        )
+                    }
+                }
+                Divider()
+                HStack {
+                    Label("view.nominations.details.scanner", systemImage: "apps.iphone")
+                    Spacer()
+                    Text(nomination.scannerData.title)
+                }
             }
-            
-            HStack {
-                Label("view.nominations.details.scanner", systemImage: "apps.iphone")
-                Spacer()
-                Text(nomination.scannerData.title)
-            }
+            .padding(radius)
         }
+        .fixedSize(horizontal: false, vertical: true)
     }
     
-    private var reasonsSection: some View {
-        Section(header: Text("view.nominations.details.rejectedFor")) {
-            if nomination.reasons.count > 0 {
-                ForEach(nomination.reasonsData, id: \.code) { reason in
-                    Label(reason.title, systemImage: reason.icon)
+    @ViewBuilder
+    private var reasons: some View {
+        ZStack(alignment: .topLeading) {
+            CardBackground(radius: radius)
+            
+            VStack(alignment: .leading) {
+                Text("view.nominations.details.rejectedFor")
+                    .foregroundColor(.red)
+                    .bold()
+                if nomination.reasons.count > 0 {
+                    ForEach(nomination.reasonsData, id: \.code) { reason in
+                        Divider()
+                        Label(reason.title, systemImage: reason.icon)
+                            
+                    }
+                } else {
+                    Divider()
+                    let undeclared = Umi.shared.reason[Umi.Reason.undeclared]!
+                    Label(undeclared.title, systemImage: undeclared.icon)
                 }
-            } else {
-                let undeclared = Umi.shared.reason[Umi.Reason.undeclared]!
-                Label(undeclared.title, systemImage: undeclared.icon)
             }
+            .padding(radius)
         }
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
 
