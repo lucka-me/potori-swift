@@ -16,7 +16,7 @@
                      BuildableIdentifier = "primary"
                      BlueprintIdentifier = "8491785F2599F81700CD967F"
                      BuildableName = "Potori.app"
-                     BlueprintName = "Potori (iOS)"
+                     BlueprintName = "iOS"
                      ReferencedContainer = "container:Potori.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
@@ -34,7 +34,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8491785F2599F81700CD967F"
                BuildableName = "Potori.app"
-               BlueprintName = "Potori (iOS)"
+               BlueprintName = "iOS"
                ReferencedContainer = "container:Potori.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -50,7 +50,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8491786F2599F81700CD967F"
+               BlueprintIdentifier = "84E2EBB625BC4F91007B2000"
                BuildableName = "Tests iOS.xctest"
                BlueprintName = "Tests iOS"
                ReferencedContainer = "container:Potori.xcodeproj">
@@ -74,7 +74,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8491785F2599F81700CD967F"
             BuildableName = "Potori.app"
-            BlueprintName = "Potori (iOS)"
+            BlueprintName = "iOS"
             ReferencedContainer = "container:Potori.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -91,7 +91,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8491785F2599F81700CD967F"
             BuildableName = "Potori.app"
-            BlueprintName = "Potori (iOS)"
+            BlueprintName = "iOS"
             ReferencedContainer = "container:Potori.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

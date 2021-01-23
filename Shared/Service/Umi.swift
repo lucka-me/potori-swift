@@ -175,6 +175,9 @@ final class Umi {
     }
     
     static let shared = Umi()
+    #if DEBUG
+    static let unitTestShared = Umi(forUnitTest: true)
+    #endif
     
     let version: String
     
@@ -187,10 +190,15 @@ final class Umi {
     /// Reason list sorted by code
     let reasonAll: [Reason]
     
-    private init() {
+    private init(forUnitTest: Bool = false) {
         
-        let file = Bundle.main.url(forResource: "umi.json", withExtension: nil)!
-        let data = (try? Data(contentsOf: file))!
+        #if DEBUG
+        let bundle = forUnitTest ? Bundle(for: type(of: self)) : Bundle.main
+        #else
+        let bundle = Bundle.main
+        #endif
+        let url = bundle.url(forResource: "umi", withExtension: "json")!
+        let data = (try? Data(contentsOf: url))!
         let decoder = JSONDecoder()
         let dataJSON = (try? decoder.decode(DataJSON.self, from: data))!
         
@@ -215,4 +223,10 @@ final class Umi {
             .sorted { a, b in a.key < b.key }
             .map { $0.value }
     }
+    
+    #if DEBUG
+    static func unitTestInit() -> Umi {
+        Umi.init(forUnitTest: true)
+    }
+    #endif
 }
