@@ -44,13 +44,11 @@ struct DashboardGalleryView: View {
                                 .init("view.dashboard.gallery", Self.predicate),
                                 nomination
                             ) {
-                                VStack(alignment: .leading) {
-                                    RemoteImage(nomination.imageURL)
-                                        .scaledToFill()
-                                        .frame(width: 100, height: 100, alignment: .center)
-                                        .overlay(caption(nomination), alignment: .bottomLeading)
-                                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                                }
+                                RemoteImage(nomination.imageURL)
+                                    .scaledToFill()
+                                    .frame(width: 100, height: 100, alignment: .center)
+                                    .overlay(caption(nomination), alignment: .bottomLeading)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                             }
                         }
                     }
