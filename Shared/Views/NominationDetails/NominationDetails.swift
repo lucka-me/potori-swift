@@ -27,7 +27,7 @@ struct NominationDetails: View {
             
             Section(header: Text("view.nominations.details.location")) {
                 if nomination.hasLngLat {
-                    NominationDetailsMap(location: nomination.location)
+                    NominationDetailsMap(nomination: nomination)
                         .frame(height: 200)
                         .listRowInsets(EdgeInsets())
                 } else {
