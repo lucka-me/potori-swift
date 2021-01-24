@@ -1,0 +1,58 @@
+//
+//  DashboardScannersView.swift
+//  Potori
+//
+//  Created by Lucka on 24/1/2021.
+//
+
+import SwiftUI
+
+struct DashboardScannersView: View {
+    
+    #if os(macOS)
+    @EnvironmentObject var navigation: Navigation
+    #endif
+    
+    @EnvironmentObject private var service: Service
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("view.dashboard.scanners")
+                .font(.title2)
+                .bold()
+            
+            LazyVGrid(columns: DashboardView.columns, alignment: .leading) {
+                ForEach(0 ..< Umi.shared.scannerAll.count) { index in
+                    let scanner = Umi.shared.scannerAll[index]
+                    let predicate = scanner.predicate
+                    let count = service.countNominations(predicate)
+                    if count > 0 {
+                        OpenNominationListLink(.init(scanner.title, predicate)) {
+                            DashboardCardView(Text("\(count)")) {
+                                Label(scanner.title, systemImage: "apps.iphone")
+                                    .foregroundColor(.purple)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .padding(.top, 3)
+        .padding(.horizontal)
+    }
+}
+
+#if DEBUG
+struct DashboardScannersView_Previews: PreviewProvider {
+    
+    static let service = Service.preview
+    static let navigationModel: Navigation = .init()
+    
+    static var previews: some View {
+        DashboardScannersView()
+            .environmentObject(service)
+            .environmentObject(navigationModel)
+            .environment(\.managedObjectContext, service.containerContext)
+    }
+}
+#endif

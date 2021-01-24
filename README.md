@@ -48,9 +48,10 @@ We hope to implement all features of the web app, and bring more with platform s
 - [ ] User Interface with SwiftUI 2.0
   - [x] Navigation for all platforms
   - [ ] Dashboard
-    - [x] Basic
-    - [x] Reasons
+    - [x] Highlight
     - [x] Last 30 Days
+    - [x] Scanners
+    - [x] Reasons
     - [ ] Charts
   - [x] Nomination List
   - [x] Map

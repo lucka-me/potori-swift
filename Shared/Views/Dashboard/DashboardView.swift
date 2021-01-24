@@ -26,6 +26,7 @@ struct DashboardView: View {
                 if service.status == .idle && !service.isNominationsEmpty {
                     DashboardHighlightView()
                     DashboardGalleryView()
+                    DashboardScannersView()
                     DashboardReasonsView()
                 }
             }

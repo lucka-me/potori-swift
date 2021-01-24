@@ -44,6 +44,7 @@
 "view.dashboard.highlight.nominations"  = "Nominations";
 "view.dashboard.gallery"    = "Last 30 Days";
 "view.dashboard.gallery.empty"  = "No nominations.";
+"view.dashboard.scanners"   = "Scanners";
 "view.dashboard.reasons"    = "Reasons";
 "view.dashboard.reasons.more"   = "More";
 "view.dashboard.reasons.less"   = "Less";

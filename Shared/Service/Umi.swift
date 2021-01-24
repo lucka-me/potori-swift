@@ -10,7 +10,7 @@ import SwiftUI
 final class Umi {
     
     // Scanner
-    struct Scanner {
+    class Scanner {
         
         enum Code: Int16 {
             case unknown = 0
@@ -24,11 +24,15 @@ final class Umi {
         }
         
         let code: Code
-        let title: String
+        let title: LocalizedStringKey
         
         fileprivate init(_ from: JSON) {
             code = Code(rawValue: from.code)!
-            title = from.title
+            title = LocalizedStringKey(from.title)
+        }
+        
+        var predicate: NSPredicate {
+            .init(format: "scanner = %d", code.rawValue)
         }
     }
     
@@ -185,6 +189,8 @@ final class Umi {
     let status: [Status.Code: Status]
     let reason: [Reason.Code: Reason]
     
+    /// Scanner list sorted by code
+    let scannerAll: [Scanner]
     /// Status list sorted by code
     let statusAll: [Status]
     /// Reason list sorted by code
@@ -216,6 +222,10 @@ final class Umi {
             let reason = Reason(value)
             dict[reason.code] = reason
         }
+        scannerAll = scanner
+            .filter { $0.key != .unknown }
+            .sorted { a, b in a.key.rawValue < b.key.rawValue }
+            .map { $0.value }
         statusAll = status
             .sorted { a, b in a.key.rawValue < b.key.rawValue }
             .map { $0.value }

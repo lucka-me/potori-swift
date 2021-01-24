@@ -44,6 +44,7 @@
 "view.dashboard.highlight.nominations"  = "提名";
 "view.dashboard.gallery"    = "近30天";
 "view.dashboard.gallery.empty"  = "没有提名。";
+"view.dashboard.scanners"   = "扫描器";
 "view.dashboard.reasons"    = "拒绝原因";
 "view.dashboard.reasons.more"   = "更多";
 "view.dashboard.reasons.less"   = "更少";
