@@ -57,11 +57,13 @@
 "view.details.save" = "保存";
 "view.details.confirmed"    = "确认";
 "view.details.status"   = "状态";
+"view.details.resulted" = "结束于";
 "view.details.scanner"  = "扫描器";
 "view.details.rejectedFor"  = "拒绝原因";
 "view.details.location" = "位置";
 "view.details.location.hint" = "纬度,经度";
 "view.details.location.invalid" = "无效";
+"view.details.location.paste"   = "粘贴Intel地图链接";
 
 // RemoteImage
 "view.image.open"   = "打开";

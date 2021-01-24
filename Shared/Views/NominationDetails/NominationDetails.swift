@@ -167,7 +167,7 @@ struct NominationDetails: View {
                     in: PartialRangeFrom(nomination.confirmedTime),
                     displayedComponents: [ .date, .hourAndMinute ]
                 ) {
-                    Label("Resulted", systemImage: "pencil.circle")
+                    Label("view.details.resulted", systemImage: "pencil.circle")
                 }
                 .datePickerStyle(datePickerStyle)
             }
@@ -250,7 +250,22 @@ struct NominationDetails: View {
                     .foregroundColor(.red)
             }
         }
-        
+        Divider()
+        Button {
+            #if os(macOS)
+            guard let url = NSPasteboard.general.string(forType: .string) else {
+                return
+            }
+            #else
+            guard let url = UIPasteboard.general.string else {
+                return
+            }
+            #endif
+            editData.set(fromIntelURL: url)
+        } label: {
+            Label("view.details.location.paste", systemImage: "doc.on.clipboard")
+        }
+        .buttonStyle(BorderlessButtonStyle())
     }
 }
 
@@ -282,6 +297,22 @@ fileprivate class EditData: ObservableObject {
         } else {
             locationString = ""
         }
+        locationStringValid = true
+    }
+    
+    func set(fromIntelURL: String) {
+        guard let range = fromIntelURL.range(of: "ll\\=[\\d\\.\\,]+", options: .regularExpression) else {
+            return
+        }
+        let text = fromIntelURL[range].replacingOccurrences(of: "ll=", with: "")
+        let pair = text.split(separator: ",")
+        guard
+            let latString = pair.first, let lat = Double(latString), abs(lat) < 90,
+            let lngString = pair.last , let lng = Double(lngString), abs(lng) < 180
+        else {
+            return
+        }
+        locationString = text
         locationStringValid = true
     }
     

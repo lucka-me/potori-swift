@@ -55,16 +55,15 @@ We hope to implement all features of the web app, and bring more with platform s
     - [ ] Charts
   - [x] Nomination List
   - [x] Map
-  - [ ] Nomination Details
+  - [x] Nomination Details
     - [x] Viewer
-    - [ ] Editor
+    - [x] Editor
       - [x] Status, Result Time and Reasons
-      - [ ] Location
-        - [ ] Edit text
-        - [ ] Paste from Intel Maps URL
-  - [ ] Order
+      - [x] Location
+        - [x] Edit text
+        - [x] Paste from Intel Maps URL
   - [x] Preference View
-- [ ] New Features
+- [x] New Features
   - [x] Only query mails later than latest one
 - [ ] Platform Features
   - [ ] Background update & notification

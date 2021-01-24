@@ -57,11 +57,13 @@
 "view.details.save" = "Save";
 "view.details.confirmed"    = "Confirmed";
 "view.details.status"   = "Status";
+"view.details.resulted" = "Resulted";
 "view.details.scanner"  = "Scanner";
 "view.details.rejectedFor"  = "Rejected For";
 "view.details.location" = "Location";
 "view.details.location.hint"    = "Latitude,Longitude";
 "view.details.location.invalid" = "Invalid";
+"view.details.location.paste"   = "Paste Intel Maps URL";
 
 // RemoteImage
 "view.image.open"   = "Open";
