@@ -53,10 +53,12 @@ struct NominationDetails: View {
                 }
                 .lineLimit(1)
                 
-                if nomination.hasLngLat {
+                if mode == .view && nomination.hasLngLat {
                     NominationDetailsMap(nomination: nomination)
                         .clipShape(RoundedRectangle(cornerRadius: Self.radius, style: .continuous))
                         .frame(height: 200)
+                } else if mode == .edit {
+                    card(locationEditor)
                 }
             }
             .padding()
@@ -108,18 +110,17 @@ struct NominationDetails: View {
         .fixedSize(horizontal: false, vertical: true)
     }
     
+    private func dateString(_ from: Date) -> String {
+        DateFormatter.localizedString(from: from, dateStyle: .medium, timeStyle: .none)
+    }
+    
     @ViewBuilder
     private var highlight: some View {
         HStack {
             Label("view.details.confirmed", systemImage: "arrow.up.circle")
                 .foregroundColor(.accentColor)
             Spacer()
-            Text(
-                DateFormatter.localizedString(
-                    from: nomination.confirmedTime,
-                    dateStyle: .medium, timeStyle: .none
-                )
-            )
+            Text(dateString(nomination.confirmedTime))
         }
         
         Divider()
@@ -131,12 +132,7 @@ struct NominationDetails: View {
                     .foregroundColor(status.color)
                 Spacer()
                 if (status.code != .pending) {
-                    Text(
-                        DateFormatter.localizedString(
-                            from: nomination.resultTime,
-                            dateStyle: .medium, timeStyle: .none
-                        )
-                    )
+                    Text(dateString(nomination.resultTime))
                 }
             }
         } else {
@@ -221,6 +217,32 @@ struct NominationDetails: View {
             .animation(.none)
         }
     }
+    
+    @ViewBuilder
+    private var locationEditor: some View {
+        Text("view.details.location")
+            .bold()
+        Divider()
+        HStack {
+            let textField = TextField(
+                "view.details.location.hint",
+                text: $editData.locationString,
+                onCommit: { editData.validateLocationString() }
+            )
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+            #if os(macOS)
+            textField
+            #else
+            textField
+                .keyboardType(.numbersAndPunctuation)
+            #endif
+            if !editData.locationStringValid {
+                Label("view.details.location.invalid", systemImage: "exclamationmark.circle")
+                    .foregroundColor(.red)
+            }
+        }
+        
+    }
 }
 
 #if DEBUG
@@ -239,10 +261,38 @@ fileprivate class EditData: ObservableObject {
     @Published var status: Umi.Status.Code = .pending
     @Published var resultTime: Date = Date()
     @Published var reasons: [Umi.Reason.Code] = []
+    @Published var locationString: String = ""
+    @Published var locationStringValid: Bool = true
     
     func from(_ nomination: Nomination) {
         status = nomination.statusCode
         resultTime = nomination.resultTime
         reasons = nomination.reasonsCode
+        if nomination.hasLngLat {
+            locationString = "\(nomination.longitude),\(nomination.latitude)"
+        } else {
+            locationString = ""
+        }
+        locationStringValid = true
+    }
+    
+    func validateLocationString() {
+        if locationString.isEmpty {
+            locationStringValid = true
+            return
+        }
+        guard let _ = locationString.range(of: "^\\d+(\\.\\d+)?,\\d+(\\.\\d+)?$", options: .regularExpression) else {
+            locationStringValid = false
+            return
+        }
+        let pair = locationString.split(separator: ",")
+        guard
+            let lngString = pair.first, let lng = Double(lngString),
+            let latString = pair.last , let lat = Double(latString)
+        else {
+            locationStringValid = false
+            return
+        }
+        locationStringValid = abs(lng) < 180 && abs(lat) < 90
     }
 }

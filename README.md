@@ -60,6 +60,7 @@ We hope to implement all features of the web app, and bring more with platform s
     - [ ] Editor
       - [x] Status, Result Time and Reasons
       - [ ] Location
+        - [ ] Edit text
         - [ ] Paste from Intel Maps URL
   - [ ] Order
   - [x] Preference View

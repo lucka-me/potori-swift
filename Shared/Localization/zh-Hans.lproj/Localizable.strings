@@ -60,7 +60,8 @@
 "view.details.scanner"  = "扫描器";
 "view.details.rejectedFor"  = "拒绝原因";
 "view.details.location" = "位置";
-"view.details.location.notAvailable"    = "不可用";
+"view.details.location.hint" = "经度,纬度";
+"view.details.location.invalid" = "无效";
 
 // RemoteImage
 "view.image.open"   = "打开";
