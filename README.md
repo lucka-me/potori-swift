@@ -11,7 +11,7 @@ An app to visualize Ingress nominations from Gmail inbox, available for macOS an
 This is the Swift implementation of [the web app](https://github.com/lucka-me/potori).
 
 ## Requirements
-- Xcode 12+
+- Xcode 12.3+
 - macOS 11+
 - iOS 14+
 
@@ -25,7 +25,7 @@ This is the Swift implementation of [the web app](https://github.com/lucka-me/po
 ## Transfer from the Web App
 In this project, we implemented a new data structure without fully backward compatiable (which will also be implemented into the web app in the future). It will be fine to transfer data from the web app to this app with exporting & importing JSON file or sync with Google Drive, but it's not recommended to transfer backwards.
 
-For Google Drive sync, this app will download `nominations.json` if it exists, or `potori.json` if not, and upload data to `nominations.json`, it will not update `potori.json` used by the current web app.
+For Google Drive sync, this app will download and upload `nominations.json`, it will not update `potori.json` used by the current web app.
 
 ## Task List
 We hope to implement all features of the web app, and bring more with platform support.
@@ -69,8 +69,11 @@ We hope to implement all features of the web app, and bring more with platform s
   - [ ] Background update & notification
   - [ ] Widget
 - [ ] Project
-  - [ ] CI workflow
+  - [ ] CI workflow (Blocked by [actions/virtual-environments#2486](https://github.com/actions/virtual-environments/issues/2486))
   - [ ] Test with `XCTest`
+    - [x] Framework
+    - [ ] Unit Tests
+    - [ ] UI Tests
 - [ ] Requires Apple Developer Program
   - [ ] Sync with iCloud
 
