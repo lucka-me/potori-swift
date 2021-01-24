@@ -11,8 +11,6 @@ struct DashboardReasonsView: View {
     
     #if os(macOS)
     @EnvironmentObject var navigation: Navigation
-    #else
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
     
     @EnvironmentObject private var service: Service
@@ -44,7 +42,7 @@ struct DashboardReasonsView: View {
                         let count = service.countNominations(predicate)
                         if count > 0 {
                             OpenNominationListLink(.init(reason.title, predicate)) {
-                                DashboardCardView(Text("\(service.countNominations(predicate))")) {
+                                DashboardCardView(Text("\(count)")) {
                                     Label(reason.title, systemImage: reason.icon)
                                         .foregroundColor(.red)
                                 }

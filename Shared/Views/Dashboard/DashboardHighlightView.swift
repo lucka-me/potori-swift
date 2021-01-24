@@ -11,8 +11,6 @@ struct DashboardHighlightView: View {
     
     #if os(macOS)
     @EnvironmentObject var navigation: Navigation
-    #else
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
     
     @EnvironmentObject private var service: Service
