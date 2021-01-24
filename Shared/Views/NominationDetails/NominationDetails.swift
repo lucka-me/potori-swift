@@ -71,7 +71,12 @@ struct NominationDetails: View {
             /// - References: https://stackoverflow.com/a/64994154
             ToolbarItem(placement: .navigationBarLeading) { Text("") }
             #endif
-            ToolbarItem(placement: .primaryAction) { editButton }
+            ToolbarItemGroup(placement: .primaryAction) {
+                editButton
+                if mode == .edit {
+                    Button { mode = .view } label: { Label("view.details.cancel", systemImage: "xmark") }
+                }
+            }
         }
     }
     

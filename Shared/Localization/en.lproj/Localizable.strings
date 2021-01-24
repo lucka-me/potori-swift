@@ -55,6 +55,7 @@
 // Nomination Details
 "view.details.edit" = "Edit";
 "view.details.save" = "Save";
+"view.details.cancel"   = "Cancel";
 "view.details.confirmed"    = "Confirmed";
 "view.details.status"   = "Status";
 "view.details.resulted" = "Resulted";
