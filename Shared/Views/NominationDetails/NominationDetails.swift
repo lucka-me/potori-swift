@@ -190,9 +190,18 @@ struct NominationDetails: View {
     
     @ViewBuilder
     private var reasons: some View {
-        Text("view.details.rejectedFor")
-            .foregroundColor(.red)
-            .bold()
+        HStack(alignment: .firstTextBaseline) {
+            Text("view.details.rejectedFor")
+                .foregroundColor(.red)
+                .bold()
+            Spacer()
+            if mode == .edit {
+                Button(editData.showReasons ? "view.details.hide" : "view.details.show") {
+                    editData.showReasons.toggle()
+                }
+                .buttonStyle(BorderlessButtonStyle())
+            }
+        }
         if mode == .view {
             if nomination.reasons.count > 0 {
                 ForEach(nomination.reasonsData, id: \.code) { reason in
@@ -205,7 +214,7 @@ struct NominationDetails: View {
                 let undeclared = Umi.shared.reason[Umi.Reason.undeclared]!
                 Label(undeclared.title, systemImage: undeclared.icon)
             }
-        } else {
+        } else if editData.showReasons {
             #if os(macOS)
             let buttonStyle = PlainButtonStyle()
             #else
@@ -289,6 +298,7 @@ struct NominationDetails_Previews: PreviewProvider {
 fileprivate class EditData: ObservableObject {
     @Published var status: Umi.Status.Code = .pending
     @Published var resultTime: Date = Date()
+    @Published var showReasons: Bool = false
     @Published var reasons: [Umi.Reason.Code] = []
     @Published var locationString: String = ""
     @Published var locationStringValid: Bool = true

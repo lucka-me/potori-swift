@@ -61,6 +61,8 @@
 "view.details.resulted" = "Resulted";
 "view.details.scanner"  = "Scanner";
 "view.details.rejectedFor"  = "Rejected For";
+"view.details.hide" = "Hide";
+"view.details.show" = "Show";
 "view.details.location" = "Location";
 "view.details.location.hint"    = "Latitude,Longitude";
 "view.details.location.invalid" = "Invalid";

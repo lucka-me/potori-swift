@@ -30,7 +30,6 @@ struct DashboardReasonsView: View {
                         showMore.toggle()
                     }
                     .buttonStyle(BorderlessButtonStyle())
-                    .foregroundColor(.accentColor)
                 }
             }
             
