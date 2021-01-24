@@ -63,31 +63,39 @@ struct NominationDetails: View {
             .animation(.easeInOut)
         }
         .navigationTitle(nomination.title)
-        .toolbar(content: {
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    if mode == .view {
-                        editData.from(nomination)
-                        mode = .edit
-                    } else {
-                        nomination.statusCode = editData.status
-                        if editData.status != .pending {
-                            nomination.resultTime = editData.resultTime
-                            if editData.status == .rejected {
-                                nomination.reasonsCode = editData.reasons
-                            }
-                        }
-                        try? viewContext.save()
-                        mode = .view
+        .toolbar {
+            #if os(iOS)
+            /// Prevent back button disappearing when mode changed (as 3rd view)
+            /// - References: https://stackoverflow.com/a/64994154
+            ToolbarItem(placement: .navigationBarLeading) { Text("") }
+            #endif
+            ToolbarItem(placement: .primaryAction) { editButton }
+        }
+    }
+    
+    @ViewBuilder
+    private var editButton: some View {
+        Button {
+            if mode == .view {
+                editData.from(nomination)
+                mode = .edit
+            } else {
+                nomination.statusCode = editData.status
+                if editData.status != .pending {
+                    nomination.resultTime = editData.resultTime
+                    if editData.status == .rejected {
+                        nomination.reasonsCode = editData.reasons
                     }
-                } label: {
-                    Label(
-                        mode == .view ? "view.details.edit" : "view.details.save",
-                        systemImage: mode == .view ? "square.and.pencil" : "checkmark"
-                    )
                 }
+                try? viewContext.save()
+                mode = .view
             }
-        })
+        } label: {
+            Label(
+                mode == .view ? "view.details.edit" : "view.details.save",
+                systemImage: mode == .view ? "square.and.pencil" : "checkmark"
+            )
+        }
     }
     
     @ViewBuilder
