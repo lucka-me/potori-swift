@@ -60,7 +60,7 @@
 "view.details.scanner"  = "Scanner";
 "view.details.rejectedFor"  = "Rejected For";
 "view.details.location" = "Location";
-"view.details.location.hint"    = "Longitude,Latitude";
+"view.details.location.hint"    = "Latitude,Longitude";
 "view.details.location.invalid" = "Invalid";
 
 // RemoteImage

@@ -38,8 +38,8 @@ struct NominationDetails: View {
                 if mode == .view {
                     RemoteImage(nomination.imageURL, sharable: true)
                         .scaledToFit()
-                        .frame(maxWidth: 300, maxHeight: 300)
                         .clipShape(RoundedRectangle(cornerRadius: Self.radius, style: .continuous))
+                        .frame(maxWidth: 300, maxHeight: 300)
                     
                     Divider()
                 }
@@ -87,6 +87,15 @@ struct NominationDetails: View {
                     nomination.resultTime = editData.resultTime
                     if editData.status == .rejected {
                         nomination.reasonsCode = editData.reasons
+                    }
+                    if editData.locationString.isEmpty {
+                        nomination.hasLngLat = false
+                    } else if
+                        editData.validateLocationString(),
+                        let lngLat = editData.lngLat {
+                        nomination.hasLngLat = true
+                        nomination.longitude = lngLat.lng
+                        nomination.latitude = lngLat.lat
                     }
                 }
                 try? viewContext.save()
@@ -269,30 +278,42 @@ fileprivate class EditData: ObservableObject {
         resultTime = nomination.resultTime
         reasons = nomination.reasonsCode
         if nomination.hasLngLat {
-            locationString = "\(nomination.longitude),\(nomination.latitude)"
+            locationString = "\(nomination.latitude),\(nomination.longitude)"
         } else {
             locationString = ""
         }
         locationStringValid = true
     }
     
-    func validateLocationString() {
+    @discardableResult
+    func validateLocationString() -> Bool {
         if locationString.isEmpty {
             locationStringValid = true
-            return
+            return locationStringValid
         }
         guard let _ = locationString.range(of: "^\\d+(\\.\\d+)?,\\d+(\\.\\d+)?$", options: .regularExpression) else {
             locationStringValid = false
-            return
+            return locationStringValid
         }
+        if let _ = lngLat {
+            locationStringValid = true
+            return locationStringValid
+        }
+        locationStringValid = false
+        return locationStringValid
+    }
+    
+    var lngLat: LngLat? {
         let pair = locationString.split(separator: ",")
         guard
-            let lngString = pair.first, let lng = Double(lngString),
-            let latString = pair.last , let lat = Double(latString)
+            let latString = pair.first, let lat = Double(latString),
+            let lngString = pair.last , let lng = Double(lngString)
         else {
-            locationStringValid = false
-            return
+            return nil
         }
-        locationStringValid = abs(lng) < 180 && abs(lat) < 90
+        if abs(lng) < 180 && abs(lat) < 90 {
+            return .init(lng: lng, lat: lat)
+        }
+        return nil
     }
 }
