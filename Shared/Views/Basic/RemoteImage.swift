@@ -28,8 +28,6 @@ struct RemoteImage: View {
     }
     
     var body: some View {
-        let content = image.resizable()
-        
         if sharable {
             content.contextMenu { menuItems }
         } else {
@@ -37,12 +35,21 @@ struct RemoteImage: View {
         }
     }
     
-    private var image: Image {
-        #if os(macOS)
-        return Image(nsImage: remoteImageModel.image ?? NSImage(named: "MissingImage")!)
-        #else
-        return Image(uiImage: remoteImageModel.image ?? UIImage(named: "MissingImage")!)
-        #endif
+    @ViewBuilder
+    private var content: some View {
+        if let solidImage = remoteImageModel.image {
+            #if os(macOS)
+            Image(nsImage: solidImage)
+                .resizable()
+            #else
+            Image(uiImage: solidImage)
+                .resizable()
+            #endif
+        } else {
+            ProgressView()
+                .frame(width: 100, height: 100, alignment: .center)
+                .padding()
+        }
     }
     
     @ViewBuilder

@@ -86,10 +86,17 @@ fileprivate struct MatchItem: View {
     
     var body: some View {
         HStack {
-            RemoteImage(NominationRAW.generateImageURL(nomination.image))
-                .scaledToFill()
-                .frame(width: 80, height: 80)
-                .cornerRadius(5)
+            if nomination.image.isEmpty {
+                Image(systemName: "photo")
+                    .frame(width: 80, height: 80)
+                    .cornerRadius(5)
+            } else {
+                RemoteImage(NominationRAW.generateImageURL(nomination.image))
+                    .scaledToFill()
+                    .frame(width: 80, height: 80)
+                    .cornerRadius(5)
+            }
+            
             VStack(alignment: .leading) {
                 Text(nomination.title)
                     .font(.title2)
