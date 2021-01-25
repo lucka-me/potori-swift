@@ -123,15 +123,16 @@ final class Service: ObservableObject {
     }
     
     func refresh() {
-        if google.auth.login {
-            progress = 0.0
-            if Preferences.Google.sync {
-                download {
-                    self.processMails()
-                }
-            } else {
-                processMails()
+        if status != .idle || !google.auth.login {
+            return
+        }
+        progress = 0.0
+        if Preferences.Google.sync {
+            download {
+                self.processMails()
             }
+        } else {
+            processMails()
         }
     }
     
