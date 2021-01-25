@@ -62,6 +62,7 @@ extension Nomination {
     static let defaultLongitude = 114.1024431532275
     
     static let sortDescriptorsByDate = [
+        NSSortDescriptor(keyPath: \Nomination.resultTime, ascending: false),
         NSSortDescriptor(keyPath: \Nomination.confirmedTime, ascending: false)
     ]
 }

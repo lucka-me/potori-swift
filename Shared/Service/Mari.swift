@@ -146,6 +146,7 @@ class Mari {
             if forType == .pending {
                 nomination.confirmationMailId = solidId
                 nomination.confirmedTime = solidDate / 1000
+                nomination.resultTime = nomination.confirmedTime
             } else {
                 nomination.resultMailId = solidId
                 nomination.resultTime = solidDate / 1000

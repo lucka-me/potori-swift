@@ -76,6 +76,8 @@ class NominationRAW {
 
         if let solidResultTime = from.resultTime {
             resultTime = solidResultTime > NominationRAW.timestampSecondBound ? solidResultTime / 1000 : solidResultTime
+        } else {
+            resultTime = confirmedTime
         }
 
         resultMailId = from.resultMailId ?? ""
