@@ -49,6 +49,7 @@ struct DashboardGalleryView: View {
                                     .frame(width: 100, height: 100, alignment: .center)
                                     .overlay(caption(nomination), alignment: .bottomLeading)
                                     .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                    .contextMenu { NominationContextMenu(nomination: nomination) }
                             }
                         }
                     }

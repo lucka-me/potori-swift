@@ -10,7 +10,6 @@ import SwiftUI
 struct NominationList: View {
     
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.openURL) private var openURL
     @EnvironmentObject private var service: Service
     
     #if os(iOS)
@@ -59,20 +58,7 @@ struct NominationList: View {
                 ) {
                     NominationListRow(nomination: nomination)
                 }
-                .contextMenu {
-                    Button(action: {
-                        openURL.callAsFunction(nomination.brainstormingURL)
-                    }) {
-                        Label("view.nominations.menuBrainstorming", systemImage: "bolt")
-                    }
-                    if nomination.hasLngLat {
-                        Button(action: {
-                            openURL.callAsFunction(nomination.intelURL)
-                        }) {
-                            Label("view.nominations.menuIntel", systemImage: "map")
-                        }
-                    }
-                }
+                .contextMenu { NominationContextMenu(nomination: nomination) }
             }
             .onDelete { indexSet in
                 for index in indexSet {

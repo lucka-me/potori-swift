@@ -30,6 +30,7 @@ struct DashboardView: View {
                     DashboardReasonsView()
                 }
             }
+            .padding(.bottom)
             .animation(.easeInOut)
         }
         .toolbar {
