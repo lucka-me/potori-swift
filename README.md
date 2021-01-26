@@ -30,52 +30,7 @@ For Google Drive sync, this app will download and upload `nominations.json`, it 
 ## Task List
 We hope to implement all features of the web app, and bring more with platform support.
 
-- [x] Core Features
-  - [x] Data structure for nominations
-  - [x] Status data manager
-  - [x] Login Google account
-  - [x] Mail processor
-  - [x] Manually Match
-- [x] Data Manager
-  - [x] Store data with Core Data
-  - [x] Export / Import nominations to / from JSON file
-  - [x] Sync with Google Drive
-  - [x] Migrate from `potori.json` in Google Drive
-- [ ] Brainstorming
-  - [ ] Data structure
-  - [ ] Store data with Core Data
-  - [ ] Firebase query
-- [ ] User Interface with SwiftUI 2.0
-  - [x] Navigation for all platforms
-  - [ ] Dashboard
-    - [x] Highlight
-    - [x] Last 30 Days
-    - [x] Scanners
-    - [x] Reasons
-    - [ ] Charts
-  - [x] Nomination List
-  - [x] Map
-  - [x] Nomination Details
-    - [x] Viewer
-    - [x] Editor
-      - [x] Status, Result Time and Reasons
-      - [x] Location
-        - [x] Edit text
-        - [x] Paste from Intel Maps URL
-  - [x] Preference View
-- [x] New Features
-  - [x] Only query mails later than latest one
-- [ ] Platform Features
-  - [ ] Background update & notification
-  - [ ] Widget
-- [ ] Project
-  - [ ] CI workflow (Blocked by [actions/virtual-environments#2486](https://github.com/actions/virtual-environments/issues/2486))
-  - [ ] Test with `XCTest`
-    - [x] Framework
-    - [ ] Unit Tests
-    - [ ] UI Tests
-- [ ] Requires Apple Developer Program
-  - [ ] Sync with iCloud
+[Track progress for the initial release](https://github.com/lucka-me/potori-swift/projects/1)
 
 ## License
 The source code are [licensed under MIT](./LICENSE).
