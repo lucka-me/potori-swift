@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MatchManager: ObservableObject {
+final class MatchKit: ObservableObject {
     
     typealias OnProgressCallback = (Double) -> Void
     typealias FinishCallback = ([NominationRAW]) -> Void
@@ -89,7 +89,7 @@ final class MatchManager: ObservableObject {
 
 fileprivate class Progress {
     
-    var onProgress: MatchManager.OnProgressCallback = { _ in }
+    var onProgress: MatchKit.OnProgressCallback = { _ in }
     var onFinished: () -> Void = { }
     
     private var total = 0

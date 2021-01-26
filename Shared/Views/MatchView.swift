@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MatchView: View {
     
-    var pack: MatchManager.Pack
+    var pack: MatchKit.Pack
     @EnvironmentObject private var service: Service
     @State var selection: Int? = 0
     @State var confirmed = false
@@ -71,7 +71,7 @@ struct MatchView: View {
 #if DEBUG
 struct MatchView_Previews: PreviewProvider {
     static var previews: some View {
-        MatchView(pack: MatchManager.preview)
+        MatchView(pack: MatchKit.preview)
             .environmentObject(Service.preview)
     }
 }

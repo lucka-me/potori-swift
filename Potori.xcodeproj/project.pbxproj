@@ -15,8 +15,8 @@
 		840A15F125BCA48B00541ED5 /* CardBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A15EF25BCA48B00541ED5 /* CardBackground.swift */; };
 		840A15F725BD62D200541ED5 /* DashboardScannersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A15F625BD62D200541ED5 /* DashboardScannersView.swift */; };
 		840A15F825BD62D200541ED5 /* DashboardScannersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A15F625BD62D200541ED5 /* DashboardScannersView.swift */; };
-		84177FB225B2DE81009CC4E9 /* MatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84177FB125B2DE81009CC4E9 /* MatchManager.swift */; };
-		84177FB325B2DE81009CC4E9 /* MatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84177FB125B2DE81009CC4E9 /* MatchManager.swift */; };
+		84177FB225B2DE81009CC4E9 /* MatchKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84177FB125B2DE81009CC4E9 /* MatchKit.swift */; };
+		84177FB325B2DE81009CC4E9 /* MatchKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84177FB125B2DE81009CC4E9 /* MatchKit.swift */; };
 		84177FB925B2F079009CC4E9 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84177FB825B2F079009CC4E9 /* MatchView.swift */; };
 		84177FBA25B2F079009CC4E9 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84177FB825B2F079009CC4E9 /* MatchView.swift */; };
 		841FD3C625BC4FDF0089A53D /* TestUmi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E2EBA325BC428D007B2000 /* TestUmi.swift */; };
@@ -129,7 +129,7 @@
 		8400654625AAF3AA00ED76B4 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		840A15EF25BCA48B00541ED5 /* CardBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBackground.swift; sourceTree = "<group>"; };
 		840A15F625BD62D200541ED5 /* DashboardScannersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScannersView.swift; sourceTree = "<group>"; };
-		84177FB125B2DE81009CC4E9 /* MatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchManager.swift; sourceTree = "<group>"; };
+		84177FB125B2DE81009CC4E9 /* MatchKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchKit.swift; sourceTree = "<group>"; };
 		84177FB825B2F079009CC4E9 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
 		842F6C6B259CAA7A0063DCFE /* PotoriCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotoriCommands.swift; sourceTree = "<group>"; };
 		8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationContextMenu.swift; sourceTree = "<group>"; };
@@ -426,7 +426,7 @@
 			children = (
 				846645EB25A8DAA200DD37D1 /* GoogleKit.swift */,
 				84BFD363259F46530047318D /* Mari.swift */,
-				84177FB125B2DE81009CC4E9 /* MatchManager.swift */,
+				84177FB125B2DE81009CC4E9 /* MatchKit.swift */,
 				84A01DD625A609C7006080BF /* Preferences.swift */,
 				84DB6ED0259A3D5D00BD915B /* Service.swift */,
 				84DB6EA2259A2B1F00BD915B /* Umi.swift */,
@@ -670,7 +670,7 @@
 				8497C76925B81BB500B88C12 /* Reason.swift in Sources */,
 				849178822599F81700CD967F /* PotoriApp.swift in Sources */,
 				846CC5B725A359DD007A8AE8 /* NominationJSON.swift in Sources */,
-				84177FB225B2DE81009CC4E9 /* MatchManager.swift in Sources */,
+				84177FB225B2DE81009CC4E9 /* MatchKit.swift in Sources */,
 				84F97C78259B7474005D9AA4 /* ContentView.swift in Sources */,
 				846645EC25A8DAA200DD37D1 /* GoogleKit.swift in Sources */,
 				84DB6ED1259A3D5D00BD915B /* Service.swift in Sources */,
@@ -711,7 +711,7 @@
 				84177FBA25B2F079009CC4E9 /* MatchView.swift in Sources */,
 				849178832599F81700CD967F /* PotoriApp.swift in Sources */,
 				843BEF49259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */,
-				84177FB325B2DE81009CC4E9 /* MatchManager.swift in Sources */,
+				84177FB325B2DE81009CC4E9 /* MatchKit.swift in Sources */,
 				842F6C6C259CAA7A0063DCFE /* PotoriCommands.swift in Sources */,
 				84F7359C25B830E8003DE878 /* DashboardView.swift in Sources */,
 				84F735A725B83169003DE878 /* DashboardHighlightView.swift in Sources */,

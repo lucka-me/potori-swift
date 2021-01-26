@@ -42,7 +42,7 @@ final class Service: ObservableObject {
     @Published var progress = 0.0
 
     @Published var google = GoogleKit()
-    @Published var match = MatchManager()
+    @Published var match = MatchKit()
     /// Refresh it to force UI refresh after save Core Data
     @Published private var saveID = UUID().uuidString
 
