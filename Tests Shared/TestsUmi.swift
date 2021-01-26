@@ -1,5 +1,5 @@
 //
-//  TestUmi.swift
+//  TestsUmi.swift
 //  Tests macOS
 //
 //  Created by Lucka on 23/1/2021.
@@ -7,7 +7,7 @@
 
 import XCTest
 
-class TestUmi: XCTestCase {
+class TestsUmi: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

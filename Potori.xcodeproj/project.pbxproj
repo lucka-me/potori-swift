@@ -19,7 +19,7 @@
 		84177FB325B2DE81009CC4E9 /* MatchKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84177FB125B2DE81009CC4E9 /* MatchKit.swift */; };
 		84177FB925B2F079009CC4E9 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84177FB825B2F079009CC4E9 /* MatchView.swift */; };
 		84177FBA25B2F079009CC4E9 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84177FB825B2F079009CC4E9 /* MatchView.swift */; };
-		841FD3C625BC4FDF0089A53D /* TestUmi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E2EBA325BC428D007B2000 /* TestUmi.swift */; };
+		841FD3C625BC4FDF0089A53D /* TestsUmi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E2EBA325BC428D007B2000 /* TestsUmi.swift */; };
 		841FD3CB25BC4FE60089A53D /* umi.json in Resources */ = {isa = PBXBuildFile; fileRef = 84DB6EAD259A2F8C00BD915B /* umi.json */; };
 		841FD3D025BC4FE90089A53D /* Umi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6EA2259A2B1F00BD915B /* Umi.swift */; };
 		842F6C6C259CAA7A0063DCFE /* PotoriCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F6C6B259CAA7A0063DCFE /* PotoriCommands.swift */; };
@@ -60,7 +60,7 @@
 		846CC5B825A359DD007A8AE8 /* NominationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC5B625A359DD007A8AE8 /* NominationJSON.swift */; };
 		846CC62925A35EFF007A8AE8 /* Nomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC62725A35EFF007A8AE8 /* Nomination.swift */; };
 		846CC62A25A35EFF007A8AE8 /* Nomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC62725A35EFF007A8AE8 /* Nomination.swift */; };
-		84841DB425BC413100468C6D /* TestUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84841DB325BC413100468C6D /* TestUI.swift */; };
+		84841DB425BC413100468C6D /* TestsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84841DB325BC413100468C6D /* TestsUI.swift */; };
 		849178822599F81700CD967F /* PotoriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178592599F81600CD967F /* PotoriApp.swift */; };
 		849178832599F81700CD967F /* PotoriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178592599F81600CD967F /* PotoriApp.swift */; };
 		849178862599F81700CD967F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8491785B2599F81700CD967F /* Assets.xcassets */; };
@@ -89,7 +89,7 @@
 		84DB6EAF259A2F8C00BD915B /* umi.json in Resources */ = {isa = PBXBuildFile; fileRef = 84DB6EAD259A2F8C00BD915B /* umi.json */; };
 		84DB6ED1259A3D5D00BD915B /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6ED0259A3D5D00BD915B /* Service.swift */; };
 		84DB6ED2259A3D5D00BD915B /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6ED0259A3D5D00BD915B /* Service.swift */; };
-		84E2EBA425BC428D007B2000 /* TestUmi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E2EBA325BC428D007B2000 /* TestUmi.swift */; };
+		84E2EBA425BC428D007B2000 /* TestsUmi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E2EBA325BC428D007B2000 /* TestsUmi.swift */; };
 		84E2EBA825BC42A8007B2000 /* Umi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6EA2259A2B1F00BD915B /* Umi.swift */; };
 		84E2EBAF25BC4BE1007B2000 /* umi.json in Resources */ = {isa = PBXBuildFile; fileRef = 84DB6EAD259A2F8C00BD915B /* umi.json */; };
 		84E2EBBA25BC4F91007B2000 /* TestsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E2EBB925BC4F91007B2000 /* TestsUI.swift */; };
@@ -152,7 +152,7 @@
 		846CC5B625A359DD007A8AE8 /* NominationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationJSON.swift; sourceTree = "<group>"; };
 		846CC62725A35EFF007A8AE8 /* Nomination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nomination.swift; sourceTree = "<group>"; };
 		84841DB125BC413100468C6D /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		84841DB325BC413100468C6D /* TestUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUI.swift; sourceTree = "<group>"; };
+		84841DB325BC413100468C6D /* TestsUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsUI.swift; sourceTree = "<group>"; };
 		84841DB525BC413100468C6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		849178592599F81600CD967F /* PotoriApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotoriApp.swift; sourceTree = "<group>"; };
 		8491785B2599F81700CD967F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -174,7 +174,7 @@
 		84DB6EA2259A2B1F00BD915B /* Umi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Umi.swift; sourceTree = "<group>"; };
 		84DB6EAD259A2F8C00BD915B /* umi.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = umi.json; sourceTree = "<group>"; };
 		84DB6ED0259A3D5D00BD915B /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		84E2EBA325BC428D007B2000 /* TestUmi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUmi.swift; sourceTree = "<group>"; };
+		84E2EBA325BC428D007B2000 /* TestsUmi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsUmi.swift; sourceTree = "<group>"; };
 		84E2EBB725BC4F91007B2000 /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84E2EBB925BC4F91007B2000 /* TestsUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsUI.swift; sourceTree = "<group>"; };
 		84E2EBBB25BC4F91007B2000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -337,7 +337,7 @@
 		84841DB225BC413100468C6D /* Tests macOS */ = {
 			isa = PBXGroup;
 			children = (
-				84841DB325BC413100468C6D /* TestUI.swift */,
+				84841DB325BC413100468C6D /* TestsUI.swift */,
 				84841DB525BC413100468C6D /* Info.plist */,
 			);
 			path = "Tests macOS";
@@ -437,7 +437,7 @@
 		84E2EB9625BC41B1007B2000 /* Tests Shared */ = {
 			isa = PBXGroup;
 			children = (
-				84E2EBA325BC428D007B2000 /* TestUmi.swift */,
+				84E2EBA325BC428D007B2000 /* TestsUmi.swift */,
 			);
 			path = "Tests Shared";
 			sourceTree = "<group>";
@@ -641,9 +641,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84841DB425BC413100468C6D /* TestUI.swift in Sources */,
+				84841DB425BC413100468C6D /* TestsUI.swift in Sources */,
 				84E2EBA825BC42A8007B2000 /* Umi.swift in Sources */,
-				84E2EBA425BC428D007B2000 /* TestUmi.swift in Sources */,
+				84E2EBA425BC428D007B2000 /* TestsUmi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -735,7 +735,7 @@
 			files = (
 				84E2EBBA25BC4F91007B2000 /* TestsUI.swift in Sources */,
 				841FD3D025BC4FE90089A53D /* Umi.swift in Sources */,
-				841FD3C625BC4FDF0089A53D /* TestUmi.swift in Sources */,
+				841FD3C625BC4FDF0089A53D /* TestsUmi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
