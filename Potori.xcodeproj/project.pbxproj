@@ -25,6 +25,7 @@
 		842F6C6C259CAA7A0063DCFE /* PotoriCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F6C6B259CAA7A0063DCFE /* PotoriCommands.swift */; };
 		8434023C25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */; };
 		8434023D25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */; };
+		8434024325C03A9600DCFFCB /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */; };
 		843BEF38259F07CF00FC17F9 /* TabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF37259F07CF00FC17F9 /* TabNavigation.swift */; };
 		843BEF48259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */; };
 		843BEF49259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */; };
@@ -132,6 +133,7 @@
 		84177FB825B2F079009CC4E9 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
 		842F6C6B259CAA7A0063DCFE /* PotoriCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotoriCommands.swift; sourceTree = "<group>"; };
 		8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationContextMenu.swift; sourceTree = "<group>"; };
+		8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
 		843463E525B20E3D008A03CB /* pre-build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "pre-build.sh"; sourceTree = "<group>"; };
 		843BEF37259F07CF00FC17F9 /* TabNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigation.swift; sourceTree = "<group>"; };
 		843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarNavigation.swift; sourceTree = "<group>"; };
@@ -251,6 +253,14 @@
 			path = Dashboard;
 			sourceTree = "<group>";
 		};
+		8434025525C0417F00DCFFCB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		843463DB25B20D7D008A03CB /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
@@ -355,6 +365,7 @@
 				849178592599F81600CD967F /* PotoriApp.swift */,
 				8491785B2599F81700CD967F /* Assets.xcassets */,
 				8468A23C25A33BD0009B562D /* Data */,
+				8434025525C0417F00DCFFCB /* Extensions */,
 				8466460225A9F9D300DD37D1 /* Localization */,
 				84495F3A259A149100BA238A /* Resources */,
 				849178B8259A0B6300CD967F /* Service */,
@@ -671,6 +682,7 @@
 				84F7359B25B830E8003DE878 /* DashboardView.swift in Sources */,
 				843BEF38259F07CF00FC17F9 /* TabNavigation.swift in Sources */,
 				8468A22C25A33784009B562D /* Potori.xcdatamodeld in Sources */,
+				8434024325C03A9600DCFFCB /* UNUserNotificationCenter.swift in Sources */,
 				840A15F725BD62D200541ED5 /* DashboardScannersView.swift in Sources */,
 				8434023C25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */,
 				84BFD364259F46530047318D /* Mari.swift in Sources */,

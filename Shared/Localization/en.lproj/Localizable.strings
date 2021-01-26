@@ -84,6 +84,7 @@
 "view.preferences.google"   = "Google";
 "view.preferences.data"     = "Data";
 "view.preferences.general.refreshOnOpen"    = "Refresh On Open";
+"view.preferences.general.backgroundRefresh"    = "Background Refresh";
 "view.preferences.general.queryAfterLatest" = "Query After Latest";
 "view.preferences.google.account"   = "Google Account";
 "view.preferences.google.link"      = "Link";
@@ -113,3 +114,9 @@
 "view.match.target" = "Match Target";
 "view.match.candidates" = "Candidates";
 "view.match.candidates.desc" = "Choose the corresponding nomination.";
+
+// Notification
+"notification.refresh.requiresMatch"    = "Manually Match Required";
+"notification.refresh.requiresMatch.desc"   = "Some nominations needs to be matched manually for lack of critical data.";
+"notification.refresh.refreshFinished"  = "Refresh Finished";
+"notification.refresh.refreshFinished.desc" = "Updated %d nominations.";

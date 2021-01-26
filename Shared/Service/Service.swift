@@ -9,9 +9,15 @@ import Foundation
 import Combine
 import CoreData
 
+#if os(iOS)
+import BackgroundTasks
+import UserNotifications
+#endif
+
 final class Service: ObservableObject {
     
     typealias BasicCallback = () -> Void
+    typealias OnRefreshFinishedCallback = (Int) -> Void
     
     enum ServiceStatus: String {
         case idle               = "service.status.idle"
@@ -26,6 +32,9 @@ final class Service: ObservableObject {
     
     static let shared = Service()
     
+    #if os(iOS)
+    private static let refreshTaskID = "labs.lucka.Potori.refresh"
+    #endif
     private static let progressPartMari = 0.8
     private static let progressPartMatch = 0.2
     
@@ -37,6 +46,8 @@ final class Service: ObservableObject {
 
     let containerContext: NSManagedObjectContext
     private let mari = Mari()
+    private var onRequiresMatch: BasicCallback = { }
+    private var onRefreshFinished: OnRefreshFinishedCallback = { _ in }
 
     private var googleAnyCancellable: AnyCancellable? = nil
     private var matchAnyCancellable: AnyCancellable? = nil
@@ -126,7 +137,9 @@ final class Service: ObservableObject {
         if status != .idle || !google.auth.login {
             return
         }
-        progress = 0.0
+        DispatchQueue.main.async {
+            self.progress = 0.0
+        }
         if Preferences.Google.sync {
             download {
                 self.processMails()
@@ -135,6 +148,47 @@ final class Service: ObservableObject {
             processMails()
         }
     }
+    
+    #if os(iOS)
+    func registerRefresh() {
+        UNUserNotificationCenter
+            .requestAuthorization()
+        if Preferences.General.backgroundRefresh {
+            BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.refreshTaskID, using: nil) { task in
+                if let refreshTask = task as? BGAppRefreshTask {
+                    self.refresh(task: refreshTask)
+                }
+            }
+        }
+    }
+    
+    func scheduleRefresh() {
+        let request = BGAppRefreshTaskRequest(identifier: Self.refreshTaskID)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 30 * 60)
+        try? BGTaskScheduler.shared.submit(request)
+    }
+    
+    private func refresh(task: BGAppRefreshTask) {
+        scheduleRefresh()
+        onRequiresMatch = {
+            UNUserNotificationCenter.push(
+                NSLocalizedString("notification.refresh.requiresMatch", comment: "Manually Match Required"),
+                NSLocalizedString("notification.refresh.requiresMatch.desc", comment: "Manually Match Required Description")
+            )
+            task.setTaskCompleted(success: true)
+        }
+        onRefreshFinished = { count in
+            if count > 0 {
+                UNUserNotificationCenter.push(
+                    NSLocalizedString("notification.refresh.refreshFinished", comment: "Refresh Finished"),
+                    String(format: NSLocalizedString("notification.refresh.refreshFinished.desc", comment: "Refresh Finished Description"), count)
+                )
+            }
+            task.setTaskCompleted(success: count > 0)
+        }
+        refresh()
+    }
+    #endif
     
     func sync(performDownload: Bool = true, performUpload: Bool = true) {
         if !performDownload && !performUpload {
@@ -184,7 +238,9 @@ final class Service: ObservableObject {
     }
     
     private func download(_ file: NominationFile = .standard, _ callback: @escaping BasicCallback) {
-        status = .syncing
+        DispatchQueue.main.async {
+            self.status = .syncing
+        }
         google.drive.download(file.rawValue) { data in
             if let solidData = data {
                 do {
@@ -201,24 +257,25 @@ final class Service: ObservableObject {
     }
     
     func upload(_ callback: @escaping BasicCallback) {
-        status = .syncing
+        DispatchQueue.main.async {
+            self.status = .syncing
+        }
         let list = nominations
         let raws = list.map { $0.toRaw() }
         let jsonList = raws.map { $0.json }
-        do {
-            let encoder = JSONEncoder()
-            encoder.outputFormatting = .prettyPrinted
-            let data = try encoder.encode(jsonList)
-            google.drive.upload(data , "application/json", NominationFile.standard.rawValue) {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        if let data = try? encoder.encode(jsonList) {
+            google.drive.upload(data, "application/json", NominationFile.standard.rawValue) {
                 callback()
             }
-        } catch {
-            
         }
     }
     
-    private func save(_ raws: [NominationRAW], merge: Bool = false) {
+    @discardableResult
+    private func save(_ raws: [NominationRAW], merge: Bool = false) -> Int {
         let existings = nominations
+        var addCount = 0
         for raw in raws {
             var saved = false
             for nomination in existings {
@@ -232,22 +289,29 @@ final class Service: ObservableObject {
             if !saved {
                 let newNomination = Nomination(context: containerContext)
                 newNomination.from(raw)
+                addCount += 1
             }
         }
         save()
+        return addCount
     }
     
     private func processMails() {
-        status = .processingMails
+        DispatchQueue.main.async {
+            self.status = .processingMails
+        }
         let raws = nominations.map { $0.toRaw() }
         mari.start(raws)
     }
     
     private func arrange(_ raws: [NominationRAW]) {
-        self.progress = Service.progressPartMari
+        DispatchQueue.main.async {
+            self.progress = Service.progressPartMari
+        }
         var reduced: [NominationRAW] = []
         var matchTargets: [NominationRAW] = []
         reduced.reserveCapacity(raws.capacity)
+        var mergeCount = 0
         reduced = raws.reduce(into: reduced) { list, raw in
             if raw.id.isEmpty {
                 matchTargets.append(raw)
@@ -258,6 +322,7 @@ final class Service: ObservableObject {
             for target in list {
                 if target.merge(raw) {
                     merged = true
+                    mergeCount += 1
                     break
                 }
             }
@@ -268,13 +333,14 @@ final class Service: ObservableObject {
         
         if !matchTargets.isEmpty {
             let pendings = reduced.filter { $0.status == .pending }
-            print("Service.arrange() match \(matchTargets.count) targets from \(pendings.count) candidates")
+            onRequiresMatch()
             match.start(matchTargets, pendings) { matched in
                 reduced = matched.reduce(into: reduced) { list, raw in
                     var merged = false
                     for target in list {
                         if target.merge(raw) {
                             merged = true
+                            mergeCount += 1
                             break
                         }
                     }
@@ -282,23 +348,29 @@ final class Service: ObservableObject {
                         list.append(raw)
                     }
                 }
-                self.saveAndSync(reduced)
+                self.saveAndSync(reduced, mergeCount)
             }
         } else {
-            saveAndSync(reduced)
+            saveAndSync(reduced, mergeCount)
         }
     }
     
-    private func saveAndSync(_ raws: [NominationRAW]) {
-        save(raws)
+    private func saveAndSync(_ raws: [NominationRAW], _ mergeCount: Int) {
+        let updateCount = save(raws) + mergeCount
         if Preferences.Google.sync {
             upload {
                 self.progress = 1.0
-                self.status = .idle
+                DispatchQueue.main.async {
+                    self.status = .idle
+                }
+                self.onRefreshFinished(updateCount)
             }
         } else {
-            self.progress = 1.0
-            status = .idle
+            progress = 1.0
+            DispatchQueue.main.async {
+                self.status = .idle
+            }
+            onRefreshFinished(updateCount)
         }
     }
     

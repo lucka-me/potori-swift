@@ -19,23 +19,8 @@ struct PotoriApp: App {
     @State private var firstAppear = true
 
     var body: some Scene {
-        let mainWindow = WindowGroup {
-            ContentView()
-                .environmentObject(service)
-                .environment(\.managedObjectContext, service.containerContext)
-                .onAppear {
-                    if firstAppear {
-                        firstAppear = false
-                        if Preferences.General.refreshOnOpen {
-                            service.refresh()
-                        }
-                        URLCache.shared.diskCapacity = 100 * 1024 * 1024
-                    }
-                }
-        }
-        
         #if os(macOS)
-        mainWindow
+        WindowGroup { content }
             .commands {
                 PotoriCommands()
             }
@@ -44,7 +29,32 @@ struct PotoriApp: App {
                 .environmentObject(service)
         }
         #else
-        mainWindow
+        WindowGroup {
+            content
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
+                    service.scheduleRefresh()
+                }
+        }
         #endif
+    }
+    
+    @ViewBuilder
+    private var content: some View {
+        ContentView()
+            .environmentObject(service)
+            .environment(\.managedObjectContext, service.containerContext)
+            .onAppear {
+                if firstAppear {
+                    firstAppear = false
+                    Preferences.register()
+                    if Preferences.General.refreshOnOpen {
+                        service.refresh()
+                    }
+                    URLCache.shared.diskCapacity = 100 * 1024 * 1024
+                    #if os(iOS)
+                    service.registerRefresh()
+                    #endif
+                }
+            }
     }
 }

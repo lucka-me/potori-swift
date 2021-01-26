@@ -12,6 +12,11 @@ class Preferences {
         static let keyRefreshOnOpen = "pref.general.refreshOnOpen"
         static var refreshOnOpen: Bool { UserDefaults.standard.bool(forKey: keyRefreshOnOpen) }
         
+        #if os(iOS)
+        static let keyBackgroundRefresh = "pref.general.backgroundRefresh"
+        static var backgroundRefresh: Bool { UserDefaults.standard.bool(forKey: keyBackgroundRefresh) }
+        #endif
+
         static let keyQueryAfterLatest = "pref.general.queryAfterLatest"
         static var queryAfterLatest: Bool { UserDefaults.standard.bool(forKey: keyQueryAfterLatest) }
         
@@ -20,6 +25,11 @@ class Preferences {
                 keyRefreshOnOpen: false,
                 keyQueryAfterLatest: true,
             ])
+            #if os(iOS)
+            UserDefaults.standard.register(defaults: [
+                keyBackgroundRefresh: false,
+            ])
+            #endif
         }
     }
     struct Google {
