@@ -15,7 +15,6 @@ struct DashboardHighlightView: View {
     
     @EnvironmentObject private var service: Service
 
-    
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {

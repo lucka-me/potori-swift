@@ -19,7 +19,7 @@ struct NominationDetails: View {
     
     let nomination: Nomination
     
-    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var service: Service
     @State private var mode: Mode = .view
     @ObservedObject private var editData: EditData = .init()
     
@@ -103,7 +103,7 @@ struct NominationDetails: View {
                         nomination.latitude = lngLat.lat
                     }
                 }
-                try? viewContext.save()
+                service.save()
                 mode = .view
             }
         } label: {
@@ -290,7 +290,7 @@ struct NominationDetails_Previews: PreviewProvider {
     
     static var previews: some View {
         NominationDetails(nomination: service.nominations[0])
-            .environment(\.managedObjectContext, service.containerContext)
+            .environmentObject(service)
     }
 }
 #endif

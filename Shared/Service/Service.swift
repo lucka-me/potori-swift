@@ -43,6 +43,8 @@ final class Service: ObservableObject {
 
     @Published var google = GoogleKit()
     @Published var match = MatchManager()
+    /// Refresh it to force UI refresh after save Core Data
+    @Published private var saveID = UUID().uuidString
 
     let containerContext: NSManagedObjectContext
     private let mari = Mari()
@@ -121,6 +123,9 @@ final class Service: ObservableObject {
     func save() {
         do {
             try containerContext.save()
+            DispatchQueue.main.async {
+                self.saveID = UUID().uuidString
+            }
         } catch {
             print("[CoreData][Save] Failed: \(error.localizedDescription)")
         }
