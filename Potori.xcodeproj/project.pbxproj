@@ -443,13 +443,13 @@
 			path = iOS;
 			sourceTree = "<group>";
 		};
-		84841DB225BC413100468C6D /* Tests macOS */ = {
+		84841DB225BC413100468C6D /* macOS */ = {
 			isa = PBXGroup;
 			children = (
 				84841DB325BC413100468C6D /* TestsUI.swift */,
 				84841DB525BC413100468C6D /* Info.plist */,
 			);
-			path = "Tests macOS";
+			path = macOS;
 			sourceTree = "<group>";
 		};
 		849178532599F81600CD967F = {
@@ -463,9 +463,7 @@
 				849178612599F81700CD967F /* Products */,
 				843463DB25B20D7D008A03CB /* Scripts */,
 				849178582599F81600CD967F /* Shared */,
-				84E2EBB825BC4F91007B2000 /* Tests iOS */,
-				84841DB225BC413100468C6D /* Tests macOS */,
-				84E2EB9625BC41B1007B2000 /* Tests Shared */,
+				84DDF9A025C1BB8700942E87 /* Tests */,
 				84EA8F8F25C15FE200BB924A /* Widget */,
 			);
 			sourceTree = "<group>";
@@ -567,21 +565,31 @@
 			path = macOS;
 			sourceTree = "<group>";
 		};
-		84E2EB9625BC41B1007B2000 /* Tests Shared */ = {
+		84DDF9A025C1BB8700942E87 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				84E2EBB825BC4F91007B2000 /* iOS */,
+				84841DB225BC413100468C6D /* macOS */,
+				84E2EB9625BC41B1007B2000 /* Shared */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		84E2EB9625BC41B1007B2000 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 				84E2EBA325BC428D007B2000 /* TestsUmi.swift */,
 			);
-			path = "Tests Shared";
+			path = Shared;
 			sourceTree = "<group>";
 		};
-		84E2EBB825BC4F91007B2000 /* Tests iOS */ = {
+		84E2EBB825BC4F91007B2000 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
 				84E2EBB925BC4F91007B2000 /* TestsUI.swift */,
 				84E2EBBB25BC4F91007B2000 /* Info.plist */,
 			);
-			path = "Tests iOS";
+			path = iOS;
 			sourceTree = "<group>";
 		};
 		84EA8F8A25C15FE200BB924A /* Frameworks */ = {
@@ -1045,7 +1053,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Tests macOS/Info.plist";
+				INFOPLIST_FILE = Tests/macOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1067,7 +1075,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 6JSH2PZAX2;
-				INFOPLIST_FILE = "Tests macOS/Info.plist";
+				INFOPLIST_FILE = Tests/macOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1318,7 +1326,6 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = "Widget/macOS/Widget Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6JSH2PZAX2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1351,7 +1358,6 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = "Widget/macOS/Widget Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6JSH2PZAX2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Widget/macOS/Info.plist;
@@ -1381,7 +1387,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Tests iOS/Info.plist";
+				INFOPLIST_FILE = Tests/iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1403,7 +1409,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6JSH2PZAX2;
-				INFOPLIST_FILE = "Tests iOS/Info.plist";
+				INFOPLIST_FILE = Tests/iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1427,7 +1433,6 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = "WIdget/iOS/Widget Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = GIT_COMMIT_COUNT;
 				DEVELOPMENT_TEAM = 6JSH2PZAX2;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1460,7 +1465,6 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = "WIdget/iOS/Widget Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = GIT_COMMIT_COUNT;
 				DEVELOPMENT_TEAM = 6JSH2PZAX2;
 				INFOPLIST_FILE = Widget/iOS/Info.plist;
 				INFOPLIST_PREFIX_HEADER = Shared/info_plist_preprocessor.h;
