@@ -120,3 +120,8 @@
 "notification.refresh.requiresMatch.desc"   = "部分提名缺少关键数据，需要手动匹配。";
 "notification.refresh.refreshFinished"  = "刷新完成";
 "notification.refresh.refreshFinished.desc" = "更新了%d个提名。";
+
+// Widget
+"widget.nomination" = "提名";
+"widget.nomination.desc"    = "随机展示一个提名。";
+"widget.nomination.empty"   = "没有提名";

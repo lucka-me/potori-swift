@@ -120,3 +120,8 @@
 "notification.refresh.requiresMatch.desc"   = "Some nominations needs to be matched manually for lack of critical data.";
 "notification.refresh.refreshFinished"  = "Refresh Finished";
 "notification.refresh.refreshFinished.desc" = "Updated %d nominations.";
+
+// Widget
+"widget.nomination" = "Nomination";
+"widget.nomination.desc"    = "Diaplay a random nomination.";
+"widget.nomination.empty"   = "No Nomination";

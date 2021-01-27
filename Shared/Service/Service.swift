@@ -121,6 +121,8 @@ final class Service: ObservableObject {
     }
     
     func save() {
+        let widgetJSON = nominations.map { $0.toWidgetJSON() }
+        NominationWidgetJSON.save(widgetJSON)
         do {
             try containerContext.save()
             DispatchQueue.main.async {
