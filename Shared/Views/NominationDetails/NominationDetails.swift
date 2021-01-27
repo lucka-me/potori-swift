@@ -19,6 +19,7 @@ struct NominationDetails: View {
     
     let nomination: Nomination
     
+    @Environment(\.openURL) private var openURL
     @EnvironmentObject private var service: Service
     @State private var mode: Mode = .view
     @ObservedObject private var editData: EditData = .init()
@@ -36,11 +37,7 @@ struct NominationDetails: View {
         ScrollView {
             VStack(alignment: .center) {
                 if mode == .view {
-                    RemoteImage(nomination.imageURL, sharable: true)
-                        .scaledToFit()
-                        .clipShape(RoundedRectangle(cornerRadius: Self.radius, style: .continuous))
-                        .frame(maxWidth: 300, maxHeight: 300)
-                    
+                    remoteImage
                     Divider()
                 }
                 
@@ -112,6 +109,44 @@ struct NominationDetails: View {
                 systemImage: mode == .view ? "square.and.pencil" : "checkmark"
             )
         }
+    }
+    
+    @ViewBuilder
+    private var remoteImage: some View {
+        let image = RemoteImage(nomination.imageURL)
+        
+        image
+            .contextMenu {
+                Button {
+                    openURL(URL(string: nomination.imageURL)!)
+                } label: {
+                    Label("view.image.open", systemImage: "safari")
+                }
+                if let solidImage = image.image {
+                    #if os(macOS)
+                    Button {
+                        NSPasteboard.general.clearContents()
+                        NSPasteboard.general.setData(solidImage.tiffRepresentation, forType: .tiff)
+                    } label: {
+                        Label("view.image.copy", systemImage: "doc.on.doc")
+                    }
+                    #else
+                    Button {
+                        let shareSheet = UIActivityViewController(
+                            activityItems: [ solidImage ], applicationActivities: nil
+                        )
+                        UIApplication.shared.windows.first?.rootViewController?.present(
+                            shareSheet, animated: true, completion: nil
+                        )
+                    } label: {
+                        Label("view.image.share", systemImage: "square.and.arrow.up")
+                    }
+                    #endif
+                }
+            }
+            .scaledToFit()
+            .clipShape(RoundedRectangle(cornerRadius: Self.radius, style: .continuous))
+            .frame(maxWidth: 300, maxHeight: 300)
     }
     
     @ViewBuilder

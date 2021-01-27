@@ -15,29 +15,17 @@ typealias UNImage = UIImage
 
 struct RemoteImage: View {
     
-    @Environment(\.openURL) private var openURL
-    @ObservedObject private var remoteImageModel: RemoteImageModel
+    @ObservedObject private var model: RemoteImageModel
 
     private let url: String
-    private let sharable: Bool
     
     init(_ url: String, sharable: Bool = false) {
-        remoteImageModel = RemoteImageModel(url)
+        model = RemoteImageModel(url)
         self.url = url
-        self.sharable = sharable
     }
     
     var body: some View {
-        if sharable {
-            content.contextMenu { menuItems }
-        } else {
-            content
-        }
-    }
-    
-    @ViewBuilder
-    private var content: some View {
-        if let solidImage = remoteImageModel.image {
+        if let solidImage = model.image {
             #if os(macOS)
             Image(nsImage: solidImage)
                 .resizable()
@@ -52,45 +40,9 @@ struct RemoteImage: View {
         }
     }
     
-    @ViewBuilder
-    private var menuItems: some View {
-        Button(action: open) {
-            Label("view.image.open", systemImage: "safari")
-        }
-        if (remoteImageModel.image != nil) {
-            #if os(macOS)
-            Button(action: copy) {
-                Label("view.image.copy", systemImage: "doc.on.doc")
-            }
-            #else
-            Button(action: share) {
-                Label("view.image.share", systemImage: "square.and.arrow.up")
-            }
-            #endif
-        }
+    var image: UNImage? {
+        model.image
     }
-    
-    private func open() {
-        openURL(URL(string: url)!)
-    }
-    
-    #if os(macOS)
-    private func copy() {
-        guard let solidImage = remoteImageModel.image else {
-            return
-        }
-        NSPasteboard.general.clearContents()
-        NSPasteboard.general.setData(solidImage.tiffRepresentation, forType: .tiff)
-    }
-    #else
-    private func share() {
-        guard let solidImage = remoteImageModel.image else {
-            return
-        }
-        let shareSheet = UIActivityViewController(activityItems: [ solidImage ], applicationActivities: nil)
-        UIApplication.shared.windows.first?.rootViewController?.present(shareSheet, animated: true, completion: nil)
-    }
-    #endif
 }
 
 #if DEBUG
