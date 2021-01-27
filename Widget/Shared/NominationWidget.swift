@@ -55,7 +55,7 @@ struct NominationEntry: TimelineEntry {
     let empty: Bool
     
     let title: String
-    let imageURL: String
+    let imageData: Data
     let statusIcon: String
     let statusColor: Color
     
@@ -66,7 +66,11 @@ struct NominationEntry: TimelineEntry {
         empty = false
 
         title = nomination.title
-        imageURL = NominationRAW.generateImageURL(nomination.image)
+        if let url = URL(string: NominationRAW.generateImageURL(nomination.image)) {
+            imageData = (try? Data(contentsOf: url)) ?? Data()
+        } else {
+            imageData = Data()
+        }
         let status = Umi.shared.status[Umi.Status.Code(rawValue: nomination.status) ?? .pending]!
         statusIcon = status.icon
         statusColor = status.color
@@ -79,7 +83,7 @@ struct NominationEntry: TimelineEntry {
         self.empty = empty
         
         title = "Nomination"
-        imageURL = ""
+        imageData = Data()
         statusIcon = "checkmark.circle"
         statusColor = .green
     }
@@ -120,20 +124,17 @@ struct NominationWidgetEntryView : View {
     
     @ViewBuilder
     private var image: some View {
-        if let url = URL(string: entry.imageURL),
-           let imageData = try? Data(contentsOf: url) {
-            #if os(macOS)
-            if let nsImage = NSImage(data: imageData) {
-                Image(nsImage: nsImage)
-                    .resizable()
-            }
-            #else
-            if let uiImage = UIImage(data: imageData) {
-                Image(uiImage: uiImage)
-                    .resizable()
-            }
-            #endif
+        #if os(macOS)
+        if let nsImage = NSImage(data: entry.imageData) {
+            Image(nsImage: nsImage)
+                .resizable()
         }
+        #else
+        if let uiImage = UIImage(data: entry.imageData) {
+            Image(uiImage: uiImage)
+                .resizable()
+        }
+        #endif
     }
 }
 
