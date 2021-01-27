@@ -99,7 +99,7 @@ struct NominationWidgetEntryView : View {
     
     @ViewBuilder
     private var content: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Spacer()
             }
@@ -108,11 +108,12 @@ struct NominationWidgetEntryView : View {
                 Label(entry.title, systemImage: entry.statusIcon)
                     .lineLimit(1)
                     .foregroundColor(entry.statusColor)
-                    .padding(8)
-                    .background(ContainerRelativeShape().fill(Color.gray.opacity(0.6)))
+                    .shadow(color: .black, radius: 1)
                 Spacer()
             }
-            .padding()
+                .padding(8)
+                .background(ContainerRelativeShape().fill(Color.black.opacity(0.2)))
+                .padding(8)
         }
         .background(image.scaledToFill())
     }

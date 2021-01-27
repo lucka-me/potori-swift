@@ -520,11 +520,11 @@
 		849178A12599F93300CD967F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				840A15E325BCA41500541ED5 /* Basic */,
 				84F97C77259B7474005D9AA4 /* ContentView.swift */,
-				8462D087259FBA030031AD0D /* NominationMap.swift */,
 				84177FB825B2F079009CC4E9 /* MatchView.swift */,
+				8462D087259FBA030031AD0D /* NominationMap.swift */,
 				844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */,
+				840A15E325BCA41500541ED5 /* Basic */,
 				8418510225B823900094470A /* Dashboard */,
 				8469EB4B25B9D24300A9831D /* Navigation */,
 				843BEF28259F018300FC17F9 /* NominationDetails */,
@@ -550,8 +550,8 @@
 			isa = PBXGroup;
 			children = (
 				84EA8F9225C15FE200BB924A /* Widget.intentdefinition */,
-				84EA8F9025C15FE200BB924A /* PotoriWidget.swift */,
 				8475B61D25C1610E002D7915 /* NominationWidget.swift */,
+				84EA8F9025C15FE200BB924A /* PotoriWidget.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
