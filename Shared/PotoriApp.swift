@@ -46,14 +46,13 @@ struct PotoriApp: App {
             .onAppear {
                 if firstAppear {
                     firstAppear = false
+                    #if os(macOS)
                     Preferences.register()
+                    #endif
                     if Preferences.General.refreshOnOpen {
                         service.refresh()
                     }
                     URLCache.shared.diskCapacity = 100 * 1024 * 1024
-                    #if os(iOS)
-                    service.registerRefresh()
-                    #endif
                 }
             }
     }
