@@ -427,7 +427,6 @@
 		8468A23C25A33BD0009B562D /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				8430E27D25C3021F008F1BAC /* Dia.swift */,
 				846CC62725A35EFF007A8AE8 /* Nomination.swift */,
 				846CC5B625A359DD007A8AE8 /* NominationJSON.swift */,
 				849178BD259A0D8D00CD967F /* NominationRAW.swift */,
@@ -548,6 +547,7 @@
 		849178B8259A0B6300CD967F /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				8430E27D25C3021F008F1BAC /* Dia.swift */,
 				846645EB25A8DAA200DD37D1 /* GoogleKit.swift */,
 				84BFD363259F46530047318D /* Mari.swift */,
 				84177FB125B2DE81009CC4E9 /* MatchKit.swift */,
@@ -1456,10 +1456,6 @@
 				CODE_SIGN_ENTITLEMENTS = "WIdget/iOS/Widget Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6JSH2PZAX2;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = Widget/iOS/Info.plist;
 				INFOPLIST_PREFIX_HEADER = Shared/info_plist_preprocessor.h;
 				INFOPLIST_PREPROCESS = YES;
@@ -1474,7 +1470,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
