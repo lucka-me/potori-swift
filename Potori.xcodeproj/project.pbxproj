@@ -27,6 +27,16 @@
 		8430E27F25C3021F008F1BAC /* Dia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E27D25C3021F008F1BAC /* Dia.swift */; };
 		8430E2A225C304B9008F1BAC /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E2A125C304B9008F1BAC /* FileManager.swift */; };
 		8430E2A325C304B9008F1BAC /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E2A125C304B9008F1BAC /* FileManager.swift */; };
+		8430E2C225C3171A008F1BAC /* Dia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E27D25C3021F008F1BAC /* Dia.swift */; };
+		8430E2C925C3171A008F1BAC /* Dia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E27D25C3021F008F1BAC /* Dia.swift */; };
+		8430E2CA25C3171C008F1BAC /* Nomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC62725A35EFF007A8AE8 /* Nomination.swift */; };
+		8430E2CB25C3171D008F1BAC /* Nomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC62725A35EFF007A8AE8 /* Nomination.swift */; };
+		8430E2D225C31722008F1BAC /* Reason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497C76825B81BB500B88C12 /* Reason.swift */; };
+		8430E2D325C31723008F1BAC /* Reason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497C76825B81BB500B88C12 /* Reason.swift */; };
+		8430E2D425C31725008F1BAC /* Potori.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8468A22A25A33784009B562D /* Potori.xcdatamodeld */; };
+		8430E2D525C31725008F1BAC /* Potori.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8468A22A25A33784009B562D /* Potori.xcdatamodeld */; };
+		8430E2DC25C31730008F1BAC /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E2A125C304B9008F1BAC /* FileManager.swift */; };
+		8430E2DD25C31730008F1BAC /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E2A125C304B9008F1BAC /* FileManager.swift */; };
 		8434023C25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */; };
 		8434023D25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */; };
 		8434024325C03A9600DCFFCB /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */; };
@@ -68,9 +78,6 @@
 		8475B61E25C1610E002D7915 /* NominationWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8475B61D25C1610E002D7915 /* NominationWidget.swift */; };
 		8475B66725C1750F002D7915 /* Umi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6EA2259A2B1F00BD915B /* Umi.swift */; };
 		8475B68625C1871B002D7915 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84C769AA25A706A60055A3A9 /* Localizable.strings */; };
-		8475B69E25C19E12002D7915 /* NominationWidgetJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8475B69D25C19E12002D7915 /* NominationWidgetJSON.swift */; };
-		8475B69F25C19E12002D7915 /* NominationWidgetJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8475B69D25C19E12002D7915 /* NominationWidgetJSON.swift */; };
-		8475B6A025C19E12002D7915 /* NominationWidgetJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8475B69D25C19E12002D7915 /* NominationWidgetJSON.swift */; };
 		8475B6C925C1A4B4002D7915 /* NominationRAW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178BD259A0D8D00CD967F /* NominationRAW.swift */; };
 		8475B6CF25C1A4ED002D7915 /* NominationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC5B625A359DD007A8AE8 /* NominationJSON.swift */; };
 		8475B6DA25C1AD36002D7915 /* umi.json in Resources */ = {isa = PBXBuildFile; fileRef = 84DB6EAD259A2F8C00BD915B /* umi.json */; };
@@ -109,7 +116,6 @@
 		84DDF91E25C1B54A00942E87 /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84EA8F9225C15FE200BB924A /* Widget.intentdefinition */; };
 		84DDF92525C1B54D00942E87 /* PotoriWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA8F9025C15FE200BB924A /* PotoriWidget.swift */; };
 		84DDF92C25C1B55000942E87 /* NominationWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8475B61D25C1610E002D7915 /* NominationWidget.swift */; };
-		84DDF93925C1B58400942E87 /* NominationWidgetJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8475B69D25C19E12002D7915 /* NominationWidgetJSON.swift */; };
 		84DDF94025C1B58700942E87 /* NominationRAW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178BD259A0D8D00CD967F /* NominationRAW.swift */; };
 		84DDF94725C1B59400942E87 /* Umi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6EA2259A2B1F00BD915B /* Umi.swift */; };
 		84DDF94E25C1B59800942E87 /* umi.json in Resources */ = {isa = PBXBuildFile; fileRef = 84DB6EAD259A2F8C00BD915B /* umi.json */; };
@@ -228,7 +234,6 @@
 		8475B61D25C1610E002D7915 /* NominationWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationWidget.swift; sourceTree = "<group>"; };
 		8475B68C25C18A02002D7915 /* Widget Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Widget Extension.entitlements"; sourceTree = "<group>"; };
 		8475B69225C18B69002D7915 /* Potori.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Potori.entitlements; sourceTree = "<group>"; };
-		8475B69D25C19E12002D7915 /* NominationWidgetJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationWidgetJSON.swift; sourceTree = "<group>"; };
 		84841DB125BC413100468C6D /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84841DB325BC413100468C6D /* TestsUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsUI.swift; sourceTree = "<group>"; };
 		84841DB525BC413100468C6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -426,7 +431,6 @@
 				846CC62725A35EFF007A8AE8 /* Nomination.swift */,
 				846CC5B625A359DD007A8AE8 /* NominationJSON.swift */,
 				849178BD259A0D8D00CD967F /* NominationRAW.swift */,
-				8475B69D25C19E12002D7915 /* NominationWidgetJSON.swift */,
 				8497C76825B81BB500B88C12 /* Reason.swift */,
 				8468A22A25A33784009B562D /* Potori.xcdatamodeld */,
 			);
@@ -888,7 +892,6 @@
 				8469EB1B25B88A2600A9831D /* DashboardReasonsView.swift in Sources */,
 				84F97CBB259BADB7005D9AA4 /* NominationDetailsMap.swift in Sources */,
 				846CC62925A35EFF007A8AE8 /* Nomination.swift in Sources */,
-				8475B69E25C19E12002D7915 /* NominationWidgetJSON.swift in Sources */,
 				84DB6EA3259A2B1F00BD915B /* Umi.swift in Sources */,
 				8430E27E25C3021F008F1BAC /* Dia.swift in Sources */,
 				8469EB3525B943C800A9831D /* DashboardGalleryView.swift in Sources */,
@@ -964,7 +967,6 @@
 				8469EB5625B9D28600A9831D /* Navigation.swift in Sources */,
 				8462D089259FBA030031AD0D /* NominationMap.swift in Sources */,
 				849178A8259A06E000CD967F /* NominationList.swift in Sources */,
-				8475B69F25C19E12002D7915 /* NominationWidgetJSON.swift in Sources */,
 				849178BF259A0D8D00CD967F /* NominationRAW.swift in Sources */,
 				84BFD365259F46530047318D /* Mari.swift in Sources */,
 			);
@@ -977,10 +979,14 @@
 				84DDF95C25C1B5B300942E87 /* NominationJSON.swift in Sources */,
 				84DDF92C25C1B55000942E87 /* NominationWidget.swift in Sources */,
 				84DDF94725C1B59400942E87 /* Umi.swift in Sources */,
+				8430E2D325C31723008F1BAC /* Reason.swift in Sources */,
+				8430E2C225C3171A008F1BAC /* Dia.swift in Sources */,
 				84DDF92525C1B54D00942E87 /* PotoriWidget.swift in Sources */,
 				84DDF94025C1B58700942E87 /* NominationRAW.swift in Sources */,
+				8430E2DD25C31730008F1BAC /* FileManager.swift in Sources */,
 				84DDF91E25C1B54A00942E87 /* Widget.intentdefinition in Sources */,
-				84DDF93925C1B58400942E87 /* NominationWidgetJSON.swift in Sources */,
+				8430E2D525C31725008F1BAC /* Potori.xcdatamodeld in Sources */,
+				8430E2CB25C3171D008F1BAC /* Nomination.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1000,11 +1006,15 @@
 			files = (
 				8475B6CF25C1A4ED002D7915 /* NominationJSON.swift in Sources */,
 				8475B61E25C1610E002D7915 /* NominationWidget.swift in Sources */,
-				8475B6A025C19E12002D7915 /* NominationWidgetJSON.swift in Sources */,
 				84EA8F9625C15FE300BB924A /* Widget.intentdefinition in Sources */,
+				8430E2D225C31722008F1BAC /* Reason.swift in Sources */,
+				8430E2C925C3171A008F1BAC /* Dia.swift in Sources */,
 				84EA8F9125C15FE200BB924A /* PotoriWidget.swift in Sources */,
 				8475B6C925C1A4B4002D7915 /* NominationRAW.swift in Sources */,
+				8430E2DC25C31730008F1BAC /* FileManager.swift in Sources */,
 				8475B66725C1750F002D7915 /* Umi.swift in Sources */,
+				8430E2D425C31725008F1BAC /* Potori.xcdatamodeld in Sources */,
+				8430E2CA25C3171C008F1BAC /* Nomination.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

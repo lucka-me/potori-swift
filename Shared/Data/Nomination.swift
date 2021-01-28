@@ -199,8 +199,4 @@ extension Nomination : Identifiable {
         }
         return raw
     }
-    
-    func toWidgetJSON() -> NominationWidgetJSON {
-        .init(id: id, title: title, image: image, status: status)
-    }
 }

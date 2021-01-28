@@ -30,7 +30,7 @@ struct NominationProvider: IntentTimelineProvider {
     ) {
         var entries: [NominationEntry] = []
         let currentDate = Date()
-        let nominations = NominationWidgetJSON.load()
+        let nominations = Dia.shared.nominations
         if nominations.isEmpty {
             entries.append(.init(currentDate, configuration, empty: true))
         } else {
@@ -59,19 +59,17 @@ struct NominationEntry: TimelineEntry {
     let statusIcon: String
     let statusColor: Color
     
-    init(_ date: Date, _ configuration: ConfigurationIntent, _ nomination: NominationWidgetJSON) {
+    init(_ date: Date, _ configuration: ConfigurationIntent, _ nomination: Nomination) {
         self.date = date
         self.configuration = configuration
-        
         empty = false
-
         title = nomination.title
-        if let url = URL(string: NominationRAW.generateImageURL(nomination.image)) {
+        if let url = URL(string: nomination.imageURL) {
             imageData = (try? Data(contentsOf: url)) ?? Data()
         } else {
             imageData = Data()
         }
-        let status = Umi.shared.status[Umi.Status.Code(rawValue: nomination.status) ?? .pending]!
+        let status = nomination.statusData
         statusIcon = status.icon
         statusColor = status.color
     }
@@ -157,15 +155,9 @@ struct NominationWidget: Widget {
 struct NominationWidget_Previews: PreviewProvider {
     static var previews: some View {
         NominationWidgetEntryView(
-            entry: NominationEntry(Date(), .init(), previewNomination)
+            entry: NominationEntry(Date(), .init(), Dia.preview.nominations[0])
         )
         .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
-    
-    static let previewNomination = NominationWidgetJSON(
-        id: "69ue0nwnpg", title: "De Wilde Wei",
-        image: "16Nd33lsfrmKA2n4SwXSAkRm2SMyMlGaCXQHT7Y33R1rUn799TLhRBj0cS9SFIv1C6OxHt",
-        status: Umi.Status.Code.rejected.rawValue
-    )
 }
 #endif
