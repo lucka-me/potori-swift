@@ -16,10 +16,10 @@ struct PreferencesView : View {
     var body: some View {
         
         let groups = Group {
-            group(GeneralGroup())
-            group(GoogleGroup())
-            group(DataGroup())
-            group(AboutGroup())
+            group { GeneralGroup()  }
+            group { GoogleGroup()   }
+            group { DataGroup()     }
+            group { AboutGroup()    }
         }
         
         #if os(macOS)
@@ -34,7 +34,8 @@ struct PreferencesView : View {
     }
     
     @ViewBuilder
-    private func group<Content>(_ content: Content) -> some View where Content : PreferenceGroup {
+    private func group<Group: PreferenceGroup>(_ group: () -> Group) -> some View {
+        let content = group()
         #if os(macOS)
         Form(content: { content })
             .tabItem { Label(content.title, systemImage: content.icon) }
@@ -269,7 +270,7 @@ fileprivate struct AboutGroup: View, PreferenceGroup {
                 #if os(iOS)
                 Spacer()
                 #endif
-                Text("\(version)-d\(Umi.shared.version) (\(build))")
+                Text("\(version) (\(build))")
             }
         }
         HStack {
