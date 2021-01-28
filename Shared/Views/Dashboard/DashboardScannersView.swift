@@ -13,7 +13,7 @@ struct DashboardScannersView: View {
     @EnvironmentObject var navigation: Navigation
     #endif
     
-    @EnvironmentObject private var service: Service
+    @EnvironmentObject private var dia: Dia
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -25,7 +25,7 @@ struct DashboardScannersView: View {
                 ForEach(0 ..< Umi.shared.scannerAll.count) { index in
                     let scanner = Umi.shared.scannerAll[index]
                     let predicate = scanner.predicate
-                    let count = service.countNominations(predicate)
+                    let count = dia.countNominations(predicate)
                     if count > 0 {
                         OpenNominationListLink(.init(scanner.title, predicate)) {
                             DashboardCardView(Text("\(count)")) {
@@ -45,14 +45,12 @@ struct DashboardScannersView: View {
 #if DEBUG
 struct DashboardScannersView_Previews: PreviewProvider {
     
-    static let service = Service.preview
     static let navigationModel: Navigation = .init()
     
     static var previews: some View {
         DashboardScannersView()
-            .environmentObject(service)
+            .environmentObject(Dia.preview)
             .environmentObject(navigationModel)
-            .environment(\.managedObjectContext, service.containerContext)
     }
 }
 #endif

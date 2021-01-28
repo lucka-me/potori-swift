@@ -23,6 +23,10 @@
 		841FD3CB25BC4FE60089A53D /* umi.json in Resources */ = {isa = PBXBuildFile; fileRef = 84DB6EAD259A2F8C00BD915B /* umi.json */; };
 		841FD3D025BC4FE90089A53D /* Umi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6EA2259A2B1F00BD915B /* Umi.swift */; };
 		842F6C6C259CAA7A0063DCFE /* PotoriCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F6C6B259CAA7A0063DCFE /* PotoriCommands.swift */; };
+		8430E27E25C3021F008F1BAC /* Dia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E27D25C3021F008F1BAC /* Dia.swift */; };
+		8430E27F25C3021F008F1BAC /* Dia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E27D25C3021F008F1BAC /* Dia.swift */; };
+		8430E2A225C304B9008F1BAC /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E2A125C304B9008F1BAC /* FileManager.swift */; };
+		8430E2A325C304B9008F1BAC /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E2A125C304B9008F1BAC /* FileManager.swift */; };
 		8434023C25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */; };
 		8434023D25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */; };
 		8434024325C03A9600DCFFCB /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */; };
@@ -200,6 +204,8 @@
 		84177FB125B2DE81009CC4E9 /* MatchKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchKit.swift; sourceTree = "<group>"; };
 		84177FB825B2F079009CC4E9 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
 		842F6C6B259CAA7A0063DCFE /* PotoriCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotoriCommands.swift; sourceTree = "<group>"; };
+		8430E27D25C3021F008F1BAC /* Dia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dia.swift; sourceTree = "<group>"; };
+		8430E2A125C304B9008F1BAC /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationContextMenu.swift; sourceTree = "<group>"; };
 		8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
 		843463E525B20E3D008A03CB /* pre-build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "pre-build.sh"; sourceTree = "<group>"; };
@@ -355,6 +361,7 @@
 		8434025525C0417F00DCFFCB /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				8430E2A125C304B9008F1BAC /* FileManager.swift */,
 				8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */,
 			);
 			path = Extensions;
@@ -415,6 +422,7 @@
 		8468A23C25A33BD0009B562D /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				8430E27D25C3021F008F1BAC /* Dia.swift */,
 				846CC62725A35EFF007A8AE8 /* Nomination.swift */,
 				846CC5B625A359DD007A8AE8 /* NominationJSON.swift */,
 				849178BD259A0D8D00CD967F /* NominationRAW.swift */,
@@ -882,6 +890,7 @@
 				846CC62925A35EFF007A8AE8 /* Nomination.swift in Sources */,
 				8475B69E25C19E12002D7915 /* NominationWidgetJSON.swift in Sources */,
 				84DB6EA3259A2B1F00BD915B /* Umi.swift in Sources */,
+				8430E27E25C3021F008F1BAC /* Dia.swift in Sources */,
 				8469EB3525B943C800A9831D /* DashboardGalleryView.swift in Sources */,
 				84F97C71259B6978005D9AA4 /* NominationDetails.swift in Sources */,
 				84CCEDC2259CB5470040917E /* RemoteImage.swift in Sources */,
@@ -897,6 +906,7 @@
 				8497C76925B81BB500B88C12 /* Reason.swift in Sources */,
 				849178822599F81700CD967F /* PotoriApp.swift in Sources */,
 				846CC5B725A359DD007A8AE8 /* NominationJSON.swift in Sources */,
+				8430E2A225C304B9008F1BAC /* FileManager.swift in Sources */,
 				84177FB225B2DE81009CC4E9 /* MatchKit.swift in Sources */,
 				84F97C78259B7474005D9AA4 /* ContentView.swift in Sources */,
 				846645EC25A8DAA200DD37D1 /* GoogleKit.swift in Sources */,
@@ -935,6 +945,8 @@
 				8469EB3625B943C800A9831D /* DashboardGalleryView.swift in Sources */,
 				84A01DD825A609C7006080BF /* Preferences.swift in Sources */,
 				84CCEDC3259CB5470040917E /* RemoteImage.swift in Sources */,
+				8430E27F25C3021F008F1BAC /* Dia.swift in Sources */,
+				8430E2A325C304B9008F1BAC /* FileManager.swift in Sources */,
 				8469EB1C25B88A2600A9831D /* DashboardReasonsView.swift in Sources */,
 				84177FBA25B2F079009CC4E9 /* MatchView.swift in Sources */,
 				849178832599F81700CD967F /* PotoriApp.swift in Sources */,

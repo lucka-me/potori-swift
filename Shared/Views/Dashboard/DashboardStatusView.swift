@@ -49,11 +49,9 @@ struct DashboardStatusView: View {
 #if DEBUG
 struct DashboardStatusView_Previews: PreviewProvider {
     
-    static let service = Service.preview
-    
     static var previews: some View {
         DashboardStatusView()
-            .environmentObject(service)
+            .environmentObject(Service.shared)
     }
 }
 #endif

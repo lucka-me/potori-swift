@@ -87,14 +87,14 @@ struct SidebarNavigation: View {
 #if DEBUG
 struct SidebarNavigation_Previews: PreviewProvider {
 
-    static let service = Service.preview
     static let model: Navigation = .init()
 
     static var previews: some View {
         SidebarNavigation()
-            .environmentObject(service)
+            .environmentObject(Dia.preview)
+            .environmentObject(Service.shared)
             .environmentObject(model)
-            .environment(\.managedObjectContext, service.containerContext)
+            .environment(\.managedObjectContext, Dia.preview.viewContext)
     }
 }
 #endif

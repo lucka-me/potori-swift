@@ -36,10 +36,8 @@ struct NominationDetailsMap: View {
 #if DEBUG
 struct NominationDetailsMap_Previews: PreviewProvider {
     
-    static var service: Service = Service.preview
-    
     static var previews: some View {
-        NominationDetailsMap(nomination: service.nominations[0])
+        NominationDetailsMap(nomination: Dia.preview.nominations[0])
     }
 }
 #endif

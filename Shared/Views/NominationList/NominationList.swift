@@ -10,6 +10,7 @@ import SwiftUI
 struct NominationList: View {
     
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var service: Service
     
     #if os(iOS)
@@ -66,7 +67,7 @@ struct NominationList: View {
                         viewContext.delete(nominations[index])
                     }
                 }
-                service.save()
+                dia.save()
             }
             .deleteDisabled(service.status != .idle)
         }
@@ -86,13 +87,11 @@ struct NominationList: View {
 
 #if DEBUG
 struct NominationList_Previews: PreviewProvider {
-
-    static let service = Service.preview
-
     static var previews: some View {
         NominationList(.init("view.dashboard.highlight.nominations"))
-            .environmentObject(service)
-            .environment(\.managedObjectContext, service.containerContext)
+            .environmentObject(Dia.preview)
+            .environmentObject(Service.shared)
+            .environment(\.managedObjectContext, Dia.preview.viewContext)
     }
 }
 #endif

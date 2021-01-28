@@ -14,6 +14,7 @@ struct PotoriApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     #endif
     
+    private let dia = Dia.shared
     private let service = Service.shared
     
     @State private var firstAppear = true
@@ -26,6 +27,7 @@ struct PotoriApp: App {
             }
         Settings {
             PreferencesView()
+                .environmentObject(dia)
                 .environmentObject(service)
         }
         #else
@@ -41,8 +43,9 @@ struct PotoriApp: App {
     @ViewBuilder
     private var content: some View {
         ContentView()
+            .environmentObject(dia)
             .environmentObject(service)
-            .environment(\.managedObjectContext, service.containerContext)
+            .environment(\.managedObjectContext, dia.viewContext)
             .onAppear {
                 if firstAppear {
                     firstAppear = false

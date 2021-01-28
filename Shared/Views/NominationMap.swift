@@ -69,10 +69,10 @@ struct NominationMap: View {
 
 #if DEBUG
 struct MainMap_Previews: PreviewProvider {
-    static let service = Service.preview
+    static let dia = Dia.preview
     static var previews: some View {
         NominationMap(.init("view.map"))
-            .environment(\.managedObjectContext, service.containerContext)
+            .environment(\.managedObjectContext, dia.viewContext)
     }
 }
 #endif

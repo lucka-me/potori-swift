@@ -48,7 +48,7 @@ struct PreferencesView : View {
 struct Preferences_Previews: PreviewProvider {
     static var previews: some View {
         PreferencesView()
-            .environmentObject(Service.preview)
+            .environmentObject(Service.shared)
     }
 }
 #endif
@@ -173,6 +173,7 @@ fileprivate struct DataGroup: View, PreferenceGroup {
     let title: LocalizedStringKey = "view.preferences.data"
     let icon: String = "tray.2"
     
+    @EnvironmentObject var dia: Dia
     @EnvironmentObject var service: Service
 
     #if os(macOS)
@@ -196,8 +197,8 @@ fileprivate struct DataGroup: View, PreferenceGroup {
                 title: Text("view.preferences.data.clearNominations"),
                 message: Text("view.preferences.data.clearNominations.alert"),
                 primaryButton: Alert.Button.destructive(Text("view.preferences.data.clearNominations.clear")) {
-                    service.clear()
-                    service.save()
+                    dia.clear()
+                    dia.save()
                 },
                 secondaryButton: Alert.Button.cancel()
             )

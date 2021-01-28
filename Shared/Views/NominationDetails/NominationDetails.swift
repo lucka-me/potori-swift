@@ -20,7 +20,7 @@ struct NominationDetails: View {
     let nomination: Nomination
     
     @Environment(\.openURL) private var openURL
-    @EnvironmentObject private var service: Service
+    @EnvironmentObject private var dia: Dia
     @State private var mode: Mode = .view
     @ObservedObject private var editData: EditData = .init()
     
@@ -100,7 +100,7 @@ struct NominationDetails: View {
                         nomination.latitude = lngLat.lat
                     }
                 }
-                service.save()
+                dia.save()
                 mode = .view
             }
         } label: {
@@ -321,11 +321,9 @@ struct NominationDetails: View {
 #if DEBUG
 struct NominationDetails_Previews: PreviewProvider {
     
-    static var service: Service = Service.preview
-    
     static var previews: some View {
-        NominationDetails(nomination: service.nominations[0])
-            .environmentObject(service)
+        NominationDetails(nomination: Dia.preview.nominations[0])
+            .environmentObject(Dia.preview)
     }
 }
 #endif

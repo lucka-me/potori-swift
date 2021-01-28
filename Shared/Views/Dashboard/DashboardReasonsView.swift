@@ -13,7 +13,7 @@ struct DashboardReasonsView: View {
     @EnvironmentObject var navigation: Navigation
     #endif
     
-    @EnvironmentObject private var service: Service
+    @EnvironmentObject private var dia: Dia
     
     @State private var showMore = false
     
@@ -23,8 +23,8 @@ struct DashboardReasonsView: View {
                 Text("view.dashboard.reasons")
                     .font(.title2)
                     .bold()
-                let undeclaredCount = service.countNominations(Umi.shared.reason[Umi.Reason.undeclared]!.predicate) > 0 ? 1 : 0
-                if service.countReasons(Umi.Reason.hasNominationsPredicate) + undeclaredCount > 4 {
+                let undeclaredCount = dia.countNominations(Umi.shared.reason[Umi.Reason.undeclared]!.predicate) > 0 ? 1 : 0
+                if dia.countReasons(Umi.Reason.hasNominationsPredicate) + undeclaredCount > 4 {
                     Spacer()
                     Button(showMore ? "view.dashboard.reasons.less" : "view.dashboard.reasons.more") {
                         showMore.toggle()
@@ -38,7 +38,7 @@ struct DashboardReasonsView: View {
                     let reason = Umi.shared.reasonAll[index]
                     if index < 4 || showMore {
                         let predicate = reason.predicate
-                        let count = service.countNominations(predicate)
+                        let count = dia.countNominations(predicate)
                         if count > 0 {
                             OpenNominationListLink(.init(reason.title, predicate)) {
                                 DashboardCardView(Text("\(count)")) {
@@ -58,15 +58,13 @@ struct DashboardReasonsView: View {
 
 #if DEBUG
 struct DashboardReasonsView_Previews: PreviewProvider {
-
-    static let service = Service.preview
+    
     static let navigationModel: Navigation = .init()
 
     static var previews: some View {
         DashboardReasonsView()
-            .environmentObject(service)
+            .environmentObject(Dia.preview)
             .environmentObject(navigationModel)
-            .environment(\.managedObjectContext, service.containerContext)
     }
 }
 #endif

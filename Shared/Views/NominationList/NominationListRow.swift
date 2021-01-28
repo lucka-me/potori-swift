@@ -53,10 +53,8 @@ struct NominationListRow: View {
 
 #if DEBUG
 struct NominationListRow_Previews: PreviewProvider {
-    static var service: Service = Service.preview
-
     static var previews: some View {
-        NominationListRow(nomination: service.nominations[0])
+        NominationListRow(nomination: Dia.preview.nominations[0])
     }
 }
 #endif

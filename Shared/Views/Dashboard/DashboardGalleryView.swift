@@ -13,6 +13,7 @@ struct DashboardGalleryView: View {
     private static let datePast30Days = Date(timeIntervalSinceNow: Self.intervalPast30Day) as NSDate
     private static let predicate = NSPredicate(format: "confirmedTime > %@ || resultTime > %@", datePast30Days, datePast30Days)
     
+    @Environment(\.managedObjectContext) private var viewContext
     #if os(macOS)
     @EnvironmentObject var navigation: Navigation
     #endif
@@ -74,14 +75,12 @@ struct DashboardGalleryView: View {
 #if DEBUG
 struct DashboardGalleryView_Previews: PreviewProvider {
     
-    static let service = Service.preview
     static let navigationModel: Navigation = .init()
 
     static var previews: some View {
         DashboardGalleryView()
-            .environmentObject(service)
             .environmentObject(navigationModel)
-            .environment(\.managedObjectContext, service.containerContext)
+            .environment(\.managedObjectContext, Dia.preview.viewContext)
     }
 }
 #endif

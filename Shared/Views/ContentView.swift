@@ -46,11 +46,11 @@ struct ContentView: View {
 
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
-    static let service = Service.preview
     static var previews: some View {
         ContentView()
-            .environmentObject(service)
-            .environment(\.managedObjectContext, service.containerContext)
+            .environmentObject(Dia.preview)
+            .environmentObject(Service.shared)
+            .environment(\.managedObjectContext, Dia.preview.viewContext)
     }
 }
 #endif

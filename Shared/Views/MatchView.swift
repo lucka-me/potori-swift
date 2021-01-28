@@ -72,7 +72,7 @@ struct MatchView: View {
 struct MatchView_Previews: PreviewProvider {
     static var previews: some View {
         MatchView(pack: MatchKit.preview)
-            .environmentObject(Service.preview)
+            .environmentObject(Service.shared)
     }
 }
 #endif

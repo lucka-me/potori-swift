@@ -15,15 +15,16 @@ struct DashboardView: View {
     @EnvironmentObject var appDelegate: AppDelegate
     #endif
     
+    @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var service: Service
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(alignment: .leading) {
-                if service.status != .idle || !service.google.auth.login || service.isNominationsEmpty {
+                if service.status != .idle || !service.google.auth.login || dia.isNominationsEmpty {
                     DashboardStatusView()
                 }
-                if service.status == .idle && !service.isNominationsEmpty {
+                if service.status == .idle && !dia.isNominationsEmpty {
                     DashboardHighlightView()
                     DashboardGalleryView()
                     DashboardScannersView()
@@ -51,14 +52,14 @@ struct DashboardView: View {
 #if DEBUG
 struct DashboardView_Previews: PreviewProvider {
     
-    static let service = Service.preview
     static let navigationModel: Navigation = .init()
     
     static var previews: some View {
         DashboardView()
-            .environmentObject(service)
+            .environmentObject(Dia.preview)
+            .environmentObject(Service.shared)
             .environmentObject(navigationModel)
-            .environment(\.managedObjectContext, service.containerContext)
+            .environment(\.managedObjectContext, Dia.preview.viewContext)
     }
 }
 #endif

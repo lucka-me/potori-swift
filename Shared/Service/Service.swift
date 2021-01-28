@@ -43,10 +43,7 @@ final class Service: ObservableObject {
 
     @Published var google = GoogleKit()
     @Published var match = MatchKit()
-    /// Refresh it to force UI refresh after save Core Data
-    @Published private var saveID = UUID().uuidString
-
-    let containerContext: NSManagedObjectContext
+    
     private let mari = Mari()
     private var onRequiresMatch: BasicCallback = { }
     private var onRefreshFinished: OnRefreshFinishedCallback = { _ in }
@@ -54,20 +51,7 @@ final class Service: ObservableObject {
     private var googleAnyCancellable: AnyCancellable? = nil
     private var matchAnyCancellable: AnyCancellable? = nil
     
-    private init(inMemory: Bool = false) {
-        let container = NSPersistentCloudKitContainer(name: "Potori")
-        if inMemory {
-            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
-        }
-        container.loadPersistentStores { storeDescription, error in
-            if let solidError = error {
-                // Handle error
-                print("[CoreData] Failed to load: \(solidError.localizedDescription)")
-            }
-        }
-        containerContext = container.viewContext
-        containerContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
-        
+    private init() {
         mari.onProgress { progress in
             self.progress = progress * Service.progressPartMari
         }
@@ -86,50 +70,6 @@ final class Service: ObservableObject {
         }
         matchAnyCancellable = match.objectWillChange.sink {
             self.objectWillChange.send()
-        }
-    }
-    
-    func countNominations(_ withPredicate: NSPredicate? = nil) -> Int {
-        let request: NSFetchRequest<Nomination> = Nomination.fetchRequest()
-        request.predicate = withPredicate
-        return (try? containerContext.count(for: request)) ?? 0
-    }
-    
-    func countReasons(_ withPredicate: NSPredicate? = nil) -> Int {
-        let request: NSFetchRequest<Reason> = Reason.fetchRequest()
-        request.predicate = withPredicate
-        return (try? containerContext.count(for: request)) ?? 0
-    }
-    
-    var nominations: [Nomination] {
-        do {
-            return try containerContext.fetch(Nomination.fetchRequest())
-        } catch {
-            print("[CoreData][Fetch] Failed: \(error.localizedDescription)")
-        }
-        return []
-    }
-    
-    var isNominationsEmpty: Bool {
-        (try? containerContext.count(for: Nomination.fetchRequest())) == 0
-    }
-    
-    func clear() {
-        for nomination in nominations {
-            containerContext.delete(nomination)
-        }
-    }
-    
-    func save() {
-        let widgetJSON = nominations.map { $0.toWidgetJSON() }
-        NominationWidgetJSON.save(widgetJSON)
-        do {
-            try containerContext.save()
-            DispatchQueue.main.async {
-                self.saveID = UUID().uuidString
-            }
-        } catch {
-            print("[CoreData][Save] Failed: \(error.localizedDescription)")
         }
     }
     
@@ -238,10 +178,10 @@ final class Service: ObservableObject {
     }
     
     func exportNominations() -> NominationJSONDocument {
-        let list = nominations
-        let raws = list.map { $0.toRaw() }
-        let jsonList = raws.map { $0.json }
-        return .init(jsonList)
+        let nominations = Dia.shared.nominations
+        let raws = nominations.map { $0.toRaw() }
+        let jsons = raws.map { $0.json }
+        return .init(jsons)
     }
     
     private func download(_ file: NominationFile = .standard, _ callback: @escaping BasicCallback) {
@@ -267,12 +207,12 @@ final class Service: ObservableObject {
         DispatchQueue.main.async {
             self.status = .syncing
         }
-        let list = nominations
-        let raws = list.map { $0.toRaw() }
-        let jsonList = raws.map { $0.json }
+        let nominations = Dia.shared.nominations
+        let raws = nominations.map { $0.toRaw() }
+        let jsons = raws.map { $0.json }
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
-        if let data = try? encoder.encode(jsonList) {
+        if let data = try? encoder.encode(jsons) {
             google.drive.upload(data, "application/json", NominationFile.standard.rawValue) {
                 callback()
             }
@@ -281,7 +221,7 @@ final class Service: ObservableObject {
     
     @discardableResult
     private func save(_ raws: [NominationRAW], merge: Bool = false) -> Int {
-        let existings = nominations
+        let existings = Dia.shared.nominations
         var addCount = 0
         for raw in raws {
             var saved = false
@@ -294,12 +234,12 @@ final class Service: ObservableObject {
                 break
             }
             if !saved {
-                let newNomination = Nomination(context: containerContext)
+                let newNomination = Nomination(context: Dia.shared.viewContext)
                 newNomination.from(raw)
                 addCount += 1
             }
         }
-        save()
+        Dia.shared.save()
         return addCount
     }
     
@@ -307,7 +247,7 @@ final class Service: ObservableObject {
         DispatchQueue.main.async {
             self.status = .processingMails
         }
-        let raws = nominations.map { $0.toRaw() }
+        let raws = Dia.shared.nominations.map { $0.toRaw() }
         mari.start(raws)
     }
     
@@ -380,18 +320,4 @@ final class Service: ObservableObject {
             onRefreshFinished(updateCount)
         }
     }
-    
-    #if DEBUG
-    static var preview: Service {
-        let forPreview = Service(inMemory: true)
-        let viewContext = forPreview.containerContext
-        do {
-            try forPreview.importNominations(url: Bundle.main.url(forResource: "nominations.json", withExtension: nil)!)
-            try viewContext.save()
-        } catch {
-            fatalError("Unresolved error: \(error.localizedDescription)")
-        }
-        return forPreview
-    }
-    #endif
 }

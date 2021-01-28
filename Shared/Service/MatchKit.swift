@@ -79,7 +79,7 @@ final class MatchKit: ObservableObject {
     
     #if DEBUG
     static var preview: Pack {
-        let nominations = Service.preview.nominations
+        let nominations = Dia.preview.nominations
         let pack = Pack(nominations[0].toRaw())
         pack.candidates = nominations.map { $0.toRaw() }
         return pack

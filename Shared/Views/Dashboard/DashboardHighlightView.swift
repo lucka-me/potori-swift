@@ -13,7 +13,7 @@ struct DashboardHighlightView: View {
     @EnvironmentObject var navigation: Navigation
     #endif
     
-    @EnvironmentObject private var service: Service
+    @EnvironmentObject private var dia: Dia
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -25,7 +25,7 @@ struct DashboardHighlightView: View {
             
             LazyVGrid(columns: DashboardView.columns, alignment: .leading) {
                 OpenNominationListLink(.init("view.dashboard.highlight.nominations")) {
-                    DashboardCardView(Text("\(service.countNominations())")) {
+                    DashboardCardView(Text("\(dia.countNominations())")) {
                         Label("view.dashboard.highlight.nominations", systemImage: "arrow.up.circle")
                             .foregroundColor(.accentColor)
                     }
@@ -34,7 +34,7 @@ struct DashboardHighlightView: View {
                 ForEach(Umi.shared.statusAll, id: \.code) { status in
                     let predicate = status.predicate
                     OpenNominationListLink(.init(status.title, predicate)) {
-                        DashboardCardView(Text("\(service.countNominations(predicate))")) {
+                        DashboardCardView(Text("\(dia.countNominations(predicate))")) {
                             Label(status.title, systemImage: status.icon)
                                 .foregroundColor(status.color)
                         }
@@ -50,14 +50,12 @@ struct DashboardHighlightView: View {
 #if DEBUG
 struct DashboardHighlightView_Previews: PreviewProvider {
     
-    static let service = Service.preview
     static let navigationModel: Navigation = .init()
     
     static var previews: some View {
         DashboardHighlightView()
-            .environmentObject(service)
+            .environmentObject(Dia.preview)
             .environmentObject(navigationModel)
-            .environment(\.managedObjectContext, service.containerContext)
     }
 }
 #endif

@@ -30,12 +30,9 @@ struct NominationContextMenu: View {
 }
 
 #if DEBUG
-struct NominationContextMenu_Previews: PreviewProvider {
-    
-    static var service: Service = Service.preview
-    
+struct NominationContextMenu_Previews: PreviewProvider {    
     static var previews: some View {
-        NominationContextMenu(nomination: service.nominations[0])
+        NominationContextMenu(nomination: Dia.preview.nominations[0])
     }
 }
 #endif
