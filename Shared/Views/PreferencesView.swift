@@ -118,8 +118,8 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
                 title: service.google.auth.login ? Text(service.google.auth.mail) : Text("view.preferences.google.account"),
                 buttons: [
                     service.google.auth.login
-                        ? .destructive(Text("view.preferences.google.unlink")) { service.google.auth.logOut() }
-                        : .default(Text("view.preferences.google.link")) { service.google.auth.logIn() },
+                        ? .destructive(Text("view.preferences.google.unlink"), action: logOut)
+                        : .default(Text("view.preferences.google.link"), action: logIn),
                     .cancel()
                 ]
             )
@@ -153,6 +153,10 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
                 )
             }
         }
+    }
+    
+    private func logIn() {
+        service.google.auth.logIn()
     }
     
     private func logOut() {
