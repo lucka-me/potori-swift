@@ -34,7 +34,9 @@ struct PotoriApp: App {
         WindowGroup {
             content
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
-                    service.scheduleRefresh()
+                    if Preferences.General.backgroundRefresh {
+                        service.scheduleRefresh()
+                    }
                 }
         }
         #endif
@@ -57,6 +59,9 @@ struct PotoriApp: App {
                     }
                     URLCache.shared.diskCapacity = 100 * 1024 * 1024
                 }
+            }
+            .onOpenURL { url in
+                print("onOpenURL: \(url)")
             }
     }
 }

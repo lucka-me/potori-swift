@@ -33,7 +33,7 @@ final class Service: ObservableObject {
     static let shared = Service()
     
     #if os(iOS)
-    private static let refreshTaskID = "labs.lucka.Potori.refresh"
+    private static let refreshTaskID = "moe.lucka.Potori.refresh"
     #endif
     private static let progressPartMari = 0.8
     private static let progressPartMatch = 0.2
@@ -100,11 +100,9 @@ final class Service: ObservableObject {
     func registerRefresh() {
         UNUserNotificationCenter
             .requestAuthorization()
-        if Preferences.General.backgroundRefresh {
-            BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.refreshTaskID, using: nil) { task in
-                if let refreshTask = task as? BGAppRefreshTask {
-                    self.refresh(task: refreshTask)
-                }
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.refreshTaskID, using: nil) { task in
+            if let refreshTask = task as? BGAppRefreshTask {
+                self.refresh(task: refreshTask)
             }
         }
     }
