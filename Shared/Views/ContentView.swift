@@ -11,27 +11,30 @@ struct ContentView: View {
     
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @EnvironmentObject private var navigation: Navigation
     #endif
     @EnvironmentObject private var service: Service
 
     var body: some View {
         if let solidPack = service.match.pack {
-            let matchView = MatchView(pack: solidPack)
-            navigation
-                .sheet(isPresented: .constant(true)) {
-                    if !matchView.confirmed {
-                        service.match.match(solidPack, nil)
-                    }
-                } content: {
-                    matchView
-                }
+            showMatchSheet(pack: solidPack)
         } else {
-            navigation
+            #if os(iOS)
+            if
+                let id = navigation.openNominations.selection,
+                let nomination = Dia.shared.nomination(by: id) {
+                showNominationDetails(nomination: nomination)
+            } else {
+                navigationView
+            }
+            #else
+            navigationView
+            #endif
         }
     }
     
     @ViewBuilder
-    private var navigation: some View {
+    private var navigationView: some View {
         #if os(macOS)
         SidebarNavigation()
         #else
@@ -42,6 +45,40 @@ struct ContentView: View {
         }
         #endif
     }
+    
+    @ViewBuilder
+    private func showMatchSheet(pack: MatchKit.Pack) -> some View {
+        let matchView = MatchView(pack: pack)
+        navigationView
+            .sheet(isPresented: .constant(true)) {
+                if !matchView.confirmed {
+                    service.match.match(pack, nil)
+                }
+            } content: { matchView }
+    }
+    
+    #if os(iOS)
+    @ViewBuilder
+    private func showNominationDetails(nomination: Nomination) -> some View {
+        navigationView
+            .sheet(isPresented: .constant(true)) {
+                navigation.openNominations = .init("")
+            } content: {
+                NavigationView {
+                    NominationDetails(nomination: nomination)
+                        .toolbar {
+                            ToolbarItem(placement: .navigation) {
+                                Button {
+                                    navigation.openNominations = .init("")
+                                } label: {
+                                    Label("Dismiss", systemImage: "xmark")
+                                }
+                            }
+                        }
+                }
+            }
+    }
+    #endif
 }
 
 #if DEBUG

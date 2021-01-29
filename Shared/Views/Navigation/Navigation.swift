@@ -53,9 +53,9 @@ class Navigation: ObservableObject {
     }
     
     #if os(macOS)
-    @Published var openNominations: OpenNominationsConfiguration = .init("view.dashboard.highlight.nominations")
     private var openNominationsCancellable: AnyCancellable? = nil
     #endif
+    @Published var openNominations: OpenNominationsConfiguration = .init("view.dashboard.highlight.nominations")
     @Published var activePanel: Panel? = .dashboard
     
     #if os(macOS)

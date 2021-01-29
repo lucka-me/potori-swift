@@ -75,11 +75,11 @@ struct DashboardGalleryView: View {
 #if DEBUG
 struct DashboardGalleryView_Previews: PreviewProvider {
     
-    static let navigationModel: Navigation = .init()
+    static let navigation: Navigation = .init()
 
     static var previews: some View {
         DashboardGalleryView()
-            .environmentObject(navigationModel)
+            .environmentObject(navigation)
             .environment(\.managedObjectContext, Dia.preview.viewContext)
     }
 }

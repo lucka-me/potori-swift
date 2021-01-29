@@ -54,6 +54,7 @@ struct NominationEntry: TimelineEntry {
     
     let empty: Bool
     
+    let id: String
     let title: String
     let imageData: Data
     let statusIcon: String
@@ -63,6 +64,7 @@ struct NominationEntry: TimelineEntry {
         self.date = date
         self.configuration = configuration
         empty = false
+        id = nomination.id
         title = nomination.title
         if let url = URL(string: nomination.imageURL) {
             imageData = (try? Data(contentsOf: url)) ?? Data()
@@ -80,6 +82,7 @@ struct NominationEntry: TimelineEntry {
         
         self.empty = empty
         
+        id = ""
         title = "Nomination"
         imageData = Data()
         statusIcon = "checkmark.circle"
@@ -118,6 +121,7 @@ struct NominationWidgetEntryView : View {
                 .padding(8)
         }
         .background(image.scaledToFill())
+        .widgetURL(URL(string: "potori://nomination/\(entry.id)"))
     }
     
     @ViewBuilder

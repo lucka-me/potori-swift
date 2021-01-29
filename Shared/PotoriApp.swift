@@ -71,9 +71,8 @@ struct PotoriApp: App {
                 }
                 if host == "nomination" {
                     let id = url.lastPathComponent
-                    #if os(macOS)
                     navigation.openNominations = .init("view.nominations", nil, id, panel: .list)
-                    #else
+                    #if os(iOS)
                     navigation.activePanel = .dashboard
                     #endif
                 }

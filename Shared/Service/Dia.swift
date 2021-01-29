@@ -58,6 +58,12 @@ class Dia: ObservableObject {
         countNominations() == 0
     }
     
+    func nomination(by id: String) -> Nomination? {
+        let request: NSFetchRequest<Nomination> = Nomination.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", id)
+        return try? viewContext.fetch(request).first
+    }
+    
     func countNominations(_ withPredicate: NSPredicate? = nil) -> Int {
         let request: NSFetchRequest<Nomination> = Nomination.fetchRequest()
         request.predicate = withPredicate

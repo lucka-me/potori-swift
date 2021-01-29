@@ -59,12 +59,12 @@ struct DashboardReasonsView: View {
 #if DEBUG
 struct DashboardReasonsView_Previews: PreviewProvider {
     
-    static let navigationModel: Navigation = .init()
+    static let navigation: Navigation = .init()
 
     static var previews: some View {
         DashboardReasonsView()
             .environmentObject(Dia.preview)
-            .environmentObject(navigationModel)
+            .environmentObject(navigation)
     }
 }
 #endif

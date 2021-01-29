@@ -11,10 +11,6 @@ struct DashboardView: View {
     
     static let columns: [GridItem] = [ .init(.adaptive(minimum: 150, maximum: 200), spacing: 8) ]
     
-    #if os(iOS)
-    @EnvironmentObject var appDelegate: AppDelegate
-    #endif
-    
     @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var service: Service
     
@@ -31,7 +27,7 @@ struct DashboardView: View {
                     DashboardReasonsView()
                 }
             }
-            .padding(.bottom)
+            .padding(.vertical)
             .animation(.easeInOut)
         }
         .toolbar {
@@ -52,13 +48,13 @@ struct DashboardView: View {
 #if DEBUG
 struct DashboardView_Previews: PreviewProvider {
     
-    static let navigationModel: Navigation = .init()
+    static let navigation: Navigation = .init()
     
     static var previews: some View {
         DashboardView()
             .environmentObject(Dia.preview)
             .environmentObject(Service.shared)
-            .environmentObject(navigationModel)
+            .environmentObject(navigation)
             .environment(\.managedObjectContext, Dia.preview.viewContext)
     }
 }

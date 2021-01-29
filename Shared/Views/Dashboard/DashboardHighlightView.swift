@@ -50,12 +50,12 @@ struct DashboardHighlightView: View {
 #if DEBUG
 struct DashboardHighlightView_Previews: PreviewProvider {
     
-    static let navigationModel: Navigation = .init()
+    static let navigation: Navigation = .init()
     
     static var previews: some View {
         DashboardHighlightView()
             .environmentObject(Dia.preview)
-            .environmentObject(navigationModel)
+            .environmentObject(navigation)
     }
 }
 #endif
