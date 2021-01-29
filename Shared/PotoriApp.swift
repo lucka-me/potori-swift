@@ -16,7 +16,8 @@ struct PotoriApp: App {
     
     private let dia = Dia.shared
     private let service = Service.shared
-    
+    private var navigation: Navigation = .init()
+
     @State private var firstAppear = true
 
     var body: some Scene {
@@ -47,6 +48,7 @@ struct PotoriApp: App {
         ContentView()
             .environmentObject(dia)
             .environmentObject(service)
+            .environmentObject(navigation)
             .environment(\.managedObjectContext, dia.viewContext)
             .onAppear {
                 if firstAppear {
@@ -61,7 +63,20 @@ struct PotoriApp: App {
                 }
             }
             .onOpenURL { url in
-                print("onOpenURL: \(url)")
+                guard
+                    url.scheme == "potori",
+                    let host = url.host
+                else {
+                    return
+                }
+                if host == "nomination" {
+                    let id = url.lastPathComponent
+                    #if os(macOS)
+                    navigation.openNominations = .init("view.nominations", nil, id, panel: .list)
+                    #else
+                    navigation.activePanel = .dashboard
+                    #endif
+                }
             }
     }
 }

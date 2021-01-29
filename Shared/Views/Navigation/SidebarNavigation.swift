@@ -10,7 +10,7 @@ import Combine
 
 struct SidebarNavigation: View {
 
-    @StateObject private var model: Navigation = .init()
+    @EnvironmentObject private var navigation: Navigation
 
     var body: some View {
         NavigationView {
@@ -18,22 +18,22 @@ struct SidebarNavigation: View {
                 NavigationLink(
                     destination: dashboard,
                     tag: Navigation.Panel.dashboard,
-                    selection: $model.activePanel
+                    selection: $navigation.activePanel
                 ) {
                     Navigation.PanelLabel.dashboard
                 }
                 #if os(macOS)
                 NavigationLink(
-                    destination: NominationList(model.openNominations),
+                    destination: NominationList(navigation.openNominations),
                     tag: Navigation.Panel.list,
-                    selection: $model.activePanel
+                    selection: $navigation.activePanel
                 ) {
                     Navigation.PanelLabel.list
                 }
                 NavigationLink(
-                    destination: NominationMap(model.openNominations).frame(minWidth: 350),
+                    destination: NominationMap(navigation.openNominations).frame(minWidth: 350),
                     tag: Navigation.Panel.map,
-                    selection: $model.activePanel
+                    selection: $navigation.activePanel
                 ) {
                     Navigation.PanelLabel.map
                 }
@@ -42,14 +42,13 @@ struct SidebarNavigation: View {
                     NavigationLink(
                         destination: PreferencesView(),
                         tag: Navigation.Panel.preference,
-                        selection: $model.activePanel
+                        selection: $navigation.activePanel
                     ) {
                         Navigation.PanelLabel.preferences
                     }
                 }
                 #endif
             }
-            .environmentObject(model)
             .frame(minWidth: 150, minHeight: 300)
             .listStyle(SidebarListStyle())
             .toolbar {
@@ -87,13 +86,13 @@ struct SidebarNavigation: View {
 #if DEBUG
 struct SidebarNavigation_Previews: PreviewProvider {
 
-    static let model: Navigation = .init()
+    static let navigation: Navigation = .init()
 
     static var previews: some View {
         SidebarNavigation()
             .environmentObject(Dia.preview)
             .environmentObject(Service.shared)
-            .environmentObject(model)
+            .environmentObject(navigation)
             .environment(\.managedObjectContext, Dia.preview.viewContext)
     }
 }

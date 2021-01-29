@@ -46,10 +46,14 @@ struct ContentView: View {
 
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
+    
+    static let navigation: Navigation = .init()
+    
     static var previews: some View {
         ContentView()
             .environmentObject(Dia.preview)
             .environmentObject(Service.shared)
+            .environmentObject(navigation)
             .environment(\.managedObjectContext, Dia.preview.viewContext)
     }
 }

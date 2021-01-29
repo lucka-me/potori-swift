@@ -9,10 +9,10 @@ import SwiftUI
 
 struct TabNavigation: View {
     
-    @StateObject private var model: Navigation = .init()
+    @EnvironmentObject private var navigation: Navigation
     
     var body: some View {
-        TabView(selection: $model.activePanel) {
+        TabView(selection: $navigation.activePanel) {
             NavigationView { DashboardView() }
                 .tabItem { Navigation.PanelLabel.dashboard }
                 .tag(Navigation.Panel.dashboard as Navigation.Panel?)
@@ -25,11 +25,14 @@ struct TabNavigation: View {
 
 #if DEBUG
 struct TabNavigation_Previews: PreviewProvider {
+    
+    static let navigation: Navigation = .init()
 
     static var previews: some View {
         TabNavigation()
             .environmentObject(Dia.preview)
             .environmentObject(Service.shared)
+            .environmentObject(navigation)
             .environment(\.managedObjectContext, Dia.preview.viewContext)
     }
 }
