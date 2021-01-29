@@ -9,10 +9,6 @@ import SwiftUI
 
 struct DashboardStatusView: View {
     
-    #if os(iOS)
-    @EnvironmentObject var appDelegate: AppDelegate
-    #endif
-    
     @EnvironmentObject private var service: Service
     
     var body: some View {
@@ -21,15 +17,9 @@ struct DashboardStatusView: View {
 
             Group {
                 if !service.google.auth.login {
-                    Button("view.dashboard.status.linkAccount") {
-                        #if os(macOS)
-                        service.google.auth.logIn()
-                        #else
-                        service.google.auth.logIn(appDelegate: appDelegate)
-                        #endif
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .foregroundColor(.accentColor)
+                    Button("view.dashboard.status.linkAccount") { service.google.auth.logIn() }
+                        .buttonStyle(PlainButtonStyle())
+                        .foregroundColor(.accentColor)
                 } else {
                     switch service.status {
                     case .processingMails:

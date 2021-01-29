@@ -87,7 +87,6 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
     
     @EnvironmentObject var service: Service
     #if os(iOS)
-    @EnvironmentObject var appDelegate: AppDelegate
     @State private var isPresentingActionSheetAccount = false
     #endif
     @State private var isPresentingAlertMigrate = false
@@ -120,7 +119,7 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
                 buttons: [
                     service.google.auth.login
                         ? .destructive(Text("view.preferences.google.unlink")) { service.google.auth.logOut() }
-                        : .default(Text("view.preferences.google.link"), action: logIn),
+                        : .default(Text("view.preferences.google.link")) { service.google.auth.logIn() },
                     .cancel()
                 ]
             )
@@ -154,14 +153,6 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
                 )
             }
         }
-    }
-    
-    private func logIn() {
-        #if os(macOS)
-        service.google.auth.logIn()
-        #else
-        service.google.auth.logIn(appDelegate: appDelegate)
-        #endif
     }
     
     private func logOut() {

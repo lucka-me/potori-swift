@@ -19,11 +19,14 @@ final class GoogleKit: ObservableObject {
         
         @Published var login: Bool = false
         
-        private let clientID = "361295761775-oa7u8sbbldvaq29c5gbg74ep906pqhd8.apps.googleusercontent.com"
-        private let redirectURL = "com.googleusercontent.apps.361295761775-oa7u8sbbldvaq29c5gbg74ep906pqhd8:/oauthredirect"
-        private let authKeychainName = "auth.google"
+        private static let clientID = "361295761775-oa7u8sbbldvaq29c5gbg74ep906pqhd8.apps.googleusercontent.com"
+        private static let redirectURL = "com.googleusercontent.apps.361295761775-oa7u8sbbldvaq29c5gbg74ep906pqhd8:/oauthredirect"
+        private static let authKeychainName = "auth.google"
         
         private var authorization: GTMAppAuthFetcherAuthorization? = nil
+        #if os(iOS)
+        private var currentAuthorizationFlow: OIDExternalUserAgentSession? = nil
+        #endif
         
         init() {
             loadAuth()
@@ -32,7 +35,7 @@ final class GoogleKit: ObservableObject {
         #if os(macOS)
         func logIn() {
             // Listen to HTTP for redirect
-            let httpHandler = OIDRedirectHTTPHandler(successURL: URL(string: redirectURL))
+            let httpHandler = OIDRedirectHTTPHandler(successURL: URL(string: Self.redirectURL))
             let listenerURL = httpHandler.startHTTPListener(nil)
             httpHandler.currentAuthorizationFlow = OIDAuthState.authState(
                 byPresenting: getAuthRequest(redirectURL: listenerURL)
@@ -42,10 +45,10 @@ final class GoogleKit: ObservableObject {
             }
         }
         #else
-        func logIn(appDelegate: AppDelegate) {
-            appDelegate.currentAuthorizationFlow = OIDAuthState.authState(
+        func logIn() {
+            currentAuthorizationFlow = OIDAuthState.authState(
                 byPresenting: getAuthRequest(),
-                presenting: UIApplication.shared.windows.last!.rootViewController!,
+                presenting: UIApplication.shared.windows.first!.rootViewController!,
                 callback: authStateCallback
             )
         }
@@ -67,14 +70,14 @@ final class GoogleKit: ObservableObject {
         private func getAuthRequest(redirectURL: URL? = nil) -> OIDAuthorizationRequest {
             return OIDAuthorizationRequest.init(
                 configuration: GTMAppAuthFetcherAuthorization.configurationForGoogle(),
-                clientId: clientID,
+                clientId: Self.clientID,
                 scopes: [
                     OIDScopeEmail,
                     kGTLRAuthScopeDriveAppdata,
                     kGTLRAuthScopeDriveFile,
                     kGTLRAuthScopeGmailReadonly
                 ],
-                redirectURL: redirectURL ?? URL(string: self.redirectURL)!,
+                redirectURL: redirectURL ?? URL(string: Self.redirectURL)!,
                 responseType: OIDResponseTypeCode,
                 additionalParameters: nil
             )
@@ -82,6 +85,9 @@ final class GoogleKit: ObservableObject {
         
         private func authStateCallback(authState: OIDAuthState?, error: Error?) {
             if let solidAuthState = authState {
+                #if os(iOS)
+                self.currentAuthorizationFlow = nil
+                #endif
                 self.authorization = GTMAppAuthFetcherAuthorization(authState: solidAuthState)
                 self.saveAuth()
             } else {
@@ -92,15 +98,15 @@ final class GoogleKit: ObservableObject {
         private func saveAuth() {
             if let solidAuth = authorization, solidAuth.canAuthorize() {
                 login = solidAuth.authState.isAuthorized
-                GTMAppAuthFetcherAuthorization.save(solidAuth, toKeychainForName: authKeychainName)
+                GTMAppAuthFetcherAuthorization.save(solidAuth, toKeychainForName: Self.authKeychainName)
             } else {
                 login = false
-                GTMAppAuthFetcherAuthorization.removeFromKeychain(forName: authKeychainName)
+                GTMAppAuthFetcherAuthorization.removeFromKeychain(forName: Self.authKeychainName)
             }
         }
         
         private func loadAuth() {
-            authorization = GTMAppAuthFetcherAuthorization(fromKeychainForName: authKeychainName)
+            authorization = GTMAppAuthFetcherAuthorization(fromKeychainForName: Self.authKeychainName)
             saveAuth()
         }
     }
