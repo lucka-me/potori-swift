@@ -74,6 +74,7 @@ struct PotoriApp: App {
                     navigation.openNominations = .init("view.nominations", nil, id, panel: .list)
                     #if os(iOS)
                     navigation.activePanel = .dashboard
+                    navigation.activeLink = Navigation.nominationWidgetTarget
                     #endif
                 }
             }

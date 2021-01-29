@@ -19,17 +19,7 @@ struct ContentView: View {
         if let solidPack = service.match.pack {
             showMatchSheet(pack: solidPack)
         } else {
-            #if os(iOS)
-            if
-                let id = navigation.openNominations.selection,
-                let nomination = Dia.shared.nomination(by: id) {
-                showNominationDetails(nomination: nomination)
-            } else {
-                navigationView
-            }
-            #else
             navigationView
-            #endif
         }
     }
     
@@ -56,29 +46,6 @@ struct ContentView: View {
                 }
             } content: { matchView }
     }
-    
-    #if os(iOS)
-    @ViewBuilder
-    private func showNominationDetails(nomination: Nomination) -> some View {
-        navigationView
-            .sheet(isPresented: .constant(true)) {
-                navigation.openNominations = .init("")
-            } content: {
-                NavigationView {
-                    NominationDetails(nomination: nomination)
-                        .toolbar {
-                            ToolbarItem(placement: .navigation) {
-                                Button {
-                                    navigation.openNominations = .init("")
-                                } label: {
-                                    Label("Dismiss", systemImage: "xmark")
-                                }
-                            }
-                        }
-                }
-            }
-    }
-    #endif
 }
 
 #if DEBUG

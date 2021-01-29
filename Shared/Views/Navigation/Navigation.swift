@@ -10,6 +10,11 @@ import SwiftUI
 
 class Navigation: ObservableObject {
     
+    #if os(iOS)
+    typealias LinkIdentifier = Int16
+    static let nominationWidgetTarget: LinkIdentifier = 51
+    #endif
+    
     enum Panel: Hashable {
         case dashboard
         case list
@@ -58,6 +63,10 @@ class Navigation: ObservableObject {
     @Published var openNominations: OpenNominationsConfiguration = .init("view.dashboard.highlight.nominations")
     @Published var activePanel: Panel? = .dashboard
     
+    #if os(iOS)
+    @Published var activeLink: LinkIdentifier? = nil
+    #endif
+    
     #if os(macOS)
     init() {
         openNominationsCancellable = $openNominations.sink { value in
@@ -86,6 +95,7 @@ struct OpenNominationListLink<Label: View>: View {
         let view = Button(action: { navigation.openNominations = config }, label: label)
         #else
         let view = NavigationLink(destination: NominationList(config), label: label)
+            .isDetailLink(false)
         #endif
         view.buttonStyle(PlainButtonStyle())
     }
@@ -110,6 +120,7 @@ struct OpenNominationDetailsLink<Label: View>: View {
         let view = Button(action: { navigation.openNominations = config }, label: label)
         #else
         let view = NavigationLink(destination: NominationDetails(nomination: nomination), label: label)
+            .isDetailLink(false)
         #endif
         view.buttonStyle(PlainButtonStyle())
     }
