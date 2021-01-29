@@ -15,16 +15,56 @@ typealias UNImage = UIImage
 
 struct RemoteImage: View {
     
+    @Environment(\.openURL) private var openURL
     @ObservedObject private var model: RemoteImageModel
 
     private let url: String
+    private let sharable: Bool
     
     init(_ url: String, sharable: Bool = false) {
         model = RemoteImageModel(url)
         self.url = url
+        self.sharable = sharable
     }
     
     var body: some View {
+        if sharable {
+            content
+                .contextMenu {
+                    Button {
+                        openURL(URL(string: url)!)
+                    } label: {
+                        Label("view.image.open", systemImage: "safari")
+                    }
+                    if let solidImage = model.image {
+                        #if os(macOS)
+                        Button {
+                            NSPasteboard.general.clearContents()
+                            NSPasteboard.general.setData(solidImage.tiffRepresentation, forType: .tiff)
+                        } label: {
+                            Label("view.image.copy", systemImage: "doc.on.doc")
+                        }
+                        #else
+                        Button {
+                            let shareSheet = UIActivityViewController(
+                                activityItems: [ solidImage ], applicationActivities: nil
+                            )
+                            UIApplication.shared.windows.first?.rootViewController?.present(
+                                shareSheet, animated: true, completion: nil
+                            )
+                        } label: {
+                            Label("view.image.share", systemImage: "square.and.arrow.up")
+                        }
+                        #endif
+                    }
+                }
+        } else {
+            content
+        }
+    }
+    
+    @ViewBuilder
+    private var content: some View {
         if let solidImage = model.image {
             #if os(macOS)
             Image(nsImage: solidImage)
@@ -38,10 +78,6 @@ struct RemoteImage: View {
                 .frame(width: 100, height: 100, alignment: .center)
                 .padding()
         }
-    }
-    
-    var image: UNImage? {
-        model.image
     }
 }
 
