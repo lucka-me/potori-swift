@@ -9,8 +9,8 @@ import Foundation
 
 extension FileManager {
     #if os(macOS)
-    static let appGroupIdentifier = "labs.lucka.potori"
+    static let appGroupIdentifier = "moe.lucka.potori"
     #else
-    static let appGroupIdentifier = "group.labs.lucka.potori"
+    static let appGroupIdentifier = "group.moe.lucka.potori"
     #endif
 }
