@@ -84,12 +84,9 @@ final class Umi {
             title = LocalizedStringKey(from.title)
             icon = from.iconSF
             switch code {
-            case .pending:
-                color = .orange
-            case .accepted:
-                color = .green
-            case .rejected:
-                color = .red
+                case .pending: color = .orange
+                case .accepted: color = .green
+                case .rejected: color = .red
             }
             
             var queries: [Scanner.Code : Query] = [:]

@@ -154,20 +154,9 @@ final class Service: ObservableObject {
         }
     }
     
-    func importNominations(result: Result<URL, Error>) {
-        guard let url = try? result.get() else {
-            return
-        }
-        do {
-            try importNominations(url: url)
-        } catch {
-            
-        }
-    }
-    
-    func importNominations(url: URL) throws {
+    func importNominations(url: URL) throws -> Int {
         let data = try Data(contentsOf: url)
-        try importNominations(data: data)
+        return try importNominations(data: data)
     }
     
     @discardableResult

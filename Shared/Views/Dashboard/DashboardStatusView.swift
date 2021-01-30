@@ -34,10 +34,10 @@ struct DashboardStatusView: View {
                     }
                 } else {
                     switch service.status {
-                    case .processingMails:
-                        ProgressView(LocalizedStringKey(service.status.rawValue), value: service.progress)
-                    default:
-                        Text(LocalizedStringKey(service.status.rawValue))
+                        case .processingMails:
+                            ProgressView(LocalizedStringKey(service.status.rawValue), value: service.progress)
+                        default:
+                            Text(LocalizedStringKey(service.status.rawValue))
                     }
                 }
             }

@@ -101,8 +101,12 @@
 "view.preferences.google.migrate.alert.confirm" = "Migrate";
 "view.preferences.google.migrate.finished %lld" = "Migrated %lld nominations.";
 "view.preferences.data.importExport"    = "Import / Export";
-"view.preferences.data.exportNominations"  = "Export Nominations";
 "view.preferences.data.importNominations"  = "Import Nominations";
+"view.preferences.data.importNominations.success %lld"   = "Imported %lld nominations";
+"view.preferences.data.importNominations.failure %@"  = "Error occured when import: %@";
+"view.preferences.data.exportNominations"  = "Export Nominations";
+"view.preferences.data.exportNominations.success"   = "Exported";
+"view.preferences.data.exportNominations.failure %@"  = "Error occured when export: %@";
 "view.preferences.data.clearNominations"        = "Clear Nominations";
 "view.preferences.data.clearNominations.alert"  = "You can not undo this operation.";
 "view.preferences.data.clearNominations.clear"  = "Clear";

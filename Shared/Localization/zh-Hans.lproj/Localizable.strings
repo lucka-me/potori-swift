@@ -101,8 +101,12 @@
 "view.preferences.google.migrate.alert.confirm" = "迁移";
 "view.preferences.google.migrate.finished %lld" = "迁移了%lld个提名。";
 "view.preferences.data.importExport"    = "导入 / 导出";
-"view.preferences.data.exportNominations"  = "导出提名";
 "view.preferences.data.importNominations"  = "导入提名";
+"view.preferences.data.importNominations.success %lld"   = "导入%lld个提名";
+"view.preferences.data.importNominations.failure %@"  = "导入时发生错误：%@";
+"view.preferences.data.exportNominations"  = "导出提名";
+"view.preferences.data.exportNominations.success"   = "导出完成";
+"view.preferences.data.exportNominations.failure %@"  = "导出时发生错误：%@";
 "view.preferences.data.clearNominations"        = "清空提名";
 "view.preferences.data.clearNominations.alert"  = "您无法撤回此操作。";
 "view.preferences.data.clearNominations.clear"  = "清空";

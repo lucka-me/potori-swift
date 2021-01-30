@@ -226,44 +226,80 @@ fileprivate struct DataGroup: View, PreferenceGroup {
 /// - macOS: Buttons,
 /// - iOS: List that should be passed to `NavigationLink`, since the sheets could not be attached to list items
 fileprivate struct ImportExportView: View {
+    
+    private enum ResultAlert: Identifiable {
+        case importer
+        case exporter
+        
+        var id: Int { self.hashValue }
+    }
 
     @EnvironmentObject var service: Service
     
-    @State private var isPresentingExporter = false
-    @State private var isPresentingImporter = false
+    @State private var isPresentedExporter = false
+    @State private var isPresentedImporter = false
+    @State private var resultAlert: ResultAlert? = nil
+    @State private var resultMessage: LocalizedStringKey = ""
     
     var body: some View {
-        
+        content
+            .fileImporter(
+                isPresented: $isPresentedImporter,
+                allowedContentTypes: NominationJSONDocument.readableContentTypes
+            ) { result in
+                print("Imported")
+                do {
+                    let url = try result.get()
+                    let count = try service.importNominations(url: url)
+                    resultMessage = "view.preferences.data.importNominations.success \(count)"
+                } catch {
+                    resultMessage = "view.preferences.data.importNominations.failure \(error.localizedDescription)"
+                }
+                resultAlert = .importer
+            }
+            .fileExporter(
+                isPresented: $isPresentedExporter,
+                document: service.exportNominations(),
+                contentType: .json,
+                defaultFilename: "nominations.json"
+            ) { result in
+                print("Exported")
+                do {
+                    let _ = try result.get()
+                    resultMessage = "view.preferences.data.exportNominations.success"
+                } catch {
+                    resultMessage = "view.preferences.data.exportNominations.failure \(error.localizedDescription)"
+                }
+                resultAlert = .exporter
+            }
+            .alert(item: $resultAlert) { type in
+                let title: LocalizedStringKey
+                switch type {
+                    case .importer: title = "view.preferences.data.importNominations"
+                    case .exporter: title = "view.preferences.data.exportNominations"
+                }
+                return Alert(title: Text(title), message: Text(resultMessage))
+            }
+    }
+    
+    @ViewBuilder
+    private var content: some View {
         #if os(macOS)
-        let contents = buttons
+        buttons
         #else
-        let contents = List { buttons }
+        List { buttons }
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("view.preferences.data.importExport")
         #endif
-        
-        contents
-            .fileImporter(
-                isPresented: $isPresentingImporter,
-                allowedContentTypes: NominationJSONDocument.readableContentTypes,
-                onCompletion: service.importNominations
-            )
-            .fileExporter(
-                isPresented: $isPresentingExporter,
-                document: service.exportNominations(),
-                contentType: .json,
-                defaultFilename: "nominations.json",
-                onCompletion: { _ in }
-            )
     }
     
     @ViewBuilder
     private var buttons: some View {
         Button("view.preferences.data.importNominations") {
-            isPresentingImporter = true
+            isPresentedImporter = true
         }
         Button("view.preferences.data.exportNominations") {
-            isPresentingExporter = true
+            isPresentedExporter = true
         }
     }
 }
