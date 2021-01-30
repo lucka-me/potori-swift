@@ -18,19 +18,25 @@ class TestsUmi: XCTestCase {
     }
     
     func testInitPerformance() throws {
-        // This is an example of a performance test case.
-        self.measure(metrics: [XCTClockMetric()]) {
-            // Put the code you want to measure the time of here.
+        self.measure(metrics: [ XCTClockMetric(), XCTCPUMetric(), XCTMemoryMetric() ]) {
             let _ = Umi.unitTestInit()
         }
     }
 
     func testStatus() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
         XCTAssertEqual(Umi.unitTestShared.status.count, 3)
         XCTAssertNotNil(Umi.unitTestShared.status[.pending])
         XCTAssertNotNil(Umi.unitTestShared.status[.accepted])
         XCTAssertNotNil(Umi.unitTestShared.status[.rejected])
+    }
+    
+    func testScanner() throws {
+        XCTAssertNotNil(Umi.unitTestShared.scanner[.unknown])
+        XCTAssertNotNil(Umi.unitTestShared.scanner[.redacted])
+        XCTAssertNotNil(Umi.unitTestShared.scanner[.prime])
+    }
+    
+    func testReason() throws {
+        XCTAssertNotNil(Umi.unitTestShared.reason[Umi.Reason.undeclared])
     }
 }
