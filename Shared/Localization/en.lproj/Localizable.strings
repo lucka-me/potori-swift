@@ -13,10 +13,11 @@
 // Reason
 "data.undeclared"   = "Undeclared";
 "data.duplicated"   = "Duplicated";
-"data.close"        = "Too Close";
-"data.criteriaCriteria"     = "Criteria";
+"data.close"    = "Too Close";
+"data.criteriaCriteria" = "Criteria";
+"data.criteriaNatural"  = "Natural";
 "data.criteriaTemporary"    = "Temporary";
-"data.criteriaGeneric"      = "Generic Store";
+"data.criteriaGeneric"  = "Generic Store";
 "data.locationMismatched"   = "Mismatched";
 "data.locationPrivate"  = "Private";
 "data.photoPlate"   = "License Plate";
