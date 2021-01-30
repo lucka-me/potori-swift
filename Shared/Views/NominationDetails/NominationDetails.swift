@@ -274,7 +274,7 @@ struct NominationDetails: View {
                 return
             }
             #endif
-            editData.set(fromIntelURL: url)
+            editData.setLngLat(from: url)
         } label: {
             Label("view.details.location.paste", systemImage: "doc.on.clipboard")
         }
@@ -312,11 +312,11 @@ fileprivate class EditData: ObservableObject {
         locationStringValid = true
     }
     
-    func set(fromIntelURL: String) {
-        guard let range = fromIntelURL.range(of: "ll\\=[\\d\\.\\,]+", options: .regularExpression) else {
+    func setLngLat(from intelURL: String) {
+        guard let range = intelURL.range(of: "ll\\=[\\d\\.\\,]+", options: .regularExpression) else {
             return
         }
-        let text = fromIntelURL[range].replacingOccurrences(of: "ll=", with: "")
+        let text = intelURL[range].replacingOccurrences(of: "ll=", with: "")
         let pair = text.split(separator: ",")
         guard
             let latString = pair.first, let lat = Double(latString), abs(lat) < 90,

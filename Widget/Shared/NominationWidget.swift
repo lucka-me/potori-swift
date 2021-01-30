@@ -141,7 +141,7 @@ struct NominationWidgetEntryView : View {
 }
 
 struct NominationWidget: Widget {
-    let kind: String = "NominationWidget"
+    let kind: String = "widget.nomination"
 
     var body: some WidgetConfiguration {
         IntentConfiguration(

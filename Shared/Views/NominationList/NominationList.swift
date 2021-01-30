@@ -45,7 +45,6 @@ struct NominationList: View {
         #else
         list.listStyle(InsetGroupedListStyle())
         #endif
-        
     }
     
     @ViewBuilder
