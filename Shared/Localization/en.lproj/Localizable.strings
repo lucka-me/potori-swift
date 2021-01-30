@@ -40,6 +40,8 @@
 "view.dashboard.refresh"    = "Refresh";
 "view.dashboard.status" = "Status";
 "view.dashboard.status.linkAccount" = "Link Your Google Account";
+"view.dashboard.status.empty" = "Refresh to fetch nominations";
+"view.dashboard.status.latest" = "Latest ";
 "view.dashboard.highlight"  = "Highlight";
 "view.dashboard.highlight.nominations"  = "Nominations";
 "view.dashboard.gallery"    = "Last 30 Days";

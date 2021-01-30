@@ -13,7 +13,9 @@ struct DashboardView: View {
     
     @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var service: Service
+    #if os(iOS)
     @EnvironmentObject private var navigation: Navigation
+    #endif
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -31,9 +33,7 @@ struct DashboardView: View {
                     }
                 }
                 #endif
-                if service.status != .idle || !service.google.auth.login || dia.isNominationsEmpty {
-                    DashboardStatusView()
-                }
+                DashboardStatusView()
                 if service.status == .idle && !dia.isNominationsEmpty {
                     DashboardHighlightView()
                     DashboardGalleryView()

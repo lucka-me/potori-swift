@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DashboardStatusView: View {
     
+    @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var service: Service
     
     var body: some View {
@@ -20,6 +21,17 @@ struct DashboardStatusView: View {
                     Button("view.dashboard.status.linkAccount") { service.google.auth.logIn() }
                         .buttonStyle(PlainButtonStyle())
                         .foregroundColor(.accentColor)
+                } else if service.status == .idle {
+                    if let latest = dia.nomination(by: Nomination.sortDescriptorsByDate) {
+                        HStack(alignment: .firstTextBaseline) {
+                            Text("view.dashboard.status.latest")
+                            Spacer()
+                            Text(DateFormatter.localizedString(from: latest.resultTime, dateStyle: .medium, timeStyle: .short))
+                        }
+                        .lineLimit(1)
+                    } else {
+                        Text("view.dashboard.status.empty")
+                    }
                 } else {
                     switch service.status {
                     case .processingMails:
@@ -41,6 +53,7 @@ struct DashboardStatusView_Previews: PreviewProvider {
     
     static var previews: some View {
         DashboardStatusView()
+            .environmentObject(Dia.preview)
             .environmentObject(Service.shared)
     }
 }

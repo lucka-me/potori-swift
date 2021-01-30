@@ -40,6 +40,8 @@
 "view.dashboard.refresh"    = "刷新";
 "view.dashboard.status" = "状态";
 "view.dashboard.status.linkAccount" = "连接您的Google账号";
+"view.dashboard.status.empty" = "刷新以获取提名";
+"view.dashboard.status.latest" = "最新 ";
 "view.dashboard.highlight"  = "要点";
 "view.dashboard.highlight.nominations"  = "提名";
 "view.dashboard.gallery"    = "近30天";

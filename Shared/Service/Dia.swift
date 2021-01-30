@@ -61,6 +61,14 @@ class Dia: ObservableObject {
     func nomination(by id: String) -> Nomination? {
         let request: NSFetchRequest<Nomination> = Nomination.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", id)
+        request.fetchLimit = 1
+        return try? viewContext.fetch(request).first
+    }
+    
+    func nomination(by sortDescriptors: [NSSortDescriptor]) -> Nomination? {
+        let request: NSFetchRequest<Nomination> = Nomination.fetchRequest()
+        request.sortDescriptors = sortDescriptors
+        request.fetchLimit = 1
         return try? viewContext.fetch(request).first
     }
     
