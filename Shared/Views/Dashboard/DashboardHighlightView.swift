@@ -24,9 +24,9 @@ struct DashboardHighlightView: View {
             }
             
             LazyVGrid(columns: DashboardView.columns, alignment: .leading) {
-                OpenNominationListLink(.init("view.dashboard.highlight.nominations")) {
+                OpenNominationListLink(.init("view.dashboard.highlight.all")) {
                     DashboardCardView(Text("\(dia.countNominations())")) {
-                        Label("view.dashboard.highlight.nominations", systemImage: "arrow.up.circle")
+                        Label("view.dashboard.highlight.all", systemImage: "arrow.up.circle")
                             .foregroundColor(.accentColor)
                     }
                 }

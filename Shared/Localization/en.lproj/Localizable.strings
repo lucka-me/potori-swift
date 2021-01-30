@@ -43,7 +43,7 @@
 "view.dashboard.status.empty" = "Refresh to fetch nominations";
 "view.dashboard.status.latest" = "Latest ";
 "view.dashboard.highlight"  = "Highlight";
-"view.dashboard.highlight.nominations"  = "Nominations";
+"view.dashboard.highlight.all"  = "All";
 "view.dashboard.gallery"    = "Last 30 Days";
 "view.dashboard.gallery.empty"  = "No nominations.";
 "view.dashboard.scanners"   = "Scanners";
