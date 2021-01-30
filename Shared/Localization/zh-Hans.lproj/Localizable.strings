@@ -98,7 +98,8 @@
 "view.preferences.google.uploadNow" = "现在上传";
 "view.preferences.google.migrate"   = "迁移数据";
 "view.preferences.google.migrate.alert"   = "迁移数据可能会丢弃部分拒绝理由，建议您在迁移前刷新一次。";
-"view.preferences.google.migrate.alert.confirm" = "Migrate";
+"view.preferences.google.migrate.alert.confirm" = "迁移";
+"view.preferences.google.migrate.finished %lld" = "迁移了%lld个提名。";
 "view.preferences.data.importExport"    = "导入 / 导出";
 "view.preferences.data.exportNominations"  = "导出提名";
 "view.preferences.data.importNominations"  = "导入提名";

@@ -18,6 +18,7 @@ final class Service: ObservableObject {
     
     typealias BasicCallback = () -> Void
     typealias OnRefreshFinishedCallback = (Int) -> Void
+    typealias OnDownloadFinishedCallback = (Int) -> Void
     
     enum ServiceStatus: String {
         case idle               = "service.status.idle"
@@ -74,8 +75,9 @@ final class Service: ObservableObject {
     }
     
     /// Migrate data from potori.json
-    func migrateFromGoogleDrive() {
-        download(.legacy) {
+    func migrateFromGoogleDrive(_ callback: @escaping OnDownloadFinishedCallback) {
+        download(.legacy) { count in
+            callback(count)
             self.status = .idle
         }
     }
@@ -88,7 +90,7 @@ final class Service: ObservableObject {
             self.progress = 0.0
         }
         if Preferences.Google.sync {
-            download {
+            download { _ in
                 self.processMails()
             }
         } else {
@@ -140,7 +142,7 @@ final class Service: ObservableObject {
             return
         }
         if performDownload {
-            download {
+            download { _ in
                 if performUpload {
                     self.upload {  self.status = .idle }
                 } else {
@@ -168,11 +170,12 @@ final class Service: ObservableObject {
         try importNominations(data: data)
     }
     
-    func importNominations(data: Data) throws {
+    @discardableResult
+    func importNominations(data: Data) throws -> Int {
         let decoder = JSONDecoder()
         let jsonList = try decoder.decode([NominationJSON].self, from: data)
         let raws = jsonList.map { NominationRAW(from: $0) }
-        save(raws, merge: true)
+        return save(raws, merge: true)
     }
     
     func exportNominations() -> NominationJSONDocument {
@@ -182,20 +185,20 @@ final class Service: ObservableObject {
         return .init(jsons)
     }
     
-    private func download(_ file: NominationFile = .standard, _ callback: @escaping BasicCallback) {
+    private func download(_ file: NominationFile = .standard, _ callback: @escaping OnDownloadFinishedCallback) {
         DispatchQueue.main.async {
             self.status = .syncing
         }
         google.drive.download(file.rawValue) { data in
             if let solidData = data {
                 do {
-                    try self.importNominations(data: solidData)
-                    callback()
+                    let count = try self.importNominations(data: solidData)
+                    callback(count)
                 } catch {
                     return true
                 }
             } else {
-                callback()
+                callback(0)
             }
             return false
         }

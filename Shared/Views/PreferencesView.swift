@@ -80,6 +80,13 @@ fileprivate struct GeneralGroup: View, PreferenceGroup {
 
 fileprivate struct GoogleGroup: View, PreferenceGroup {
     
+    private enum MigrateAlert: Identifiable {
+        case confirm
+        case finish
+        
+        var id: Int { self.hashValue }
+    }
+    
     let title: LocalizedStringKey = "view.preferences.google"
     let icon: String = "person.crop.circle"
     
@@ -87,9 +94,10 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
     
     @EnvironmentObject var service: Service
     #if os(iOS)
-    @State private var isPresentingActionSheetAccount = false
+    @State private var isPresentedActionSheetAccount = false
     #endif
-    @State private var isPresentingAlertMigrate = false
+    @State private var migrateAlert: MigrateAlert? = nil
+    @State private var migrateCount: Int = 0
     
     var body: some View {
         #if os(macOS)
@@ -111,9 +119,9 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
                 .foregroundColor(service.google.auth.login ? .green : .red)
         }
         .onTapGesture {
-            self.isPresentingActionSheetAccount = true
+            isPresentedActionSheetAccount.toggle()
         }
-        .actionSheet(isPresented: $isPresentingActionSheetAccount) {
+        .actionSheet(isPresented: $isPresentedActionSheetAccount) {
             ActionSheet(
                 title: service.google.auth.login ? Text(service.google.auth.mail) : Text("view.preferences.google.account"),
                 buttons: [
@@ -139,18 +147,28 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
             .disabled(service.status != .idle)
             
             Button("view.preferences.google.migrate") {
-                self.isPresentingAlertMigrate = true
+                migrateAlert = .confirm
             }
             .disabled(service.status != .idle)
-            .alert(isPresented: $isPresentingAlertMigrate) {
-                Alert(
-                    title: Text("view.preferences.google.migrate"),
-                    message: Text("view.preferences.google.migrate.alert"),
-                    primaryButton: Alert.Button.destructive(Text("view.preferences.google.migrate.alert.confirm")) {
-                        service.migrateFromGoogleDrive()
-                    },
-                    secondaryButton: Alert.Button.cancel()
-                )
+            .alert(item: $migrateAlert) { type in
+                if type == .confirm {
+                    return Alert(
+                        title: Text("view.preferences.google.migrate"),
+                        message: Text("view.preferences.google.migrate.alert"),
+                        primaryButton: Alert.Button.destructive(Text("view.preferences.google.migrate.alert.confirm")) {
+                            service.migrateFromGoogleDrive { count in
+                                migrateCount = count
+                                self.migrateAlert = .finish
+                            }
+                        },
+                        secondaryButton: Alert.Button.cancel()
+                    )
+                } else {
+                    return Alert(
+                        title: Text("view.preferences.google.migrate"),
+                        message: Text("view.preferences.google.migrate.finished \(migrateCount)")
+                    )
+                }
             }
         }
     }
