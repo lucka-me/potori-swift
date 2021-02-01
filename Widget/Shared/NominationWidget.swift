@@ -112,12 +112,10 @@ struct NominationWidgetEntryView : View {
             HStack(spacing: 0) {
                 Label(entry.title, systemImage: entry.statusIcon)
                     .lineLimit(1)
-                    .foregroundColor(entry.statusColor)
-                    .shadow(color: .black, radius: 1)
                 Spacer()
             }
                 .padding(8)
-                .background(ContainerRelativeShape().fill(Color.black.opacity(0.2)))
+                .background(ContainerRelativeShape().fill(entry.statusColor.opacity(0.5)))
                 .padding(8)
         }
         .background(image.scaledToFill())

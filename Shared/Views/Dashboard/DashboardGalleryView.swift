@@ -63,7 +63,6 @@ struct DashboardGalleryView: View {
     @ViewBuilder
     private func caption(_ nomination: Nomination) -> some View {
         Text(nomination.title)
-            .foregroundColor(.primary)
             .lineLimit(1)
             .font(.caption)
             .padding(8)

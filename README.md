@@ -11,7 +11,7 @@ An app to visualize Ingress nominations from Gmail inbox, available for macOS an
 This is the Swift implementation of [the web app](https://github.com/lucka-me/potori).
 
 ## Requirements
-- Xcode 12.3+
+- Xcode 12+
 - macOS 11+
 - iOS 14+
 
