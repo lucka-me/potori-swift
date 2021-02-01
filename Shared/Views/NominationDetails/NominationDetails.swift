@@ -92,15 +92,15 @@ struct NominationDetails: View {
                     if editData.status == .rejected {
                         nomination.reasonsCode = editData.reasons
                     }
-                    if editData.locationString.isEmpty {
-                        nomination.hasLngLat = false
-                    } else if
-                        editData.validateLocationString(),
-                        let lngLat = editData.lngLat {
-                        nomination.hasLngLat = true
-                        nomination.longitude = lngLat.lng
-                        nomination.latitude = lngLat.lat
-                    }
+                }
+                if editData.locationString.isEmpty {
+                    nomination.hasLngLat = false
+                } else if
+                    editData.validateLocationString(),
+                    let lngLat = editData.lngLat {
+                    nomination.hasLngLat = true
+                    nomination.longitude = lngLat.lng
+                    nomination.latitude = lngLat.lat
                 }
                 dia.save()
                 mode = .view
