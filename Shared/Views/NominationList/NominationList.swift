@@ -59,7 +59,7 @@ struct NominationList: View {
             .onDelete { indexSet in
                 for index in indexSet {
                     if index < nominations.endIndex {
-                        viewContext.delete(nominations[index])
+                        dia.delete(nominations[index])
                     }
                 }
                 dia.save(with: viewContext)

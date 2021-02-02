@@ -84,6 +84,10 @@ class Dia: ObservableObject {
         return (try? viewContext.count(for: request)) ?? 0
     }
     
+    func delete(_ nomination: Nomination) {
+        viewContext.delete(nomination)
+    }
+    
     func clear() {
         for nomination in nominations {
             viewContext.delete(nomination)
