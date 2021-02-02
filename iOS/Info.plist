@@ -28,6 +28,10 @@
 	<true/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string></string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>NominationWidgetConfigurationIntent</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

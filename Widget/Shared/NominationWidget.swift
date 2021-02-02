@@ -11,17 +11,19 @@ import Intents
 
 struct NominationWidget: Widget {
     
+    typealias ConfigurationIntent = NominationWidgetConfigurationIntent
+    
     struct Provider: IntentTimelineProvider {
-        func placeholder(in context: Context) -> NominationWidget.Entry {
+        func placeholder(in context: Context) -> Entry {
             .init(Date(), .init())
         }
 
         func getSnapshot(
-            for configuration: NominationWidgetConfigurationIntent,
+            for configuration: ConfigurationIntent,
             in context: Context,
-            completion: @escaping (NominationWidget.Entry) -> ()
+            completion: @escaping (Entry) -> ()
         ) {
-            let entry = NominationWidget.Entry(Date(), .init())
+            let entry = Entry(Date(), configuration)
             completion(entry)
         }
 
@@ -30,11 +32,12 @@ struct NominationWidget: Widget {
             in context: Context,
             completion: @escaping (Timeline<Entry>) -> ()
         ) {
-            var entries: [NominationWidget.Entry] = []
+            var entries: [Entry] = []
             let currentDate = Date()
             let predicate: NSPredicate?
             switch configuration.status {
                 case .unknown: predicate = nil
+                case .all: predicate = nil
                 case .pending: predicate = Umi.shared.status[.pending]!.predicate
                 case .accepted: predicate = Umi.shared.status[.accepted]!.predicate
                 case .rejected: predicate = Umi.shared.status[.rejected]!.predicate
@@ -91,7 +94,7 @@ struct NominationWidget: Widget {
         
         init(
             _ date: Date,
-            _ configuration: NominationWidgetConfigurationIntent,
+            _ configuration: ConfigurationIntent,
             empty: Bool = false
         ) {
             self.date = date
@@ -160,10 +163,10 @@ struct NominationWidget: Widget {
     var body: some WidgetConfiguration {
         IntentConfiguration(
             kind: kind,
-            intent: NominationWidgetConfigurationIntent.self,
-            provider: NominationWidget.Provider()
+            intent: ConfigurationIntent.self,
+            provider: Provider()
         ) { entry in
-            NominationWidget.EntryView(entry: entry)
+            EntryView(entry: entry)
         }
         .supportedFamilies([ .systemSmall, .systemMedium ])
         .configurationDisplayName("widget.nomination")
