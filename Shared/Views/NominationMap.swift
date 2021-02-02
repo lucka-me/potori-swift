@@ -55,14 +55,12 @@ struct NominationMap: View {
         if (minLng < 181) {
             let topLeft = MKMapPoint(CLLocationCoordinate2D(latitude: maxLat, longitude: minLng))
             let bottomRight = MKMapPoint(CLLocationCoordinate2D(latitude: minLat, longitude: maxLng))
-            DispatchQueue.main.async {
-                rect = MKMapRect(
-                    x: topLeft.x,
-                    y: topLeft.y,
-                    width: bottomRight.x - topLeft.x,
-                    height: bottomRight.y - topLeft.y
-                )
-            }
+            rect = MKMapRect(
+                x: topLeft.x,
+                y: topLeft.y,
+                width: bottomRight.x - topLeft.x,
+                height: bottomRight.y - topLeft.y
+            )
         }
     }
 }

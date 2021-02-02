@@ -18,11 +18,9 @@ struct NominationDetailsMap: View {
         Map(coordinateRegion: $region, annotationItems: [ nomination ]) { item in
             MapPin(coordinate: item.location)
         }
-            .onAppear {
-                DispatchQueue.main.async {
-                    setupMap()
-                }
-            }
+        .onAppear {
+            setupMap()
+        }
     }
     
     private func setupMap() {
