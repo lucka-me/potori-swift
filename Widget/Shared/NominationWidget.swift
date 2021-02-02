@@ -32,7 +32,14 @@ struct NominationWidget: Widget {
         ) {
             var entries: [NominationWidget.Entry] = []
             let currentDate = Date()
-            let nominations = Dia.shared.nominations
+            let predicate: NSPredicate?
+            switch configuration.status {
+                case .unknown: predicate = nil
+                case .pending: predicate = Umi.shared.status[.pending]!.predicate
+                case .accepted: predicate = Umi.shared.status[.accepted]!.predicate
+                case .rejected: predicate = Umi.shared.status[.rejected]!.predicate
+            }
+            let nominations = Dia.shared.nominations(matches: predicate)
             if nominations.isEmpty {
                 entries.append(.init(currentDate, configuration, empty: true))
             } else {
