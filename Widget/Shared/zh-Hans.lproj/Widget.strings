@@ -1,0 +1,36 @@
+"7VjwI9" = "状态";
+
+"Bdc7tr" = "拒绝";
+
+"KfQFIc" = "审核中";
+
+"SkAhXH" = "批准";
+
+"Ug5Gtk-Bdc7tr" = "There are ${count} options matching ‘Rejected’.";
+
+"Ug5Gtk-KfQFIc" = "There are ${count} options matching ‘Pending’.";
+
+"Ug5Gtk-SkAhXH" = "There are ${count} options matching ‘Accepted’.";
+
+"Ug5Gtk-iTQdnQ" = "There are ${count} options matching ‘All’.";
+
+"Ug5Gtk-qha8VN" = "There are ${count} options matching ‘Unknown’.";
+
+"XwPCqv" = "Status Filter Type";
+
+"gpCwrM" = "Nomination Widget Configuration";
+
+"iTQdnQ" = "全部";
+
+"nTQPfE-Bdc7tr" = "Just to confirm, you wanted ‘Rejected’?";
+
+"nTQPfE-KfQFIc" = "Just to confirm, you wanted ‘Pending’?";
+
+"nTQPfE-SkAhXH" = "Just to confirm, you wanted ‘Accepted’?";
+
+"nTQPfE-iTQdnQ" = "Just to confirm, you wanted ‘All’?";
+
+"nTQPfE-qha8VN" = "Just to confirm, you wanted ‘Unknown’?";
+
+"qha8VN" = "Unknown";
+

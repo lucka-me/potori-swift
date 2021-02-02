@@ -104,8 +104,10 @@
 		84C769A825A706A60055A3A9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84C769AA25A706A60055A3A9 /* Localizable.strings */; };
 		84CCEDC2259CB5470040917E /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCEDC1259CB5470040917E /* RemoteImage.swift */; };
 		84CCEDC3259CB5470040917E /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCEDC1259CB5470040917E /* RemoteImage.swift */; };
-		84D05A8225C95B5E00574D42 /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84EA8F9225C15FE200BB924A /* Widget.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
-		84D05A8925C95B5F00574D42 /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84EA8F9225C15FE200BB924A /* Widget.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
+		84D05ABA25C965CE00574D42 /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84D05ABF25C965CE00574D42 /* Widget.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
+		84D05ABB25C965CE00574D42 /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84D05ABF25C965CE00574D42 /* Widget.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
+		84D05ABC25C965CE00574D42 /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84D05ABF25C965CE00574D42 /* Widget.intentdefinition */; };
+		84D05ABD25C965CE00574D42 /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84D05ABF25C965CE00574D42 /* Widget.intentdefinition */; };
 		84DB6EA3259A2B1F00BD915B /* Umi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6EA2259A2B1F00BD915B /* Umi.swift */; };
 		84DB6EA4259A2B1F00BD915B /* Umi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6EA2259A2B1F00BD915B /* Umi.swift */; };
 		84DB6EAE259A2F8C00BD915B /* umi.json in Resources */ = {isa = PBXBuildFile; fileRef = 84DB6EAD259A2F8C00BD915B /* umi.json */; };
@@ -115,7 +117,6 @@
 		84DDF8E025C1B39100942E87 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EA8F8B25C15FE200BB924A /* WidgetKit.framework */; };
 		84DDF8E125C1B39100942E87 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EA8F8D25C15FE200BB924A /* SwiftUI.framework */; };
 		84DDF8EE25C1B39200942E87 /* Widget Extension macOS.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84DDF8DF25C1B39100942E87 /* Widget Extension macOS.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		84DDF91E25C1B54A00942E87 /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84EA8F9225C15FE200BB924A /* Widget.intentdefinition */; };
 		84DDF92525C1B54D00942E87 /* PotoriWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA8F9025C15FE200BB924A /* PotoriWidget.swift */; };
 		84DDF92C25C1B55000942E87 /* NominationWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8475B61D25C1610E002D7915 /* NominationWidget.swift */; };
 		84DDF94025C1B58700942E87 /* NominationRAW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178BD259A0D8D00CD967F /* NominationRAW.swift */; };
@@ -133,7 +134,6 @@
 		84EA8F8C25C15FE200BB924A /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EA8F8B25C15FE200BB924A /* WidgetKit.framework */; };
 		84EA8F8E25C15FE200BB924A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EA8F8D25C15FE200BB924A /* SwiftUI.framework */; };
 		84EA8F9125C15FE200BB924A /* PotoriWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA8F9025C15FE200BB924A /* PotoriWidget.swift */; };
-		84EA8F9625C15FE300BB924A /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84EA8F9225C15FE200BB924A /* Widget.intentdefinition */; };
 		84EA8F9A25C15FE300BB924A /* Widget Extension iOS.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84EA8F8925C15FE200BB924A /* Widget Extension iOS.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84F7359B25B830E8003DE878 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F7359A25B830E8003DE878 /* DashboardView.swift */; };
 		84F7359C25B830E8003DE878 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F7359A25B830E8003DE878 /* DashboardView.swift */; };
@@ -255,6 +255,9 @@
 		84C769A925A706A60055A3A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		84C769C325A714410055A3A9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		84CCEDC1259CB5470040917E /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
+		84D05ABE25C965CE00574D42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Widget.intentdefinition; sourceTree = "<group>"; };
+		84D05AC725C965D600574D42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Widget.strings; sourceTree = "<group>"; };
+		84D05AC925C965D600574D42 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Widget.strings"; sourceTree = "<group>"; };
 		84DB6EA2259A2B1F00BD915B /* Umi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Umi.swift; sourceTree = "<group>"; };
 		84DB6EAD259A2F8C00BD915B /* umi.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = umi.json; sourceTree = "<group>"; };
 		84DB6ED0259A3D5D00BD915B /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
@@ -269,7 +272,6 @@
 		84EA8F8B25C15FE200BB924A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		84EA8F8D25C15FE200BB924A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		84EA8F9025C15FE200BB924A /* PotoriWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotoriWidget.swift; sourceTree = "<group>"; };
-		84EA8F9225C15FE200BB924A /* Widget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Widget.intentdefinition; sourceTree = "<group>"; };
 		84EA8F9525C15FE300BB924A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84F7359A25B830E8003DE878 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		84F735A525B83169003DE878 /* DashboardHighlightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardHighlightView.swift; sourceTree = "<group>"; };
@@ -562,7 +564,7 @@
 		84DDF8D525C1B26700942E87 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				84EA8F9225C15FE200BB924A /* Widget.intentdefinition */,
+				84D05ABF25C965CE00574D42 /* Widget.intentdefinition */,
 				8475B61D25C1610E002D7915 /* NominationWidget.swift */,
 				84EA8F9025C15FE200BB924A /* PotoriWidget.swift */,
 			);
@@ -926,7 +928,7 @@
 				8434024325C03A9600DCFFCB /* UNUserNotificationCenter.swift in Sources */,
 				840A15F725BD62D200541ED5 /* DashboardScannersView.swift in Sources */,
 				8434023C25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */,
-				84D05A8225C95B5E00574D42 /* Widget.intentdefinition in Sources */,
+				84D05ABA25C965CE00574D42 /* Widget.intentdefinition in Sources */,
 				84BFD364259F46530047318D /* Mari.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -943,7 +945,7 @@
 				84DB6EA4259A2B1F00BD915B /* Umi.swift in Sources */,
 				846CC62A25A35EFF007A8AE8 /* Nomination.swift in Sources */,
 				84F97C72259B6978005D9AA4 /* NominationDetails.swift in Sources */,
-				84D05A8925C95B5F00574D42 /* Widget.intentdefinition in Sources */,
+				84D05ABB25C965CE00574D42 /* Widget.intentdefinition in Sources */,
 				840A15F125BCA48B00541ED5 /* CardBackground.swift in Sources */,
 				8491789C2599F92C00CD967F /* NominationListRow.swift in Sources */,
 				84B8A54825B85045000B0C0E /* DashboardCardView.swift in Sources */,
@@ -980,7 +982,7 @@
 			files = (
 				84DDF95C25C1B5B300942E87 /* NominationJSON.swift in Sources */,
 				84DDF92C25C1B55000942E87 /* NominationWidget.swift in Sources */,
-				84DDF91E25C1B54A00942E87 /* Widget.intentdefinition in Sources */,
+				84D05ABD25C965CE00574D42 /* Widget.intentdefinition in Sources */,
 				8430E2D325C31723008F1BAC /* Reason.swift in Sources */,
 				8430E2C225C3171A008F1BAC /* Dia.swift in Sources */,
 				84DDF92525C1B54D00942E87 /* PotoriWidget.swift in Sources */,
@@ -1008,7 +1010,7 @@
 			files = (
 				8475B6CF25C1A4ED002D7915 /* NominationJSON.swift in Sources */,
 				8475B61E25C1610E002D7915 /* NominationWidget.swift in Sources */,
-				84EA8F9625C15FE300BB924A /* Widget.intentdefinition in Sources */,
+				84D05ABC25C965CE00574D42 /* Widget.intentdefinition in Sources */,
 				8430E2D225C31722008F1BAC /* Reason.swift in Sources */,
 				8430E2C925C3171A008F1BAC /* Dia.swift in Sources */,
 				84EA8F9125C15FE200BB924A /* PotoriWidget.swift in Sources */,
@@ -1062,6 +1064,16 @@
 				84C769C325A714410055A3A9 /* zh-Hans */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		84D05ABF25C965CE00574D42 /* Widget.intentdefinition */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84D05ABE25C965CE00574D42 /* Base */,
+				84D05AC725C965D600574D42 /* en */,
+				84D05AC925C965D600574D42 /* zh-Hans */,
+			);
+			name = Widget.intentdefinition;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
