@@ -46,28 +46,29 @@ class Dia: ObservableObject {
     }
     
     var nominations: [Nomination] {
-        do {
-            return try viewContext.fetch(Nomination.fetchRequest())
-        } catch {
-            print("[CoreData][Fetch] Failed: \(error.localizedDescription)")
-        }
-        return []
+        nominations(matches: nil)
     }
     
     var isNominationsEmpty: Bool {
         countNominations() == 0
     }
     
-    func nomination(by id: String) -> Nomination? {
+    func nominations(matches predicate: NSPredicate?) -> [Nomination] {
         let request: NSFetchRequest<Nomination> = Nomination.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", id)
+        request.predicate = predicate
+        return (try? viewContext.fetch(request)) ?? []
+    }
+    
+    func firstNomination(matches predicate: NSPredicate) -> Nomination? {
+        let request: NSFetchRequest<Nomination> = Nomination.fetchRequest()
+        request.predicate = predicate
         request.fetchLimit = 1
         return try? viewContext.fetch(request).first
     }
     
-    func nomination(by sortDescriptors: [NSSortDescriptor]) -> Nomination? {
+    func firstNomination(sortBy descriptors: [NSSortDescriptor]) -> Nomination? {
         let request: NSFetchRequest<Nomination> = Nomination.fetchRequest()
-        request.sortDescriptors = sortDescriptors
+        request.sortDescriptors = descriptors
         request.fetchLimit = 1
         return try? viewContext.fetch(request).first
     }

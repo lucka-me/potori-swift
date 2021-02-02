@@ -23,7 +23,7 @@ struct DashboardView: View {
                 #if os(iOS)
                 if navigation.activeLink == Navigation.nominationWidgetTarget {
                     if let id = navigation.openNominations.selection,
-                       let nomination = dia.nomination(by: id) {
+                       let nomination = dia.firstNomination(matches: .init(format: "id == %@", id)) {
                         NavigationLink(
                             destination: NominationDetails(nomination: nomination),
                             tag: Navigation.nominationWidgetTarget,
