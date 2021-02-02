@@ -17,7 +17,7 @@ struct NominationWidget: Widget {
         }
 
         func getSnapshot(
-            for configuration: ConfigurationIntent,
+            for configuration: NominationWidgetConfigurationIntent,
             in context: Context,
             completion: @escaping (NominationWidget.Entry) -> ()
         ) {
@@ -26,7 +26,7 @@ struct NominationWidget: Widget {
         }
 
         func getTimeline(
-            for configuration: ConfigurationIntent,
+            for configuration: NominationWidgetConfigurationIntent,
             in context: Context,
             completion: @escaping (Timeline<Entry>) -> ()
         ) {
@@ -52,7 +52,7 @@ struct NominationWidget: Widget {
     
     struct Entry: TimelineEntry {
         let date: Date
-        let configuration: ConfigurationIntent
+        let configuration: NominationWidgetConfigurationIntent
         
         let empty: Bool
         
@@ -62,7 +62,11 @@ struct NominationWidget: Widget {
         let statusIcon: String
         let statusColor: Color
         
-        init(_ date: Date, _ configuration: ConfigurationIntent, _ nomination: Nomination) {
+        init(
+            _ date: Date,
+            _ configuration: NominationWidgetConfigurationIntent,
+            _ nomination: Nomination
+        ) {
             self.date = date
             self.configuration = configuration
             empty = false
@@ -78,7 +82,11 @@ struct NominationWidget: Widget {
             statusColor = status.color
         }
         
-        init(_ date: Date, _ configuration: ConfigurationIntent, empty: Bool = false) {
+        init(
+            _ date: Date,
+            _ configuration: NominationWidgetConfigurationIntent,
+            empty: Bool = false
+        ) {
             self.date = date
             self.configuration = configuration
             
@@ -144,7 +152,9 @@ struct NominationWidget: Widget {
 
     var body: some WidgetConfiguration {
         IntentConfiguration(
-            kind: kind, intent: ConfigurationIntent.self, provider: NominationWidget.Provider()
+            kind: kind,
+            intent: NominationWidgetConfigurationIntent.self,
+            provider: NominationWidget.Provider()
         ) { entry in
             NominationWidget.EntryView(entry: entry)
         }

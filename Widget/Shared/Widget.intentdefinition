@@ -9,11 +9,11 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>88xZPY</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>20A294</string>
+	<string>20D64</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>12A6144</string>
+	<string>12D4e</string>
 	<key>INIntentDefinitionToolsVersion</key>
-	<string>12.0</string>
+	<string>12.4</string>
 	<key>INIntents</key>
 	<array>
 		<dict>
@@ -26,7 +26,7 @@
 			<key>INIntentIneligibleForSuggestions</key>
 			<true/>
 			<key>INIntentName</key>
-			<string>Configuration</string>
+			<string>NominationWidgetConfiguration</string>
 			<key>INIntentResponse</key>
 			<dict>
 				<key>INIntentResponseCodes</key>
@@ -44,7 +44,7 @@
 				</array>
 			</dict>
 			<key>INIntentTitle</key>
-			<string>Configuration</string>
+			<string>Nomination Widget Configuration</string>
 			<key>INIntentTitleID</key>
 			<string>gpCwrM</string>
 			<key>INIntentType</key>
