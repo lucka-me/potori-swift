@@ -62,7 +62,7 @@ struct NominationList: View {
                         viewContext.delete(nominations[index])
                     }
                 }
-                dia.save()
+                dia.save(with: viewContext)
             }
             .deleteDisabled(service.status != .idle)
         }

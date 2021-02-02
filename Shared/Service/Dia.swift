@@ -92,11 +92,17 @@ class Dia: ObservableObject {
     
     /// Save changes and refresh the UI by refreshing saveID
     func save() {
-        if !viewContext.hasChanges {
+        save(with: viewContext)
+    }
+    
+    /// Save changes in designated view context
+    /// - Parameter context: The view context to save
+    func save(with context: NSManagedObjectContext) {
+        if !context.hasChanges {
             return
         }
         do {
-            try viewContext.save()
+            try context.save()
             DispatchQueue.main.async {
                 self.saveID = UUID().uuidString
             }
