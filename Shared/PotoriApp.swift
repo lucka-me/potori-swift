@@ -16,7 +16,7 @@ struct PotoriApp: App {
     
     private let dia = Dia.shared
     private let service = Service.shared
-    private var navigation: Navigation = .init()
+    private let navigation: Navigation = .init()
 
     @State private var firstAppear = true
 

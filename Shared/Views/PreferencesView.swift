@@ -9,10 +9,6 @@ import SwiftUI
 
 struct PreferencesView : View {
     
-    #if os(iOS)
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
-    
     var body: some View {
         
         let groups = Group {

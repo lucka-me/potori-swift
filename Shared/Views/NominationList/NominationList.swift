@@ -13,10 +13,6 @@ struct NominationList: View {
     @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var service: Service
     
-    #if os(iOS)
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
-    
     @State private var selection: String?
     
     private let config: Navigation.OpenNominationsConfiguration
