@@ -84,7 +84,7 @@ struct RemoteImage: View {
 #if DEBUG
 struct RemoteImage_Previews: PreviewProvider {
     static var previews: some View {
-        RemoteImage("https://s.gravatar.com/avatar/f03d18971cd558e09f51ad19923bf077?s=180")
+        RemoteImage("https://lh3.googleusercontent.com/16Nd33lsfrmKA2n4SwXSAkRm2SMyMlGaCXQHT7Y33R1rUn799TLhRBj0cS9SFIv1C6OxHt")
     }
 }
 #endif
