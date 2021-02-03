@@ -27,6 +27,7 @@ struct ContentView: View {
     private var navigationView: some View {
         #if os(macOS)
         SidebarNavigation()
+            .frame(minHeight: 300)
         #else
         if horizontalSizeClass == .compact {
             TabNavigation()

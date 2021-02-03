@@ -49,7 +49,7 @@ struct SidebarNavigation: View {
                 }
                 #endif
             }
-            .frame(minWidth: 150, minHeight: 300)
+            .frame(minWidth: 150)
             .listStyle(SidebarListStyle())
             .toolbar {
                 ToolbarItemGroup {
