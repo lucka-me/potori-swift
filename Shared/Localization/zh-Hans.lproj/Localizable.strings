@@ -115,6 +115,8 @@
 "view.preferences.about.appVersion"     = "应用版本";
 "view.preferences.about.dataVersion"    = "数据版本";
 "view.preferences.about.repo"   = "代码仓库";
+"view.preferences.about.privacy"    = "隐私";
+"view.preferences.about.telegram"   = "Telegram频道";
 
 // Match
 "view.match"    = "手动匹配";

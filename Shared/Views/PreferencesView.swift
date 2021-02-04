@@ -326,5 +326,7 @@ fileprivate struct AboutGroup: View, PreferenceGroup {
             Text(Umi.shared.version)
         }
         Link("view.preferences.about.repo", destination: URL(string: "https://github.com/lucka-me/potori-swift")!)
+        Link("view.preferences.about.privacy", destination: URL(string: "https://potori.lucka.moe/docs/privacy/")!)
+        Link("view.preferences.about.telegram", destination: URL(string: "https://t.me/potori")!)
     }
 }

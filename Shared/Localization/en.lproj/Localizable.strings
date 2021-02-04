@@ -115,6 +115,8 @@
 "view.preferences.about.appVersion"     = "App Version";
 "view.preferences.about.dataVersion"    = "Data Version";
 "view.preferences.about.repo"   = "Code Repository";
+"view.preferences.about.privacy"    = "Privacy";
+"view.preferences.about.telegram"   = "Telegram Channel";
 
 // Match
 "view.match"    = "Manually Match";
