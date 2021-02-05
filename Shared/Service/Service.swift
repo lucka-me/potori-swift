@@ -34,7 +34,7 @@ final class Service: ObservableObject {
     static let shared = Service()
     
     #if os(iOS)
-    private static let refreshTaskID = "moe.lucka.Potori.refresh"
+    private static let refreshTaskID = "dev.lucka.Potori.refresh"
     #endif
     private static let progressPartMari = 0.8
     private static let progressPartMatch = 0.2

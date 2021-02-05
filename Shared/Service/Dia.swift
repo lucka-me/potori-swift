@@ -22,7 +22,7 @@ class Dia: ObservableObject {
     let viewContext: NSManagedObjectContext
     
     private init(inMemory: Bool = false) {
-        let container = NSPersistentCloudKitContainer(name: "Potori")
+        let container = NSPersistentContainer(name: "Potori")
         if inMemory {
             #if DEBUG
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
@@ -32,7 +32,7 @@ class Dia: ObservableObject {
                 try? FileManager.default.createDirectory(at: Self.directoryURL, withIntermediateDirectories: true, attributes: nil)
             }
             let storeDescription = NSPersistentStoreDescription(url: Self.fileURL)
-            //storeDescription.cloudKitContainerOptions = .init(containerIdentifier: "")
+            //storeDescription.cloudKitContainerOptions = .init(containerIdentifier: "iCloud.dev.lucka.Potori")
             container.persistentStoreDescriptions = [ storeDescription ]
         }
         container.loadPersistentStores { storeDescription, error in
