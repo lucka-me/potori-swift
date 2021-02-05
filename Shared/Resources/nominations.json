@@ -6,9 +6,9 @@
         "scanner" : 2,
         "status": 101,
         "reasons": [ 116, 117 ],
-        "confirmedTime": 1584699141000,
+        "confirmedTime": 1584699141,
         "confirmationMailId": "12d5ef4c367cad3b",
-        "resultTime": 1606315311000,
+        "resultTime": 1606315311,
         "resultMailId": "12de253cb4ac79ef",
         "lngLat": {
             "lng": 5.307257,
@@ -21,7 +21,7 @@
         "image": "5SjKsMELl1qQ4OpauJt0gxszAP5Rp0H0pnf5DfnOI0_1Et2y2y6vyRlFJAaXt0p7n3Y2mg0b5UWYRbiZqeY9XgymxQ",
         "scanner" : 2,
         "status": 0,
-        "confirmedTime": 1610195804000,
+        "confirmedTime": 1610195804,
         "confirmationMailId": "12f6847c64d379a8"
     }
 ]
