@@ -24,11 +24,16 @@ struct NominationDetails: View {
     @ObservedObject private var editData: EditData = .init()
     
     var body: some View {
-        #if os(macOS)
-        content.frame(minWidth: 300)
-        #else
-        content
-        #endif
+        if nomination.isFault {
+            // Prevent crash when delete
+            EmptyView()
+        } else {
+            #if os(macOS)
+            content.frame(minWidth: 300)
+            #else
+            content
+            #endif
+        }
     }
     
     @ViewBuilder
