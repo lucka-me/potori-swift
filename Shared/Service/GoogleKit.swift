@@ -24,33 +24,31 @@ final class GoogleKit: ObservableObject {
         private static let authKeychainName = "auth.google"
         
         private var authorization: GTMAppAuthFetcherAuthorization? = nil
-        #if os(iOS)
         private var currentAuthorizationFlow: OIDExternalUserAgentSession? = nil
-        #endif
         
         init() {
             loadAuth()
         }
         
-        #if os(macOS)
+       
         func logIn() {
-            // Listen to HTTP for redirect
-            let httpHandler = OIDRedirectHTTPHandler(successURL: URL(string: Self.redirectURL))
-            let listenerURL = httpHandler.startHTTPListener(nil)
-            httpHandler.currentAuthorizationFlow = OIDAuthState.authState(
-                byPresenting: getAuthRequest(redirectURL: listenerURL)
-            ) { authState, error in
-                httpHandler.cancelHTTPListener()
-                self.authStateCallback(authState: authState, error: error)
-            }
-        }
-        #else
-        func logIn() {
+            #if os(macOS)
+            currentAuthorizationFlow = OIDAuthState.authState(
+                byPresenting: getAuthRequest(),
+                callback: authStateCallback
+            )
+            #else
             currentAuthorizationFlow = OIDAuthState.authState(
                 byPresenting: getAuthRequest(),
                 presenting: UIApplication.shared.windows.first!.rootViewController!,
                 callback: authStateCallback
             )
+            #endif
+        }
+        
+        #if os(macOS)
+        func onOpenURL(_ url: URL) {
+            currentAuthorizationFlow?.resumeExternalUserAgentFlow(with: url)
         }
         #endif
         
@@ -67,7 +65,7 @@ final class GoogleKit: ObservableObject {
             return authorization
         }
         
-        private func getAuthRequest(redirectURL: URL? = nil) -> OIDAuthorizationRequest {
+        private func getAuthRequest() -> OIDAuthorizationRequest {
             return OIDAuthorizationRequest.init(
                 configuration: GTMAppAuthFetcherAuthorization.configurationForGoogle(),
                 clientId: Self.clientID,
@@ -77,7 +75,7 @@ final class GoogleKit: ObservableObject {
                     kGTLRAuthScopeDriveFile,
                     kGTLRAuthScopeGmailReadonly
                 ],
-                redirectURL: redirectURL ?? URL(string: Self.redirectURL)!,
+                redirectURL: URL(string: Self.redirectURL)!,
                 responseType: OIDResponseTypeCode,
                 additionalParameters: nil
             )

@@ -63,18 +63,18 @@ struct PotoriApp: App {
                 }
             }
             .onOpenURL { url in
-                guard
-                    url.scheme == "potori",
-                    let host = url.host
-                else {
-                    return
-                }
-                if host == "nomination" {
-                    let id = url.lastPathComponent
-                    navigation.openNominations = .init("view.nominations", nil, id, panel: .list)
-                    #if os(iOS)
-                    navigation.activePanel = .dashboard
-                    navigation.activeLink = Navigation.nominationWidgetTarget
+                if url.scheme == "potori", let host = url.host {
+                    if host == "nomination" {
+                        let id = url.lastPathComponent
+                        navigation.openNominations = .init("view.nominations", nil, id, panel: .list)
+                        #if os(iOS)
+                        navigation.activePanel = .dashboard
+                        navigation.activeLink = Navigation.nominationWidgetTarget
+                        #endif
+                    }
+                } else {
+                    #if os(macOS)
+                    service.google.auth.onOpenURL(url)
                     #endif
                 }
             }
