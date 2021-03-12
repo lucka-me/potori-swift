@@ -19,8 +19,9 @@ This is the Swift implementation of [the web app](https://github.com/lucka-me/po
 
 1. Clone or download the repository
 2. Open `Potori.xcodeproj`
-3. Choose your target and connect your device if necessary
-4. Hit `⌘ R`
+3. Change the Bundle Identifiers and App Group IDs
+4. Choose your target and connect your device if necessary
+5. Hit `⌘ R`
 
 ## Transfer from the Web App
 In this project, we implemented a new data structure without fully backward compatiable (which will also be implemented into the web app in the future). It will be fine to transfer data from the web app to this app with exporting & importing JSON file or migrate from Google Drive, but it's not recommended to transfer backwards.
