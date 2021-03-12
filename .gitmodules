@@ -1,3 +1,4 @@
 [submodule "Shared/Resources/umi"]
 	path = Shared/Resources/umi
 	url = https://github.com/lucka-me/potori-umi.git
+	branch = main
