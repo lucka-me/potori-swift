@@ -188,8 +188,11 @@ class Mari {
                 break
             }
             // Image
-            if let imageRange = body.range(of: "googleusercontent\\.com\\/[0-9a-zA-Z\\-\\_]+", options: .regularExpression) {
-                nomination.image = String(body[imageRange].replacingOccurrences(of: "googleusercontent.com/", with: ""))
+            if let imageRange = body.range(of: "(googleusercontent|ggpht)\\.com\\/[0-9a-zA-Z\\-\\_]+", options: .regularExpression) {
+                nomination.image = body[imageRange].replacingOccurrences(
+                    of: "(googleusercontent|ggpht)\\.com\\/", with: "",
+                    options: .regularExpression
+                )
                 nomination.id = NominationRAW.generateId(nomination.image)
             }
             

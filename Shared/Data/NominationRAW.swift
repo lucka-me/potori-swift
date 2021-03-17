@@ -127,6 +127,6 @@ class NominationRAW {
     }
     
     static func generateImageURL(_ fromImage: String) -> String {
-        "https://lh3.googleusercontent.com/\(fromImage)"
+        "https://lh4.googleusercontent.com/\(fromImage)"
     }
 }
