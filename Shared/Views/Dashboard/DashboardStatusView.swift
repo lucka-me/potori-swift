@@ -32,6 +32,10 @@ struct DashboardStatusView: View {
                     } else {
                         Text("view.dashboard.status.empty")
                     }
+                } else if service.status == .requestMatch {
+                    Button("view.dashboard.status.manuallyMatch") {  }
+                        .buttonStyle(PlainButtonStyle())
+                        .foregroundColor(.accentColor)
                 } else {
                     switch service.status {
                         case .processingMails:

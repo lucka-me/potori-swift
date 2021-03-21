@@ -11,16 +11,15 @@ struct ContentView: View {
     
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @EnvironmentObject private var navigation: Navigation
     #endif
+    @EnvironmentObject private var navigation: Navigation
     @EnvironmentObject private var service: Service
 
     var body: some View {
-        if let solidPack = service.match.pack {
-            showMatchSheet(pack: solidPack)
-        } else {
-            navigationView
-        }
+        navigationView
+            .sheet(isPresented: $navigation.showMatchView) {
+                EmptyView()
+            }
     }
     
     @ViewBuilder
@@ -35,17 +34,6 @@ struct ContentView: View {
             SidebarNavigation()
         }
         #endif
-    }
-    
-    @ViewBuilder
-    private func showMatchSheet(pack: MatchKit.Pack) -> some View {
-        let matchView = MatchView(pack: pack)
-        navigationView
-            .sheet(isPresented: .constant(true)) {
-                if !matchView.confirmed {
-                    service.match.match(pack, nil)
-                }
-            } content: { matchView }
     }
 }
 

@@ -24,6 +24,31 @@ final class Service: ObservableObject {
         case idle               = "service.status.idle"
         case syncing            = "service.status.syncing"
         case processingMails    = "service.status.processingMails"
+        case requestMatch       = "service.status.requestMatch"
+    }
+    
+    class MatchPack: ObservableObject {
+        let target: NominationRAW
+        var candidates: [NominationRAW] = []
+        @Published var selected: String = ""
+        
+        init(_ target: NominationRAW) {
+            self.target = target
+        }
+        
+        #if DEBUG
+        static func preview(_ index: Int) -> MatchPack {
+            let nominations = Dia.preview.nominations.sorted { $0.title < $1.title }
+            let pack = MatchPack(nominations[index].toRaw())
+            pack.candidates = nominations.map { $0.toRaw() }
+            return pack
+        }
+        #endif
+    }
+    
+    class MatchData {
+        var packs: [MatchPack] = []
+        var callback: () -> Void = { }
     }
     
     private enum NominationFile: String {
@@ -43,14 +68,14 @@ final class Service: ObservableObject {
     @Published var progress = 0.0
 
     @Published var google = GoogleKit()
-    @Published var match = MatchKit()
+    
+    let matchData = MatchData()
     
     private let mari = Mari()
     private var onRequiresMatch: BasicCallback = { }
     private var onRefreshFinished: OnRefreshFinishedCallback = { _ in }
 
     private var googleAnyCancellable: AnyCancellable? = nil
-    private var matchAnyCancellable: AnyCancellable? = nil
     
     private init() {
         mari.onProgress { progress in
@@ -61,15 +86,8 @@ final class Service: ObservableObject {
         }
         mari.updateAuth(google.auth.auth)
         
-        match.onProgress { progress in
-            self.progress = Service.progressPartMari + progress * Service.progressPartMatch
-        }
-        
         googleAnyCancellable = google.objectWillChange.sink {
             self.mari.updateAuth(self.google.auth.auth)
-            self.objectWillChange.send()
-        }
-        matchAnyCancellable = match.objectWillChange.sink {
             self.objectWillChange.send()
         }
     }
@@ -269,26 +287,52 @@ final class Service: ObservableObject {
         }
         
         if !matchTargets.isEmpty {
-            let pendings = reduced.filter { $0.status == .pending }
             onRequiresMatch()
-            match.start(matchTargets, pendings) { matched in
-                reduced = matched.reduce(into: reduced) { list, raw in
-                    var merged = false
-                    for target in list {
-                        if target.merge(raw) {
-                            merged = true
-                            mergeCount += 1
-                            break
-                        }
-                    }
-                    if !merged {
-                        list.append(raw)
-                    }
-                }
-                self.saveAndSync(reduced, mergeCount)
-            }
+            match(targets: matchTargets, from: reduced, merged: mergeCount)
         } else {
             saveAndSync(reduced, mergeCount)
+        }
+    }
+    
+    private func match(targets: [NominationRAW], from list: [NominationRAW], merged: Int) {
+        status = .requestMatch
+        let pendings = list.filter { $0.status == .pending }
+        let packs: [MatchPack] = targets
+            .map { target in
+                let pack = MatchPack(target)
+                let checkScanner = target.scanner != .unknown
+                pack.candidates = pendings.filter { candidate in
+                    target.title == candidate.title
+                        && target.resultTime > candidate.confirmedTime
+                        && (!checkScanner || candidate.scanner == .unknown || target.scanner == candidate.scanner)
+                }
+                return pack
+            }
+            .filter { !$0.candidates.isEmpty }
+        if packs.isEmpty {
+            saveAndSync(list, merged)
+            return
+        }
+        matchData.packs = packs
+        matchData.callback = {
+            self.matchData.callback = { }
+            for pack in self.matchData.packs {
+                if pack.selected.isEmpty {
+                    continue
+                }
+                guard let selected = pack.candidates.first(where: { $0.id == pack.selected }) else {
+                    continue
+                }
+                pack.target.id = selected.id
+                pack.target.image = selected.image
+                for nomination in list {
+                    if nomination.merge(pack.target) {
+                        break
+                    }
+                }
+            }
+            self.matchData.packs = []
+            self.saveAndSync(list, merged)
         }
     }
     
@@ -310,4 +354,15 @@ final class Service: ObservableObject {
             onRefreshFinished(updateCount)
         }
     }
+    
+    #if DEBUG
+    static var preview: Service = {
+        let forPreview = Service()
+        forPreview.matchData.packs = [
+            MatchPack.preview(0),
+            MatchPack.preview(1)
+        ]
+        return forPreview
+    }()
+    #endif
 }

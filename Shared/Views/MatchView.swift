@@ -9,122 +9,111 @@ import SwiftUI
 
 struct MatchView: View {
     
-    var pack: MatchKit.Pack
     @EnvironmentObject private var service: Service
-    @State var selection: Int? = 0
-    @State var confirmed = false
     
     var body: some View {
         #if os(macOS)
-        VStack {
-            Text("view.match")
-                .font(.largeTitle)
-            list.listStyle(PlainListStyle())
-        }
-        .padding()
-        .frame(minWidth: 300, minHeight: 350)
+        contents
+            .frame(minWidth: 300, minHeight: 350)
         #else
         NavigationView {
-            list.listStyle(InsetGroupedListStyle())
+            contents
         }
         #endif
     }
     
     @ViewBuilder
-    private var list: some View {
-        List(selection: $selection) {
-            Section(header: Text("view.match.target")) {
+    private var contents: some View {
+        ScrollView {
+            VStack(alignment: .leading) {
                 #if os(macOS)
-                MatchItem(nomination: pack.target)
-                #else
-                MatchItem(nomination: pack.target, selected: nil)
+                Text("view.match")
+                    .font(.largeTitle)
+                    .padding(.bottom)
                 #endif
-            }
-            
-            Section(header: Text("view.match.candidates"), footer: Text("view.match.candidates.desc")) {
-                ForEach(0 ..< pack.candidates.count) { index in
-                    #if os(macOS)
-                    MatchItem(nomination: pack.candidates[index])
-                        .tag(index)
-                    #else
-                    MatchItem(nomination: pack.candidates[index], selected: selection == index)
-                        .onTapGesture {
-                            self.selection = index
-                        }
-                    #endif
+                ForEach(0 ..< service.matchData.packs.count) { index in
+                    MatchPackView(pack: service.matchData.packs[index])
                 }
             }
+            .padding()
         }
         .navigationTitle("view.match")
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button("view.match.confirm") {
-                    service.match.match(pack, selection)
-                    self.confirmed = true
+                    service.matchData.callback()
                 }
-                .disabled(selection == nil)
             }
         }
+    }
+    
+    private func dateString(_ from: UInt64) -> String {
+        DateFormatter.localizedString(from: .init(timeIntervalSince1970: .init(from)), dateStyle: .medium, timeStyle: .none)
     }
 }
 
 #if DEBUG
 struct MatchView_Previews: PreviewProvider {
     static var previews: some View {
-        MatchView(pack: MatchKit.preview)
-            .environmentObject(Service.shared)
+        MatchView()
+            .environmentObject(Service.preview)
     }
 }
 #endif
 
-fileprivate struct MatchItem: View {
-    let nomination: NominationRAW
+fileprivate struct MatchPackView: View {
     
-    #if os(iOS)
-    let selected: Bool?
-    #endif
+    @ObservedObject var pack: Service.MatchPack
     
     var body: some View {
-        HStack {
-            if nomination.image.isEmpty {
-                Image(systemName: "photo")
-                    .frame(width: 80, height: 80)
-                    .cornerRadius(5)
-            } else {
-                RemoteImage(NominationRAW.generateImageURL(nomination.image))
-                    .scaledToFill()
-                    .frame(width: 80, height: 80)
-                    .cornerRadius(5)
-            }
-            
+        let scanner = Umi.shared.scanner[pack.target.scanner]!
+        let status = Umi.shared.status[pack.target.status]!
+        ZStack(alignment: .topLeading) {
+            CardBackground()
             VStack(alignment: .leading) {
-                Text(nomination.title)
+                Text(pack.target.title)
                     .font(.title2)
-                    .lineLimit(1)
-                let status = Umi.shared.status[nomination.status]!
-                let interval = nomination.status == .pending ? nomination.confirmedTime : nomination.resultTime
-                let date = Date(timeIntervalSince1970: TimeInterval(interval))
-                let dateString = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
-                Text(status.title)
-                    .foregroundColor(status.color)
-                    .font(.subheadline)
-                Text(dateString)
-                    .foregroundColor(.secondary)
-                    .font(.subheadline)
-            }.frame(height: 80, alignment: .top)
-            #if os(iOS)
-            if let solidSelected = selected {
-                Spacer()
-                if solidSelected {
-                    Image(systemName: "checkmark.square.fill")
-                        .font(.title)
-                        .foregroundColor(.accentColor)
-                } else {
-                    Image(systemName: "square")
-                        .font(.title)
+                HStack {
+                    Label(scanner.title, systemImage: "apps.iphone")
+                        .foregroundColor(.purple)
+                    Label(dateString(pack.target.resultTime), systemImage: status.icon)
+                        .foregroundColor(status.color)
+                }
+                .padding(.top, 2)
+                Divider()
+                LazyVGrid(columns: [ .init(.adaptive(minimum: 150, maximum: 150), spacing: 8) ], alignment: .leading) {
+                    ForEach(pack.candidates, id: \.id) { candidate in
+                        candidateView(candidate)
+                            .onTapGesture {
+                                pack.selected = candidate.id
+                            }
+                    }
                 }
             }
-            #endif
+            .padding(10)
         }
+        .fixedSize(horizontal: false, vertical: true)
+    }
+    
+    @ViewBuilder
+    private func candidateView(_ candidate: NominationRAW) -> some View {
+        VStack(alignment: .leading) {
+            RemoteImage(NominationRAW.generateImageURL(candidate.image))
+                .scaledToFill()
+                .frame(width: 150, height: 150, alignment: .center)
+                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+            HStack {
+                Label(dateString(candidate.confirmedTime), systemImage: "arrow.up.circle")
+                Spacer()
+                Image(systemName: pack.selected == candidate.id ? "checkmark.circle.fill" : "circle")
+                    .foregroundColor(.accentColor)
+            }
+            .lineLimit(1)
+            .padding(.top, 2)
+        }
+    }
+    
+    private func dateString(_ from: UInt64) -> String {
+        DateFormatter.localizedString(from: .init(timeIntervalSince1970: .init(from)), dateStyle: .medium, timeStyle: .none)
     }
 }
