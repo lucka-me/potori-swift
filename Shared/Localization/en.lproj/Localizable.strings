@@ -19,6 +19,7 @@
 "data.criteriaTemporary"    = "Temporary";
 "data.criteriaGeneric"  = "Generic Store";
 "data.locationMismatched"   = "Mismatched";
+"data.locationPedestrian"   = "Pedestrian";
 "data.locationPrivate"  = "Private";
 "data.photoPlate"   = "License Plate";
 "data.photoQuality" = "Photo Quality";

@@ -19,6 +19,7 @@
 "data.criteriaTemporary"    = "临时";
 "data.criteriaGeneric"  = "一般商家";
 "data.locationMismatched"   = "地点不符";
+"data.locationPedestrian"   = "行人通道";
 "data.locationPrivate"  = "私人";
 "data.photoPlate"   = "车牌";
 "data.photoQuality" = "照片质量";
