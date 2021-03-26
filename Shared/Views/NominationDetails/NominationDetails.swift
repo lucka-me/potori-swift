@@ -211,7 +211,6 @@ struct NominationDetails: View {
                 ForEach(nomination.reasonsData, id: \.code) { reason in
                     Divider()
                     Label(reason.title, systemImage: reason.icon)
-                        
                 }
             } else {
                 Divider()

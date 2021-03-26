@@ -92,7 +92,7 @@
 "view.preferences.general.queryAfterLatest" = "仅查询最新邮件";
 "view.preferences.google.account"   = "Google账号";
 "view.preferences.google.link"      = "连接";
-"view.preferences.google.unlink"    = "断开连接";
+"view.preferences.google.unlink"    = "取消连接";
 "view.preferences.google.linked"    = "已连接";
 "view.preferences.google.notLinked" = "未连接";
 "view.preferences.google.sync"      = "同步Google硬盘";
