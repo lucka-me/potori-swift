@@ -14,15 +14,40 @@
 "data.undeclared"   = "Undeclared";
 "data.duplicated"   = "Duplicated";
 "data.close"    = "Too Close";
-"data.criteriaCriteria" = "Criteria";
+
+"data.criteriaBodypart" = "Body Part";
+"data.criteriaCriteria" = "Other Criteria";
+"data.criteriaAnimals"  = "Animal";
 "data.criteriaNatural"  = "Natural";
 "data.criteriaTemporary"    = "Temporary";
+"data.criteriaPeople"   = "Person";
 "data.criteriaGeneric"  = "Generic Store";
+
+"data.locationInappropriate"    = "Location Inappropriate";
+"data.locationSensitive"    = "Sensitive";
 "data.locationMismatched"   = "Mismatched";
+"data.locationEmergency"    = "Emergency";
 "data.locationPedestrian"   = "Pedestrian";
 "data.locationPrivate"  = "Private";
+"data.locationSchool"   = "School";
+
+"data.photoFace"    = "Face";
 "data.photoPlate"   = "License Plate";
 "data.photoQuality" = "Photo Quality";
+"data.photoDir" = "Orientation";
+"data.photoTag" = "Submitter Identifiable";
+"data.photo3p"  = "Third Party Photo";
+"data.photoWatermark"   = "Watermark";
+
+"data.textEmoji"    = "Emoji";
+"data.textBad"  = "Text Not Relevant";
+"data.textMarkup"   = "URL or Markup";
+
+"data.abuseFake"    = "Fake";
+"data.abuseAbuse"   = "Abuse";
+"data.abuseExplicit"    = "Explicit";
+"data.abuseOffensive"   = "Offensive";
+"data.abusePersonal"    = "Personal Info";
 
 /* Service */
 "service.status.idle"   = "Idle";

@@ -14,15 +14,40 @@
 "data.undeclared" = "未指明";
 "data.duplicated" = "重复";
 "data.close"    = "过近";
-"data.criteriaCriteria" = "不合标准";
+
+"data.criteriaBodypart" = "身体部位";
+"data.criteriaCriteria" = "其它";
+"data.criteriaAnimals"  = "动物";
 "data.criteriaNatural"  = "天然地貌";
 "data.criteriaTemporary"    = "临时";
+"data.criteriaPeople"   = "人";
 "data.criteriaGeneric"  = "一般商家";
+
+"data.locationInappropriate"    = "位置不当";
+"data.locationSensitive"    = "敏感地点";
 "data.locationMismatched"   = "地点不符";
+"data.locationEmergency"    = "紧急服务";
 "data.locationPedestrian"   = "行人通道";
 "data.locationPrivate"  = "私人";
+"data.locationSchool"   = "学校";
+
+"data.photoFace"    = "脸部";
 "data.photoPlate"   = "车牌";
 "data.photoQuality" = "照片质量";
+"data.photoDir" = "方向";
+"data.photoTag" = "可辨识提交者";
+"data.photo3p"  = "第三方照片";
+"data.photoWatermark"   = "水印";
+
+"data.textEmoji"    = "表情符号";
+"data.textBad"  = "文字不相关";
+"data.textMarkup"   = "网址或标记";
+
+"data.abuseFake"    = "虚假";
+"data.abuseAbuse"   = "滥用";
+"data.abuseExplicit"    = "不雅";
+"data.abuseOffensive"   = "令人反感";
+"data.abusePersonal"    = "个人信息";
 
 /* Service */
 "service.status.idle"   = "空闲";
