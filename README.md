@@ -1,5 +1,6 @@
 # ![](./Readme/title.png)
 
+[![Release](https://img.shields.io/github/v/release/lucka-me/potori-swift)](https://github.com/lucka-me/potori-swift/releases/latest "Last release")  
 [![Lines of code](https://img.shields.io/tokei/lines/github/lucka-me/potori-swift)](# "Repository")
 [![License](https://img.shields.io/github/license/lucka-me/potori-swift)](./LICENSE "License")  
 [![Telegram Channel](https://img.shields.io/badge/telegram-channel-37aee2?logo=telegram)](https://t.me/potori "Telegram Channel")
@@ -7,6 +8,8 @@
 ## Description
 
 An app to visualize Ingress nominations from Gmail inbox, available for macOS and iOS.
+
+[![](https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us)](https://apps.apple.com/app/potori-nomination-manager/id1552339183)
 
 This is the Swift implementation of [the web app](https://github.com/lucka-me/potori).
 
