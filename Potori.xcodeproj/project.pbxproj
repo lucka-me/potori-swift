@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		84003545259F58DC003C97EA /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 84003544259F58DC003C97EA /* GTMAppAuth */; };
-		8400354F259F58E3003C97EA /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8400354E259F58E3003C97EA /* GTMAppAuth */; };
 		84003556259F613F003C97EA /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 84003555259F613F003C97EA /* AppAuth */; };
 		8400355E259F7732003C97EA /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8400355D259F7732003C97EA /* AppAuth */; };
 		840A15F025BCA48B00541ED5 /* CardBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A15EF25BCA48B00541ED5 /* CardBackground.swift */; };
@@ -71,6 +69,8 @@
 		846CC5B825A359DD007A8AE8 /* NominationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC5B625A359DD007A8AE8 /* NominationJSON.swift */; };
 		846CC62925A35EFF007A8AE8 /* Nomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC62725A35EFF007A8AE8 /* Nomination.swift */; };
 		846CC62A25A35EFF007A8AE8 /* Nomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC62725A35EFF007A8AE8 /* Nomination.swift */; };
+		8472B4D62621A9B800BF8131 /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8472B4D52621A9B800BF8131 /* GTMAppAuth */; };
+		8472B4DE2621A9CC00BF8131 /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8472B4DD2621A9CC00BF8131 /* GTMAppAuth */; };
 		8475B60C25C1603C002D7915 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8491785B2599F81700CD967F /* Assets.xcassets */; };
 		8475B61E25C1610E002D7915 /* NominationWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8475B61D25C1610E002D7915 /* NominationWidget.swift */; };
 		8475B66725C1750F002D7915 /* Umi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6EA2259A2B1F00BD915B /* Umi.swift */; };
@@ -294,7 +294,7 @@
 				8400355E259F7732003C97EA /* AppAuth in Frameworks */,
 				844E157725A0659300A79C9E /* GoogleAPIClientForREST_Gmail in Frameworks */,
 				844E157925A065A000A79C9E /* GTMSessionFetcher in Frameworks */,
-				8400354F259F58E3003C97EA /* GTMAppAuth in Frameworks */,
+				8472B4D62621A9B800BF8131 /* GTMAppAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,7 +307,7 @@
 				84003556259F613F003C97EA /* AppAuth in Frameworks */,
 				8462D0A525A0643F0031AD0D /* GoogleAPIClientForREST_Gmail in Frameworks */,
 				844E157125A0657300A79C9E /* GTMSessionFetcher in Frameworks */,
-				84003545259F58DC003C97EA /* GTMAppAuth in Frameworks */,
+				8472B4DE2621A9CC00BF8131 /* GTMAppAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -659,12 +659,12 @@
 			);
 			name = iOS;
 			packageProductDependencies = (
-				8400354E259F58E3003C97EA /* GTMAppAuth */,
 				8400355D259F7732003C97EA /* AppAuth */,
 				844E157625A0659300A79C9E /* GoogleAPIClientForREST_Gmail */,
 				844E157825A065A000A79C9E /* GTMSessionFetcher */,
 				844E157E25A065FB00A79C9E /* GoogleAPIClientForRESTCore */,
 				84E97F9125A4A49B0031FE3B /* GoogleAPIClientForREST_Drive */,
+				8472B4D52621A9B800BF8131 /* GTMAppAuth */,
 			);
 			productName = "Potori (iOS)";
 			productReference = 849178602599F81700CD967F /* Potori.app */;
@@ -686,12 +686,12 @@
 			);
 			name = macOS;
 			packageProductDependencies = (
-				84003544259F58DC003C97EA /* GTMAppAuth */,
 				84003555259F613F003C97EA /* AppAuth */,
 				8462D0A425A0643F0031AD0D /* GoogleAPIClientForREST_Gmail */,
 				844E157025A0657300A79C9E /* GTMSessionFetcher */,
 				844E158025A0660200A79C9E /* GoogleAPIClientForRESTCore */,
 				84E97F8F25A4A4900031FE3B /* GoogleAPIClientForREST_Drive */,
+				8472B4DD2621A9CC00BF8131 /* GTMAppAuth */,
 			);
 			productName = "Potori (macOS)";
 			productReference = 849178682599F81700CD967F /* Potori.app */;
@@ -791,10 +791,10 @@
 			);
 			mainGroup = 849178532599F81600CD967F;
 			packageReferences = (
-				84003543259F58DC003C97EA /* XCRemoteSwiftPackageReference "GTMAppAuth" */,
 				84003554259F613F003C97EA /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
 				8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */,
 				844E156F25A0657300A79C9E /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */,
+				8472B4D42621A9B800BF8131 /* XCRemoteSwiftPackageReference "GTMAppAuth" */,
 			);
 			productRefGroup = 849178612599F81700CD967F /* Products */;
 			projectDirPath = "";
@@ -1588,14 +1588,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		84003543259F58DC003C97EA /* XCRemoteSwiftPackageReference "GTMAppAuth" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lucka-me/GTMAppAuth.git";
-			requirement = {
-				branch = "fix-spm";
-				kind = branch;
-			};
-		};
 		84003554259F613F003C97EA /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
@@ -1620,19 +1612,17 @@
 				kind = branch;
 			};
 		};
+		8472B4D42621A9B800BF8131 /* XCRemoteSwiftPackageReference "GTMAppAuth" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GTMAppAuth.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		84003544259F58DC003C97EA /* GTMAppAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 84003543259F58DC003C97EA /* XCRemoteSwiftPackageReference "GTMAppAuth" */;
-			productName = GTMAppAuth;
-		};
-		8400354E259F58E3003C97EA /* GTMAppAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 84003543259F58DC003C97EA /* XCRemoteSwiftPackageReference "GTMAppAuth" */;
-			productName = GTMAppAuth;
-		};
 		84003555259F613F003C97EA /* AppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 84003554259F613F003C97EA /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
@@ -1672,6 +1662,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
 			productName = GoogleAPIClientForREST_Gmail;
+		};
+		8472B4D52621A9B800BF8131 /* GTMAppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8472B4D42621A9B800BF8131 /* XCRemoteSwiftPackageReference "GTMAppAuth" */;
+			productName = GTMAppAuth;
+		};
+		8472B4DD2621A9CC00BF8131 /* GTMAppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8472B4D42621A9B800BF8131 /* XCRemoteSwiftPackageReference "GTMAppAuth" */;
+			productName = GTMAppAuth;
 		};
 		84E97F8F25A4A4900031FE3B /* GoogleAPIClientForREST_Drive */ = {
 			isa = XCSwiftPackageProductDependency;

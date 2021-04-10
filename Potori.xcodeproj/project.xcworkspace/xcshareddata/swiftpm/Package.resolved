@@ -30,11 +30,11 @@
       },
       {
         "package": "GTMAppAuth",
-        "repositoryURL": "https://github.com/lucka-me/GTMAppAuth.git",
+        "repositoryURL": "https://github.com/google/GTMAppAuth.git",
         "state": {
-          "branch": "fix-spm",
-          "revision": "4f0e533a5d114baf03ac2449156d5d595187b87f",
-          "version": null
+          "branch": null,
+          "revision": "61718b0dde87463f229da82b0910f247fc1c3610",
+          "version": "1.2.1"
         }
       }
     ]
