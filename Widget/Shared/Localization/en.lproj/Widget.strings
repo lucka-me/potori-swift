@@ -1,0 +1,19 @@
+/* 
+  Widget.strings
+  Potori
+
+  Created by Lucka on 6/5/2021.
+  
+*/
+
+"gpCwrM" = "Nomination Widget Configuration";
+"tVvJ9c" = "Configure the content of Nomination Widget";
+
+"7VjwI9" = "Status";
+
+"XwPCqv" = "Status";
+"qha8VN" = "Unknown";
+"iTQdnQ" = "All";
+"Bdc7tr" = "Rejected";
+"KfQFIc" = "Pending";
+"SkAhXH" = "Accepted";

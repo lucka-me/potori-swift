@@ -28,7 +28,7 @@ struct NominationWidget: Widget {
         }
 
         func getTimeline(
-            for configuration: NominationWidgetConfigurationIntent,
+            for configuration: ConfigurationIntent,
             in context: Context,
             completion: @escaping (Timeline<Entry>) -> ()
         ) {
@@ -74,7 +74,7 @@ struct NominationWidget: Widget {
         
         init(
             _ date: Date,
-            _ configuration: NominationWidgetConfigurationIntent,
+            _ configuration: ConfigurationIntent,
             _ nomination: Nomination
         ) {
             self.date = date
