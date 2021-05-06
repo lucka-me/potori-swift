@@ -20,26 +20,20 @@ struct DashboardCardView<Label: View>: View {
     }
     
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            
-            CardBackground()
-
-            VStack(alignment: .leading) {
-                HStack {
-                    label
-                    if showLinkIndicator {
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.secondary)
-                    }
+        CardView.Card {
+            HStack {
+                label
+                if showLinkIndicator {
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.secondary)
                 }
-                text
-                    .font(.system(.largeTitle, design: .rounded))
-                    .padding(.top, 3)
             }
-            .lineLimit(1)
-            .padding(10)
+            text
+                .font(.system(.largeTitle, design: .rounded))
+                .padding(.top, 3)
         }
+        .lineLimit(1)
     }
 }
 

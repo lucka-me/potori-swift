@@ -13,39 +13,34 @@ struct DashboardStatusView: View {
     @EnvironmentObject private var service: Service
     
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            CardBackground()
-
-            Group {
-                if !service.google.auth.login {
-                    Button("view.dashboard.status.linkAccount") { service.google.auth.logIn() }
-                        .buttonStyle(PlainButtonStyle())
-                        .foregroundColor(.accentColor)
-                } else if service.status == .idle {
-                    if let latest = dia.firstNomination(sortBy: Nomination.sortDescriptorsByDate) {
-                        HStack(alignment: .firstTextBaseline) {
-                            Text("view.dashboard.status.latest")
-                            Spacer()
-                            Text(DateFormatter.localizedString(from: latest.resultTime, dateStyle: .medium, timeStyle: .short))
-                        }
-                        .lineLimit(1)
-                    } else {
-                        Text("view.dashboard.status.empty")
+        CardView.Card {
+            if !service.google.auth.login {
+                Button("view.dashboard.status.linkAccount") { service.google.auth.logIn() }
+                    .buttonStyle(PlainButtonStyle())
+                    .foregroundColor(.accentColor)
+            } else if service.status == .idle {
+                if let latest = dia.firstNomination(sortBy: Nomination.sortDescriptorsByDate) {
+                    HStack(alignment: .firstTextBaseline) {
+                        Text("view.dashboard.status.latest")
+                        Spacer()
+                        Text(DateFormatter.localizedString(from: latest.resultTime, dateStyle: .medium, timeStyle: .short))
                     }
-                } else if service.status == .requestMatch {
-                    Button("view.dashboard.status.manuallyMatch") {  }
-                        .buttonStyle(PlainButtonStyle())
-                        .foregroundColor(.accentColor)
+                    .lineLimit(1)
                 } else {
-                    switch service.status {
-                        case .processingMails:
-                            ProgressView(LocalizedStringKey(service.status.rawValue), value: service.progress)
-                        default:
-                            Text(LocalizedStringKey(service.status.rawValue))
-                    }
+                    Text("view.dashboard.status.empty")
+                }
+            } else if service.status == .requestMatch {
+                Button("view.dashboard.status.manuallyMatch") {  }
+                    .buttonStyle(PlainButtonStyle())
+                    .foregroundColor(.accentColor)
+            } else {
+                switch service.status {
+                    case .processingMails:
+                        ProgressView(LocalizedStringKey(service.status.rawValue), value: service.progress)
+                    default:
+                        Text(LocalizedStringKey(service.status.rawValue))
                 }
             }
-            .padding(10)
         }
         .padding(.top, 3)
         .padding(.horizontal)

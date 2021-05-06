@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		84003556259F613F003C97EA /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 84003555259F613F003C97EA /* AppAuth */; };
 		8400355E259F7732003C97EA /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8400355D259F7732003C97EA /* AppAuth */; };
-		840A15F025BCA48B00541ED5 /* CardBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A15EF25BCA48B00541ED5 /* CardBackground.swift */; };
-		840A15F125BCA48B00541ED5 /* CardBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A15EF25BCA48B00541ED5 /* CardBackground.swift */; };
 		840A15F725BD62D200541ED5 /* DashboardScannersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A15F625BD62D200541ED5 /* DashboardScannersView.swift */; };
 		840A15F825BD62D200541ED5 /* DashboardScannersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A15F625BD62D200541ED5 /* DashboardScannersView.swift */; };
 		84177FB925B2F079009CC4E9 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84177FB825B2F079009CC4E9 /* MatchView.swift */; };
@@ -222,7 +220,6 @@
 /* Begin PBXFileReference section */
 		8400654125AAEBD000ED76B4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8400654625AAF3AA00ED76B4 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		840A15EF25BCA48B00541ED5 /* CardBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBackground.swift; sourceTree = "<group>"; };
 		840A15F625BD62D200541ED5 /* DashboardScannersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScannersView.swift; sourceTree = "<group>"; };
 		84177FB825B2F079009CC4E9 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
 		842F6C6B259CAA7A0063DCFE /* PotoriCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotoriCommands.swift; sourceTree = "<group>"; };
@@ -363,7 +360,6 @@
 		840A15E325BCA41500541ED5 /* Basic */ = {
 			isa = PBXGroup;
 			children = (
-				840A15EF25BCA48B00541ED5 /* CardBackground.swift */,
 				846C48F526439F260017BE48 /* CardView.swift */,
 				8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */,
 				84CCEDC1259CB5470040917E /* RemoteImage.swift */,
@@ -938,7 +934,6 @@
 				846C48EF26439BCA0017BE48 /* URLSession.swift in Sources */,
 				84177FB925B2F079009CC4E9 /* MatchView.swift in Sources */,
 				8462D088259FBA030031AD0D /* NominationMap.swift in Sources */,
-				840A15F025BCA48B00541ED5 /* CardBackground.swift in Sources */,
 				8469EB2A25B93EF800A9831D /* DashboardStatusView.swift in Sources */,
 				844A9AAE25A4BD21003E44B5 /* PreferencesView.swift in Sources */,
 				846C48F626439F260017BE48 /* CardView.swift in Sources */,
@@ -983,7 +978,6 @@
 				84DB6EA4259A2B1F00BD915B /* Umi.swift in Sources */,
 				846CC62A25A35EFF007A8AE8 /* Nomination.swift in Sources */,
 				84F97C72259B6978005D9AA4 /* NominationDetails.swift in Sources */,
-				840A15F125BCA48B00541ED5 /* CardBackground.swift in Sources */,
 				846C48E4264396E30017BE48 /* Widget.intentdefinition in Sources */,
 				8491789C2599F92C00CD967F /* NominationListRow.swift in Sources */,
 				84B8A54825B85045000B0C0E /* DashboardCardView.swift in Sources */,
