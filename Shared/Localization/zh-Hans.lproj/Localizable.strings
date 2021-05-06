@@ -85,6 +85,7 @@
 "view.details.edit" = "编辑";
 "view.details.save" = "保存";
 "view.details.cancel"   = "取消";
+"view.details.hightlight"   = "要点";
 "view.details.confirmed"    = "确认";
 "view.details.status"   = "状态";
 "view.details.resulted" = "结束于";

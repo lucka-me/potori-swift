@@ -49,10 +49,10 @@ struct NominationDetails: View {
                 }
                 
                 LazyVGrid(columns: [ .init(.adaptive(minimum: 250), alignment: .top) ], alignment: .center) {
-                    card(highlight)
+                    highlight
                     if (mode == .view && nomination.statusCode == .rejected)
                         || (mode == .edit && editData.status == .rejected) {
-                        card(reasons)
+                        reasons
                     }
                 }
                 .lineLimit(1)
@@ -62,7 +62,7 @@ struct NominationDetails: View {
                         .clipShape(RoundedRectangle(cornerRadius: Self.radius, style: .continuous))
                         .frame(height: 200)
                 } else if mode == .edit {
-                    card(locationEditor)
+                    locationEditor
                 }
             }
             .padding()
@@ -91,22 +91,7 @@ struct NominationDetails: View {
                 editData.from(nomination)
                 mode = .edit
             } else {
-                nomination.statusCode = editData.status
-                if editData.status != .pending {
-                    nomination.resultTime = editData.resultTime
-                    if editData.status == .rejected {
-                        nomination.reasonsCode = editData.reasons
-                    }
-                }
-                if editData.locationString.isEmpty {
-                    nomination.hasLngLat = false
-                } else if
-                    editData.validateLocationString(),
-                    let lngLat = editData.lngLat {
-                    nomination.hasLngLat = true
-                    nomination.longitude = lngLat.lng
-                    nomination.latitude = lngLat.lat
-                }
+                editData.save(to: nomination)
                 dia.save()
                 mode = .view
             }
@@ -119,170 +104,129 @@ struct NominationDetails: View {
     }
     
     @ViewBuilder
-    private func card<Content: View>(_ content: Content) -> some View {
-        ZStack(alignment: .topLeading) {
-            CardBackground(radius: Self.radius)
-            VStack(alignment: .leading) { content }
-                .padding(Self.radius)
-        }
-        .fixedSize(horizontal: false, vertical: true)
-    }
-    
-    private func dateString(_ from: Date) -> String {
-        DateFormatter.localizedString(from: from, dateStyle: .medium, timeStyle: .none)
-    }
-    
-    @ViewBuilder
     private var highlight: some View {
-        HStack {
-            Label("view.details.confirmed", systemImage: "arrow.up.circle")
-                .foregroundColor(.accentColor)
-            Spacer()
-            Text(dateString(nomination.confirmedTime))
-        }
-        
-        Divider()
-        
-        if mode == .view {
-            HStack {
+        CardView.Card {
+            CardView.List.header(Text("view.details.hightlight"))
+            CardView.List.row(
+                Label("view.details.confirmed", systemImage: "arrow.up.circle").foregroundColor(.accentColor),
+                Text(nomination.confirmedTime, style: .date)
+            )
+            if mode == .view {
                 let status = nomination.statusData
-                Label(status.title, systemImage: status.icon)
-                    .foregroundColor(status.color)
-                Spacer()
-                if (status.code != .pending) {
-                    Text(dateString(nomination.resultTime))
+                CardView.List.row(
+                    Label(status.title, systemImage: status.icon).foregroundColor(status.color),
+                    status.code == .pending ? Text("") : Text(nomination.resultTime, style: .date)
+                )
+            } else {
+                CardView.List.row {
+                    HStack {
+                        Picker(
+                            selection: $editData.status,
+                            label: Label("view.details.status", systemImage: "pencil.circle")
+                        ) {
+                            ForEach(Umi.shared.statusAll, id: \.code) { status in
+                                Text(status.title).tag(status.code)
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                    }
                 }
-            }
-        } else {
-            HStack {
-                Picker(
-                    selection: $editData.status,
-                    label: Label("view.details.status", systemImage: "pencil.circle")
-                ) {
-                    ForEach(Umi.shared.statusAll, id: \.code) { status in
-                        Text(status.title).tag(status.code)
+                if editData.status != .pending {
+                    CardView.List.row {
+                        HStack {
+                            DatePicker(
+                                selection: $editData.resultTime,
+                                in: PartialRangeFrom(nomination.confirmedTime),
+                                displayedComponents: [ .date, .hourAndMinute ]
+                            ) {
+                                Label("view.details.resulted", systemImage: "pencil.circle")
+                            }
+                            .datePickerStyle(DefaultDatePickerStyle())
+                        }
                     }
                 }
             }
-            if editData.status != .pending {
-                #if os(macOS)
-                let datePickerStyle = DefaultDatePickerStyle()
-                #else
-                let datePickerStyle = GraphicalDatePickerStyle()
-                #endif
-                Divider()
-                DatePicker(
-                    selection: $editData.resultTime,
-                    in: PartialRangeFrom(nomination.confirmedTime),
-                    displayedComponents: [ .date, .hourAndMinute ]
-                ) {
-                    Label("view.details.resulted", systemImage: "pencil.circle")
-                }
-                .datePickerStyle(datePickerStyle)
-            }
-        }
-        
-        Divider()
-        
-        HStack {
-            Label("view.details.scanner", systemImage: "apps.iphone")
-                .foregroundColor(.purple)
-            Spacer()
-            Text(nomination.scannerData.title)
+            CardView.List.row(
+                Label("view.details.scanner", systemImage: "apps.iphone").foregroundColor(.purple),
+                Text(nomination.scannerData.title)
+            )
         }
     }
     
     @ViewBuilder
     private var reasons: some View {
-        HStack(alignment: .firstTextBaseline) {
-            Text("view.details.rejectedFor")
-                .foregroundColor(.red)
-                .bold()
-            Spacer()
-            if mode == .edit {
-                Button(editData.showReasons ? "view.details.hide" : "view.details.show") {
-                    editData.showReasons.toggle()
-                }
-                .buttonStyle(BorderlessButtonStyle())
-            }
-        }
-        if mode == .view {
-            if nomination.reasons.count > 0 {
-                ForEach(nomination.reasonsData, id: \.code) { reason in
-                    Divider()
-                    Label(reason.title, systemImage: reason.icon)
+        CardView.Card {
+            if mode == .view {
+                CardView.List.header(Text("view.details.rejectedFor"))
+                if nomination.reasons.count > 0 {
+                    ForEach(nomination.reasonsData, id: \.code) { reason in
+                        CardView.List.row(Label(reason.title, systemImage: reason.icon))
+                    }
+                } else {
+                    let reason = Umi.shared.reason[Umi.Reason.undeclared]!
+                    CardView.List.row(Label(reason.title, systemImage: reason.icon))
                 }
             } else {
-                Divider()
-                let undeclared = Umi.shared.reason[Umi.Reason.undeclared]!
-                Label(undeclared.title, systemImage: undeclared.icon)
-            }
-        } else if editData.showReasons {
-            #if os(macOS)
-            let buttonStyle = PlainButtonStyle()
-            #else
-            let buttonStyle = BorderlessButtonStyle()
-            #endif
-            ForEach(Umi.shared.reasonAll, id: \.code) { reason in
-                if reason.code != Umi.Reason.undeclared {
-                    Divider()
-                    Button {
-                        if let index = editData.reasons.firstIndex(of: reason.code) {
-                            editData.reasons.remove(at: index)
-                        } else {
-                            editData.reasons.append(reason.code)
-                        }
-                    } label: {
-                        Label(reason.title, systemImage: reason.icon)
-                        Spacer()
-                        Image(systemName: editData.reasons.contains(reason.code) ? "checkmark.circle.fill" : "circle")
+                CardView.List.header(
+                    Text("view.details.rejectedFor"),
+                    Button(editData.showReasons ? "view.details.hide" : "view.details.show") {
+                        editData.showReasons.toggle()
                     }
-                    .buttonStyle(buttonStyle)
+                    .buttonStyle(BorderlessButtonStyle())
+                )
+                if editData.showReasons {
+                    reasonsSelector
                 }
             }
-            .animation(.none)
         }
     }
     
     @ViewBuilder
+    private var reasonsSelector: some View {
+        ForEach(Umi.shared.reasonAll, id: \.code) { reason in
+            if reason.code != Umi.Reason.undeclared {
+                CardView.List.row {
+                    if let index = editData.reasons.firstIndex(of: reason.code) {
+                        editData.reasons.remove(at: index)
+                    } else {
+                        editData.reasons.append(reason.code)
+                    }
+                } label: {
+                    Label(reason.title, systemImage: reason.icon)
+                    Spacer()
+                    Image(systemName: editData.reasons.contains(reason.code) ? "checkmark.circle.fill" : "circle")
+                }
+            }
+        }
+        .animation(.none)
+    }
+    
+    @ViewBuilder
     private var locationEditor: some View {
-        Text("view.details.location")
-            .bold()
-        Divider()
-        HStack {
-            let textField = TextField(
-                "view.details.location.hint",
-                text: $editData.locationString,
-                onCommit: { editData.validateLocationString() }
-            )
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            #if os(macOS)
-            textField
-            #else
-            textField
-                .keyboardType(.numbersAndPunctuation)
-            #endif
-            if !editData.locationStringValid {
-                Label("view.details.location.invalid", systemImage: "exclamationmark.circle")
-                    .foregroundColor(.red)
+        CardView.Card {
+            CardView.List.header(Text("view.details.location"))
+            CardView.List.row {
+                let textField = TextField(
+                    "view.details.location.hint",
+                    text: $editData.locationString,
+                    onCommit: editData.validateLocationString
+                )
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                #if os(macOS)
+                textField
+                #else
+                textField
+                    .keyboardType(.numbersAndPunctuation)
+                #endif
+                if !editData.locationStringValid {
+                    Label("view.details.location.invalid", systemImage: "exclamationmark.circle")
+                        .foregroundColor(.red)
+                }
+            }
+            CardView.List.row(editData.setLngLatFromPastboard) {
+                Label("view.details.location.paste", systemImage: "doc.on.clipboard")
             }
         }
-        Divider()
-        Button {
-            #if os(macOS)
-            guard let url = NSPasteboard.general.string(forType: .string) else {
-                return
-            }
-            #else
-            guard let url = UIPasteboard.general.string else {
-                return
-            }
-            #endif
-            editData.setLngLat(from: url)
-        } label: {
-            Label("view.details.location.paste", systemImage: "doc.on.clipboard")
-        }
-        .buttonStyle(BorderlessButtonStyle())
     }
 }
 
@@ -316,11 +260,40 @@ fileprivate class EditData: ObservableObject {
         locationStringValid = true
     }
     
-    func setLngLat(from intelURL: String) {
-        guard let range = intelURL.range(of: "ll\\=[\\d\\.\\,]+", options: .regularExpression) else {
+    func save(to nomination: Nomination) {
+        nomination.statusCode = status
+        if status != .pending {
+            nomination.resultTime = resultTime
+            if status == .rejected {
+                nomination.reasonsCode = reasons
+            }
+        }
+        if locationString.isEmpty {
+            nomination.hasLngLat = false
+        } else {
+            validateLocationString()
+            if locationStringValid, let solidLngLat = lngLat {
+                nomination.hasLngLat = true
+                nomination.longitude = solidLngLat.lng
+                nomination.latitude = solidLngLat.lat
+            }
+        }
+    }
+    
+    func setLngLatFromPastboard() {
+        #if os(macOS)
+        guard let url = NSPasteboard.general.string(forType: .string) else {
             return
         }
-        let text = intelURL[range].replacingOccurrences(of: "ll=", with: "")
+        #else
+        guard let url = UIPasteboard.general.string else {
+            return
+        }
+        #endif
+        guard let range = url.range(of: "ll\\=[\\d\\.\\,]+", options: .regularExpression) else {
+            return
+        }
+        let text = url[range].replacingOccurrences(of: "ll=", with: "")
         let pair = text.split(separator: ",")
         guard
             let latString = pair.first, let lat = Double(latString), abs(lat) < 90,
@@ -332,22 +305,21 @@ fileprivate class EditData: ObservableObject {
         locationStringValid = true
     }
     
-    @discardableResult
-    func validateLocationString() -> Bool {
+    func validateLocationString() {
         if locationString.isEmpty {
             locationStringValid = true
-            return locationStringValid
+            return
         }
         guard let _ = locationString.range(of: "^\\d+(\\.\\d+)?,\\d+(\\.\\d+)?$", options: .regularExpression) else {
             locationStringValid = false
-            return locationStringValid
+            return
         }
         if let _ = lngLat {
             locationStringValid = true
-            return locationStringValid
+            return
         }
         locationStringValid = false
-        return locationStringValid
+        return
     }
     
     var lngLat: LngLat? {
