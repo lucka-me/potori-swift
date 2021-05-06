@@ -144,17 +144,10 @@ struct NominationWidget: Widget {
         
         @ViewBuilder
         private var image: some View {
-            #if os(macOS)
-            if let nsImage = NSImage(data: entry.imageData) {
-                Image(nsImage: nsImage)
+            if let image = Image(data: entry.imageData) {
+                image
                     .resizable()
             }
-            #else
-            if let uiImage = UIImage(data: entry.imageData) {
-                Image(uiImage: uiImage)
-                    .resizable()
-            }
-            #endif
         }
     }
     

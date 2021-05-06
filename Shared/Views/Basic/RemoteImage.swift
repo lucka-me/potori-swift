@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-#if os(macOS)
-typealias UNImage = NSImage
-#else
-typealias UNImage = UIImage
-#endif
-
 struct RemoteImage: View {
     
     @Environment(\.openURL) private var openURL
@@ -36,18 +30,18 @@ struct RemoteImage: View {
                     } label: {
                         Label("view.image.open", systemImage: "safari")
                     }
-                    if let solidImage = model.image {
+                    if let data = model.data, let image = UNImage(data: data) {
                         #if os(macOS)
                         Button {
                             NSPasteboard.general.clearContents()
-                            NSPasteboard.general.setData(solidImage.tiffRepresentation, forType: .tiff)
+                            NSPasteboard.general.setData(image.tiffRepresentation, forType: .tiff)
                         } label: {
                             Label("view.image.copy", systemImage: "doc.on.doc")
                         }
                         #else
                         Button {
                             let shareSheet = UIActivityViewController(
-                                activityItems: [ solidImage ], applicationActivities: nil
+                                activityItems: [ image ], applicationActivities: nil
                             )
                             UIApplication.shared.windows.first?.rootViewController?.present(
                                 shareSheet, animated: true, completion: nil
@@ -65,14 +59,9 @@ struct RemoteImage: View {
     
     @ViewBuilder
     private var content: some View {
-        if let solidImage = model.image {
-            #if os(macOS)
-            Image(nsImage: solidImage)
+        if let image = Image(data: model.data) {
+            image
                 .resizable()
-            #else
-            Image(uiImage: solidImage)
-                .resizable()
-            #endif
         } else {
             ProgressView()
                 .frame(width: 100, height: 100, alignment: .center)
@@ -91,24 +80,13 @@ struct RemoteImage_Previews: PreviewProvider {
 
 fileprivate final class RemoteImageModel: ObservableObject {
     
-    @Published var image: UNImage?
+    @Published var data: Data?
     
     init(_ url: String) {
-        guard let taskUrl = URL(string: url) else {
-            return
-        }
-        let request = URLRequest(url: taskUrl, cachePolicy: .returnCacheDataElseLoad)
-        URLSession.shared.dataTask(with: request) { (data, _, _) in
-            guard let solidData = data else {
-                return
-            }
+        URLSession.shared.dataTask(with: url) { data in
             DispatchQueue.main.async {
-                guard let remoteImage = UNImage(data: solidData) else {
-                    return
-                }
-                self.image = remoteImage
+                self.data = data
             }
         }
-        .resume()
     }
 }

@@ -73,6 +73,18 @@
 		846C48E4264396E30017BE48 /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 846C48E2264396E30017BE48 /* Widget.intentdefinition */; };
 		846C48E5264396E30017BE48 /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 846C48E2264396E30017BE48 /* Widget.intentdefinition */; };
 		846C48E6264396E30017BE48 /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 846C48E2264396E30017BE48 /* Widget.intentdefinition */; };
+		846C48E826439B6C0017BE48 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48E726439B6C0017BE48 /* Image.swift */; };
+		846C48E926439B6C0017BE48 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48E726439B6C0017BE48 /* Image.swift */; };
+		846C48EA26439B6C0017BE48 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48E726439B6C0017BE48 /* Image.swift */; };
+		846C48EB26439B6C0017BE48 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48E726439B6C0017BE48 /* Image.swift */; };
+		846C48EC26439B6C0017BE48 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48E726439B6C0017BE48 /* Image.swift */; };
+		846C48ED26439B6C0017BE48 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48E726439B6C0017BE48 /* Image.swift */; };
+		846C48EF26439BCA0017BE48 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48EE26439BCA0017BE48 /* URLSession.swift */; };
+		846C48F026439BCA0017BE48 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48EE26439BCA0017BE48 /* URLSession.swift */; };
+		846C48F126439BCA0017BE48 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48EE26439BCA0017BE48 /* URLSession.swift */; };
+		846C48F226439BCA0017BE48 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48EE26439BCA0017BE48 /* URLSession.swift */; };
+		846C48F326439BCA0017BE48 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48EE26439BCA0017BE48 /* URLSession.swift */; };
+		846C48F426439BCA0017BE48 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48EE26439BCA0017BE48 /* URLSession.swift */; };
 		846CC5B725A359DD007A8AE8 /* NominationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC5B625A359DD007A8AE8 /* NominationJSON.swift */; };
 		846CC5B825A359DD007A8AE8 /* NominationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC5B625A359DD007A8AE8 /* NominationJSON.swift */; };
 		846CC62925A35EFF007A8AE8 /* Nomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC62725A35EFF007A8AE8 /* Nomination.swift */; };
@@ -234,6 +246,8 @@
 		846C48DF264396870017BE48 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Widget.strings; sourceTree = "<group>"; };
 		846C48E12643968B0017BE48 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Widget.strings"; sourceTree = "<group>"; };
 		846C48E2264396E30017BE48 /* Widget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Widget.intentdefinition; sourceTree = "<group>"; };
+		846C48E726439B6C0017BE48 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		846C48EE26439BCA0017BE48 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		846CC5B625A359DD007A8AE8 /* NominationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationJSON.swift; sourceTree = "<group>"; };
 		846CC62725A35EFF007A8AE8 /* Nomination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nomination.swift; sourceTree = "<group>"; };
 		8475B61D25C1610E002D7915 /* NominationWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationWidget.swift; sourceTree = "<group>"; };
@@ -372,6 +386,8 @@
 			children = (
 				8430E2A125C304B9008F1BAC /* FileManager.swift */,
 				8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */,
+				846C48E726439B6C0017BE48 /* Image.swift */,
+				846C48EE26439BCA0017BE48 /* URLSession.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -896,6 +912,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				84841DB425BC413100468C6D /* TestsUI.swift in Sources */,
+				846C48EB26439B6C0017BE48 /* Image.swift in Sources */,
+				846C48F226439BCA0017BE48 /* URLSession.swift in Sources */,
 				84E2EBA825BC42A8007B2000 /* Umi.swift in Sources */,
 				84E2EBA425BC428D007B2000 /* TestsUmi.swift in Sources */,
 			);
@@ -913,11 +931,13 @@
 				8469EB3525B943C800A9831D /* DashboardGalleryView.swift in Sources */,
 				84F97C71259B6978005D9AA4 /* NominationDetails.swift in Sources */,
 				84CCEDC2259CB5470040917E /* RemoteImage.swift in Sources */,
+				846C48EF26439BCA0017BE48 /* URLSession.swift in Sources */,
 				84177FB925B2F079009CC4E9 /* MatchView.swift in Sources */,
 				8462D088259FBA030031AD0D /* NominationMap.swift in Sources */,
 				840A15F025BCA48B00541ED5 /* CardBackground.swift in Sources */,
 				8469EB2A25B93EF800A9831D /* DashboardStatusView.swift in Sources */,
 				844A9AAE25A4BD21003E44B5 /* PreferencesView.swift in Sources */,
+				846C48E826439B6C0017BE48 /* Image.swift in Sources */,
 				8491789B2599F92C00CD967F /* NominationListRow.swift in Sources */,
 				846C48E3264396E30017BE48 /* Widget.intentdefinition in Sources */,
 				84B8A54725B85045000B0C0E /* DashboardCardView.swift in Sources */,
@@ -950,6 +970,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8434023D25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */,
+				846C48E926439B6C0017BE48 /* Image.swift in Sources */,
 				8468A22D25A33784009B562D /* Potori.xcdatamodeld in Sources */,
 				84F97CBC259BADB7005D9AA4 /* NominationDetailsMap.swift in Sources */,
 				844A9AAF25A4BD21003E44B5 /* PreferencesView.swift in Sources */,
@@ -972,6 +993,7 @@
 				843BEF49259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */,
 				842F6C6C259CAA7A0063DCFE /* PotoriCommands.swift in Sources */,
 				84F7359C25B830E8003DE878 /* DashboardView.swift in Sources */,
+				846C48F026439BCA0017BE48 /* URLSession.swift in Sources */,
 				84F735A725B83169003DE878 /* DashboardHighlightView.swift in Sources */,
 				846645ED25A8DAA200DD37D1 /* GoogleKit.swift in Sources */,
 				840A15F825BD62D200541ED5 /* DashboardScannersView.swift in Sources */,
@@ -992,12 +1014,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				84DDF95C25C1B5B300942E87 /* NominationJSON.swift in Sources */,
+				846C48ED26439B6C0017BE48 /* Image.swift in Sources */,
 				84DDF92C25C1B55000942E87 /* NominationWidget.swift in Sources */,
 				8430E2D325C31723008F1BAC /* Reason.swift in Sources */,
 				8430E2C225C3171A008F1BAC /* Dia.swift in Sources */,
 				84DDF92525C1B54D00942E87 /* PotoriWidget.swift in Sources */,
 				84DDF94025C1B58700942E87 /* NominationRAW.swift in Sources */,
 				8430E2DD25C31730008F1BAC /* FileManager.swift in Sources */,
+				846C48F426439BCA0017BE48 /* URLSession.swift in Sources */,
 				84DDF94725C1B59400942E87 /* Umi.swift in Sources */,
 				8430E2D525C31725008F1BAC /* Potori.xcdatamodeld in Sources */,
 				846C48E6264396E30017BE48 /* Widget.intentdefinition in Sources */,
@@ -1010,6 +1034,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				84E2EBBA25BC4F91007B2000 /* TestsUI.swift in Sources */,
+				846C48EA26439B6C0017BE48 /* Image.swift in Sources */,
+				846C48F126439BCA0017BE48 /* URLSession.swift in Sources */,
 				841FD3D025BC4FE90089A53D /* Umi.swift in Sources */,
 				841FD3C625BC4FDF0089A53D /* TestsUmi.swift in Sources */,
 			);
@@ -1020,12 +1046,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				8475B6CF25C1A4ED002D7915 /* NominationJSON.swift in Sources */,
+				846C48EC26439B6C0017BE48 /* Image.swift in Sources */,
 				8475B61E25C1610E002D7915 /* NominationWidget.swift in Sources */,
 				8430E2D225C31722008F1BAC /* Reason.swift in Sources */,
 				8430E2C925C3171A008F1BAC /* Dia.swift in Sources */,
 				84EA8F9125C15FE200BB924A /* PotoriWidget.swift in Sources */,
 				8475B6C925C1A4B4002D7915 /* NominationRAW.swift in Sources */,
 				8430E2DC25C31730008F1BAC /* FileManager.swift in Sources */,
+				846C48F326439BCA0017BE48 /* URLSession.swift in Sources */,
 				8475B66725C1750F002D7915 /* Umi.swift in Sources */,
 				8430E2D425C31725008F1BAC /* Potori.xcdatamodeld in Sources */,
 				846C48E5264396E30017BE48 /* Widget.intentdefinition in Sources */,
