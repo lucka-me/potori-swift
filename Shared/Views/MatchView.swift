@@ -68,31 +68,26 @@ fileprivate struct MatchPackView: View {
     var body: some View {
         let scanner = Umi.shared.scanner[pack.target.scanner]!
         let status = Umi.shared.status[pack.target.status]!
-        ZStack(alignment: .topLeading) {
-            CardBackground()
-            VStack(alignment: .leading) {
-                Text(pack.target.title)
-                    .font(.title2)
-                HStack {
-                    Label(scanner.title, systemImage: "apps.iphone")
-                        .foregroundColor(.purple)
-                    Label(dateString(pack.target.resultTime), systemImage: status.icon)
-                        .foregroundColor(status.color)
-                }
-                .padding(.top, 2)
-                Divider()
-                LazyVGrid(columns: [ .init(.adaptive(minimum: 150, maximum: 150), spacing: 8) ], alignment: .leading) {
-                    ForEach(pack.candidates, id: \.id) { candidate in
-                        candidateView(candidate)
-                            .onTapGesture {
-                                pack.selected = candidate.id
-                            }
-                    }
+        CardView.Card {
+            Text(pack.target.title)
+                .font(.title2)
+            HStack {
+                Label(scanner.title, systemImage: "apps.iphone")
+                    .foregroundColor(.purple)
+                Label(dateString(pack.target.resultTime), systemImage: status.icon)
+                    .foregroundColor(status.color)
+            }
+            .padding(.top, 2)
+            Divider()
+            LazyVGrid(columns: [ .init(.adaptive(minimum: 150, maximum: 150), spacing: 8) ], alignment: .leading) {
+                ForEach(pack.candidates, id: \.id) { candidate in
+                    candidateView(candidate)
+                        .onTapGesture {
+                            pack.selected = candidate.id
+                        }
                 }
             }
-            .padding(10)
         }
-        .fixedSize(horizontal: false, vertical: true)
     }
     
     @ViewBuilder

@@ -363,10 +363,10 @@
 		840A15E325BCA41500541ED5 /* Basic */ = {
 			isa = PBXGroup;
 			children = (
-				84CCEDC1259CB5470040917E /* RemoteImage.swift */,
 				840A15EF25BCA48B00541ED5 /* CardBackground.swift */,
-				8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */,
 				846C48F526439F260017BE48 /* CardView.swift */,
+				8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */,
+				84CCEDC1259CB5470040917E /* RemoteImage.swift */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -389,8 +389,8 @@
 			isa = PBXGroup;
 			children = (
 				8430E2A125C304B9008F1BAC /* FileManager.swift */,
-				8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */,
 				846C48E726439B6C0017BE48 /* Image.swift */,
+				8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */,
 				846C48EE26439BCA0017BE48 /* URLSession.swift */,
 			);
 			path = Extensions;
