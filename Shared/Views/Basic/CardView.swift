@@ -93,20 +93,8 @@ class CardView {
         static func row<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
             Divider()
             content()
-                .labelStyle(ListLabelStyle())
-                .lineLimit(2)   // 1 will cause indent
-        }
-    }
-    
-    struct ListLabelStyle: LabelStyle {
-        func makeBody(configuration: Configuration) -> some View {
-            HStack {
-                configuration.icon
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .aspectRatio(1.0, contentMode: .fill)
-                    .fixedSize(horizontal: true, vertical: false)
-                configuration.title
-            }
+                .labelStyle(FixedWidthIconLabelStyle())
+                .lineLimit(1)
         }
     }
     
@@ -144,7 +132,7 @@ struct CardView_Previews: PreviewProvider {
             CardView.Card {
                 HStack {
                     Label("Pencil", systemImage: "pencil.circle")
-                        .labelStyle(CardView.ListLabelStyle())
+                        .labelStyle(FixedWidthIconLabelStyle())
                     Spacer()
                     Image(systemName: "chevron.right")
                 }

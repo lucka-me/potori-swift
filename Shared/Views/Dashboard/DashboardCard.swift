@@ -25,9 +25,9 @@ struct DashboardCard: View {
         CardView.Card {
             HStack(alignment: .firstTextBaseline) {
                 Label(title, systemImage: systemImage)
-                    .lineLimit(2)   // 1 will cause indent
+                    .lineLimit(1)
                     .foregroundColor(color)
-                    .labelStyle(CardView.ListLabelStyle())
+                    .labelStyle(FixedWidthIconLabelStyle())
                 Spacer()
                 Image(systemName: "chevron.right")
             }

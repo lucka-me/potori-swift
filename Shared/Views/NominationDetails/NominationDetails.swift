@@ -55,7 +55,6 @@ struct NominationDetails: View {
                         reasons
                     }
                 }
-                .lineLimit(1)
                 
                 if mode == .view && nomination.hasLngLat {
                     NominationDetailsMap(nomination: nomination)
@@ -159,7 +158,7 @@ struct NominationDetails: View {
             if mode == .view {
                 CardView.List.header(Text("view.details.rejectedFor"))
                 if nomination.reasons.count > 0 {
-                    ForEach(nomination.reasonsData, id: \.code) { reason in
+                    ForEach(nomination.reasonsData) { reason in
                         CardView.List.row(Label(reason.title, systemImage: reason.icon))
                     }
                 } else {
@@ -183,7 +182,7 @@ struct NominationDetails: View {
     
     @ViewBuilder
     private var reasonsSelector: some View {
-        ForEach(Umi.shared.reasonAll, id: \.code) { reason in
+        ForEach(Umi.shared.reasonAll) { reason in
             if reason.code != Umi.Reason.undeclared {
                 CardView.List.row {
                     if let index = editData.reasons.firstIndex(of: reason.code) {
@@ -194,11 +193,12 @@ struct NominationDetails: View {
                 } label: {
                     Label(reason.title, systemImage: reason.icon)
                     Spacer()
-                    Image(systemName: editData.reasons.contains(reason.code) ? "checkmark.circle.fill" : "circle")
+                    if editData.reasons.contains(reason.code) {
+                        Image(systemName: "checkmark")
+                    }
                 }
             }
         }
-        .animation(.none)
     }
     
     @ViewBuilder

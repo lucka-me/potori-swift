@@ -101,7 +101,7 @@ final class Umi {
     }
     
     // Reason
-    class Reason: Equatable {
+    class Reason: Equatable, Identifiable {
         
         typealias Code = Int16
         
