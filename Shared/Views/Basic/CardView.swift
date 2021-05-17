@@ -85,6 +85,7 @@ class CardView {
                 Button(action: action, label: label)
                     .buttonStyle(buttonStyle)
                     .foregroundColor(.accentColor)
+                    .contentShape(Rectangle())
             }
         }
         
@@ -93,7 +94,7 @@ class CardView {
             Divider()
             content()
                 .labelStyle(ListLabelStyle())
-                .lineLimit(1)
+                .lineLimit(2)   // 1 will cause indent
         }
     }
     
@@ -101,8 +102,9 @@ class CardView {
         func makeBody(configuration: Configuration) -> some View {
             HStack {
                 configuration.icon
-                    .frame(width: 24)
-                    .foregroundColor(.accentColor)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .aspectRatio(1.0, contentMode: .fill)
+                    .fixedSize(horizontal: true, vertical: false)
                 configuration.title
             }
         }
@@ -114,8 +116,42 @@ class CardView {
 #if DEBUG
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView.Card {
-            Text("Demo")
+        VStack {
+            CardView.Card {
+                CardView.List.header(Text("Header"))
+                CardView.List.row(Label("Pencil", systemImage: "pencil.circle"))
+                CardView.List.row(Label("Pin", systemImage: "mappin"))
+                CardView.List.row(Label("People", systemImage: "figure.stand"))
+            }
+            
+            CardView.Card {
+                CardView.List.header(Text("Header"))
+                CardView.List.row { } label: {
+                    Label("Pencil", systemImage: "pencil.circle")
+                    Spacer()
+                }
+                CardView.List.row { } label: {
+                    Label("Pin", systemImage: "mappin")
+                    Spacer()
+                    Image(systemName: "checkmark")
+                }
+                CardView.List.row { } label: {
+                    Label("People", systemImage: "figure.stand")
+                    Spacer()
+                }
+            }
+            
+            CardView.Card {
+                HStack {
+                    Label("Pencil", systemImage: "pencil.circle")
+                        .labelStyle(CardView.ListLabelStyle())
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                }
+                Text("\(2000)")
+                    .font(.system(.largeTitle, design: .rounded))
+                    .padding(.top, 3)
+            }
         }
     }
 }
