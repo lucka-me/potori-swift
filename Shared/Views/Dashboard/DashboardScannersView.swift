@@ -28,10 +28,10 @@ struct DashboardScannersView: View {
                     let count = dia.countNominations(predicate)
                     if count > 0 {
                         OpenNominationListLink(.init(scanner.title, predicate)) {
-                            DashboardCardView(Text("\(count)")) {
-                                Label(scanner.title, systemImage: "apps.iphone")
-                                    .foregroundColor(.purple)
-                            }
+                            DashboardCard(
+                                count, scanner.title,
+                                systemImage: "apps.iphone", color: .purple
+                            )
                         }
                     }
                 }

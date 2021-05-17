@@ -25,19 +25,20 @@ struct DashboardHighlightView: View {
             
             LazyVGrid(columns: DashboardView.columns, alignment: .leading) {
                 OpenNominationListLink(.init("view.dashboard.highlight.all")) {
-                    DashboardCardView(Text("\(dia.countNominations())")) {
-                        Label("view.dashboard.highlight.all", systemImage: "arrow.up.circle")
-                            .foregroundColor(.accentColor)
-                    }
+                    DashboardCard(
+                        dia.countNominations(),
+                        "view.dashboard.highlight.all",
+                        systemImage: "arrow.up.circle"
+                    )
                 }
                 
                 ForEach(Umi.shared.statusAll, id: \.code) { status in
                     let predicate = status.predicate
                     OpenNominationListLink(.init(status.title, predicate)) {
-                        DashboardCardView(Text("\(dia.countNominations(predicate))")) {
-                            Label(status.title, systemImage: status.icon)
-                                .foregroundColor(status.color)
-                        }
+                        DashboardCard(
+                            dia.countNominations(predicate), status.title,
+                            systemImage: status.icon, color: status.color
+                        )
                     }
                 }
             }

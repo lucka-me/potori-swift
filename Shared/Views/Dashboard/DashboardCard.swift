@@ -1,0 +1,48 @@
+//
+//  DashboardCard.swift
+//  Potori
+//
+//  Created by Lucka on 20/1/2021.
+//
+
+import SwiftUI
+
+struct DashboardCard: View {
+    
+    private let count: Int
+    private let title: LocalizedStringKey
+    private let systemImage: String
+    private let color: Color
+    
+    init(_ count: Int, _ title: LocalizedStringKey, systemImage: String, color: Color = .accentColor) {
+        self.count = count
+        self.title = title
+        self.systemImage = systemImage
+        self.color = color
+    }
+    
+    var body: some View {
+        CardView.Card {
+            HStack(alignment: .firstTextBaseline) {
+                Label(title, systemImage: systemImage)
+                    .lineLimit(2)   // 1 will cause indent
+                    .foregroundColor(color)
+                    .labelStyle(CardView.ListLabelStyle())
+                Spacer()
+                Image(systemName: "chevron.right")
+            }
+            Text("\(count)")
+                .lineLimit(1)
+                .font(.system(.largeTitle, design: .rounded))
+                .padding(.top, 3)
+        }
+    }
+}
+
+#if DEBUG
+struct DashboardCardView_Previews: PreviewProvider {
+    static var previews: some View {
+        DashboardCard(2000, "Title", systemImage: "info.circle")
+    }
+}
+#endif

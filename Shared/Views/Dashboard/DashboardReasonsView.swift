@@ -41,10 +41,10 @@ struct DashboardReasonsView: View {
                         let count = dia.countNominations(predicate)
                         if count > 0 {
                             OpenNominationListLink(.init(reason.title, predicate)) {
-                                DashboardCardView(Text("\(count)")) {
-                                    Label(reason.title, systemImage: reason.icon)
-                                        .foregroundColor(.red)
-                                }
+                                DashboardCard(
+                                    count, reason.title,
+                                    systemImage: reason.icon, color: .red
+                                )
                             }
                         }
                     }
