@@ -6,6 +6,20 @@
 	objectVersion = 54;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		842F320D26528746005EFDD9 /* Version */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 842F320E26528746005EFDD9 /* Build configuration list for PBXAggregateTarget "Version" */;
+			buildPhases = (
+				842F321126528751005EFDD9 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Version;
+			productName = Version;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		84003556259F613F003C97EA /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 84003555259F613F003C97EA /* AppAuth */; };
 		8400355E259F7732003C97EA /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8400355D259F7732003C97EA /* AppAuth */; };
@@ -162,6 +176,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		842F32122652876D005EFDD9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 849178542599F81600CD967F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 842F320D26528746005EFDD9;
+			remoteInfo = Version;
+		};
+		842F321426528771005EFDD9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 849178542599F81600CD967F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 842F320D26528746005EFDD9;
+			remoteInfo = Version;
+		};
+		842F32162652877E005EFDD9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 849178542599F81600CD967F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 842F320D26528746005EFDD9;
+			remoteInfo = Version;
+		};
+		842F321826528781005EFDD9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 849178542599F81600CD967F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 842F320D26528746005EFDD9;
+			remoteInfo = Version;
+		};
 		84841DB625BC413100468C6D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 849178542599F81600CD967F /* Project object */;
@@ -684,6 +726,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				842F321926528781005EFDD9 /* PBXTargetDependency */,
 				84EA8F9925C15FE300BB924A /* PBXTargetDependency */,
 			);
 			name = iOS;
@@ -711,6 +754,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				842F32172652877E005EFDD9 /* PBXTargetDependency */,
 				84DDF8ED25C1B39200942E87 /* PBXTargetDependency */,
 			);
 			name = macOS;
@@ -737,6 +781,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				842F32132652876D005EFDD9 /* PBXTargetDependency */,
 			);
 			name = "Widget Extension macOS";
 			productName = "Widget macOSExtension";
@@ -772,6 +817,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				842F321526528771005EFDD9 /* PBXTargetDependency */,
 			);
 			name = "Widget Extension iOS";
 			productName = "Widget iOSExtension";
@@ -787,6 +833,9 @@
 				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
+					842F320D26528746005EFDD9 = {
+						CreatedOnToolsVersion = 12.5;
+					};
 					84841DB025BC413100468C6D = {
 						CreatedOnToolsVersion = 12.3;
 						TestTargetID = 849178672599F81700CD967F;
@@ -835,6 +884,7 @@
 				84841DB025BC413100468C6D /* Tests macOS */,
 				84EA8F8825C15FE200BB924A /* Widget Extension iOS */,
 				84DDF8DE25C1B39100942E87 /* Widget Extension macOS */,
+				842F320D26528746005EFDD9 /* Version */,
 			);
 		};
 /* End PBXProject section */
@@ -905,6 +955,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		842F321126528751005EFDD9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh ${PROJECT_DIR}/Scripts/pre-build.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		84841DAD25BC413100468C6D /* Sources */ = {
@@ -1064,6 +1135,26 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		842F32132652876D005EFDD9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 842F320D26528746005EFDD9 /* Version */;
+			targetProxy = 842F32122652876D005EFDD9 /* PBXContainerItemProxy */;
+		};
+		842F321526528771005EFDD9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 842F320D26528746005EFDD9 /* Version */;
+			targetProxy = 842F321426528771005EFDD9 /* PBXContainerItemProxy */;
+		};
+		842F32172652877E005EFDD9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 842F320D26528746005EFDD9 /* Version */;
+			targetProxy = 842F32162652877E005EFDD9 /* PBXContainerItemProxy */;
+		};
+		842F321926528781005EFDD9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 842F320D26528746005EFDD9 /* Version */;
+			targetProxy = 842F321826528781005EFDD9 /* PBXContainerItemProxy */;
+		};
 		84841DB725BC413100468C6D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 849178672599F81700CD967F /* macOS */;
@@ -1117,6 +1208,24 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		842F320F26528746005EFDD9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4J48MW8HQS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		842F321026528746005EFDD9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4J48MW8HQS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		84841DB925BC413100468C6D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1558,6 +1667,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		842F320E26528746005EFDD9 /* Build configuration list for PBXAggregateTarget "Version" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				842F320F26528746005EFDD9 /* Debug */,
+				842F321026528746005EFDD9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		84841DB825BC413100468C6D /* Build configuration list for PBXNativeTarget "Tests macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
