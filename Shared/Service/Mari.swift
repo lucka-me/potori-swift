@@ -65,7 +65,9 @@ class Mari {
     
     private func queryList(with pack: QueryPack, pageToken: String? = nil) {
         progress.addList()
-        let query = getListQuery(pack.status.queries[pack.scanner]!.query, pageToken)
+        let query = GTLRGmailQuery_UsersMessagesList.query(withUserId: Self.userId)
+        query.q = "\(pack.status.queries[pack.scanner]!.query)\(latest > 0 ? " after:\(latest)" : "")"
+        query.pageToken = pageToken
         gmailService.executeQuery(query) { _, response, error in
             guard
                 let solidResponse = response as? GTLRGmail_ListMessagesResponse,
@@ -81,13 +83,6 @@ class Mari {
             }
             self.queryList(with: pack, pageToken: nextPageToken)
         }
-    }
-    
-    private func getListQuery(_ q: String, _ pageToken: String?) -> GTLRGmailQuery_UsersMessagesList {
-        let query = GTLRGmailQuery_UsersMessagesList.query(withUserId: Self.userId)
-        query.q = "\(q)\(latest > 0 ? " after:\(latest)" : "")"
-        query.pageToken = pageToken
-        return query
     }
     
     private func queryMessages(with pack: QueryPack) {
