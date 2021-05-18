@@ -71,23 +71,14 @@ final class Service: ObservableObject {
     
     let matchData = MatchData()
     
-    private let mari = Mari()
     private var onRequiresMatch: BasicCallback = { }
     private var onRefreshFinished: OnRefreshFinishedCallback = { _ in }
 
     private var googleAnyCancellable: AnyCancellable? = nil
     
     private init() {
-        mari.onProgress { progress in
-            self.progress = progress * Service.progressPartMari
-        }
-        mari.onFinished { nominations in
-            self.arrange(nominations)
-        }
-        mari.updateAuth(google.auth.auth)
-        
         googleAnyCancellable = google.objectWillChange.sink {
-            self.mari.updateAuth(self.google.auth.auth)
+            Mari.shared.updateAuth(self.google.auth.auth)
             self.objectWillChange.send()
         }
     }
@@ -256,7 +247,14 @@ final class Service: ObservableObject {
             self.status = .processingMails
         }
         let raws = Dia.shared.nominations.map { $0.toRaw() }
-        mari.start(raws)
+        let started = Mari.shared.start(with: raws) { nominations in
+            self.arrange(nominations)
+        }
+        if !started {
+            DispatchQueue.main.async {
+                self.status = .processingMails
+            }
+        }
     }
     
     private func arrange(_ raws: [NominationRAW]) {

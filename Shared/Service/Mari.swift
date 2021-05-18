@@ -5,52 +5,48 @@
 //  Created by Lucka on 1/1/2021.
 //
 
-import Foundation
 import GTMAppAuth
 import GoogleAPIClientForREST_Gmail
 
 class Mari {
     
-    enum ParserError: Error {
-        case brokenMessage
-    }
+    typealias CompletionHandler = ([ NominationRAW ]) -> Void
     
-    typealias OnProgressCallback = (Double) -> Void
-    typealias OnFinishedCallback = ([NominationRAW]) -> Void
+    static let shared = Mari()
     
     private static let userId = "me"
     
     private let gmailService = GTLRGmailService()
-    private var progress = Progress()
     
-    private var nominations: [NominationRAW] = []
-    private var ignoreMailIds: [String] = []
+    private var nominations: [ NominationRAW ] = []
+    private var ignoreMailIds: [ String ] = []
     private var latest: UInt64 = 0
-    private var mailIds: [Umi.Status.Code : [Umi.Scanner.Code : [String]]] = [:]
     
-    init() {
+    private var progress = MariProgressInspector()
+    
+    private init() {
         gmailService.shouldFetchNextPages = true
-    }
-    
-    func onProgress(_ onProgress: @escaping OnProgressCallback) {
-        self.progress.onProgress = onProgress
-    }
-    
-    func onFinished(_ onFinish: @escaping OnFinishedCallback) {
-        self.progress.onFinished = {
-            onFinish(self.nominations)
-        }
     }
     
     func updateAuth(_ auth: GTMFetcherAuthorizationProtocol?) {
         gmailService.authorizer = auth
     }
     
-    func start(_ withNominations: [NominationRAW]) {
+    func start(with nominations: [ NominationRAW ], completionHandler: @escaping CompletionHandler) -> Bool {
+        // Check if is processing
+        if progress.left {
+            return false
+        }
+        // Check auth
+        guard
+            let auth = gmailService.authorizer as? GTMAppAuthFetcherAuthorization,
+            auth.canAuthorize() && auth.authState.isAuthorized
+        else {
+            return false
+        }
         progress.clear()
-        nominations = withNominations
+        self.nominations = nominations
         ignoreMailIds.removeAll()
-        mailIds.removeAll()
         ignoreMailIds = nominations.flatMap {
             $0.resultMailId.isEmpty ? [$0.confirmationMailId] : [$0.confirmationMailId, $0.resultMailId]
         }
@@ -59,79 +55,58 @@ class Mari {
         } else {
             latest = 0
         }
-        for typePair in Umi.shared.status {
-            self.mailIds[typePair.key] = [:]
-            for queryPair in typePair.value.queries {
-                self.mailIds[typePair.key]?[queryPair.key] = []
-                self.queryList(typePair.key, queryPair.value)
+        for statusPair in Umi.shared.status {
+            for queryPair in statusPair.value.queries {
+                self.queryList(with: .init(for: statusPair.value, by: queryPair.key))
             }
         }
+        return true
     }
     
-    private func queryList(_ forType: Umi.Status.Code, _ by: Umi.Status.Query) {
+    private func queryList(with pack: QueryPack, pageToken: String? = nil) {
         progress.addList()
-        let query = getListQuery(by.query, nil)
-        gmailService.executeQuery(query) { callbackTicket, response, error in
-            guard let solidResponse = response as? GTLRGmail_ListMessagesResponse else {
-                self.queryMessages(forType, by)
+        let query = getListQuery(pack.status.queries[pack.scanner]!.query, pageToken)
+        gmailService.executeQuery(query) { _, response, error in
+            guard
+                let solidResponse = response as? GTLRGmail_ListMessagesResponse,
+                let solidMessages = solidResponse.messages
+            else {
+                self.queryMessages(with: pack)
                 return
             }
-            self.handleListQuery(solidResponse, forType, by)
+            pack.ids.append(contentsOf: solidMessages.compactMap { $0.identifier })
+            guard let nextPageToken = solidResponse.nextPageToken else {
+                self.queryMessages(with: pack)
+                return
+            }
+            self.queryList(with: pack, pageToken: nextPageToken)
         }
     }
     
     private func getListQuery(_ q: String, _ pageToken: String?) -> GTLRGmailQuery_UsersMessagesList {
-        let query = GTLRGmailQuery_UsersMessagesList.query(withUserId: Mari.userId)
+        let query = GTLRGmailQuery_UsersMessagesList.query(withUserId: Self.userId)
         query.q = "\(q)\(latest > 0 ? " after:\(latest)" : "")"
         query.pageToken = pageToken
         return query
     }
     
-    private func handleListQuery(
-        _ fromResponse: GTLRGmail_ListMessagesResponse,
-        _ forType: Umi.Status.Code,
-        _ by: Umi.Status.Query
-    ) {
-        guard let solidMessages = fromResponse.messages, var list = mailIds[forType]?[by.scanner] else {
-            queryMessages(forType, by)
-            return
-        }
-        list.append(contentsOf: solidMessages.compactMap { $0.identifier })
-        if let solidNextPageToken = fromResponse.nextPageToken {
-            let query = getListQuery(by.query, solidNextPageToken)
-            gmailService.executeQuery(query) { callbackTicket, response, error in
-                guard let solidResponse = response as? GTLRGmail_ListMessagesResponse else {
-                    self.queryMessages(forType, by)
-                    return
-                }
-                self.handleListQuery(solidResponse, forType, by)
-            }
-        } else {
-            mailIds[forType]?[by.scanner] = list.filter { id in
-                !ignoreMailIds.contains(id)
-            }
-            queryMessages(forType, by)
-        }
-    }
-    
-    private func queryMessages(_ forType: Umi.Status.Code, _ by: Umi.Status.Query) {
-        guard let list = mailIds[forType]?[by.scanner] else {
-            progress.finishList(0)
-            return
-        }
-        progress.finishList(list.count)
-        for id in list {
-            let query = GTLRGmailQuery_UsersMessagesGet.query(withUserId: Mari.userId, identifier: id)
+    private func queryMessages(with pack: QueryPack) {
+        pack.ids.removeAll { ignoreMailIds.contains($0) }
+        progress.finishList(pack.ids.count)
+        for id in pack.ids {
+            let query = GTLRGmailQuery_UsersMessagesGet.query(withUserId: Self.userId, identifier: id)
             gmailService.executeQuery(query) { _, response, _ in
                 guard let solidResponse = response as? GTLRGmail_Message else {
                     self.progress.finishMessage()
                     return
                 }
                 do {
-                    let nomination = try self.parse(solidResponse, forType, by)
+                    let nomination = try Parser.parse(solidResponse, for: pack.status.code, by: pack.scanner)
                     self.nominations.append(nomination)
-                } catch ParserError.brokenMessage {
+                } catch Parser.ErrorType.brokenMessage {
                     // Handle broken message
+                } catch Parser.ErrorType.invalidFormat {
+                    // Handle invalid format
                 } catch {
                     // Handle parser error
                 }
@@ -139,124 +114,35 @@ class Mari {
             }
         }
     }
-    
-    private func parse(_ mail: GTLRGmail_Message, _ forType: Umi.Status.Code, _ by: Umi.Status.Query) throws -> NominationRAW {
-        let nomination = NominationRAW(forType, by.scanner)
-        if let solidId = mail.identifier, let solidDate = mail.internalDate?.uint64Value {
-            if forType == .pending {
-                nomination.confirmationMailId = solidId
-                nomination.confirmedTime = solidDate / 1000
-                nomination.resultTime = nomination.confirmedTime
-            } else {
-                nomination.resultMailId = solidId
-                nomination.resultTime = solidDate / 1000
-            }
-        }
+}
 
-        // Subject -> Title
-        guard let headers = mail.payload?.headers else {
-            throw ParserError.brokenMessage
-        }
-        for header in headers {
-            guard header.name == "Subject", let subject = header.value else {
-                continue
-            }
-            guard let titleRange = subject.range(of: "[:：].+$", options: .regularExpression) else {
-                break
-            }
-            var title = subject[titleRange]
-            title.removeFirst()
-            nomination.title = String(title).trimmingCharacters(in: .whitespacesAndNewlines)
-            break
-        }
-        
-        // Body -> image, id lngLat and reason
-        guard let parts = mail.payload?.parts else {
-            throw ParserError.brokenMessage
-        }
-        for part in parts {
-            guard part.partId == "1", let urlEncoded = part.body?.data else {
-                continue
-            }
-            let encoded = urlEncoded
-                .replacingOccurrences(of: "-", with: "+")
-                .replacingOccurrences(of: "_", with: "/")
-            guard let data = Data(base64Encoded: encoded, options: .ignoreUnknownCharacters) else {
-                break
-            }
-            guard let body = String(data: data, encoding: .utf8) else {
-                break
-            }
-            // Image
-            if let imageRange = body.range(of: "(googleusercontent|ggpht)\\.com\\/[0-9a-zA-Z\\-\\_]+", options: .regularExpression) {
-                nomination.image = body[imageRange].replacingOccurrences(
-                    of: "(googleusercontent|ggpht)\\.com\\/", with: "",
-                    options: .regularExpression
-                )
-                nomination.id = NominationRAW.generateId(nomination.image)
-            }
-            
-            // LngLat
-            if forType != .pending && by.scanner == .redacted {
-                if let intelRange = body.range(of: "www\\.ingress\\.com/intel\\?ll\\=[\\d\\.\\,]+", options: .regularExpression) {
-                    let pair = body[intelRange].replacingOccurrences(of: "www.ingress.com/intel?ll=", with: "").split(separator: ",")
-                    if
-                        let latString = pair.first,
-                        let lat = Double(latString),
-                        let lngString = pair.last,
-                        let lng = Double(lngString) {
-                        nomination.lngLat = LngLat(lng: lng, lat: lat)
-                    }
-                }
-            }
-            // Reason
-            if forType == .rejected {
-                if let reasonRange = body.range(of: "^(.|\n|\r)+\\-NianticOps", options: .regularExpression) {
-                    var indexReasons: [String.Index : Umi.Reason.Code] = [:]
-                    for reason in Umi.shared.reasonAll {
-                        guard let keywords = reason.keywords[by.scanner] else {
-                            continue
-                        }
-                        for keyword in keywords.keywords {
-                            guard let range = body.range(of: keyword, options: .literal, range: reasonRange) else {
-                                continue
-                            }
-                            indexReasons[range.lowerBound] = reason.code
-                            break
-                        }
-                    }
-                    nomination.reasons = indexReasons
-                        .sorted { a, b in a.key < b.key }
-                        .map { $0.value }
-                }
-            }
-            break
-        }
-        return nomination
+fileprivate class QueryPack {
+    let status: Umi.Status
+    let scanner: Umi.Scanner.Code
+    var ids: [ String ] = []
+    
+    init(for status: Umi.Status, by scanner: Umi.Scanner.Code) {
+        self.status = status
+        self.scanner = scanner
     }
 }
 
 fileprivate class ProgressItem {
     var total = 0
-    var finished = 0
+    var done = 0
     
     func clear() {
         total = 0
-        finished = 0
+        done = 0
     }
     
     var left: Bool {
-        return finished < total
-    }
-    
-    var percent: Double {
-        return total == 0 ? 0.0 : Double(finished) / Double(total)
+        return done < total
     }
 }
 
-fileprivate class Progress {
+fileprivate class MariProgressInspector {
     
-    var onProgress: Mari.OnProgressCallback = { _ in }
     var onFinished: () -> Void = { }
     
     private var lists = ProgressItem()
@@ -269,37 +155,129 @@ fileprivate class Progress {
     
     func addList() {
         lists.total += 1
-        onProgress(percent)
+        // Report progress
     }
     
     func finishList(_ bringsMessages: Int) {
-        lists.finished += 1
+        lists.done += 1
         messages.total += bringsMessages
-        onProgress(percent)
+        // Report progress
         if !left {
             onFinished()
         }
     }
     
     func finishMessage() {
-        messages.finished += 1
-        onProgress(percent)
+        messages.done += 1
+        // Report progress
         if !left {
             onFinished()
         }
     }
     
-    private var left: Bool {
+    var left: Bool {
         return lists.left || messages.left
     }
+}
+
+fileprivate class Parser {
     
-    private var percent: Double {
-        if lists.total == 0 || messages.total == 0 {
-            return 0.0
+    enum ErrorType: Error {
+        case brokenMessage
+        case invalidFormat
+    }
+    
+    static func parse(
+        _ mail: GTLRGmail_Message,
+        for status: Umi.Status.Code,
+        by scanner: Umi.Scanner.Code
+    ) throws -> NominationRAW {
+        // Check contents
+        guard
+            let id = mail.identifier,
+            let date = mail.internalDate?.uint64Value,
+            let subject = mail.payload?.headers?.first(where: { $0.name == "Subject" })?.value,
+            let rawBody = mail.payload?.parts?.first(where: { $0.partId == "1" })?.body?.data,
+            let body = String(base64Encoded: rawBody)
+        else {
+            throw ErrorType.brokenMessage
         }
-        if lists.left {
-            return lists.percent * 0.2
+        
+        guard
+            var title = subject.subString(of: "[:：].+$", options: .regularExpression)
+        else {
+            throw ErrorType.invalidFormat
         }
-        return 0.2 + messages.percent * 0.8
+        
+        let nomination = NominationRAW(status, scanner)
+        if status == .pending {
+            nomination.confirmationMailId = id
+            nomination.confirmedTime = date / 1000
+            nomination.resultTime = nomination.confirmedTime
+        } else {
+            nomination.resultMailId = id
+            nomination.resultTime = date / 1000
+        }
+
+        // Subject -> Title
+        nomination.title = title.removingFirst().trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // Body -> image, id lngLat and reason
+        // Image
+        if let imageRange = body.range(of: "(googleusercontent|ggpht)\\.com\\/[0-9a-zA-Z\\-\\_]+", options: .regularExpression) {
+            nomination.image = body[imageRange].replacingOccurrences(
+                of: "(googleusercontent|ggpht)\\.com\\/", with: "",
+                options: .regularExpression
+            )
+            nomination.id = NominationRAW.generateId(nomination.image)
+        }
+        
+        // LngLat
+        if status != .pending && scanner == .redacted {
+            nomination.lngLat = Self.lngLat(from: body)
+        }
+        // Reason
+        if status == .rejected {
+            nomination.reasons = Self.reasons(from: body, by: scanner)
+        }
+        return nomination
+    }
+    
+    private static func lngLat(from body: String) -> LngLat? {
+        guard
+            let pair = body
+                .subString(of: "www\\.ingress\\.com/intel\\?ll\\=[\\d\\.\\,]+", options: .regularExpression)?
+                .replacingOccurrences(of: "www.ingress.com/intel?ll=", with: "")
+                .split(separator: ","),
+            let latString = pair.first,
+            let lngString = pair.last,
+            let lat = Double(latString),
+            let lng = Double(lngString)
+        else {
+            return nil
+        }
+        return .init(lng: lng, lat: lat)
+    }
+    
+    private static func reasons(from body: String, by scanner: Umi.Scanner.Code) -> [ Umi.Reason.Code ] {
+        guard let main = body.subString(of: "^(.|\n|\r)+\\-NianticOps", options: .regularExpression) else {
+            return []
+        }
+        var dictionary: [String.Index : Umi.Reason.Code] = [:]
+        for reason in Umi.shared.reasonAll {
+            guard let keywords = reason.keywords[scanner] else {
+                continue
+            }
+            for keyword in keywords.keywords {
+                guard let range = main.range(of: keyword, options: .literal) else {
+                    continue
+                }
+                dictionary[range.lowerBound] = reason.code
+                break
+            }
+        }
+        return dictionary
+            .sorted { a, b in a.key < b.key }
+            .map { $0.value }
     }
 }
