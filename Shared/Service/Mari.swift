@@ -148,19 +148,20 @@ fileprivate class MariProgressInspector {
     private var messages = ProgressItem()
     
     func clear() {
+        ProgressInspector.shared.clear()
         lists.clear()
         messages.clear()
     }
     
     func addList() {
         lists.total += 1
-        // Report progress
+        ProgressInspector.shared.set(total: lists.total)
     }
     
     func finishList(_ bringsMessages: Int) {
         lists.done += 1
         messages.total += bringsMessages
-        // Report progress
+        ProgressInspector.shared.set(done: lists.done, total: lists.total)
         if !left {
             onFinished()
         }

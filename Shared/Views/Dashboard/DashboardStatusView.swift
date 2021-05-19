@@ -11,12 +11,13 @@ struct DashboardStatusView: View {
     
     @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var service: Service
+    @ObservedObject private var progress = ProgressInspector.shared
     
     var body: some View {
         CardView.Card {
             if !service.google.auth.login {
                 Button("view.dashboard.status.linkAccount") { service.google.auth.logIn() }
-                    .buttonStyle(PlainButtonStyle())
+                    .buttonStyle(CardView.ButtonStyle())
                     .foregroundColor(.accentColor)
             } else if service.status == .idle {
                 if let latest = dia.firstNomination(sortBy: Nomination.sortDescriptorsByDate) {
@@ -31,12 +32,17 @@ struct DashboardStatusView: View {
                 }
             } else if service.status == .requestMatch {
                 Button("view.dashboard.status.manuallyMatch") {  }
-                    .buttonStyle(PlainButtonStyle())
+                    .buttonStyle(CardView.ButtonStyle())
                     .foregroundColor(.accentColor)
             } else {
                 switch service.status {
                     case .processingMails:
-                        ProgressView(LocalizedStringKey(service.status.rawValue), value: service.progress)
+                        ProgressView(
+                            value: Double(progress.done),
+                            total: Double(progress.total),
+                            label: { Text(LocalizedStringKey(service.status.rawValue)) },
+                            currentValueLabel: { Text("\(progress.done) / \(progress.total)") }
+                        )
                     default:
                         Text(LocalizedStringKey(service.status.rawValue))
                 }

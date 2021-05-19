@@ -9,6 +9,12 @@ import SwiftUI
 
 class CardView {
     
+    #if os(macOS)
+    typealias ButtonStyle = PlainButtonStyle
+    #else
+    typealias ButtonStyle = BorderlessButtonStyle
+    #endif
+    
     struct Card<Content: View>: View {
         
         private let radius: CGFloat
@@ -30,15 +36,9 @@ class CardView {
         }
     }
     
+    
+    
     class List {
-        
-        static var buttonStyle: some PrimitiveButtonStyle {
-            #if os(macOS)
-            return PlainButtonStyle()
-            #else
-            return BorderlessButtonStyle()
-            #endif
-        }
         
         @ViewBuilder
         static func header(_ text: Text) -> some View {
@@ -83,7 +83,7 @@ class CardView {
         ) -> some View {
             row {
                 Button(action: action, label: label)
-                    .buttonStyle(buttonStyle)
+                    .buttonStyle(ButtonStyle())
                     .foregroundColor(.accentColor)
                     .contentShape(Rectangle())
             }
