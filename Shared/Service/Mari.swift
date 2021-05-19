@@ -45,6 +45,10 @@ class Mari {
             return false
         }
         progress.clear()
+        progress.onFinished = {
+            progress.onFinished = { }
+            completionHandler(self.nominations)
+        }
         self.nominations = nominations
         ignoreMailIds.removeAll()
         ignoreMailIds = nominations.flatMap {
@@ -164,7 +168,9 @@ fileprivate class MariProgressInspector {
     
     func finishMessage() {
         messages.done += 1
-        // Report progress
+        if !lists.left {
+            ProgressInspector.shared.set(done: messages.done, total: messages.total)
+        }
         if !left {
             onFinished()
         }
