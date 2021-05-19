@@ -247,6 +247,7 @@ final class Service: ObservableObject {
             self.status = .processingMails
         }
         let raws = Dia.shared.nominations.map { $0.toRaw() }
+        set(status: .processingMails)
         let started = Mari.shared.start(with: raws) { nominations in
             self.arrange(nominations)
         }
@@ -343,13 +344,11 @@ final class Service: ObservableObject {
                     self.status = .idle
                 }
                 self.onRefreshFinished(updateCount)
+                self.set(status: .idle)
             }
         } else {
-            progress = 1.0
-            DispatchQueue.main.async {
-                self.status = .idle
-            }
             onRefreshFinished(updateCount)
+            set(status: .idle)
         }
     }
     

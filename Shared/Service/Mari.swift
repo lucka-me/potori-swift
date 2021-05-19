@@ -28,7 +28,7 @@ class Mari {
         gmailService.shouldFetchNextPages = true
     }
     
-    func updateAuth(_ auth: GTMFetcherAuthorizationProtocol?) {
+    func set(_ auth: GTMFetcherAuthorizationProtocol?) {
         gmailService.authorizer = auth
     }
     
