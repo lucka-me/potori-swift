@@ -61,11 +61,8 @@ final class Service: ObservableObject {
     #if os(iOS)
     private static let refreshTaskID = "dev.lucka.Potori.refresh"
     #endif
-    private static let progressPartMari = 0.8
-    private static let progressPartMatch = 0.2
     
     @Published var status: ServiceStatus = .idle
-    @Published var progress = 0.0
 
     @Published var google = GoogleKit()
     
@@ -78,7 +75,6 @@ final class Service: ObservableObject {
     
     private init() {
         googleAnyCancellable = google.objectWillChange.sink {
-            Mari.shared.updateAuth(self.google.auth.auth)
             self.objectWillChange.send()
         }
     }
@@ -87,16 +83,13 @@ final class Service: ObservableObject {
     func migrateFromGoogleDrive(_ callback: @escaping OnDownloadFinishedCallback) {
         download(.legacy) { count in
             callback(count)
-            self.status = .idle
+            self.set(status: .idle)
         }
     }
     
     func refresh() {
         if status != .idle || !google.auth.login {
             return
-        }
-        DispatchQueue.main.async {
-            self.progress = 0.0
         }
         if Preferences.Google.sync {
             download { _ in
@@ -153,13 +146,13 @@ final class Service: ObservableObject {
         if performDownload {
             download { _ in
                 if performUpload {
-                    self.upload {  self.status = .idle }
+                    self.upload { self.set(status: .idle) }
                 } else {
-                    self.status = .idle
+                    self.set(status: .idle)
                 }
             }
         } else {
-            upload { self.status = .idle }
+            upload { self.set(status: .idle) }
         }
     }
     
@@ -184,9 +177,7 @@ final class Service: ObservableObject {
     }
     
     private func download(_ file: NominationFile = .standard, _ callback: @escaping OnDownloadFinishedCallback) {
-        DispatchQueue.main.async {
-            self.status = .syncing
-        }
+        self.set(status: .syncing)
         google.drive.download(file.rawValue) { data in
             if let solidData = data {
                 do {
@@ -203,9 +194,7 @@ final class Service: ObservableObject {
     }
     
     func upload(_ callback: @escaping BasicCallback) {
-        DispatchQueue.main.async {
-            self.status = .syncing
-        }
+        set(status: .syncing)
         let nominations = Dia.shared.nominations
         let raws = nominations.map { $0.toRaw() }
         let jsons = raws.map { $0.json }
@@ -215,6 +204,12 @@ final class Service: ObservableObject {
             google.drive.upload(data, "application/json", NominationFile.standard.rawValue) {
                 callback()
             }
+        }
+    }
+    
+    private func set(status: ServiceStatus) {
+        DispatchQueue.main.async {
+            self.status = status
         }
     }
     
@@ -243,25 +238,18 @@ final class Service: ObservableObject {
     }
     
     private func processMails() {
-        DispatchQueue.main.async {
-            self.status = .processingMails
-        }
+        Mari.shared.set(google.auth.auth)
         let raws = Dia.shared.nominations.map { $0.toRaw() }
         set(status: .processingMails)
         let started = Mari.shared.start(with: raws) { nominations in
             self.arrange(nominations)
         }
         if !started {
-            DispatchQueue.main.async {
-                self.status = .processingMails
-            }
+            set(status: .idle)
         }
     }
     
-    private func arrange(_ raws: [NominationRAW]) {
-        DispatchQueue.main.async {
-            self.progress = Service.progressPartMari
-        }
+    private func arrange(_ raws: [ NominationRAW ]) {
         var reduced: [NominationRAW] = []
         var matchTargets: [NominationRAW] = []
         reduced.reserveCapacity(raws.capacity)
@@ -294,7 +282,7 @@ final class Service: ObservableObject {
     }
     
     private func match(targets: [NominationRAW], from list: [NominationRAW], merged: Int) {
-        status = .requestMatch
+        set(status: .requestMatch)
         let pendings = list.filter { $0.status == .pending }
         let packs: [MatchPack] = targets
             .map { target in
@@ -339,10 +327,6 @@ final class Service: ObservableObject {
         let updateCount = save(raws) + mergeCount
         if Preferences.Google.sync {
             upload {
-                self.progress = 1.0
-                DispatchQueue.main.async {
-                    self.status = .idle
-                }
                 self.onRefreshFinished(updateCount)
                 self.set(status: .idle)
             }
