@@ -46,7 +46,7 @@ class Mari {
         }
         progress.clear()
         progress.onFinished = {
-            progress.onFinished = { }
+            self.progress.onFinished = { }
             completionHandler(self.nominations)
         }
         self.nominations = nominations
