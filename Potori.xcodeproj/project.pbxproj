@@ -50,6 +50,12 @@
 		843BEF38259F07CF00FC17F9 /* TabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF37259F07CF00FC17F9 /* TabNavigation.swift */; };
 		843BEF48259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */; };
 		843BEF49259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */; };
+		843BFFEC2656822C0031963C /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BFFEB2656822C0031963C /* Array.swift */; };
+		843BFFED2656822C0031963C /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BFFEB2656822C0031963C /* Array.swift */; };
+		843BFFEE2656822C0031963C /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BFFEB2656822C0031963C /* Array.swift */; };
+		843BFFEF2656822C0031963C /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BFFEB2656822C0031963C /* Array.swift */; };
+		843BFFF02656822C0031963C /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BFFEB2656822C0031963C /* Array.swift */; };
+		843BFFF12656822C0031963C /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BFFEB2656822C0031963C /* Array.swift */; };
 		84495F2E259A140D00BA238A /* nominations.json in Resources */ = {isa = PBXBuildFile; fileRef = 84495F2D259A140D00BA238A /* nominations.json */; };
 		84495F2F259A140D00BA238A /* nominations.json in Resources */ = {isa = PBXBuildFile; fileRef = 84495F2D259A140D00BA238A /* nominations.json */; };
 		844A9AAE25A4BD21003E44B5 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */; };
@@ -282,6 +288,7 @@
 		843463E525B20E3D008A03CB /* pre-build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "pre-build.sh"; sourceTree = "<group>"; };
 		843BEF37259F07CF00FC17F9 /* TabNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigation.swift; sourceTree = "<group>"; };
 		843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarNavigation.swift; sourceTree = "<group>"; };
+		843BFFEB2656822C0031963C /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		84495F2D259A140D00BA238A /* nominations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nominations.json; sourceTree = "<group>"; };
 		844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		8462D077259F9C330031AD0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -440,11 +447,12 @@
 		8434025525C0417F00DCFFCB /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				843BFFEB2656822C0031963C /* Array.swift */,
 				8430E2A125C304B9008F1BAC /* FileManager.swift */,
 				846C48E726439B6C0017BE48 /* Image.swift */,
+				84FB4D1F265401C900AAA9A3 /* String.swift */,
 				8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */,
 				846C48EE26439BCA0017BE48 /* URLSession.swift */,
-				84FB4D1F265401C900AAA9A3 /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -999,6 +1007,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84841DB425BC413100468C6D /* TestsUI.swift in Sources */,
+				843BFFEF2656822C0031963C /* Array.swift in Sources */,
 				846C48EB26439B6C0017BE48 /* Image.swift in Sources */,
 				846C48F226439BCA0017BE48 /* URLSession.swift in Sources */,
 				84E2EBA825BC42A8007B2000 /* Umi.swift in Sources */,
@@ -1047,6 +1056,7 @@
 				8469EB4D25B9D25100A9831D /* Navigation.swift in Sources */,
 				84F7359B25B830E8003DE878 /* DashboardView.swift in Sources */,
 				843BEF38259F07CF00FC17F9 /* TabNavigation.swift in Sources */,
+				843BFFEC2656822C0031963C /* Array.swift in Sources */,
 				8468A22C25A33784009B562D /* Potori.xcdatamodeld in Sources */,
 				8434024325C03A9600DCFFCB /* UNUserNotificationCenter.swift in Sources */,
 				840A15F725BD62D200541ED5 /* DashboardScannersView.swift in Sources */,
@@ -1069,6 +1079,7 @@
 				846CC62A25A35EFF007A8AE8 /* Nomination.swift in Sources */,
 				84F97C72259B6978005D9AA4 /* NominationDetails.swift in Sources */,
 				846C48E4264396E30017BE48 /* Widget.intentdefinition in Sources */,
+				843BFFED2656822C0031963C /* Array.swift in Sources */,
 				8491789C2599F92C00CD967F /* NominationListRow.swift in Sources */,
 				84B8A54825B85045000B0C0E /* DashboardCard.swift in Sources */,
 				8469EB3625B943C800A9831D /* DashboardGalleryView.swift in Sources */,
@@ -1111,6 +1122,7 @@
 				84DDF92C25C1B55000942E87 /* NominationWidget.swift in Sources */,
 				8430E2D325C31723008F1BAC /* Reason.swift in Sources */,
 				84FB4D282655299200AAA9A3 /* ProgressInspector.swift in Sources */,
+				843BFFF12656822C0031963C /* Array.swift in Sources */,
 				84FB4D23265401C900AAA9A3 /* String.swift in Sources */,
 				8430E2C225C3171A008F1BAC /* Dia.swift in Sources */,
 				84DDF92525C1B54D00942E87 /* PotoriWidget.swift in Sources */,
@@ -1129,6 +1141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84E2EBBA25BC4F91007B2000 /* TestsUI.swift in Sources */,
+				843BFFEE2656822C0031963C /* Array.swift in Sources */,
 				846C48EA26439B6C0017BE48 /* Image.swift in Sources */,
 				846C48F126439BCA0017BE48 /* URLSession.swift in Sources */,
 				841FD3D025BC4FE90089A53D /* Umi.swift in Sources */,
@@ -1145,6 +1158,7 @@
 				8475B61E25C1610E002D7915 /* NominationWidget.swift in Sources */,
 				8430E2D225C31722008F1BAC /* Reason.swift in Sources */,
 				84FB4D272655299200AAA9A3 /* ProgressInspector.swift in Sources */,
+				843BFFF02656822C0031963C /* Array.swift in Sources */,
 				84FB4D22265401C900AAA9A3 /* String.swift in Sources */,
 				8430E2C925C3171A008F1BAC /* Dia.swift in Sources */,
 				84EA8F9125C15FE200BB924A /* PotoriWidget.swift in Sources */,

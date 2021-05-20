@@ -5,33 +5,39 @@
 //  Created by Lucka on 9/1/2021.
 //
 
-import Combine
-import Foundation
-
 import AppAuth
 import GTMAppAuth
 import GoogleAPIClientForREST_Drive
 import GoogleAPIClientForREST_Gmail
 
-final class GoogleKit: ObservableObject {
+final class GoogleKit {
     
     final class Auth: ObservableObject {
         
-        @Published var login: Bool = false
+        static let shared = Auth()
         
         private static let clientID = "361295761775-oa7u8sbbldvaq29c5gbg74ep906pqhd8.apps.googleusercontent.com"
         private static let redirectURL = "com.googleusercontent.apps.361295761775-oa7u8sbbldvaq29c5gbg74ep906pqhd8:/oauthredirect"
         private static let authKeychainName = "auth.google"
         
+        @Published var authorized: Bool = false
+        
         private var authorization: GTMAppAuthFetcherAuthorization? = nil
         private var currentAuthorizationFlow: OIDExternalUserAgentSession? = nil
         
-        init() {
+        private init() {
             loadAuth()
         }
         
-       
-        func logIn() {
+        var mail: String {
+            return authorization?.userEmail ?? ""
+        }
+        
+        var authorizer: GTMAppAuthFetcherAuthorization? {
+            return authorization
+        }
+        
+        func link() {
             #if os(macOS)
             currentAuthorizationFlow = OIDAuthState.authState(
                 byPresenting: getAuthRequest(),
@@ -52,17 +58,9 @@ final class GoogleKit: ObservableObject {
         }
         #endif
         
-        func logOut() {
+        func unlink() {
             authorization = nil
             saveAuth()
-        }
-        
-        var mail: String {
-            return authorization?.userEmail ?? ""
-        }
-        
-        var auth: GTMAppAuthFetcherAuthorization? {
-            return authorization
         }
         
         private func getAuthRequest() -> OIDAuthorizationRequest {
@@ -95,10 +93,10 @@ final class GoogleKit: ObservableObject {
         
         private func saveAuth() {
             if let solidAuth = authorization, solidAuth.canAuthorize() {
-                login = solidAuth.authState.isAuthorized
+                authorized = solidAuth.authState.isAuthorized
                 GTMAppAuthFetcherAuthorization.save(solidAuth, toKeychainForName: Self.authKeychainName)
             } else {
-                login = false
+                authorized = false
                 GTMAppAuthFetcherAuthorization.removeFromKeychain(forName: Self.authKeychainName)
             }
         }
@@ -111,15 +109,16 @@ final class GoogleKit: ObservableObject {
     
     final class Drive {
         
-        typealias DownloadCallback = (Data?) -> Bool
-        typealias UploadCallback = () -> Void
+        typealias DownloadCompletionHandler<Content: Decodable> = (Content?) -> Void
+        
+        static let shared = Drive()
         
         private let driveService = GTLRDriveService()
         private var fileID: [String : String] = [:]
         
         private static let folder = "appDataFolder"
         
-        init() {
+        private init() {
             driveService.shouldFetchNextPages = true
         }
         
@@ -127,57 +126,29 @@ final class GoogleKit: ObservableObject {
             driveService.authorizer = auth
         }
         
-        func download(_ file: String, _ callback: @escaping DownloadCallback) {
-            let listQuery = getListQuery(file)
-            driveService.executeQuery(listQuery) { callbackTicket, response, error in
-                guard let solidList = response as? GTLRDrive_FileList else {
-                    let _ = callback(nil)
-                    return
-                }
-                self.handleListQuery(solidList, file, callback)
-            }
-        }
-        
-        private func getListQuery(_ file: String) -> GTLRDriveQuery_FilesList {
-            let query = GTLRDriveQuery_FilesList.query()
-            query.q = "name = '\(file)'"
-            query.spaces = Drive.folder
-            query.fields = "files(id)"
-            return query
-        }
-        
-        private func handleListQuery(_ list: GTLRDrive_FileList, _ file: String, _ callback: @escaping DownloadCallback) {
-            guard
-                let solidFiles = list.files,
-                !solidFiles.isEmpty,
-                let id = solidFiles[0].identifier
-            else {
-                let _ = callback(nil)
+        func download<Content: Decodable>(
+            _ filename: String,
+            completionHandler: @escaping DownloadCompletionHandler<Content>
+        ) {
+            if !Auth.shared.authorized {
+                completionHandler(nil)
                 return
             }
-            let query = GTLRDriveQuery_FilesGet.queryForMedia(withFileId: id)
-            driveService.executeQuery(query) { callbackTicket, response, error in
-                var shouldContinue = false
-                if let solidData = response as? GTLRDataObject {
-                    shouldContinue = callback(solidData.data)
-                } else {
-                    shouldContinue = true
-                }
-                if shouldContinue {
-                    self.delete(id)
-                    let shifted = list
-                    shifted.files = Array(solidFiles.suffix(from: 1))
-                    self.handleListQuery(shifted, file, callback)
-                }
-            }
+            driveService.authorizer = Auth.shared.authorizer
+            queryList(with: .init(filename: filename, completionHandler: completionHandler))
         }
         
-        func upload(_ data: Data, _ mimeType: String, _ file: String, _ callback: @escaping UploadCallback) {
+        func upload(_ data: Data, _ filename: String, mimeType: String, completionHandler: @escaping () -> Void) {
+            if !Auth.shared.authorized {
+                completionHandler()
+                return
+            }
+            driveService.authorizer = Auth.shared.authorizer
             let fileObject = GTLRDrive_File()
-            fileObject.name = file
+            fileObject.name = filename
             let parameters = GTLRUploadParameters(data: data, mimeType: mimeType)
             let query: GTLRDriveQuery
-            if let id = fileID[file], !id.isEmpty {
+            if let id = fileID[filename], !id.isEmpty {
                 query = GTLRDriveQuery_FilesUpdate.query(withObject: fileObject, fileId: id, uploadParameters: parameters)
             } else {
                 fileObject.parents = [ Drive.folder ]
@@ -187,11 +158,54 @@ final class GoogleKit: ObservableObject {
                 if
                     let solidFile = response as? GTLRDrive_File,
                     let solidId = solidFile.identifier {
-                    self.fileID[file] = solidId
+                    self.fileID[filename] = solidId
                 } else {
-                    self.fileID[file] = nil
+                    self.fileID[filename] = nil
                 }
-                callback()
+                completionHandler()
+            }
+        }
+        
+        private func queryList<Content: Decodable>(with pack: DownloadQueryPack<Content>, pageToken: String? = nil) {
+            let query = GTLRDriveQuery_FilesList.query()
+            query.q = "name = '\(pack.filename)'"
+            query.spaces = Self.folder
+            query.fields = "files(id)"
+            driveService.executeQuery(query) { _, response, error in
+                guard
+                    let solidResponse = response as? GTLRDrive_FileList,
+                    let solidFiles = solidResponse.files
+                else {
+                    self.queryFiles(with: pack)
+                    return
+                }
+                pack.ids.append(contentsOf: solidFiles.compactMap { $0.identifier })
+                guard let nextPageToken = solidResponse.nextPageToken else {
+                    self.queryFiles(with: pack)
+                    return
+                }
+                self.queryList(with: pack, pageToken: nextPageToken)
+            }
+        }
+        
+        private func queryFiles<Content: Decodable>(with pack: DownloadQueryPack<Content>) {
+            guard let id = pack.ids.popFirst() else {
+                pack.completionHandler(nil)
+                return;
+            }
+            let query = GTLRDriveQuery_FilesGet.queryForMedia(withFileId: id)
+            driveService.executeQuery(query) { _, response, error in
+                let decoder = JSONDecoder()
+                guard
+                    let solidData = response as? GTLRDataObject,
+                    let content = try? decoder.decode(Content.self, from: solidData.data)
+                else {
+                    self.driveService.executeQuery(GTLRDriveQuery_FilesDelete.query(withFileId: id))
+                    self.queryFiles(with: pack)
+                    return
+                }
+                self.fileID[pack.filename] = id
+                pack.completionHandler(content)
             }
         }
         
@@ -200,15 +214,22 @@ final class GoogleKit: ObservableObject {
         }
     }
     
-    let auth = Auth()
-    let drive = Drive()
+    private init() {
+        
+    }
+}
+
+private class DownloadQueryPack<Content: Decodable> {
     
-    private var authAnyCancellable: AnyCancellable? = nil
+    var ids: [ String ] = []
+    let filename: String
+    let completionHandler: GoogleKit.Drive.DownloadCompletionHandler<Content>
     
-    init() {
-        authAnyCancellable = auth.objectWillChange.sink {
-            self.drive.updateAuth(self.auth.auth)
-            self.objectWillChange.send()
-        }
+    init(
+        filename: String,
+        completionHandler: @escaping GoogleKit.Drive.DownloadCompletionHandler<Content>
+    ) {
+        self.filename = filename
+        self.completionHandler = completionHandler
     }
 }

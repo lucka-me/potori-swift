@@ -5,7 +5,6 @@
 //  Created by Lucka on 1/1/2021.
 //
 
-import GTMAppAuth
 import GoogleAPIClientForREST_Gmail
 
 class Mari {
@@ -28,22 +27,17 @@ class Mari {
         gmailService.shouldFetchNextPages = true
     }
     
-    func set(_ auth: GTMFetcherAuthorizationProtocol?) {
-        gmailService.authorizer = auth
-    }
-    
     func start(with nominations: [ NominationRAW ], completionHandler: @escaping CompletionHandler) -> Bool {
         // Check if is processing
         if progress.left {
             return false
         }
         // Check auth
-        guard
-            let auth = gmailService.authorizer as? GTMAppAuthFetcherAuthorization,
-            auth.canAuthorize() && auth.authState.isAuthorized
-        else {
+        if !GoogleKit.Auth.shared.authorized {
             return false
         }
+        gmailService.authorizer = GoogleKit.Auth.shared.authorizer
+
         progress.clear()
         progress.onFinished = {
             self.progress.onFinished = { }

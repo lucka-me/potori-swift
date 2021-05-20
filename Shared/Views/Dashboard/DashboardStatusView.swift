@@ -12,12 +12,13 @@ struct DashboardStatusView: View {
     @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var service: Service
     @EnvironmentObject private var navigation: Navigation
+    @ObservedObject private var auth = GoogleKit.Auth.shared
     @ObservedObject private var progress = ProgressInspector.shared
     
     var body: some View {
         CardView.Card {
-            if !service.google.auth.login {
-                Button("view.dashboard.status.linkAccount") { service.google.auth.logIn() }
+            if !auth.authorized {
+                Button("view.dashboard.status.linkAccount", action: auth.link)
                     .buttonStyle(CardView.ButtonStyle())
                     .foregroundColor(.accentColor)
             } else if service.status == .idle {

@@ -74,7 +74,7 @@ struct PotoriApp: App {
                     }
                 } else {
                     #if os(macOS)
-                    service.google.auth.onOpenURL(url)
+                    GoogleKit.Auth.shared.onOpenURL(url)
                     #endif
                 }
             }

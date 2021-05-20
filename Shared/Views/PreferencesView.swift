@@ -88,7 +88,8 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
     
     @AppStorage(Preferences.Google.keySync) var prefSync = false
     
-    @EnvironmentObject var service: Service
+    @EnvironmentObject private var service: Service
+    @ObservedObject private var auth = GoogleKit.Auth.shared
     #if os(iOS)
     @State private var isPresentedActionSheetAccount = false
     #endif
@@ -100,36 +101,36 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
         HStack(alignment: .firstTextBaseline) {
             Text("view.preferences.google.account")
                 .font(.headline)
-            service.google.auth.login ? Text(service.google.auth.mail) : Text("view.preferences.google.notLinked")
+            auth.authorized ? Text(auth.mail) : Text("view.preferences.google.notLinked")
         }
         .lineLimit(1)
         Button(
-            service.google.auth.login ? "view.preferences.google.unlink" : "view.preferences.google.link",
-            action: service.google.auth.login ? logOut : logIn
+            auth.authorized ? "view.preferences.google.unlink" : "view.preferences.google.link",
+            action: auth.authorized ? auth.unlink : auth.link
         )
         #else
         HStack {
             Text("view.preferences.google.account")
             Spacer()
-            Text(service.google.auth.login ? "view.preferences.google.linked" : "view.preferences.google.notLinked")
-                .foregroundColor(service.google.auth.login ? .green : .red)
+            Text(auth.authorized ? "view.preferences.google.linked" : "view.preferences.google.notLinked")
+                .foregroundColor(auth.authorized ? .green : .red)
         }
         .onTapGesture {
             isPresentedActionSheetAccount.toggle()
         }
         .actionSheet(isPresented: $isPresentedActionSheetAccount) {
             ActionSheet(
-                title: service.google.auth.login ? Text(service.google.auth.mail) : Text("view.preferences.google.account"),
+                title: auth.authorized ? Text(auth.mail) : Text("view.preferences.google.account"),
                 buttons: [
-                    service.google.auth.login
-                        ? .destructive(Text("view.preferences.google.unlink"), action: logOut)
-                        : .default(Text("view.preferences.google.link"), action: logIn),
+                    auth.authorized
+                        ? .destructive(Text("view.preferences.google.unlink"), action: auth.unlink)
+                        : .default(Text("view.preferences.google.link"), action: auth.link),
                     .cancel()
                 ]
             )
         }
         #endif
-        if service.google.auth.login {
+        if auth.authorized {
             Toggle("view.preferences.google.sync", isOn: $prefSync)
 
             Button("view.preferences.google.syncNow") {
@@ -167,14 +168,6 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
                 }
             }
         }
-    }
-    
-    private func logIn() {
-        service.google.auth.logIn()
-    }
-    
-    private func logOut() {
-        service.google.auth.logOut()
     }
 }
 

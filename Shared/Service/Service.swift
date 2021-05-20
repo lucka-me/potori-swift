@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import Combine
-import CoreData
 
 #if os(iOS)
 import BackgroundTasks
@@ -18,7 +16,7 @@ final class Service: ObservableObject {
     
     typealias BasicCallback = () -> Void
     typealias OnRefreshFinishedCallback = (Int) -> Void
-    typealias OnDownloadFinishedCallback = (Int) -> Void
+    typealias ImportCompletionHandler = (Int) -> Void
     
     enum ServiceStatus: String {
         case idle               = "service.status.idle"
@@ -63,32 +61,26 @@ final class Service: ObservableObject {
     #endif
     
     @Published var status: ServiceStatus = .idle
-
-    @Published var google = GoogleKit()
     
     let matchData = MatchData()
     
     private var onRequiresMatch: BasicCallback = { }
     private var onRefreshFinished: OnRefreshFinishedCallback = { _ in }
-
-    private var googleAnyCancellable: AnyCancellable? = nil
     
     private init() {
-        googleAnyCancellable = google.objectWillChange.sink {
-            self.objectWillChange.send()
-        }
+
     }
     
     /// Migrate data from potori.json
-    func migrateFromGoogleDrive(_ callback: @escaping OnDownloadFinishedCallback) {
+    func migrateFromGoogleDrive(_ completionHandler: @escaping ImportCompletionHandler) {
         download(.legacy) { count in
-            callback(count)
+            completionHandler(count)
             self.set(status: .idle)
         }
     }
     
     func refresh() {
-        if status != .idle || !google.auth.login {
+        if status != .idle || !GoogleKit.Auth.shared.authorized {
             return
         }
         if Preferences.Google.sync {
@@ -176,24 +168,19 @@ final class Service: ObservableObject {
         return .init(jsons)
     }
     
-    private func download(_ file: NominationFile = .standard, _ callback: @escaping OnDownloadFinishedCallback) {
+    private func download(_ file: NominationFile = .standard, completionHandler: @escaping ImportCompletionHandler) {
         self.set(status: .syncing)
-        google.drive.download(file.rawValue) { data in
-            if let solidData = data {
-                do {
-                    let count = try self.importNominations(data: solidData)
-                    callback(count)
-                } catch {
-                    return true
-                }
-            } else {
-                callback(0)
+        GoogleKit.Drive.shared.download(file.rawValue) { (json: [ NominationJSON ]?) in
+            guard let solidJSON = json else {
+                completionHandler(0)
+                return
             }
-            return false
+            let raws = solidJSON.map { NominationRAW(from: $0) }
+            completionHandler(self.save(raws, merge: true))
         }
     }
     
-    func upload(_ callback: @escaping BasicCallback) {
+    func upload(_ completionHandler: @escaping () -> Void) {
         set(status: .syncing)
         let nominations = Dia.shared.nominations
         let raws = nominations.map { $0.toRaw() }
@@ -201,8 +188,8 @@ final class Service: ObservableObject {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
         if let data = try? encoder.encode(jsons) {
-            google.drive.upload(data, "application/json", NominationFile.standard.rawValue) {
-                callback()
+            GoogleKit.Drive.shared.upload(data, NominationFile.standard.rawValue, mimeType: "application/json") {
+                completionHandler()
             }
         }
     }
@@ -238,7 +225,6 @@ final class Service: ObservableObject {
     }
     
     private func processMails() {
-        Mari.shared.set(google.auth.auth)
         let raws = Dia.shared.nominations.map { $0.toRaw() }
         set(status: .processingMails)
         let started = Mari.shared.start(with: raws) { nominations in
@@ -275,13 +261,13 @@ final class Service: ObservableObject {
         
         if !matchTargets.isEmpty {
             onRequiresMatch()
-            match(targets: matchTargets, from: reduced, merged: mergeCount)
+            match(matchTargets, from: reduced, merged: mergeCount)
         } else {
             saveAndSync(reduced, mergeCount)
         }
     }
     
-    private func match(targets: [NominationRAW], from list: [NominationRAW], merged: Int) {
+    private func match(_ targets: [NominationRAW], from list: [NominationRAW], merged: Int) {
         set(status: .requestMatch)
         let pendings = list.filter { $0.status == .pending }
         let packs: [MatchPack] = targets
