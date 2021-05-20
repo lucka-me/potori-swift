@@ -11,6 +11,7 @@ struct DashboardStatusView: View {
     
     @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var service: Service
+    @EnvironmentObject private var navigation: Navigation
     @ObservedObject private var progress = ProgressInspector.shared
     
     var body: some View {
@@ -31,7 +32,7 @@ struct DashboardStatusView: View {
                     Text("view.dashboard.status.empty")
                 }
             } else if service.status == .requestMatch {
-                Button("view.dashboard.status.manuallyMatch") {  }
+                Button("view.dashboard.status.manuallyMatch") { navigation.showMatchView.toggle() }
                     .buttonStyle(CardView.ButtonStyle())
                     .foregroundColor(.accentColor)
             } else {
@@ -56,10 +57,13 @@ struct DashboardStatusView: View {
 #if DEBUG
 struct DashboardStatusView_Previews: PreviewProvider {
     
+    static let navigation: Navigation = .init()
+    
     static var previews: some View {
         DashboardStatusView()
             .environmentObject(Dia.preview)
             .environmentObject(Service.shared)
+            .environmentObject(navigation)
     }
 }
 #endif
