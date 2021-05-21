@@ -114,7 +114,7 @@
 "view.preferences.google"   = "Google";
 "view.preferences.data"     = "数据";
 "view.preferences.general.refreshOnOpen"    = "打开时刷新";
-"view.preferences.general.backgroundRefresh"    = "背景刷新";
+"view.preferences.general.backgroundRefresh"    = "背景刷新（需要小组件）";
 "view.preferences.general.queryAfterLatest" = "仅查询最新邮件";
 "view.preferences.google.account"   = "Google账号";
 "view.preferences.google.link"      = "连接";

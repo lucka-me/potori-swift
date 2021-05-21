@@ -114,7 +114,7 @@
 "view.preferences.google"   = "Google";
 "view.preferences.data"     = "Data";
 "view.preferences.general.refreshOnOpen"    = "Refresh On Open";
-"view.preferences.general.backgroundRefresh"    = "Background Refresh";
+"view.preferences.general.backgroundRefresh"    = "Background Refresh (Requires Widget)";
 "view.preferences.general.queryAfterLatest" = "Query After Latest";
 "view.preferences.google.account"   = "Google Account";
 "view.preferences.google.link"      = "Link";
