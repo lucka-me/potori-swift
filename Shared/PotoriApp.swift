@@ -35,7 +35,7 @@ struct PotoriApp: App {
         WindowGroup {
             content
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
-                    if Preferences.General.backgroundRefresh {
+                    if UserDefaults.General.backgroundRefresh {
                         service.scheduleRefresh()
                     }
                 }
@@ -54,9 +54,9 @@ struct PotoriApp: App {
                 if firstAppear {
                     firstAppear = false
                     #if os(macOS)
-                    Preferences.register()
+                    UserDefaults.register()
                     #endif
-                    if Preferences.General.refreshOnOpen {
+                    if UserDefaults.General.refreshOnOpen {
                         service.refresh()
                     }
                     URLCache.shared.diskCapacity = 100 * 1024 * 1024

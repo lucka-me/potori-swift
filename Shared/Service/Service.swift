@@ -83,7 +83,7 @@ final class Service: ObservableObject {
         if status != .idle || !GoogleKit.Auth.shared.authorized {
             return
         }
-        if Preferences.Google.sync {
+        if UserDefaults.Google.sync {
             download { _ in
                 self.processMails()
             }
@@ -311,7 +311,7 @@ final class Service: ObservableObject {
     
     private func saveAndSync(_ raws: [NominationRAW], _ mergeCount: Int) {
         let updateCount = save(raws) + mergeCount
-        if Preferences.Google.sync {
+        if UserDefaults.Google.sync {
             upload {
                 self.onRefreshFinished(updateCount)
                 self.set(status: .idle)

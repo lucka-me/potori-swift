@@ -59,17 +59,13 @@ fileprivate struct GeneralGroup: View, PreferenceGroup {
     let title: LocalizedStringKey = "view.preferences.general"
     let icon: String = "gearshape"
     
-    @AppStorage(Preferences.General.keyRefreshOnOpen) var prefRefreshOnOpen = false
-    #if os(iOS)
-    @AppStorage(Preferences.General.keyBackgroundRefresh) var prefBackgroundRefresh = false
-    #endif
-    @AppStorage(Preferences.General.keyQueryAfterLatest) var prefQueryAfterLatest = true
+    @AppStorage(UserDefaults.General.keyRefreshOnOpen, store: .shared) var prefRefreshOnOpen = false
+    @AppStorage(UserDefaults.General.keyBackgroundRefresh, store: .shared) var prefBackgroundRefresh = false
+    @AppStorage(UserDefaults.General.keyQueryAfterLatest, store: .shared) var prefQueryAfterLatest = true
     
     var body: some View {
         Toggle("view.preferences.general.refreshOnOpen", isOn: $prefRefreshOnOpen)
-        #if os(iOS)
         Toggle("view.preferences.general.backgroundRefresh", isOn: $prefBackgroundRefresh)
-        #endif
         Toggle("view.preferences.general.queryAfterLatest", isOn: $prefQueryAfterLatest)
     }
 }
@@ -86,7 +82,7 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
     let title: LocalizedStringKey = "view.preferences.google"
     let icon: String = "person.crop.circle"
     
-    @AppStorage(Preferences.Google.keySync) var prefSync = false
+    @AppStorage(UserDefaults.Google.keySync, store: .shared) var prefSync = false
     
     @EnvironmentObject private var service: Service
     @ObservedObject private var auth = GoogleKit.Auth.shared

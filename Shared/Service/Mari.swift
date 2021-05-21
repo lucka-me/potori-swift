@@ -48,7 +48,7 @@ class Mari {
         ignoreMailIds = nominations.flatMap {
             $0.resultMailId.isEmpty ? [$0.confirmationMailId] : [$0.confirmationMailId, $0.resultMailId]
         }
-        if Preferences.General.queryAfterLatest {
+        if UserDefaults.General.queryAfterLatest {
             latest = nominations.reduce(0) { max($0, $1.confirmedTime, $1.resultTime) }
         } else {
             latest = 0

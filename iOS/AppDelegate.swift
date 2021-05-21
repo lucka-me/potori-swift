@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
     ) -> Bool {
-        Preferences.register()
+        UserDefaults.register()
         Service.shared.registerRefresh()
         return true
     }
