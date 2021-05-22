@@ -10,10 +10,6 @@ import SwiftUI
 @main
 struct PotoriApp: App {
     
-    #if os(iOS)
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    #endif
-    
     private let dia = Dia.shared
     private let service = Service.shared
     private let navigation: Navigation = .init()
@@ -34,11 +30,6 @@ struct PotoriApp: App {
         #else
         WindowGroup {
             content
-                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
-                    if UserDefaults.General.backgroundRefresh {
-                        service.scheduleRefresh()
-                    }
-                }
         }
         #endif
     }

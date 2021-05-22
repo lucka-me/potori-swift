@@ -14,8 +14,7 @@ import UserNotifications
 
 final class Service: ObservableObject {
     
-    typealias BasicCallback = () -> Void
-    typealias OnRefreshFinishedCallback = (Int) -> Void
+    typealias RefreshCompletionHandler = (ServiceStatus, Int) -> Void
     typealias ImportCompletionHandler = (Int) -> Void
     
     enum ServiceStatus: String {
@@ -64,8 +63,7 @@ final class Service: ObservableObject {
     
     let matchData = MatchData()
     
-    private var onRequiresMatch: BasicCallback = { }
-    private var onRefreshFinished: OnRefreshFinishedCallback = { _ in }
+    private var refreshCompletionHandler: RefreshCompletionHandler = { _, _ in }
     
     private init() {
 
@@ -79,10 +77,12 @@ final class Service: ObservableObject {
         }
     }
     
-    func refresh() {
+    @discardableResult
+    func refresh(completionHandler: @escaping RefreshCompletionHandler = { _, _ in }) -> Bool {
         if status != .idle || !GoogleKit.Auth.shared.authorized {
-            return
+            return false
         }
+        refreshCompletionHandler = completionHandler
         if UserDefaults.Google.sync {
             download { _ in
                 self.processMails()
@@ -90,46 +90,8 @@ final class Service: ObservableObject {
         } else {
             processMails()
         }
+        return true
     }
-    
-    #if os(iOS)
-    func registerRefresh() {
-        UNUserNotificationCenter
-            .requestAuthorization()
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.refreshTaskID, using: nil) { task in
-            if let refreshTask = task as? BGAppRefreshTask {
-                self.refresh(task: refreshTask)
-            }
-        }
-    }
-    
-    func scheduleRefresh() {
-        let request = BGAppRefreshTaskRequest(identifier: Self.refreshTaskID)
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 30 * 60)
-        try? BGTaskScheduler.shared.submit(request)
-    }
-    
-    private func refresh(task: BGAppRefreshTask) {
-        scheduleRefresh()
-        onRequiresMatch = {
-            UNUserNotificationCenter.push(
-                NSLocalizedString("notification.refresh.requiresMatch", comment: "Manually Match Required"),
-                NSLocalizedString("notification.refresh.requiresMatch.desc", comment: "Manually Match Required Description")
-            )
-            task.setTaskCompleted(success: true)
-        }
-        onRefreshFinished = { count in
-            if count > 0 {
-                UNUserNotificationCenter.push(
-                    NSLocalizedString("notification.refresh.refreshFinished", comment: "Refresh Finished"),
-                    String(format: NSLocalizedString("notification.refresh.refreshFinished.desc", comment: "Refresh Finished Description"), count)
-                )
-            }
-            task.setTaskCompleted(success: count > 0)
-        }
-        refresh()
-    }
-    #endif
     
     func sync(performDownload: Bool = true, performUpload: Bool = true) {
         if !performDownload && !performUpload {
@@ -232,6 +194,7 @@ final class Service: ObservableObject {
         }
         if !started {
             set(status: .idle)
+            refreshCompletionHandler(status, 0)
         }
     }
     
@@ -260,15 +223,14 @@ final class Service: ObservableObject {
         }
         
         if !matchTargets.isEmpty {
-            onRequiresMatch()
             match(matchTargets, from: reduced, merged: mergeCount)
+            refreshCompletionHandler(status, 0)
         } else {
             saveAndSync(reduced, mergeCount)
         }
     }
     
     private func match(_ targets: [NominationRAW], from list: [NominationRAW], merged: Int) {
-        set(status: .requestMatch)
         let pendings = list.filter { $0.status == .pending }
         let packs: [MatchPack] = targets
             .map { target in
@@ -307,18 +269,19 @@ final class Service: ObservableObject {
             self.matchData.packs = []
             self.saveAndSync(list, merged)
         }
+        set(status: .requestMatch)
     }
     
     private func saveAndSync(_ raws: [NominationRAW], _ mergeCount: Int) {
         let updateCount = save(raws) + mergeCount
         if UserDefaults.Google.sync {
             upload {
-                self.onRefreshFinished(updateCount)
                 self.set(status: .idle)
+                self.refreshCompletionHandler(self.status, updateCount)
             }
         } else {
-            onRefreshFinished(updateCount)
             set(status: .idle)
+            refreshCompletionHandler(status, updateCount)
         }
     }
     
