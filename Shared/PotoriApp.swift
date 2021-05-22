@@ -12,7 +12,6 @@ struct PotoriApp: App {
     
     private let dia = Dia.shared
     private let service = Service.shared
-    private let navigation: Navigation = .init()
 
     @State private var firstAppear = true
 
@@ -39,7 +38,6 @@ struct PotoriApp: App {
         ContentView()
             .environmentObject(dia)
             .environmentObject(service)
-            .environmentObject(navigation)
             .environment(\.managedObjectContext, dia.viewContext)
             .onAppear {
                 if firstAppear {
@@ -51,20 +49,11 @@ struct PotoriApp: App {
                 }
             }
             .onOpenURL { url in
-                if url.scheme == "potori", let host = url.host {
-                    if host == "nomination" {
-                        let id = url.lastPathComponent
-                        navigation.openNominations = .init("view.nominations", nil, id, panel: .list)
-                        #if os(iOS)
-                        navigation.activePanel = .dashboard
-                        navigation.activeLink = Navigation.nominationWidgetTarget
-                        #endif
-                    }
-                } else {
-                    #if os(macOS)
+                #if os(macOS)
+                if url.scheme != "potori" {
                     GoogleKit.Auth.shared.onOpenURL(url)
-                    #endif
                 }
+                #endif
             }
     }
 }

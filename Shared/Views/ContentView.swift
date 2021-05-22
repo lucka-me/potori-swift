@@ -12,13 +12,26 @@ struct ContentView: View {
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
-    @EnvironmentObject private var navigation: Navigation
     @EnvironmentObject private var service: Service
+    @ObservedObject private var navigation = Navigation()
 
     var body: some View {
         navigationView
+            .environmentObject(navigation)
             .sheet(isPresented: $navigation.showMatchView) {
                 MatchView()
+            }
+            .onOpenURL { url in
+                if url.scheme == "potori", let host = url.host {
+                    if host == "nomination" {
+                        let id = url.lastPathComponent
+                        navigation.openNominations = .init("view.nominations", nil, id, panel: .list)
+                        #if os(iOS)
+                        navigation.activePanel = .dashboard
+                        navigation.activeLink = Navigation.nominationWidgetTarget
+                        #endif
+                    }
+                }
             }
     }
     
@@ -46,7 +59,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
             .environmentObject(Dia.preview)
             .environmentObject(Service.shared)
-            .environmentObject(navigation)
             .environment(\.managedObjectContext, Dia.preview.viewContext)
     }
 }
