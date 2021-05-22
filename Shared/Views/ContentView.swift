@@ -18,7 +18,7 @@ struct ContentView: View {
     var body: some View {
         navigationView
             .sheet(isPresented: $navigation.showMatchView) {
-                EmptyView()
+                MatchView()
             }
     }
     
