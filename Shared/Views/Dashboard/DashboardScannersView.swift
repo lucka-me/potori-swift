@@ -25,7 +25,7 @@ struct DashboardScannersView: View {
                 ForEach(0 ..< Umi.shared.scannerAll.count) { index in
                     let scanner = Umi.shared.scannerAll[index]
                     let predicate = scanner.predicate
-                    let count = dia.countNominations(predicate)
+                    let count = dia.countNominations(matches: predicate)
                     if count > 0 {
                         OpenNominationListLink(.init(scanner.title, predicate)) {
                             DashboardCard(

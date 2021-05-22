@@ -23,8 +23,8 @@ struct DashboardReasonsView: View {
                 Text("view.dashboard.reasons")
                     .font(.title2)
                     .bold()
-                let undeclaredCount = dia.countNominations(Umi.shared.reason[Umi.Reason.undeclared]!.predicate) > 0 ? 1 : 0
-                if dia.countReasons(Umi.Reason.hasNominationsPredicate) + undeclaredCount > 4 {
+                let undeclaredCount = dia.countNominations(matches: Umi.shared.reason[Umi.Reason.undeclared]!.predicate) > 0 ? 1 : 0
+                if dia.countReasons(matches: Umi.Reason.hasNominationsPredicate) + undeclaredCount > 4 {
                     Spacer()
                     Button(showMore ? "view.dashboard.reasons.less" : "view.dashboard.reasons.more") {
                         showMore.toggle()
@@ -38,7 +38,7 @@ struct DashboardReasonsView: View {
                     let reason = Umi.shared.reasonAll[index]
                     if index < 4 || showMore {
                         let predicate = reason.predicate
-                        let count = dia.countNominations(predicate)
+                        let count = dia.countNominations(matches: predicate)
                         if count > 0 {
                             OpenNominationListLink(.init(reason.title, predicate)) {
                                 DashboardCard(

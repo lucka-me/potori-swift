@@ -36,7 +36,7 @@ struct DashboardHighlightView: View {
                     let predicate = status.predicate
                     OpenNominationListLink(.init(status.title, predicate)) {
                         DashboardCard(
-                            dia.countNominations(predicate), status.title,
+                            dia.countNominations(matches: predicate), status.title,
                             systemImage: status.icon, color: status.color
                         )
                     }

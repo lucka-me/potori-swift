@@ -74,15 +74,15 @@ class Dia: ObservableObject {
         return try? viewContext.fetch(request).first
     }
     
-    func countNominations(_ withPredicate: NSPredicate? = nil) -> Int {
+    func countNominations(matches predicate: NSPredicate? = nil) -> Int {
         let request: NSFetchRequest<Nomination> = Nomination.fetchRequest()
-        request.predicate = withPredicate
+        request.predicate = predicate
         return (try? viewContext.count(for: request)) ?? 0
     }
     
-    func countReasons(_ withPredicate: NSPredicate? = nil) -> Int {
+    func countReasons(matches predicate: NSPredicate? = nil) -> Int {
         let request: NSFetchRequest<Reason> = Reason.fetchRequest()
-        request.predicate = withPredicate
+        request.predicate = predicate
         return (try? viewContext.count(for: request)) ?? 0
     }
     
