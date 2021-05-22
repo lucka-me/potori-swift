@@ -125,23 +125,17 @@ class Dia: ObservableObject {
         }
     }
     
-    func importNominations(_ url: URL) throws -> Int {
-        let data = try Data(contentsOf: url)
-        return try importNominations(data)
+    func importNominations(_ data: Data) throws -> Int {
+        let decoder = JSONDecoder()
+        let jsonList = try decoder.decode([ NominationJSON ].self, from: data)
+        let raws = jsonList.map { NominationRAW(from: $0) }
+        return save(raws, merge: true)
     }
     
     func exportNominations() -> NominationJSONDocument {
         let nominations = nominations()
         let jsons = nominations.map { $0.raw.json }
         return .init(jsons)
-    }
-    
-    @discardableResult
-    private func importNominations(_ data: Data) throws -> Int {
-        let decoder = JSONDecoder()
-        let jsonList = try decoder.decode([ NominationJSON ].self, from: data)
-        let raws = jsonList.map { NominationRAW(from: $0) }
-        return save(raws, merge: true)
     }
     
     #if DEBUG

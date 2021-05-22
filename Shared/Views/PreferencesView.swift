@@ -236,7 +236,8 @@ fileprivate struct ImportExportView: View {
                 print("Imported")
                 do {
                     let url = try result.get()
-                    let count = try dia.importNominations(url)
+                    let data = try Data(contentsOf: url)
+                    let count = try dia.importNominations(data)
                     resultMessage = "view.preferences.data.importNominations.success \(count)"
                 } catch {
                     resultMessage = "view.preferences.data.importNominations.failure \(error.localizedDescription)"
