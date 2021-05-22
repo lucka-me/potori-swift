@@ -129,6 +129,26 @@ extension Nomination : Identifiable {
         )
     }
     
+    var raw: NominationRAW {
+        let raw = NominationRAW()
+        raw.id = id
+        raw.title = title
+        raw.image = image
+        raw.scanner = Umi.Scanner.Code(rawValue: scanner) ?? .unknown
+        raw.status = Umi.Status.Code(rawValue: status) ?? .pending
+        raw.reasons = reasonsCode
+        raw.confirmedTime = UInt64(confirmedTime.timeIntervalSince1970)
+        raw.confirmationMailId = confirmationMailId
+        raw.resultTime = UInt64(resultTime.timeIntervalSince1970)
+        raw.resultMailId = resultMailId
+        if hasLngLat {
+            raw.lngLat = LngLat(lng: longitude, lat: latitude)
+        } else {
+            raw.lngLat = nil
+        }
+        return raw
+    }
+    
     func generateId() {
         id = NominationRAW.generateId(image)
     }
@@ -178,25 +198,5 @@ extension Nomination : Identifiable {
         } else if !merge {
             hasLngLat = false
         }
-    }
-    
-    func toRaw() -> NominationRAW {
-        let raw = NominationRAW()
-        raw.id = id
-        raw.title = title
-        raw.image = image
-        raw.scanner = Umi.Scanner.Code(rawValue: scanner) ?? .unknown
-        raw.status = Umi.Status.Code(rawValue: status) ?? .pending
-        raw.reasons = reasonsCode
-        raw.confirmedTime = UInt64(confirmedTime.timeIntervalSince1970)
-        raw.confirmationMailId = confirmationMailId
-        raw.resultTime = UInt64(resultTime.timeIntervalSince1970)
-        raw.resultMailId = resultMailId
-        if hasLngLat {
-            raw.lngLat = LngLat(lng: longitude, lat: latitude)
-        } else {
-            raw.lngLat = nil
-        }
-        return raw
     }
 }

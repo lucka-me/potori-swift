@@ -138,7 +138,7 @@ class Dia: ObservableObject {
     }
     
     func exportNominations() -> NominationJSONDocument {
-        let jsons = nominations.map { $0.toRaw().json }
+        let jsons = nominations.map { $0.raw.json }
         return .init(jsons)
     }
     
