@@ -106,14 +106,15 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
             action: auth.authorized ? auth.unlink : auth.link
         )
         #else
-        HStack {
-            Text("view.preferences.google.account")
-            Spacer()
-            Text(auth.authorized ? "view.preferences.google.linked" : "view.preferences.google.notLinked")
-                .foregroundColor(auth.authorized ? .green : .red)
-        }
-        .onTapGesture {
+        Button {
             isPresentedActionSheetAccount.toggle()
+        } label: {
+            HStack {
+                Text("view.preferences.google.account")
+                Spacer()
+                Text(auth.authorized ? "view.preferences.google.linked" : "view.preferences.google.notLinked")
+                    .foregroundColor(auth.authorized ? .green : .red)
+            }
         }
         .actionSheet(isPresented: $isPresentedActionSheetAccount) {
             ActionSheet(
@@ -233,14 +234,13 @@ fileprivate struct ImportExportView: View {
                 isPresented: $isPresentedImporter,
                 allowedContentTypes: NominationJSONDocument.readableContentTypes
             ) { result in
-                print("Imported")
                 do {
                     let url = try result.get()
                     let data = try Data(contentsOf: url)
                     let count = try dia.importNominations(data)
-                    resultMessage = "view.preferences.data.importNominations.success \(count)"
+                    resultMessage = "view.preferences.data.nominations.import.success \(count)"
                 } catch {
-                    resultMessage = "view.preferences.data.importNominations.failure \(error.localizedDescription)"
+                    resultMessage = "view.preferences.data.nominations.failure \(error.localizedDescription)"
                 }
                 resultAlert = .importer
             }
@@ -250,20 +250,19 @@ fileprivate struct ImportExportView: View {
                 contentType: .json,
                 defaultFilename: "nominations.json"
             ) { result in
-                print("Exported")
                 do {
                     let _ = try result.get()
-                    resultMessage = "view.preferences.data.exportNominations.success"
+                    resultMessage = "view.preferences.data.nominations.export.success"
                 } catch {
-                    resultMessage = "view.preferences.data.exportNominations.failure \(error.localizedDescription)"
+                    resultMessage = "view.preferences.data.nominations.failure \(error.localizedDescription)"
                 }
                 resultAlert = .exporter
             }
             .alert(item: $resultAlert) { type in
                 let title: LocalizedStringKey
                 switch type {
-                    case .importer: title = "view.preferences.data.importNominations"
-                    case .exporter: title = "view.preferences.data.exportNominations"
+                    case .importer: title = "view.preferences.data.import"
+                    case .exporter: title = "view.preferences.data.export"
                 }
                 return Alert(title: Text(title), message: Text(resultMessage))
             }
@@ -272,22 +271,48 @@ fileprivate struct ImportExportView: View {
     @ViewBuilder
     private var content: some View {
         #if os(macOS)
-        buttons
+        sections
         #else
-        List { buttons }
+        List { sections }
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("view.preferences.data.importExport")
         #endif
     }
     
     @ViewBuilder
-    private var buttons: some View {
-        Button("view.preferences.data.importNominations") {
-            isPresentedImporter = true
+    private var sections: some View {
+        Section(header: Text("view.preferences.data.nominations")) {
+            Button("view.preferences.data.import") {
+                isPresentedImporter = true
+            }
+            Button("view.preferences.data.export") {
+                isPresentedExporter = true
+            }
         }
-        Button("view.preferences.data.exportNominations") {
-            isPresentedExporter = true
+        Section(header: Text("view.preferences.data.wayfarer")) {
+            Button("view.preferences.data.import", action: importWayfarer)
+            Link("view.preferences.data.wayfarer.link", destination: URL(string: "https://wayfarer.nianticlabs.com/api/v1/vault/manage")!)
         }
+    }
+    
+    private func importWayfarer() {
+        #if os(macOS)
+        let json = NSPasteboard.general.string(forType: .string)
+        #else
+        let json = UIPasteboard.general.string
+        #endif
+        guard let data = json?.data(using: .utf8) else {
+            resultMessage = "view.preferences.data.wayfarer.import.empty"
+            resultAlert = .importer
+            return
+        }
+        do {
+            let count = try dia.importWayfarer(data)
+            resultMessage = "view.preferences.data.wayfarer.import.success \(count)"
+        } catch {
+            resultMessage = "view.preferences.data.wayfarer.failure \(error.localizedDescription)"
+        }
+        resultAlert = .importer
     }
 }
 
