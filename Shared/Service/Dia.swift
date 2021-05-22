@@ -42,6 +42,7 @@ class Dia: ObservableObject {
             }
         }
         viewContext = container.viewContext
+        viewContext.automaticallyMergesChangesFromParent = true
         viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
     }
     
