@@ -32,7 +32,7 @@ struct DashboardHighlightView: View {
                     )
                 }
                 
-                ForEach(Umi.shared.statusAll, id: \.code) { status in
+                ForEach(Umi.shared.statusAll) { status in
                     let predicate = status.predicate
                     OpenNominationListLink(.init(status.title, predicate)) {
                         DashboardCard(

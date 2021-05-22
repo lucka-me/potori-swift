@@ -37,7 +37,7 @@ final class Umi {
     }
     
     // Status
-    class Status {
+    class Status: Identifiable {
         
         enum Code: Int16 {
             case pending = 0
