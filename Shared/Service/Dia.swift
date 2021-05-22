@@ -60,15 +60,12 @@ class Dia: ObservableObject {
         return (try? viewContext.fetch(request)) ?? []
     }
     
-    func firstNomination(matches predicate: NSPredicate) -> Nomination? {
+    func firstNomination(
+        matches predicate: NSPredicate? = nil,
+        sortedBy descriptors: [ NSSortDescriptor ] = []
+    ) -> Nomination? {
         let request: NSFetchRequest<Nomination> = Nomination.fetchRequest()
         request.predicate = predicate
-        request.fetchLimit = 1
-        return try? viewContext.fetch(request).first
-    }
-    
-    func firstNomination(sortBy descriptors: [NSSortDescriptor]) -> Nomination? {
-        let request: NSFetchRequest<Nomination> = Nomination.fetchRequest()
         request.sortDescriptors = descriptors
         request.fetchLimit = 1
         return try? viewContext.fetch(request).first

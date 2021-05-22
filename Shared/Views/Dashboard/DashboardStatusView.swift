@@ -22,7 +22,7 @@ struct DashboardStatusView: View {
                     .buttonStyle(CardView.ButtonStyle())
                     .foregroundColor(.accentColor)
             } else if service.status == .idle {
-                if let latest = dia.firstNomination(sortBy: Nomination.sortDescriptorsByDate) {
+                if let latest = dia.firstNomination(sortedBy: Nomination.sortDescriptorsByDate) {
                     HStack(alignment: .firstTextBaseline) {
                         Text("view.dashboard.status.latest")
                         Spacer()
