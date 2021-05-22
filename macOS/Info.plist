@@ -41,5 +41,7 @@
 	<array>
 		<string>NominationWidgetConfigurationIntent</string>
 	</array>
+	<key>CDAppIdentifierPrefix</key>
+	<string>$(AppIdentifierPrefix)</string>
 </dict>
 </plist>

@@ -6,5 +6,9 @@
 	<array>
 		<string>group.dev.lucka.potori</string>
 	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)dev.lucka.Potori</string>
+	</array>
 </dict>
 </plist>

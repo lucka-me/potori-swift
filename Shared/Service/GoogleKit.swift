@@ -94,15 +94,15 @@ final class GoogleKit {
         private func saveAuth() {
             if let solidAuth = authorization, solidAuth.canAuthorize() {
                 authorized = solidAuth.authState.isAuthorized
-                GTMAppAuthFetcherAuthorization.save(solidAuth, toKeychainForName: Self.authKeychainName)
+                GTMAppAuthFetcherAuthorization.save(solidAuth, toSharedKeychainForName: Self.authKeychainName)
             } else {
                 authorized = false
-                GTMAppAuthFetcherAuthorization.removeFromKeychain(forName: Self.authKeychainName)
+                GTMAppAuthFetcherAuthorization.removeFromSharedKeychain(forName: Self.authKeychainName)
             }
         }
         
         private func loadAuth() {
-            authorization = GTMAppAuthFetcherAuthorization(fromKeychainForName: Self.authKeychainName)
+            authorization = GTMAppAuthFetcherAuthorization.fromSharedKeychain(forName: Self.authKeychainName)
             saveAuth()
         }
     }
@@ -207,10 +207,6 @@ final class GoogleKit {
                 self.fileID[pack.filename] = id
                 pack.completionHandler(content)
             }
-        }
-        
-        private func delete(_ id: String) {
-            driveService.executeQuery(GTLRDriveQuery_FilesDelete.query(withFileId: id))
         }
     }
     

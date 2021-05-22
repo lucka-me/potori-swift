@@ -46,7 +46,6 @@
 		8430E2DD25C31730008F1BAC /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E2A125C304B9008F1BAC /* FileManager.swift */; };
 		8434023C25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */; };
 		8434023D25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */; };
-		8434024325C03A9600DCFFCB /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */; };
 		843B000026580B8F0031963C /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 843BFFFF26580B8F0031963C /* AppAuth */; };
 		843B000226580BA60031963C /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 843B000126580BA60031963C /* GTMAppAuth */; };
 		843B000426580BAD0031963C /* GoogleAPIClientForREST_Gmail in Frameworks */ = {isa = PBXBuildFile; productRef = 843B000326580BAD0031963C /* GoogleAPIClientForREST_Gmail */; };
@@ -55,9 +54,12 @@
 		843B000A26580BC70031963C /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 843B000926580BC70031963C /* GTMAppAuth */; };
 		843B000C26580BCC0031963C /* GoogleAPIClientForREST_Gmail in Frameworks */ = {isa = PBXBuildFile; productRef = 843B000B26580BCC0031963C /* GoogleAPIClientForREST_Gmail */; };
 		843B000E26580BD20031963C /* GoogleAPIClientForREST_Drive in Frameworks */ = {isa = PBXBuildFile; productRef = 843B000D26580BD20031963C /* GoogleAPIClientForREST_Drive */; };
-		843B000F2658B1A50031963C /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */; };
 		843B00102658B1A60031963C /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */; };
 		843B00112658B1A60031963C /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */; };
+		843B00132658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843B00122658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift */; };
+		843B00142658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843B00122658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift */; };
+		843B00152658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843B00122658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift */; };
+		843B00162658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843B00122658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift */; };
 		843BEF38259F07CF00FC17F9 /* TabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF37259F07CF00FC17F9 /* TabNavigation.swift */; };
 		843BEF48259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */; };
 		843BEF49259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */; };
@@ -305,6 +307,7 @@
 		8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationContextMenu.swift; sourceTree = "<group>"; };
 		8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
 		843463E525B20E3D008A03CB /* pre-build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "pre-build.sh"; sourceTree = "<group>"; };
+		843B00122658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTMAppAuthFetcherAuthorization.swift; sourceTree = "<group>"; };
 		843BEF37259F07CF00FC17F9 /* TabNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigation.swift; sourceTree = "<group>"; };
 		843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarNavigation.swift; sourceTree = "<group>"; };
 		843BFFEB2656822C0031963C /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
@@ -479,6 +482,7 @@
 				8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */,
 				846C48EE26439BCA0017BE48 /* URLSession.swift */,
 				843BFFF22657C88A0031963C /* UserDefaults.swift */,
+				843B00122658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1078,6 +1082,7 @@
 				843BEF48259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */,
 				8497C76925B81BB500B88C12 /* Reason.swift in Sources */,
 				849178822599F81700CD967F /* PotoriApp.swift in Sources */,
+				843B00132658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */,
 				846CC5B725A359DD007A8AE8 /* NominationJSON.swift in Sources */,
 				8430E2A225C304B9008F1BAC /* FileManager.swift in Sources */,
 				84F97C78259B7474005D9AA4 /* ContentView.swift in Sources */,
@@ -1093,7 +1098,6 @@
 				843BEF38259F07CF00FC17F9 /* TabNavigation.swift in Sources */,
 				843BFFEC2656822C0031963C /* Array.swift in Sources */,
 				8468A22C25A33784009B562D /* Potori.xcdatamodeld in Sources */,
-				8434024325C03A9600DCFFCB /* UNUserNotificationCenter.swift in Sources */,
 				840A15F725BD62D200541ED5 /* DashboardScannersView.swift in Sources */,
 				8434023C25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */,
 				84BFD364259F46530047318D /* Mari.swift in Sources */,
@@ -1127,6 +1131,7 @@
 				84177FBA25B2F079009CC4E9 /* MatchView.swift in Sources */,
 				849178832599F81700CD967F /* PotoriApp.swift in Sources */,
 				843BEF49259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */,
+				843B00142658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */,
 				842F6C6C259CAA7A0063DCFE /* PotoriCommands.swift in Sources */,
 				84F7359C25B830E8003DE878 /* DashboardView.swift in Sources */,
 				843BFFF42657C88A0031963C /* UserDefaults.swift in Sources */,
@@ -1145,7 +1150,6 @@
 				849178A8259A06E000CD967F /* NominationList.swift in Sources */,
 				849178BF259A0D8D00CD967F /* NominationRAW.swift in Sources */,
 				84BFD365259F46530047318D /* Mari.swift in Sources */,
-				843B000F2658B1A50031963C /* UNUserNotificationCenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1169,6 +1173,7 @@
 				8430E2DD25C31730008F1BAC /* FileManager.swift in Sources */,
 				846C48F426439BCA0017BE48 /* URLSession.swift in Sources */,
 				843BFFFC26580B690031963C /* Mari.swift in Sources */,
+				843B00162658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */,
 				84DDF94725C1B59400942E87 /* Umi.swift in Sources */,
 				8430E2D525C31725008F1BAC /* Potori.xcdatamodeld in Sources */,
 				846C48E6264396E30017BE48 /* Widget.intentdefinition in Sources */,
@@ -1211,6 +1216,7 @@
 				8430E2DC25C31730008F1BAC /* FileManager.swift in Sources */,
 				846C48F326439BCA0017BE48 /* URLSession.swift in Sources */,
 				843BFFFB26580B690031963C /* Mari.swift in Sources */,
+				843B00152658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */,
 				8475B66725C1750F002D7915 /* Umi.swift in Sources */,
 				8430E2D425C31725008F1BAC /* Potori.xcdatamodeld in Sources */,
 				846C48E5264396E30017BE48 /* Widget.intentdefinition in Sources */,
