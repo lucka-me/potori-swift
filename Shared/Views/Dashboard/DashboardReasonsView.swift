@@ -9,10 +9,6 @@ import SwiftUI
 
 struct DashboardReasonsView: View {
     
-    #if os(macOS)
-    @EnvironmentObject var navigation: Navigation
-    #endif
-    
     @EnvironmentObject private var dia: Dia
     
     @State private var showMore = false
@@ -23,8 +19,7 @@ struct DashboardReasonsView: View {
                 Text("view.dashboard.reasons")
                     .font(.title2)
                     .bold()
-                let undeclaredCount = dia.countNominations(matches: Umi.shared.reason[Umi.Reason.undeclared]!.predicate) > 0 ? 1 : 0
-                if dia.countReasons(matches: Umi.Reason.hasNominationsPredicate) + undeclaredCount > 4 {
+                if hasMore {
                     Spacer()
                     Button(showMore ? "view.dashboard.reasons.less" : "view.dashboard.reasons.more") {
                         showMore.toggle()
@@ -34,25 +29,39 @@ struct DashboardReasonsView: View {
             }
             
             LazyVGrid(columns: DashboardView.columns, alignment: .leading) {
-                ForEach(0 ..< Umi.shared.reasonAll.count) { index in
-                    let reason = Umi.shared.reasonAll[index]
-                    if index < 4 || showMore {
-                        let predicate = reason.predicate
-                        let count = dia.countNominations(matches: predicate)
-                        if count > 0 {
-                            OpenNominationListLink(.init(reason.title, predicate)) {
-                                DashboardCard(
-                                    count, reason.title,
-                                    systemImage: reason.icon, color: .red
-                                )
-                            }
-                        }
+                ForEach(reasons) { reason in
+                    let predicate = reason.predicate
+                    OpenNominationListLink(.init(reason.title, predicate)) {
+                        DashboardCard(
+                            dia.countNominations(matches: predicate), reason.title,
+                            systemImage: reason.icon, color: .red
+                        )
                     }
                 }
             }
         }
         .padding(.top, 3)
         .padding(.horizontal)
+    }
+    
+    private var hasMore: Bool {
+        let predicate = Umi.shared.reason[Umi.Reason.undeclared]!.predicate
+        let undeclaredCount = dia.countNominations(matches: predicate) > 0 ? 1 : 0
+        return dia.countReasons(matches: Umi.Reason.hasNominationsPredicate) + undeclaredCount > 4
+    }
+    
+    private var reasons: [ Umi.Reason ] {
+        var list: [ Umi.Reason ] = []
+        for reason in Umi.shared.reasonAll {
+            let predicate = reason.predicate
+            if dia.countNominations(matches: predicate) > 0 {
+                list.append(reason)
+            }
+            if !showMore && list.count == 4 {
+                break
+            }
+        }
+        return list
     }
 }
 
