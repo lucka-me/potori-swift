@@ -110,26 +110,6 @@ final class Service: ObservableObject {
         }
     }
     
-    func importNominations(url: URL) throws -> Int {
-        let data = try Data(contentsOf: url)
-        return try importNominations(data: data)
-    }
-    
-    @discardableResult
-    func importNominations(data: Data) throws -> Int {
-        let decoder = JSONDecoder()
-        let jsonList = try decoder.decode([NominationJSON].self, from: data)
-        let raws = jsonList.map { NominationRAW(from: $0) }
-        return save(raws, merge: true)
-    }
-    
-    func exportNominations() -> NominationJSONDocument {
-        let nominations = Dia.shared.nominations
-        let raws = nominations.map { $0.toRaw() }
-        let jsons = raws.map { $0.json }
-        return .init(jsons)
-    }
-    
     private func download(_ file: NominationFile = .standard, completionHandler: @escaping ImportCompletionHandler) {
         self.set(status: .syncing)
         GoogleKit.Drive.shared.download(file.rawValue) { (json: [ NominationJSON ]?) in
@@ -138,7 +118,7 @@ final class Service: ObservableObject {
                 return
             }
             let raws = solidJSON.map { NominationRAW(from: $0) }
-            completionHandler(self.save(raws, merge: true))
+            completionHandler(Dia.shared.save(raws, merge: true))
         }
     }
     
@@ -160,30 +140,6 @@ final class Service: ObservableObject {
         DispatchQueue.main.async {
             self.status = status
         }
-    }
-    
-    @discardableResult
-    private func save(_ raws: [NominationRAW], merge: Bool = false) -> Int {
-        let existings = Dia.shared.nominations
-        var addCount = 0
-        for raw in raws {
-            var saved = false
-            for nomination in existings {
-                if nomination.id != raw.id {
-                    continue
-                }
-                nomination.from(raw, merge: merge)
-                saved = true
-                break
-            }
-            if !saved {
-                let newNomination = Nomination(context: Dia.shared.viewContext)
-                newNomination.from(raw)
-                addCount += 1
-            }
-        }
-        Dia.shared.save()
-        return addCount
     }
     
     private func processMails() {
@@ -273,7 +229,7 @@ final class Service: ObservableObject {
     }
     
     private func saveAndSync(_ raws: [NominationRAW], _ mergeCount: Int) {
-        let updateCount = save(raws) + mergeCount
+        let updateCount = Dia.shared.save(raws) + mergeCount
         if UserDefaults.Google.sync {
             upload {
                 self.set(status: .idle)

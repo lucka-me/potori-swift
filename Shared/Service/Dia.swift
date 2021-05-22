@@ -93,6 +93,30 @@ class Dia: ObservableObject {
         }
     }
     
+    @discardableResult
+    func save(_ raws: [ NominationRAW ], merge: Bool = false) -> Int {
+        let existings = nominations
+        var count = 0
+        for raw in raws {
+            var saved = false
+            for nomination in existings {
+                if nomination.id != raw.id {
+                    continue
+                }
+                nomination.from(raw, merge: merge)
+                saved = true
+                break
+            }
+            if !saved {
+                let newNomination = Nomination(context: Dia.shared.viewContext)
+                newNomination.from(raw)
+                count += 1
+            }
+        }
+        save()
+        return count
+    }
+    
     /// Save changes and refresh the UI by refreshing saveID
     func save() {
         if !viewContext.hasChanges {
@@ -106,6 +130,24 @@ class Dia: ObservableObject {
         } catch {
             print("[CoreData][Save] Failed: \(error.localizedDescription)")
         }
+    }
+    
+    func importNominations(_ url: URL) throws -> Int {
+        let data = try Data(contentsOf: url)
+        return try importNominations(data)
+    }
+    
+    func exportNominations() -> NominationJSONDocument {
+        let jsons = nominations.map { $0.toRaw().json }
+        return .init(jsons)
+    }
+    
+    @discardableResult
+    private func importNominations(_ data: Data) throws -> Int {
+        let decoder = JSONDecoder()
+        let jsonList = try decoder.decode([ NominationJSON ].self, from: data)
+        let raws = jsonList.map { NominationRAW(from: $0) }
+        return save(raws, merge: true)
     }
     
     #if DEBUG

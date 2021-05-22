@@ -45,7 +45,8 @@ struct PreferencesView : View {
 struct Preferences_Previews: PreviewProvider {
     static var previews: some View {
         PreferencesView()
-            .environmentObject(Service.shared)
+            .environmentObject(Dia.preview)
+            .environmentObject(Service.preview)
     }
 }
 #endif
@@ -219,7 +220,7 @@ fileprivate struct ImportExportView: View {
         var id: Int { self.hashValue }
     }
 
-    @EnvironmentObject var service: Service
+    @EnvironmentObject var dia: Dia
     
     @State private var isPresentedExporter = false
     @State private var isPresentedImporter = false
@@ -235,7 +236,7 @@ fileprivate struct ImportExportView: View {
                 print("Imported")
                 do {
                     let url = try result.get()
-                    let count = try service.importNominations(url: url)
+                    let count = try dia.importNominations(url)
                     resultMessage = "view.preferences.data.importNominations.success \(count)"
                 } catch {
                     resultMessage = "view.preferences.data.importNominations.failure \(error.localizedDescription)"
@@ -244,7 +245,7 @@ fileprivate struct ImportExportView: View {
             }
             .fileExporter(
                 isPresented: $isPresentedExporter,
-                document: service.exportNominations(),
+                document: dia.exportNominations(),
                 contentType: .json,
                 defaultFilename: "nominations.json"
             ) { result in
