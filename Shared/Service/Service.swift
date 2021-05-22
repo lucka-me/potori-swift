@@ -65,9 +65,7 @@ final class Service: ObservableObject {
     
     private var refreshCompletionHandler: RefreshCompletionHandler = { _, _ in }
     
-    private init() {
-
-    }
+    private init() { }
     
     /// Migrate data from potori.json
     func migrateFromGoogleDrive(_ completionHandler: @escaping ImportCompletionHandler) {
@@ -242,7 +240,7 @@ final class Service: ObservableObject {
     }
     
     #if DEBUG
-    static var preview: Service = {
+    static let preview: Service = {
         let forPreview = Service()
         forPreview.matchData.packs = [
             MatchPack.preview(0),

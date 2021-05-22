@@ -151,7 +151,7 @@ class Dia: ObservableObject {
     }
     
     #if DEBUG
-    static var preview: Dia = {
+    static let preview: Dia = {
         let forPreview = Dia(inMemory: true)
         let viewContext = forPreview.viewContext
         do {
