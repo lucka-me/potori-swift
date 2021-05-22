@@ -477,12 +477,12 @@
 			children = (
 				843BFFEB2656822C0031963C /* Array.swift */,
 				8430E2A125C304B9008F1BAC /* FileManager.swift */,
+				843B00122658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift */,
 				846C48E726439B6C0017BE48 /* Image.swift */,
 				84FB4D1F265401C900AAA9A3 /* String.swift */,
 				8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */,
 				846C48EE26439BCA0017BE48 /* URLSession.swift */,
 				843BFFF22657C88A0031963C /* UserDefaults.swift */,
-				843B00122658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";

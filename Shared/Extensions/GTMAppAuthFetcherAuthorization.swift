@@ -23,7 +23,7 @@ extension GTMAppAuthFetcherAuthorization {
         var authRef: CFTypeRef? = nil
         guard
             SecItemCopyMatching(query as CFDictionary, &authRef) == errSecSuccess,
-            let authData = authRef?.copy() as? Data,
+            let authData = authRef as? Data,
             let auth = try? NSKeyedUnarchiver.unarchivedObject(ofClass: self, from: authData)
         else {
             return nil
