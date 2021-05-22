@@ -8,6 +8,7 @@
 import WidgetKit
 import SwiftUI
 import Intents
+import UserNotifications
 
 struct NominationWidget: Widget {
     
