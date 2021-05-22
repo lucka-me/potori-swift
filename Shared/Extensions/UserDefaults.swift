@@ -8,7 +8,13 @@
 import Foundation
 
 extension UserDefaults {
-    static let shared = UserDefaults(suiteName: FileManager.appGroupIdentifier) ?? standard
+    static let shared: UserDefaults = {
+        guard let store = UserDefaults(suiteName: FileManager.appGroupIdentifier) else {
+            return standard
+        }
+        store.register()
+        return store
+    }()
 }
 
 extension UserDefaults {
@@ -22,8 +28,8 @@ extension UserDefaults {
         static let keyQueryAfterLatest = "pref.general.queryAfterLatest"
         static var queryAfterLatest: Bool { shared.bool(forKey: keyQueryAfterLatest) }
         
-        fileprivate static func register(migrate: Bool) {
-            UserDefaults.standard.register(defaults: [
+        fileprivate static func register(_ store: UserDefaults, migrate: Bool) {
+            store.register(defaults: [
                 keyRefreshOnOpen    : migrate ? standard.bool(forKey: keyRefreshOnOpen      ) : false,
                 keyBackgroundRefresh: migrate ? standard.bool(forKey: keyBackgroundRefresh  ) : false,
                 keyQueryAfterLatest : migrate ? standard.bool(forKey: keyQueryAfterLatest   ) : true,
@@ -39,8 +45,8 @@ extension UserDefaults {
         static let keySync = "pref.google.sync"
         static var sync: Bool { shared.bool(forKey: keySync) }
         
-        fileprivate static func register(migrate: Bool) {
-            shared.register(defaults: [
+        fileprivate static func register(_ store: UserDefaults, migrate: Bool) {
+            store.register(defaults: [
                 keySync: migrate ? standard.bool(forKey: keySync) : false
             ])
             if migrate {
@@ -49,9 +55,9 @@ extension UserDefaults {
         }
     }
     
-    static func register() {
-        let migrate = standard.dictionaryRepresentation().keys.contains(General.keyRefreshOnOpen)
-        General.register(migrate: migrate)
-        Google.register(migrate: migrate)
+    private func register() {
+        let migrate = Self.standard.dictionaryRepresentation().keys.contains(General.keyRefreshOnOpen)
+        General.register(self, migrate: migrate)
+        Google.register(self, migrate: migrate)
     }
 }

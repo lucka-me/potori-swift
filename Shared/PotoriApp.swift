@@ -44,9 +44,6 @@ struct PotoriApp: App {
             .onAppear {
                 if firstAppear {
                     firstAppear = false
-                    #if os(macOS)
-                    UserDefaults.register()
-                    #endif
                     if UserDefaults.General.refreshOnOpen {
                         service.refresh()
                     }
