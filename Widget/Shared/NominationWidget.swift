@@ -188,7 +188,7 @@ struct NominationWidget: Widget {
 #if DEBUG
 struct NominationWidget_Previews: PreviewProvider {
     static var previews: some View {
-        let nomination = Dia.preview.nominations[0]
+        let nomination = Dia.preview.nominations()[0]
         NominationWidget.EntryView(
             entry: .init(
                 Date(),

@@ -35,7 +35,7 @@ struct NominationDetailsMap: View {
 struct NominationDetailsMap_Previews: PreviewProvider {
     
     static var previews: some View {
-        NominationDetailsMap(nomination: Dia.preview.nominations[0])
+        NominationDetailsMap(nomination: Dia.preview.nominations()[0])
     }
 }
 #endif

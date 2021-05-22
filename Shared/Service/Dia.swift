@@ -46,15 +46,7 @@ class Dia: ObservableObject {
         viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
     }
     
-    var nominations: [Nomination] {
-        nominations(matches: nil)
-    }
-    
-    var isNominationsEmpty: Bool {
-        countNominations() == 0
-    }
-    
-    func nominations(matches predicate: NSPredicate?) -> [Nomination] {
+    func nominations(matches predicate: NSPredicate? = nil) -> [Nomination] {
         let request: NSFetchRequest<Nomination> = Nomination.fetchRequest()
         request.predicate = predicate
         return (try? viewContext.fetch(request)) ?? []
@@ -88,6 +80,7 @@ class Dia: ObservableObject {
     }
     
     func clear() {
+        let nominations = nominations()
         for nomination in nominations {
             viewContext.delete(nomination)
         }
@@ -95,7 +88,7 @@ class Dia: ObservableObject {
     
     @discardableResult
     func save(_ raws: [ NominationRAW ], merge: Bool = false) -> Int {
-        let existings = nominations
+        let existings = nominations()
         var count = 0
         for raw in raws {
             var saved = false
@@ -138,6 +131,7 @@ class Dia: ObservableObject {
     }
     
     func exportNominations() -> NominationJSONDocument {
+        let nominations = nominations()
         let jsons = nominations.map { $0.raw.json }
         return .init(jsons)
     }

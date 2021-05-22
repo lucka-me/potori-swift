@@ -35,7 +35,7 @@ final class Service: ObservableObject {
         
         #if DEBUG
         static func preview(_ index: Int) -> MatchPack {
-            let nominations = Dia.preview.nominations.sorted { $0.title < $1.title }
+            let nominations = Dia.preview.nominations().sorted { $0.title < $1.title }
             let pack = MatchPack(nominations[index].raw)
             pack.candidates = nominations.map { $0.raw }
             return pack
@@ -122,7 +122,7 @@ final class Service: ObservableObject {
     
     func upload(_ completionHandler: @escaping () -> Void) {
         set(status: .syncing)
-        let nominations = Dia.shared.nominations
+        let nominations = Dia.shared.nominations()
         let raws = nominations.map { $0.raw }
         let jsons = raws.map { $0.json }
         let encoder = JSONEncoder()
@@ -141,7 +141,8 @@ final class Service: ObservableObject {
     }
     
     private func processMails() {
-        let raws = Dia.shared.nominations.map { $0.raw }
+        let nominations = Dia.shared.nominations()
+        let raws = nominations.map { $0.raw }
         set(status: .processingMails)
         let started = Mari.shared.start(with: raws) { nominations in
             self.arrange(nominations)

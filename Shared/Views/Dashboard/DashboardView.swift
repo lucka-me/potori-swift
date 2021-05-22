@@ -34,7 +34,7 @@ struct DashboardView: View {
                 }
                 #endif
                 DashboardStatusView()
-                if service.status == .idle && !dia.isNominationsEmpty {
+                if service.status == .idle && dia.countNominations() > 0 {
                     DashboardHighlightView()
                     DashboardGalleryView()
                     DashboardScannersView()

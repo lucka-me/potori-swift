@@ -234,7 +234,7 @@ struct NominationDetails: View {
 struct NominationDetails_Previews: PreviewProvider {
     
     static var previews: some View {
-        NominationDetails(nomination: Dia.preview.nominations[0])
+        NominationDetails(nomination: Dia.preview.nominations()[0])
             .environmentObject(Dia.preview)
     }
 }
