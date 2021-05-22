@@ -138,6 +138,29 @@ class Dia: ObservableObject {
         return .init(jsons)
     }
     
+    func importWayfarer(_ data: Data) throws -> Int {
+        let decoder = JSONDecoder()
+        let response = try decoder.decode(WayfarerResponse.self, from: data)
+        let nominations = nominations()
+        let dict = Dictionary(uniqueKeysWithValues: nominations.map { ( $0.id, $0 ) })
+        var count = 0
+        for item in response.result {
+            let id = NominationRAW.generateId(item.imageUrl)
+            guard
+                let nomination = dict[id],
+                !nomination.hasLngLat
+            else {
+                continue
+            }
+            nomination.longitude = item.lng
+            nomination.latitude = item.lat
+            nomination.hasLngLat = true
+            count += 1
+        }
+        save()
+        return count
+    }
+    
     #if DEBUG
     static let preview: Dia = {
         let forPreview = Dia(inMemory: true)
@@ -158,4 +181,14 @@ class Dia: ObservableObject {
         return forPreview
     }()
     #endif
+}
+
+fileprivate struct WayfarerItem: Decodable {
+    let imageUrl: String
+    let lng: Double
+    let lat: Double
+}
+
+fileprivate struct WayfarerResponse: Decodable {
+    let result: [ WayfarerItem ]
 }
