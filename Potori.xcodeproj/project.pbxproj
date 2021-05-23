@@ -86,9 +86,6 @@
 		844A9AAE25A4BD21003E44B5 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */; };
 		844A9AAF25A4BD21003E44B5 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */; };
 		844E157725A0659300A79C9E /* GoogleAPIClientForREST_Gmail in Frameworks */ = {isa = PBXBuildFile; productRef = 844E157625A0659300A79C9E /* GoogleAPIClientForREST_Gmail */; };
-		844E157925A065A000A79C9E /* GTMSessionFetcher in Frameworks */ = {isa = PBXBuildFile; productRef = 844E157825A065A000A79C9E /* GTMSessionFetcher */; };
-		844E157F25A065FB00A79C9E /* GoogleAPIClientForRESTCore in Frameworks */ = {isa = PBXBuildFile; productRef = 844E157E25A065FB00A79C9E /* GoogleAPIClientForRESTCore */; };
-		844E158125A0660200A79C9E /* GoogleAPIClientForRESTCore in Frameworks */ = {isa = PBXBuildFile; productRef = 844E158025A0660200A79C9E /* GoogleAPIClientForRESTCore */; };
 		8462D088259FBA030031AD0D /* NominationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D087259FBA030031AD0D /* NominationMap.swift */; };
 		8462D089259FBA030031AD0D /* NominationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D087259FBA030031AD0D /* NominationMap.swift */; };
 		8462D0A525A0643F0031AD0D /* GoogleAPIClientForREST_Gmail in Frameworks */ = {isa = PBXBuildFile; productRef = 8462D0A425A0643F0031AD0D /* GoogleAPIClientForREST_Gmail */; };
@@ -391,10 +388,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				84E97F9225A4A49B0031FE3B /* GoogleAPIClientForREST_Drive in Frameworks */,
-				844E157F25A065FB00A79C9E /* GoogleAPIClientForRESTCore in Frameworks */,
 				8400355E259F7732003C97EA /* AppAuth in Frameworks */,
 				844E157725A0659300A79C9E /* GoogleAPIClientForREST_Gmail in Frameworks */,
-				844E157925A065A000A79C9E /* GTMSessionFetcher in Frameworks */,
 				8472B4D62621A9B800BF8131 /* GTMAppAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -404,7 +399,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				84E97F9025A4A4900031FE3B /* GoogleAPIClientForREST_Drive in Frameworks */,
-				844E158125A0660200A79C9E /* GoogleAPIClientForRESTCore in Frameworks */,
 				84003556259F613F003C97EA /* AppAuth in Frameworks */,
 				8462D0A525A0643F0031AD0D /* GoogleAPIClientForREST_Gmail in Frameworks */,
 				8472B4DE2621A9CC00BF8131 /* GTMAppAuth in Frameworks */,
@@ -785,8 +779,6 @@
 			packageProductDependencies = (
 				8400355D259F7732003C97EA /* AppAuth */,
 				844E157625A0659300A79C9E /* GoogleAPIClientForREST_Gmail */,
-				844E157825A065A000A79C9E /* GTMSessionFetcher */,
-				844E157E25A065FB00A79C9E /* GoogleAPIClientForRESTCore */,
 				84E97F9125A4A49B0031FE3B /* GoogleAPIClientForREST_Drive */,
 				8472B4D52621A9B800BF8131 /* GTMAppAuth */,
 			);
@@ -813,7 +805,6 @@
 			packageProductDependencies = (
 				84003555259F613F003C97EA /* AppAuth */,
 				8462D0A425A0643F0031AD0D /* GoogleAPIClientForREST_Gmail */,
-				844E158025A0660200A79C9E /* GoogleAPIClientForRESTCore */,
 				84E97F8F25A4A4900031FE3B /* GoogleAPIClientForREST_Drive */,
 				8472B4DD2621A9CC00BF8131 /* GTMAppAuth */,
 			);
@@ -934,7 +925,6 @@
 			packageReferences = (
 				84003554259F613F003C97EA /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
 				8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */,
-				844E156F25A0657300A79C9E /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */,
 				8472B4D42621A9B800BF8131 /* XCRemoteSwiftPackageReference "GTMAppAuth" */,
 			);
 			productRefGroup = 849178612599F81700CD967F /* Products */;
@@ -1845,14 +1835,6 @@
 				minimumVersion = 1.4.0;
 			};
 		};
-		844E156F25A0657300A79C9E /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/woxtu/gtm-session-fetcher.git";
-			requirement = {
-				branch = "fix-spm";
-				kind = branch;
-			};
-		};
 		8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/woxtu/google-api-objectivec-client-for-rest.git";
@@ -1926,21 +1908,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
 			productName = GoogleAPIClientForREST_Gmail;
-		};
-		844E157825A065A000A79C9E /* GTMSessionFetcher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 844E156F25A0657300A79C9E /* XCRemoteSwiftPackageReference "gtm-session-fetcher" */;
-			productName = GTMSessionFetcher;
-		};
-		844E157E25A065FB00A79C9E /* GoogleAPIClientForRESTCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
-			productName = GoogleAPIClientForRESTCore;
-		};
-		844E158025A0660200A79C9E /* GoogleAPIClientForRESTCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
-			productName = GoogleAPIClientForRESTCore;
 		};
 		8462D0A425A0643F0031AD0D /* GoogleAPIClientForREST_Gmail */ = {
 			isa = XCSwiftPackageProductDependency;
