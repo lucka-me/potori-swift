@@ -97,6 +97,7 @@
 "view.details.location.hint"    = "Latitude,Longitude";
 "view.details.location.invalid" = "Invalid";
 "view.details.location.paste"   = "Paste Intel Maps URL";
+"view.details.location.brainstorming"   = "Query Brainstorming";
 
 // RemoteImage
 "view.image.open"   = "Open";

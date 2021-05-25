@@ -156,6 +156,12 @@
 		84BFD365259F46530047318D /* Mari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BFD363259F46530047318D /* Mari.swift */; };
 		84C769A725A706A60055A3A9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84C769AA25A706A60055A3A9 /* Localizable.strings */; };
 		84C769A825A706A60055A3A9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84C769AA25A706A60055A3A9 /* Localizable.strings */; };
+		84C9263E265BDC0100F240F2 /* Brainstorming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C9263D265BDC0100F240F2 /* Brainstorming.swift */; };
+		84C9263F265BDC0100F240F2 /* Brainstorming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C9263D265BDC0100F240F2 /* Brainstorming.swift */; };
+		84C92640265BDC0100F240F2 /* Brainstorming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C9263D265BDC0100F240F2 /* Brainstorming.swift */; };
+		84C92641265BDC0100F240F2 /* Brainstorming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C9263D265BDC0100F240F2 /* Brainstorming.swift */; };
+		84C92642265BDC0100F240F2 /* Brainstorming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C9263D265BDC0100F240F2 /* Brainstorming.swift */; };
+		84C92643265BDC0100F240F2 /* Brainstorming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C9263D265BDC0100F240F2 /* Brainstorming.swift */; };
 		84CCEDC2259CB5470040917E /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCEDC1259CB5470040917E /* RemoteImage.swift */; };
 		84CCEDC3259CB5470040917E /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCEDC1259CB5470040917E /* RemoteImage.swift */; };
 		84DB6EA3259A2B1F00BD915B /* Umi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6EA2259A2B1F00BD915B /* Umi.swift */; };
@@ -349,6 +355,7 @@
 		84BFD363259F46530047318D /* Mari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mari.swift; sourceTree = "<group>"; };
 		84C769A925A706A60055A3A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		84C769C325A714410055A3A9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		84C9263D265BDC0100F240F2 /* Brainstorming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brainstorming.swift; sourceTree = "<group>"; };
 		84CCEDC1259CB5470040917E /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
 		84DB6EA2259A2B1F00BD915B /* Umi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Umi.swift; sourceTree = "<group>"; };
 		84DB6ED0259A3D5D00BD915B /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
@@ -663,6 +670,7 @@
 		849178B8259A0B6300CD967F /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				84C9263D265BDC0100F240F2 /* Brainstorming.swift */,
 				8430E27D25C3021F008F1BAC /* Dia.swift */,
 				846645EB25A8DAA200DD37D1 /* GoogleKit.swift */,
 				84BFD363259F46530047318D /* Mari.swift */,
@@ -1040,6 +1048,7 @@
 				846C48EB26439B6C0017BE48 /* Image.swift in Sources */,
 				846C48F226439BCA0017BE48 /* URLSession.swift in Sources */,
 				84E2EBA825BC42A8007B2000 /* Umi.swift in Sources */,
+				84C92641265BDC0100F240F2 /* Brainstorming.swift in Sources */,
 				843BFFF62657C88A0031963C /* UserDefaults.swift in Sources */,
 				84E2EBA425BC428D007B2000 /* TestsUmi.swift in Sources */,
 			);
@@ -1067,6 +1076,7 @@
 				846C48F626439F260017BE48 /* CardView.swift in Sources */,
 				846C48E826439B6C0017BE48 /* Image.swift in Sources */,
 				8491789B2599F92C00CD967F /* NominationListRow.swift in Sources */,
+				84C9263E265BDC0100F240F2 /* Brainstorming.swift in Sources */,
 				846C48E3264396E30017BE48 /* Widget.intentdefinition in Sources */,
 				84B8A54725B85045000B0C0E /* DashboardCard.swift in Sources */,
 				843BEF48259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */,
@@ -1116,6 +1126,7 @@
 				84CCEDC3259CB5470040917E /* RemoteImage.swift in Sources */,
 				84FB4D1E2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift in Sources */,
 				8430E27F25C3021F008F1BAC /* Dia.swift in Sources */,
+				84C9263F265BDC0100F240F2 /* Brainstorming.swift in Sources */,
 				8430E2A325C304B9008F1BAC /* FileManager.swift in Sources */,
 				8469EB1C25B88A2600A9831D /* DashboardReasonsView.swift in Sources */,
 				84177FBA25B2F079009CC4E9 /* MatchView.swift in Sources */,
@@ -1156,6 +1167,7 @@
 				843BFFF82657C88A0031963C /* UserDefaults.swift in Sources */,
 				843BFFFE26580B6F0031963C /* GoogleKit.swift in Sources */,
 				843BFFF12656822C0031963C /* Array.swift in Sources */,
+				84C92643265BDC0100F240F2 /* Brainstorming.swift in Sources */,
 				84FB4D23265401C900AAA9A3 /* String.swift in Sources */,
 				8430E2C225C3171A008F1BAC /* Dia.swift in Sources */,
 				84DDF92525C1B54D00942E87 /* PotoriWidget.swift in Sources */,
@@ -1181,6 +1193,7 @@
 				846C48EA26439B6C0017BE48 /* Image.swift in Sources */,
 				846C48F126439BCA0017BE48 /* URLSession.swift in Sources */,
 				841FD3D025BC4FE90089A53D /* Umi.swift in Sources */,
+				84C92640265BDC0100F240F2 /* Brainstorming.swift in Sources */,
 				843BFFF52657C88A0031963C /* UserDefaults.swift in Sources */,
 				841FD3C625BC4FDF0089A53D /* TestsUmi.swift in Sources */,
 			);
@@ -1199,6 +1212,7 @@
 				843BFFF72657C88A0031963C /* UserDefaults.swift in Sources */,
 				843BFFFD26580B6F0031963C /* GoogleKit.swift in Sources */,
 				843BFFF02656822C0031963C /* Array.swift in Sources */,
+				84C92642265BDC0100F240F2 /* Brainstorming.swift in Sources */,
 				84FB4D22265401C900AAA9A3 /* String.swift in Sources */,
 				8430E2C925C3171A008F1BAC /* Dia.swift in Sources */,
 				84EA8F9125C15FE200BB924A /* PotoriWidget.swift in Sources */,

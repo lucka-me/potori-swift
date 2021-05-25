@@ -226,6 +226,22 @@ struct NominationDetails: View {
             CardView.List.row(editData.setLngLatFromPastboard) {
                 Label("view.details.location.paste", systemImage: "doc.on.clipboard")
             }
+            if editData.status == .pending && !Brainstorming.isBeforeEpoch(when: editData.resultTime) {
+                CardView.List.row {
+                    Brainstorming.shared.query(nomination.id) { record in
+                        guard mode == .edit else {
+                            return
+                        }
+                        guard let solidRecord = record else {
+                            // Alert
+                            return
+                        }
+                        editData.setLngLatFrom(solidRecord)
+                    }
+                } label: {
+                    Label("view.details.location.brainstorming", systemImage: "hand.point.right")
+                }
+            }
         }
     }
 }
@@ -302,6 +318,11 @@ fileprivate class EditData: ObservableObject {
             return
         }
         locationString = text
+        locationStringValid = true
+    }
+    
+    func setLngLatFrom(_ record: Brainstorming.Record) {
+        locationString = "\(record.lat),\(record.lng)"
         locationStringValid = true
     }
     
