@@ -50,9 +50,9 @@
 "data.abusePersonal"    = "Personal Info";
 
 /* Service */
-"service.status.idle"   = "Idle";
 "service.status.syncing"    = "Syncing";
 "service.status.processingMails"  = "Processing Mails";
+"service.status.queryingBrainstorming"  = "Querying Brainstorming";
 
 /* View */
 // Navigation
@@ -130,6 +130,8 @@
 "view.preferences.google.migrate.alert" = "Some reasons might be lost during migrating, it's highly recommended to refresh before migrate.";
 "view.preferences.google.migrate.alert.confirm" = "Migrate";
 "view.preferences.google.migrate.finished %lld" = "Migrated %lld nominations.";
+"view.preferences.brainstorming"  = "Brainstorming";
+"view.preferences.brainstorming.query"  = "Automatically Query";
 "view.preferences.data" = "Data";
 "view.preferences.data.importExport"    = "Import / Export";
 "view.preferences.data.import" = "Import";

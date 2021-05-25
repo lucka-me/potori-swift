@@ -227,7 +227,7 @@ struct NominationDetails: View {
             CardView.List.row(editData.setLngLatFromPastboard) {
                 Label("view.details.location.paste", systemImage: "doc.on.clipboard")
             }
-            if editData.status == .pending || !Brainstorming.isBeforeEpoch(when: editData.resultTime) {
+            if !Brainstorming.isBeforeEpoch(when: editData.resultTime, status: editData.status) {
                 CardView.List.row(queryLngLatFromBrainstorming) {
                     Label("view.details.location.brainstorming", systemImage: "hand.point.right")
                 }

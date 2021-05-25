@@ -50,9 +50,9 @@
 "data.abusePersonal"    = "个人信息";
 
 /* Service */
-"service.status.idle"   = "空闲";
-"service.status.syncing"    = "同步中";
+"service.status.syncing"    = "正在同步";
 "service.status.processingMails"  = "正在处理邮件";
+"service.status.queryingBrainstorming"  = "正在查询Brainstorming";
 
 /* View */
 // Navigation
@@ -130,6 +130,8 @@
 "view.preferences.google.migrate.alert"   = "迁移数据可能会丢弃部分拒绝理由，建议您在迁移前刷新一次。";
 "view.preferences.google.migrate.alert.confirm" = "迁移";
 "view.preferences.google.migrate.finished %lld" = "迁移了%lld个提名。";
+"view.preferences.brainstorming"  = "Brainstorming";
+"view.preferences.brainstorming.query"  = "自动查询";
 "view.preferences.data" = "数据";
 "view.preferences.data.importExport"    = "导入 / 导出";
 "view.preferences.data.import" = "导入";

@@ -41,6 +41,7 @@ extension UserDefaults {
             }
         }
     }
+    
     struct Google {
         static let keySync = "pref.google.sync"
         static var sync: Bool { shared.bool(forKey: keySync) }
@@ -51,6 +52,20 @@ extension UserDefaults {
             ])
             if migrate {
                 standard.removeObject(forKey: keySync)
+            }
+        }
+    }
+    
+    struct Brainstorming {
+        static let keyQuery = "pref.brainstorming.query"
+        static var query: Bool { shared.bool(forKey: keyQuery) }
+        
+        fileprivate static func register(_ store: UserDefaults, migrate: Bool) {
+            store.register(defaults: [
+                keyQuery: migrate ? standard.bool(forKey: keyQuery) : false
+            ])
+            if migrate {
+                standard.removeObject(forKey: keyQuery)
             }
         }
     }

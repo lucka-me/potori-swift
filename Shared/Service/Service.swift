@@ -14,14 +14,15 @@ import UserNotifications
 
 final class Service: ObservableObject {
     
-    typealias RefreshCompletionHandler = (ServiceStatus, Int) -> Void
+    typealias RefreshCompletionHandler = (Status, Int) -> Void
     typealias ImportCompletionHandler = (Int) -> Void
     
-    enum ServiceStatus: String {
-        case idle               = "service.status.idle"
-        case syncing            = "service.status.syncing"
-        case processingMails    = "service.status.processingMails"
-        case requestMatch       = "service.status.requestMatch"
+    enum Status {
+        case idle
+        case syncing
+        case processingMails
+        case requestMatch
+        case queryingBrainstorming
     }
     
     class MatchPack: ObservableObject {
@@ -59,7 +60,7 @@ final class Service: ObservableObject {
     private static let refreshTaskID = "dev.lucka.Potori.refresh"
     #endif
     
-    @Published var status: ServiceStatus = .idle
+    @Published var status: Status = .idle
     
     let matchData = MatchData()
     
@@ -80,7 +81,10 @@ final class Service: ObservableObject {
         if status != .idle || !GoogleKit.Auth.shared.authorized {
             return false
         }
-        refreshCompletionHandler = completionHandler
+        refreshCompletionHandler = { status, count in
+            self.refreshCompletionHandler = { _, _ in }
+            completionHandler(status, count)
+        }
         if UserDefaults.Google.sync {
             download { _ in
                 self.processMails()
@@ -134,7 +138,7 @@ final class Service: ObservableObject {
         }
     }
     
-    private func set(status: ServiceStatus) {
+    private func set(status: Status) {
         DispatchQueue.main.async {
             self.status = status
         }
@@ -176,16 +180,15 @@ final class Service: ObservableObject {
                 list.append(raw)
             }
         }
-        
-        if !matchTargets.isEmpty {
-            match(matchTargets, from: reduced, merged: mergeCount)
-            refreshCompletionHandler(status, 0)
-        } else {
-            saveAndSync(reduced, mergeCount)
-        }
+        match(matchTargets, from: reduced, merged: mergeCount)
     }
     
     private func match(_ targets: [NominationRAW], from list: [NominationRAW], merged: Int) {
+        if targets.isEmpty {
+            queryBrainstorming(list, merged: merged)
+            return
+        }
+        refreshCompletionHandler(status, 0)
         let pendings = list.filter { $0.status == .pending }
         let packs: [MatchPack] = targets
             .map { target in
@@ -200,7 +203,7 @@ final class Service: ObservableObject {
             }
             .filter { !$0.candidates.isEmpty }
         if packs.isEmpty {
-            saveAndSync(list, merged)
+            queryBrainstorming(list, merged: merged)
             return
         }
         matchData.packs = packs
@@ -222,13 +225,40 @@ final class Service: ObservableObject {
                 }
             }
             self.matchData.packs = []
-            self.saveAndSync(list, merged)
+            self.queryBrainstorming(list, merged: merged)
         }
         set(status: .requestMatch)
     }
     
-    private func saveAndSync(_ raws: [NominationRAW], _ mergeCount: Int) {
-        let updateCount = Dia.shared.save(raws) + mergeCount
+    private func queryBrainstorming(_ raws: [ NominationRAW ], merged: Int) {
+        if !UserDefaults.Brainstorming.query {
+            saveAndSync(raws, merged: merged)
+            return
+        }
+        let list = raws.filter { $0.lngLat == nil }
+        if list.isEmpty {
+            saveAndSync(raws, merged: merged)
+            return
+        }
+        var done = 0
+        ProgressInspector.shared.set(done: done, total: list.count)
+        set(status: .queryingBrainstorming)
+        for nomination in list {
+            Brainstorming.shared.query(nomination.id) { record in
+                if let solidRecord = record {
+                    nomination.lngLat = .init(lng: solidRecord.lng, lat: solidRecord.lat)
+                }
+                done += 1
+                ProgressInspector.shared.set(done: done)
+                if done == list.count {
+                    self.saveAndSync(raws, merged: merged)
+                }
+            }
+        }
+    }
+    
+    private func saveAndSync(_ raws: [NominationRAW], merged: Int) {
+        let updateCount = Dia.shared.save(raws) + merged
         if UserDefaults.Google.sync {
             upload {
                 self.set(status: .idle)

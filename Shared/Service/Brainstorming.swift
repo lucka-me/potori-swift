@@ -33,7 +33,7 @@ class Brainstorming {
         }
     }
     
-    static func isBeforeEpoch(when resultTime: Date) -> Bool {
-        resultTime < Self.epoch
+    static func isBeforeEpoch(when resultTime: Date, status: Umi.Status.Code) -> Bool {
+        status != .pending && resultTime < Self.epoch
     }
 }

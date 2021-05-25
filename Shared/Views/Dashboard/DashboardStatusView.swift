@@ -37,21 +37,33 @@ struct DashboardStatusView: View {
                     .buttonStyle(CardView.ButtonStyle())
                     .foregroundColor(.accentColor)
             } else {
-                switch service.status {
-                    case .processingMails:
-                        ProgressView(
-                            value: Double(progress.done),
-                            total: Double(progress.total),
-                            label: { Text(LocalizedStringKey(service.status.rawValue)) },
-                            currentValueLabel: { Text("\(progress.done) / \(progress.total)") }
-                        )
-                    default:
-                        Text(LocalizedStringKey(service.status.rawValue))
+                if showProgress {
+                    ProgressView(
+                        value: Double(progress.done),
+                        total: Double(progress.total),
+                        label: { Text(statusText) },
+                        currentValueLabel: { Text("\(progress.done) / \(progress.total)") }
+                    )
+                } else {
+                    Text(statusText)
                 }
             }
         }
         .padding(.top, 3)
         .padding(.horizontal)
+    }
+    
+    private var showProgress: Bool {
+        service.status == .processingMails || service.status == .queryingBrainstorming
+    }
+    
+    private var statusText: LocalizedStringKey {
+        switch service.status {
+            case .syncing: return "service.status.syncing"
+            case .processingMails: return "service.status.processingMails"
+            case .queryingBrainstorming: return "service.status.queryingBrainstorming"
+            default: return ""
+        }
     }
 }
 

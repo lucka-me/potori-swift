@@ -32,6 +32,7 @@ struct PreferencesView : View {
     private var groups: some View {
         group { GeneralGroup()  }
         group { GoogleGroup()   }
+        group { BrainstormingGroup()    }
         group { DataGroup()     }
         group { AboutGroup()    }
     }
@@ -59,7 +60,7 @@ struct Preferences_Previews: PreviewProvider {
 }
 #endif
 
-protocol PreferenceGroup: View {
+fileprivate protocol PreferenceGroup: View {
     var title: LocalizedStringKey { get }
     var icon: String { get }
 }
@@ -176,6 +177,17 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
                 )
             )
         }
+    }
+}
+
+fileprivate struct BrainstormingGroup: View, PreferenceGroup {
+    let title = LocalizedStringKey("view.preferences.brainstorming")
+    let icon = "hand.point.right"
+    
+    @AppStorage(UserDefaults.Brainstorming.keyQuery, store: .shared) var prefQuery = false
+    
+    var body: some View {
+        Toggle("view.preferences.brainstorming.query", isOn: $prefQuery)
     }
 }
 
