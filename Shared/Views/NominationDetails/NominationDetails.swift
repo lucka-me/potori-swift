@@ -227,7 +227,7 @@ struct NominationDetails: View {
             CardView.List.row(editData.setLngLatFromPastboard) {
                 Label("view.details.location.paste", systemImage: "doc.on.clipboard")
             }
-            if editData.status == .pending && !Brainstorming.isBeforeEpoch(when: editData.resultTime) {
+            if editData.status == .pending || !Brainstorming.isBeforeEpoch(when: editData.resultTime) {
                 CardView.List.row(queryLngLatFromBrainstorming) {
                     Label("view.details.location.brainstorming", systemImage: "hand.point.right")
                 }
@@ -241,7 +241,6 @@ struct NominationDetails: View {
                 return
             }
             guard let solidRecord = record else {
-                // Alert
                 alert.push(
                     .init(
                         title: .init("view.details.location.brainstorming.failed"),
