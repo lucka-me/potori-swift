@@ -98,6 +98,8 @@
 "view.details.location.invalid" = "无效";
 "view.details.location.paste"   = "粘贴Intel地图链接";
 "view.details.location.brainstorming"   = "查询Brainstorming";
+"view.details.location.brainstorming.failed"    = "查询失败";
+"view.details.location.brainstorming.failed.desc"   = "无法连接Firebase或未找到纪录。";
 
 // RemoteImage
 "view.image.open"   = "打开";

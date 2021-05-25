@@ -13,13 +13,18 @@ struct ContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
     @EnvironmentObject private var service: Service
+    @ObservedObject private var alert = AlertInspector()
     @ObservedObject private var navigation = Navigation()
 
     var body: some View {
         navigationView
+            .environmentObject(alert)
             .environmentObject(navigation)
             .sheet(isPresented: $navigation.showMatchView) {
                 MatchView()
+            }
+            .alert(isPresented: $alert.isPresented) {
+                alert.alert
             }
             .onOpenURL { url in
                 if url.scheme == "potori", let host = url.host {

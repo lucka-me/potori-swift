@@ -98,6 +98,8 @@
 "view.details.location.invalid" = "Invalid";
 "view.details.location.paste"   = "Paste Intel Maps URL";
 "view.details.location.brainstorming"   = "Query Brainstorming";
+"view.details.location.brainstorming.failed"    = "Query Failed";
+"view.details.location.brainstorming.failed.desc"   = "Unable to connect to Firebase or no record found.";
 
 // RemoteImage
 "view.image.open"   = "Open";

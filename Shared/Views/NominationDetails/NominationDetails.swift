@@ -19,6 +19,7 @@ struct NominationDetails: View {
     
     let nomination: Nomination
     
+    @EnvironmentObject private var alert: AlertInspector
     @EnvironmentObject private var dia: Dia
     @State private var mode: Mode = .view
     @ObservedObject private var editData: EditData = .init()
@@ -227,21 +228,29 @@ struct NominationDetails: View {
                 Label("view.details.location.paste", systemImage: "doc.on.clipboard")
             }
             if editData.status == .pending && !Brainstorming.isBeforeEpoch(when: editData.resultTime) {
-                CardView.List.row {
-                    Brainstorming.shared.query(nomination.id) { record in
-                        guard mode == .edit else {
-                            return
-                        }
-                        guard let solidRecord = record else {
-                            // Alert
-                            return
-                        }
-                        editData.setLngLatFrom(solidRecord)
-                    }
-                } label: {
+                CardView.List.row(queryLngLatFromBrainstorming) {
                     Label("view.details.location.brainstorming", systemImage: "hand.point.right")
                 }
             }
+        }
+    }
+    
+    private func queryLngLatFromBrainstorming() {
+        Brainstorming.shared.query(nomination.id) { record in
+            guard mode == .edit else {
+                return
+            }
+            guard let solidRecord = record else {
+                // Alert
+                alert.push(
+                    .init(
+                        title: .init("view.details.location.brainstorming.failed"),
+                        message: .init("view.details.location.brainstorming.failed.desc")
+                    )
+                )
+                return
+            }
+            editData.setLngLatFrom(solidRecord)
         }
     }
 }
@@ -251,6 +260,7 @@ struct NominationDetails_Previews: PreviewProvider {
     
     static var previews: some View {
         NominationDetails(nomination: Dia.preview.nominations()[0])
+            .environmentObject(AlertInspector())
             .environmentObject(Dia.preview)
     }
 }

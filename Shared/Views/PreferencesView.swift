@@ -9,19 +9,18 @@ import SwiftUI
 
 struct PreferencesView : View {
     
+    #if os(macOS)
+    @ObservedObject private var alert = AlertInspector()
+    #endif
+    
     var body: some View {
-        
-        let groups = Group {
-            group { GeneralGroup()  }
-            group { GoogleGroup()   }
-            group { DataGroup()     }
-            group { AboutGroup()    }
-        }
-        
         #if os(macOS)
         TabView { groups }
             .frame(minWidth: 400, minHeight: 300)
             .padding()
+            .alert(isPresented: $alert.isPresented) {
+                alert.alert
+            }
         #else
         Form { groups }
             .navigationTitle("view.preferences")
@@ -30,10 +29,19 @@ struct PreferencesView : View {
     }
     
     @ViewBuilder
+    private var groups: some View {
+        group { GeneralGroup()  }
+        group { GoogleGroup()   }
+        group { DataGroup()     }
+        group { AboutGroup()    }
+    }
+    
+    @ViewBuilder
     private func group<Group: PreferenceGroup>(_ group: () -> Group) -> some View {
         let content = group()
         #if os(macOS)
         Form(content: { content })
+            .environmentObject(alert)
             .tabItem { Label(content.title, systemImage: content.icon) }
         #else
         Section(header: Text(content.title)) { content }
@@ -85,13 +93,12 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
     
     @AppStorage(UserDefaults.Google.keySync, store: .shared) var prefSync = false
     
+    @EnvironmentObject private var alert: AlertInspector
     @EnvironmentObject private var service: Service
     @ObservedObject private var auth = GoogleKit.Auth.shared
     #if os(iOS)
     @State private var isPresentedActionSheetAccount = false
     #endif
-    @State private var migrateAlert: MigrateAlert? = nil
-    @State private var migrateCount: Int = 0
     
     var body: some View {
         #if os(macOS)
@@ -141,30 +148,33 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
             }
             .disabled(service.status != .idle)
             
-            Button("view.preferences.google.migrate") {
-                migrateAlert = .confirm
-            }
+            Button("view.preferences.google.migrate", action: confirmMigrate)
             .disabled(service.status != .idle)
-            .alert(item: $migrateAlert) { type in
-                if type == .confirm {
-                    return Alert(
-                        title: Text("view.preferences.google.migrate"),
-                        message: Text("view.preferences.google.migrate.alert"),
-                        primaryButton: Alert.Button.destructive(Text("view.preferences.google.migrate.alert.confirm")) {
-                            service.migrateFromGoogleDrive { count in
-                                migrateCount = count
-                                self.migrateAlert = .finish
-                            }
-                        },
-                        secondaryButton: Alert.Button.cancel()
-                    )
-                } else {
-                    return Alert(
-                        title: Text("view.preferences.google.migrate"),
-                        message: Text("view.preferences.google.migrate.finished \(migrateCount)")
-                    )
-                }
-            }
+        }
+    }
+    
+    private func confirmMigrate() {
+        alert.push(
+            .init(
+                title: Text("view.preferences.google.migrate"),
+                message: Text("view.preferences.google.migrate.alert"),
+                primaryButton: .destructive(
+                    Text("view.preferences.google.migrate.alert.confirm"),
+                    action: executeMigrate
+                ),
+                secondaryButton: .cancel()
+            )
+        )
+    }
+    
+    private func executeMigrate() {
+        service.migrateFromGoogleDrive { count in
+            alert.push(
+                .init(
+                    title: Text("view.preferences.google.migrate"),
+                    message: Text("view.preferences.google.migrate.finished \(count)")
+                )
+            )
         }
     }
 }
@@ -174,14 +184,9 @@ fileprivate struct DataGroup: View, PreferenceGroup {
     let title: LocalizedStringKey = "view.preferences.data"
     let icon: String = "tray.2"
     
-    @EnvironmentObject var dia: Dia
-    @EnvironmentObject var service: Service
-
-    #if os(macOS)
-    @State private var isPresentingExporter = false
-    @State private var isPresentingImporter = false
-    #endif
-    @State private var isPresentingAlertClearAll = false
+    @EnvironmentObject private var alert: AlertInspector
+    @EnvironmentObject private var dia: Dia
+    @EnvironmentObject private var service: Service
     
     var body: some View {
         #if os(macOS)
@@ -189,12 +194,13 @@ fileprivate struct DataGroup: View, PreferenceGroup {
         #else
         NavigationLink(destination: ImportExportView())  { Text("view.preferences.data.importExport") }
         #endif
-        Button("view.preferences.data.clearNominations") {
-            isPresentingAlertClearAll = true
-        }
-        .disabled(service.status != .idle)
-        .alert(isPresented: $isPresentingAlertClearAll) {
-            Alert(
+        Button("view.preferences.data.clearNominations", action: confirmClearAll)
+            .disabled(service.status != .idle)
+    }
+    
+    private func confirmClearAll() {
+        alert.push(
+            .init(
                 title: Text("view.preferences.data.clearNominations"),
                 message: Text("view.preferences.data.clearNominations.alert"),
                 primaryButton: Alert.Button.destructive(Text("view.preferences.data.clearNominations.clear")) {
@@ -203,7 +209,7 @@ fileprivate struct DataGroup: View, PreferenceGroup {
                 },
                 secondaryButton: Alert.Button.cancel()
             )
-        }
+        )
     }
 }
 
@@ -214,19 +220,14 @@ fileprivate struct DataGroup: View, PreferenceGroup {
 /// - iOS: List that should be passed to `NavigationLink`, since the sheets could not be attached to list items
 fileprivate struct ImportExportView: View {
     
-    private enum ResultAlert: Identifiable {
-        case importer
-        case exporter
-        
-        var id: Int { self.hashValue }
-    }
+    private static let stringImport: LocalizedStringKey = "view.preferences.data.import"
+    private static let stringExport: LocalizedStringKey = "view.preferences.data.export"
 
-    @EnvironmentObject var dia: Dia
+    @EnvironmentObject private var alert: AlertInspector
+    @EnvironmentObject private var dia: Dia
     
     @State private var isPresentedExporter = false
     @State private var isPresentedImporter = false
-    @State private var resultAlert: ResultAlert? = nil
-    @State private var resultMessage: LocalizedStringKey = ""
     
     var body: some View {
         content
@@ -234,15 +235,21 @@ fileprivate struct ImportExportView: View {
                 isPresented: $isPresentedImporter,
                 allowedContentTypes: NominationJSONDocument.readableContentTypes
             ) { result in
+                let message: LocalizedStringKey
                 do {
                     let url = try result.get()
                     let data = try Data(contentsOf: url)
                     let count = try dia.importNominations(data)
-                    resultMessage = "view.preferences.data.nominations.import.success \(count)"
+                    message = "view.preferences.data.nominations.import.success \(count)"
                 } catch {
-                    resultMessage = "view.preferences.data.nominations.failure \(error.localizedDescription)"
+                    message = "view.preferences.data.nominations.failure \(error.localizedDescription)"
                 }
-                resultAlert = .importer
+                alert.push(
+                    .init(
+                        title: Text(Self.stringImport),
+                        message: Text(message)
+                    )
+                )
             }
             .fileExporter(
                 isPresented: $isPresentedExporter,
@@ -250,21 +257,19 @@ fileprivate struct ImportExportView: View {
                 contentType: .json,
                 defaultFilename: "nominations.json"
             ) { result in
+                let message: LocalizedStringKey
                 do {
                     let _ = try result.get()
-                    resultMessage = "view.preferences.data.nominations.export.success"
+                    message = "view.preferences.data.nominations.export.success"
                 } catch {
-                    resultMessage = "view.preferences.data.nominations.failure \(error.localizedDescription)"
+                    message = "view.preferences.data.nominations.failure \(error.localizedDescription)"
                 }
-                resultAlert = .exporter
-            }
-            .alert(item: $resultAlert) { type in
-                let title: LocalizedStringKey
-                switch type {
-                    case .importer: title = "view.preferences.data.import"
-                    case .exporter: title = "view.preferences.data.export"
-                }
-                return Alert(title: Text(title), message: Text(resultMessage))
+                alert.push(
+                    .init(
+                        title: Text(Self.stringExport),
+                        message: Text(message)
+                    )
+                )
             }
     }
     
@@ -302,17 +307,27 @@ fileprivate struct ImportExportView: View {
         let json = UIPasteboard.general.string
         #endif
         guard let data = json?.data(using: .utf8) else {
-            resultMessage = "view.preferences.data.wayfarer.import.empty"
-            resultAlert = .importer
+            alert.push(
+                .init(
+                    title: Text(Self.stringImport),
+                    message: Text("view.preferences.data.wayfarer.import.empty")
+                )
+            )
             return
         }
+        let message: LocalizedStringKey
         do {
             let count = try dia.importWayfarer(data)
-            resultMessage = "view.preferences.data.wayfarer.import.success \(count)"
+            message = "view.preferences.data.wayfarer.import.success \(count)"
         } catch {
-            resultMessage = "view.preferences.data.wayfarer.failure \(error.localizedDescription)"
+            message = "view.preferences.data.wayfarer.failure \(error.localizedDescription)"
         }
-        resultAlert = .importer
+        alert.push(
+            .init(
+                title: Text(Self.stringImport),
+                message: Text(message)
+            )
+        )
     }
 }
 
