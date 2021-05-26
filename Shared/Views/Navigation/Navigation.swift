@@ -58,7 +58,7 @@ class Navigation: ObservableObject {
     }
     
     @Published var showMatchView: Bool = false
-    @Published var openNominations: OpenNominationsConfiguration = .init("view.dashboard.highlight.all")
+    @Published var openNominations: OpenNominationsConfiguration = .init("view.dashboard.highlights.all")
     @Published var activePanel: Panel? = .dashboard
     
     #if os(iOS)

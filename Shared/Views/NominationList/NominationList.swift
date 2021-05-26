@@ -83,7 +83,7 @@ struct NominationList: View {
 #if DEBUG
 struct NominationList_Previews: PreviewProvider {
     static var previews: some View {
-        NominationList(.init("view.dashboard.highlight.all"))
+        NominationList(.init("view.dashboard.highlights.all"))
             .environmentObject(Dia.preview)
             .environmentObject(Service.shared)
             .environment(\.managedObjectContext, Dia.preview.viewContext)

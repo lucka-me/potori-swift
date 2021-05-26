@@ -67,10 +67,10 @@
 "view.dashboard.refresh"    = "刷新";
 "view.dashboard.status" = "状态";
 "view.dashboard.status.linkAccount" = "连接您的Google账号";
-"view.dashboard.status.empty" = "刷新以获取提名";
-"view.dashboard.status.latest" = "最新 ";
-"view.dashboard.highlight"  = "要点";
-"view.dashboard.highlight.all"  = "全部";
+"view.dashboard.status.empty"   = "刷新以获取提名";
+"view.dashboard.status.latest"  = "最新 ";
+"view.dashboard.highlights" = "要点";
+"view.dashboard.highlights.all" = "全部";
 "view.dashboard.gallery"    = "近30天";
 "view.dashboard.gallery.empty"  = "没有提名。";
 "view.dashboard.scanners"   = "扫描器";
@@ -85,7 +85,7 @@
 "view.details.edit" = "编辑";
 "view.details.save" = "保存";
 "view.details.cancel"   = "取消";
-"view.details.hightlight"   = "要点";
+"view.details.hightlights"  = "要点";
 "view.details.confirmed"    = "确认";
 "view.details.status"   = "状态";
 "view.details.resulted" = "结束于";

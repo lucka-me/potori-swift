@@ -1,5 +1,5 @@
 //
-//  DashboardBasicRowView.swift
+//  DashboardHighlightsView.swift
 //  Potori
 //
 //  Created by Lucka on 20/1/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DashboardHighlightView: View {
+struct DashboardHighlightsView: View {
     
     #if os(macOS)
     @EnvironmentObject var navigation: Navigation
@@ -18,16 +18,16 @@ struct DashboardHighlightView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
-                Text("view.dashboard.highlight")
+                Text("view.dashboard.highlights")
                     .font(.title2)
                     .bold()
             }
             
             LazyVGrid(columns: DashboardView.columns, alignment: .leading) {
-                OpenNominationListLink(.init("view.dashboard.highlight.all")) {
+                OpenNominationListLink(.init("view.dashboard.highlights.all")) {
                     DashboardCard(
                         dia.countNominations(),
-                        "view.dashboard.highlight.all",
+                        "view.dashboard.highlights.all",
                         systemImage: "arrow.up.circle"
                     )
                 }
@@ -49,12 +49,12 @@ struct DashboardHighlightView: View {
 }
 
 #if DEBUG
-struct DashboardHighlightView_Previews: PreviewProvider {
+struct DashboardHighlightsView_Previews: PreviewProvider {
     
     static let navigation: Navigation = .init()
     
     static var previews: some View {
-        DashboardHighlightView()
+        DashboardHighlightsView()
             .environmentObject(Dia.preview)
             .environmentObject(navigation)
     }

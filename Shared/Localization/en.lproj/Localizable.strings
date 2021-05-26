@@ -67,10 +67,10 @@
 "view.dashboard.refresh"    = "Refresh";
 "view.dashboard.status" = "Status";
 "view.dashboard.status.linkAccount" = "Link Your Google Account";
-"view.dashboard.status.empty" = "Refresh to fetch nominations";
-"view.dashboard.status.latest" = "Latest ";
-"view.dashboard.highlight"  = "Highlight";
-"view.dashboard.highlight.all"  = "All";
+"view.dashboard.status.empty"   = "Refresh to fetch nominations";
+"view.dashboard.status.latest"  = "Latest ";
+"view.dashboard.highlights" = "Highlights";
+"view.dashboard.highlights.all" = "All";
 "view.dashboard.gallery"    = "Last 30 Days";
 "view.dashboard.gallery.empty"  = "No nominations.";
 "view.dashboard.scanners"   = "Scanners";
@@ -85,7 +85,7 @@
 "view.details.edit" = "Edit";
 "view.details.save" = "Save";
 "view.details.cancel"   = "Cancel";
-"view.details.hightlight"   = "Highlight";
+"view.details.hightlights"  = "Highlights";
 "view.details.confirmed"    = "Confirmed";
 "view.details.status"   = "Status";
 "view.details.resulted" = "Resulted";

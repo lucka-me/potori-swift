@@ -50,7 +50,7 @@ struct NominationDetails: View {
                 }
                 
                 LazyVGrid(columns: [ .init(.adaptive(minimum: 250), alignment: .top) ], alignment: .center) {
-                    highlight
+                    highlights
                     if (mode == .view && nomination.statusCode == .rejected)
                         || (mode == .edit && editData.status == .rejected) {
                         reasons
@@ -104,9 +104,9 @@ struct NominationDetails: View {
     }
     
     @ViewBuilder
-    private var highlight: some View {
+    private var highlights: some View {
         CardView.Card {
-            CardView.List.header(Text("view.details.hightlight"))
+            CardView.List.header(Text("view.details.hightlights"))
             CardView.List.row(
                 Label("view.details.confirmed", systemImage: "arrow.up.circle").foregroundColor(.accentColor),
                 Text(nomination.confirmedTime, style: .date)
