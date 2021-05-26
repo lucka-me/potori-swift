@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct PotoriWidgetBundle: WidgetBundle {
     var body: some Widget {
+        HighlightsWidget()
         NominationWidget()
     }
 }

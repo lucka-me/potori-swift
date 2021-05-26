@@ -13,7 +13,6 @@ import UserNotifications
 struct NominationWidget: Widget {
     
     typealias ConfigurationIntent = NominationWidgetConfigurationIntent
-    typealias GetTimelineCompletionHandler = (Timeline<Entry>) -> Void
     
     struct Provider: IntentTimelineProvider {
         func placeholder(in context: Context) -> Entry {
@@ -33,29 +32,7 @@ struct NominationWidget: Widget {
             in context: Context,
             completion: @escaping (Timeline<Entry>) -> Void
         ) {
-            if UserDefaults.General.backgroundRefresh {
-                let started = Service.shared.refresh { status, count in
-                    if status == .requestMatch {
-                        UNUserNotificationCenter.push(
-                            NSLocalizedString("notification.refresh.requiresMatch", comment: "Manually Match Required"),
-                            NSLocalizedString("notification.refresh.requiresMatch.desc", comment: "Manually Match Required Description")
-                        )
-                    } else if count > 0 {
-                        UNUserNotificationCenter.push(
-                            NSLocalizedString("notification.refresh.refreshFinished", comment: "Refresh Finished"),
-                            String(format: NSLocalizedString("notification.refresh.refreshFinished.desc", comment: "Refresh Finished Description"), count)
-                        )
-                    }
-                    getEntry(for: configuration, in: context) { entry in
-                        completion(.init(entries: [ entry ], policy: .atEnd))
-                    }
-                }
-                if !started {
-                    getEntry(for: configuration, in: context) { entry in
-                        completion(.init(entries: [ entry ], policy: .atEnd))
-                    }
-                }
-            } else {
+            Service.shared.backgroundRefresh {
                 getEntry(for: configuration, in: context) { entry in
                     completion(.init(entries: [ entry ], policy: .atEnd))
                 }

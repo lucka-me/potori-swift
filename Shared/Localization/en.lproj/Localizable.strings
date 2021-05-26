@@ -168,6 +168,8 @@
 "notification.refresh.refreshFinished.desc" = "Updated %d nominations.";
 
 // Widget
+"widget.highlights" = "Highlights";
+"widget.highlights.desc"    = "Display counts of nominations.";
 "widget.nomination" = "Nomination";
 "widget.nomination.desc"    = "Diaplay a random nomination.";
 "widget.nomination.empty"   = "No Nomination";

@@ -168,6 +168,10 @@
 		84C92648265C7FFF00F240F2 /* AlertInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C92644265C7FFF00F240F2 /* AlertInspector.swift */; };
 		84C92649265C7FFF00F240F2 /* AlertInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C92644265C7FFF00F240F2 /* AlertInspector.swift */; };
 		84C9264A265C7FFF00F240F2 /* AlertInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C92644265C7FFF00F240F2 /* AlertInspector.swift */; };
+		84C9264E265D338600F240F2 /* HighlightsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C9264B265D338600F240F2 /* HighlightsWidget.swift */; };
+		84C9264F265D338600F240F2 /* HighlightsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C9264B265D338600F240F2 /* HighlightsWidget.swift */; };
+		84C92652265D399300F240F2 /* Service+BackgroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C92651265D399300F240F2 /* Service+BackgroundRefresh.swift */; };
+		84C92653265D399300F240F2 /* Service+BackgroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C92651265D399300F240F2 /* Service+BackgroundRefresh.swift */; };
 		84CCEDC2259CB5470040917E /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCEDC1259CB5470040917E /* RemoteImage.swift */; };
 		84CCEDC3259CB5470040917E /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCEDC1259CB5470040917E /* RemoteImage.swift */; };
 		84DB6EA3259A2B1F00BD915B /* Umi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6EA2259A2B1F00BD915B /* Umi.swift */; };
@@ -363,6 +367,8 @@
 		84C769C325A714410055A3A9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		84C9263D265BDC0100F240F2 /* Brainstorming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brainstorming.swift; sourceTree = "<group>"; };
 		84C92644265C7FFF00F240F2 /* AlertInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertInspector.swift; sourceTree = "<group>"; };
+		84C9264B265D338600F240F2 /* HighlightsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsWidget.swift; sourceTree = "<group>"; };
+		84C92651265D399300F240F2 /* Service+BackgroundRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Service+BackgroundRefresh.swift"; sourceTree = "<group>"; };
 		84CCEDC1259CB5470040917E /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
 		84DB6EA2259A2B1F00BD915B /* Umi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Umi.swift; sourceTree = "<group>"; };
 		84DB6ED0259A3D5D00BD915B /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
@@ -689,13 +695,23 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		84C92650265D397F00F240F2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				84C92651265D399300F240F2 /* Service+BackgroundRefresh.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		84DDF8D525C1B26700942E87 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				846C48D52643962C0017BE48 /* Localization */,
+				846C48E2264396E30017BE48 /* Widget.intentdefinition */,
+				84C9264B265D338600F240F2 /* HighlightsWidget.swift */,
 				8475B61D25C1610E002D7915 /* NominationWidget.swift */,
 				84EA8F9025C15FE200BB924A /* PotoriWidget.swift */,
-				846C48E2264396E30017BE48 /* Widget.intentdefinition */,
+				84C92650265D397F00F240F2 /* Extensions */,
+				846C48D52643962C0017BE48 /* Localization */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1170,6 +1186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84DDF95C25C1B5B300942E87 /* NominationJSON.swift in Sources */,
+				84C92653265D399300F240F2 /* Service+BackgroundRefresh.swift in Sources */,
 				846C48ED26439B6C0017BE48 /* Image.swift in Sources */,
 				84DDF92C25C1B55000942E87 /* NominationWidget.swift in Sources */,
 				8430E2D325C31723008F1BAC /* Reason.swift in Sources */,
@@ -1190,6 +1207,7 @@
 				843B00162658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */,
 				84DDF94725C1B59400942E87 /* Umi.swift in Sources */,
 				8430E2D525C31725008F1BAC /* Potori.xcdatamodeld in Sources */,
+				84C9264F265D338600F240F2 /* HighlightsWidget.swift in Sources */,
 				846C48E6264396E30017BE48 /* Widget.intentdefinition in Sources */,
 				8430E2CB25C3171D008F1BAC /* Nomination.swift in Sources */,
 				843B00112658B1A60031963C /* UNUserNotificationCenter.swift in Sources */,
@@ -1217,6 +1235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8475B6CF25C1A4ED002D7915 /* NominationJSON.swift in Sources */,
+				84C92652265D399300F240F2 /* Service+BackgroundRefresh.swift in Sources */,
 				846C48EC26439B6C0017BE48 /* Image.swift in Sources */,
 				8475B61E25C1610E002D7915 /* NominationWidget.swift in Sources */,
 				8430E2D225C31722008F1BAC /* Reason.swift in Sources */,
@@ -1237,6 +1256,7 @@
 				843B00152658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */,
 				8475B66725C1750F002D7915 /* Umi.swift in Sources */,
 				8430E2D425C31725008F1BAC /* Potori.xcdatamodeld in Sources */,
+				84C9264E265D338600F240F2 /* HighlightsWidget.swift in Sources */,
 				846C48E5264396E30017BE48 /* Widget.intentdefinition in Sources */,
 				8430E2CA25C3171C008F1BAC /* Nomination.swift in Sources */,
 				843B00102658B1A60031963C /* UNUserNotificationCenter.swift in Sources */,
