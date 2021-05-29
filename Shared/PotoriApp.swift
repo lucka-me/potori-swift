@@ -10,6 +10,8 @@ import SwiftUI
 @main
 struct PotoriApp: App {
     
+    /// Prevent opening new window when opend by URL
+    /// - SeeAlso [Stack Overflow](https://stackoverflow.com/a/66664474/10276204)
     private static let matchURLs: Set<String> = [
         "potori://details",
         GoogleKit.Auth.redirectURL

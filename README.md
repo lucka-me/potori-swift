@@ -5,9 +5,12 @@
 [![License](https://img.shields.io/github/license/lucka-me/potori-swift)](./LICENSE "License")  
 [![Telegram Channel](https://img.shields.io/badge/telegram-channel-37aee2?logo=telegram)](https://t.me/potori "Telegram Channel")
 
-## Description
+## Descriptions
+An app to manage Ingress nominations from Gmail inbox, available for macOS and iOS.
 
-An app to visualize Ingress nominations from Gmail inbox, available for macOS and iOS.
+- Built with SwiftUI
+- Provide widgets
+- Sync with Google Drive
 
 [![](https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us)](https://apps.apple.com/app/potori-nomination-manager/id1552339183)
 
@@ -19,22 +22,16 @@ This is the Swift implementation of [the web app](https://github.com/lucka-me/po
 - iOS 14+
 
 ## Build & Run
-
 1. Clone or download the repository
 2. Open `Potori.xcodeproj`
-3. Change the Bundle Identifiers and App Group IDs
-4. Choose your target and connect your device if necessary
-5. Hit `⌘ R`
+3. Change the Team, Bundle Identifiers and App Groups to valid ones
+4. Choose the target and connect your device if necessary
+5.  `⌘ R`
 
-## Transfer from the Web App
-In this project, we implemented a new data structure without fully backward compatiable (which will also be implemented into the web app in the future). It will be fine to transfer data from the web app to this app with exporting & importing JSON file or migrate from Google Drive, but it's not recommended to transfer backwards.
-
-For Google Drive sync, this app will download and upload `nominations.json`, it will not update `potori.json` used by the current web app.
-
-## Task List
-We hope to implement all features of the web app, and bring more with platform support.
-
-[Track progress for the initial release](https://github.com/lucka-me/potori-swift/projects/1)
+## Related Repositories
+- [lucka-me/potori](https://github.com/lucka-me/potori): The original web app
+- [lucka-me/potori-docs](https://github.com/lucka-me/potori-docs): Documents of Potori
+- [lucka-me/potori-umi](https://github.com/lucka-me/potori-umi): Status and reasons data used in Potori
 
 ## License
 The source code are [licensed under MIT](./LICENSE).
