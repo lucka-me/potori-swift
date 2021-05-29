@@ -16,19 +16,15 @@ struct PotoriApp: App {
     @State private var firstAppear = true
 
     var body: some Scene {
-        #if os(macOS)
         WindowGroup { content }
             .commands {
-                PotoriCommands()
+                SidebarCommands()
             }
+        #if os(macOS)
         Settings {
             PreferencesView()
                 .environmentObject(dia)
                 .environmentObject(service)
-        }
-        #else
-        WindowGroup {
-            content
         }
         #endif
     }
