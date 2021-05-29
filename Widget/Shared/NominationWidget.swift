@@ -134,7 +134,7 @@ struct NominationWidget: Widget {
                     .padding(8)
             }
             .background(image.scaledToFill())
-            .widgetURL(URL(string: "potori://nomination/\(entry.id)"))
+            .widgetURL(URL(string: "potori://details/\(entry.id)"))
         }
         
         @ViewBuilder

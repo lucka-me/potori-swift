@@ -39,7 +39,7 @@ struct ContentView: View {
             }
             .onOpenURL { url in
                 if url.scheme == "potori", let host = url.host {
-                    if host == "nomination" {
+                    if host == "details" {
                         let id = url.lastPathComponent
                         nomination = dia.firstNomination(matches: .init(format: "id == %@", id))
                     }
