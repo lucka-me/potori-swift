@@ -10,11 +10,6 @@ import SwiftUI
 
 class Navigation: ObservableObject {
     
-    #if os(iOS)
-    typealias LinkIdentifier = Int16
-    static let nominationWidgetTarget: LinkIdentifier = 51
-    #endif
-    
     enum Panel: Hashable {
         case dashboard
         case list
@@ -60,10 +55,6 @@ class Navigation: ObservableObject {
     @Published var showMatchView: Bool = false
     @Published var openNominations: OpenNominationsConfiguration = .init("view.dashboard.highlights.all")
     @Published var activePanel: Panel? = .dashboard
-    
-    #if os(iOS)
-    @Published var activeLink: LinkIdentifier? = nil
-    #endif
     
     #if os(macOS)
     private var openNominationsCancellable: AnyCancellable? = nil

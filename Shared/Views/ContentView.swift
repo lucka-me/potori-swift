@@ -12,8 +12,10 @@ struct ContentView: View {
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
+    @EnvironmentObject private var dia: Dia
     @ObservedObject private var alert = AlertInspector()
     @ObservedObject private var navigation = Navigation()
+    @State private var nomination: Nomination? = nil
 
     var body: some View {
         navigationView
@@ -22,6 +24,16 @@ struct ContentView: View {
             .sheet(isPresented: $navigation.showMatchView) {
                 MatchView()
             }
+            .sheet(item: $nomination) { item in
+                #if os(macOS)
+                detailsSheet(of: item)
+                    .frame(minHeight: 300)
+                #else
+                NavigationView {
+                    detailsSheet(of: item)
+                }
+                #endif
+            }
             .alert(isPresented: $alert.isPresented) {
                 alert.alert
             }
@@ -29,11 +41,7 @@ struct ContentView: View {
                 if url.scheme == "potori", let host = url.host {
                     if host == "nomination" {
                         let id = url.lastPathComponent
-                        navigation.openNominations = .init("view.nominations", nil, id, panel: .list)
-                        #if os(iOS)
-                        navigation.activePanel = .dashboard
-                        navigation.activeLink = Navigation.nominationWidgetTarget
-                        #endif
+                        nomination = dia.firstNomination(matches: .init(format: "id == %@", id))
                     }
                 }
             }
@@ -51,6 +59,28 @@ struct ContentView: View {
             SidebarNavigation()
         }
         #endif
+    }
+    
+    @ViewBuilder
+    private func detailsSheet(of nomination: Nomination) -> some View {
+        #if os(macOS)
+        HStack {
+            Text(nomination.title)
+                .font(.largeTitle)
+            Spacer()
+        }
+        .padding()
+        #endif
+        NominationDetails(nomination: nomination)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        self.nomination = nil
+                    } label: {
+                        Label("view.details.dismiss", systemImage: "xmark")
+                    }
+                }
+            }
     }
 }
 

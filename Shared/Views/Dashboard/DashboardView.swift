@@ -20,19 +20,6 @@ struct DashboardView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(alignment: .leading) {
-                #if os(iOS)
-                if navigation.activeLink == Navigation.nominationWidgetTarget {
-                    if let id = navigation.openNominations.selection,
-                       let nomination = dia.firstNomination(matches: .init(format: "id == %@", id)) {
-                        NavigationLink(
-                            destination: NominationDetails(nomination: nomination),
-                            tag: Navigation.nominationWidgetTarget,
-                            selection: $navigation.activeLink,
-                            label: { }
-                        )
-                    }
-                }
-                #endif
                 DashboardStatusView()
                 if service.status == .idle && dia.countNominations() > 0 {
                     DashboardHighlightsView()
