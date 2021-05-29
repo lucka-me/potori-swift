@@ -53,9 +53,9 @@ class Mari {
         } else {
             latest = 0
         }
-        for statusPair in Umi.shared.status {
-            for queryPair in statusPair.value.queries {
-                self.queryList(with: .init(for: statusPair.value, by: queryPair.key))
+        for status in Umi.shared.statusAll {
+            for queryPair in status.queries {
+                self.queryList(with: .init(for: status, by: queryPair.value))
             }
         }
         return true
@@ -64,7 +64,7 @@ class Mari {
     private func queryList(with pack: QueryPack, pageToken: String? = nil) {
         progress.addList()
         let query = GTLRGmailQuery_UsersMessagesList.query(withUserId: Self.userId)
-        query.q = "\(pack.status.queries[pack.scanner]!.query)\(latest > 0 ? " after:\(latest)" : "")"
+        query.q = "\(pack.query.query)\(latest > 0 ? " after:\(latest)" : "")"
         query.pageToken = pageToken
         gmailService.executeQuery(query) { _, response, error in
             guard
@@ -94,7 +94,7 @@ class Mari {
                     return
                 }
                 do {
-                    let nomination = try Parser.parse(solidResponse, for: pack.status.code, by: pack.scanner)
+                    let nomination = try Parser.parse(solidResponse, for: pack.status.code, by: pack.query.scanner)
                     self.nominations.append(nomination)
                 } catch Parser.ErrorType.brokenMessage {
                     // Handle broken message
@@ -111,12 +111,12 @@ class Mari {
 
 fileprivate class QueryPack {
     let status: Umi.Status
-    let scanner: Umi.Scanner.Code
+    let query: Umi.Status.Query
     var ids: [ String ] = []
     
-    init(for status: Umi.Status, by scanner: Umi.Scanner.Code) {
+    init(for status: Umi.Status, by query: Umi.Status.Query) {
         self.status = status
-        self.scanner = scanner
+        self.query = query
     }
 }
 
