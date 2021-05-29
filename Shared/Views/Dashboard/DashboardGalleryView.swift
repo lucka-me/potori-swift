@@ -50,7 +50,9 @@ struct DashboardGalleryView: View {
                                     .frame(width: 100, height: 100, alignment: .center)
                                     .overlay(caption(nomination), alignment: .bottomLeading)
                                     .clipShape(RoundedRectangle(cornerRadius: CardView.defaultRadius, style: .continuous))
-                                    .contextMenu { NominationContextMenu(nomination: nomination) }
+                                    .contextMenu {
+                                        NominationContextMenu(nomination: nomination)
+                                    }
                             }
                         }
                     }
@@ -62,12 +64,19 @@ struct DashboardGalleryView: View {
     
     @ViewBuilder
     private func caption(_ nomination: Nomination) -> some View {
-        Text(nomination.title)
-            .lineLimit(1)
-            .font(.caption)
+        ZStack {
+            BlurVisualEffectView()
+            
+            HStack {
+                Text(nomination.title)
+                    .lineLimit(1)
+                    .font(.caption)
+                    .foregroundColor(nomination.statusData.color)
+                Spacer()
+            }
             .padding(8)
-            .frame(width: 100, alignment: .leading)
-            .background(Rectangle().fill(nomination.statusData.color.opacity(0.6)))
+        }
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
 

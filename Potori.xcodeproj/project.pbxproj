@@ -136,6 +136,8 @@
 		8475B68625C1871B002D7915 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84C769AA25A706A60055A3A9 /* Localizable.strings */; };
 		8475B6C925C1A4B4002D7915 /* NominationRAW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178BD259A0D8D00CD967F /* NominationRAW.swift */; };
 		8475B6CF25C1A4ED002D7915 /* NominationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC5B625A359DD007A8AE8 /* NominationJSON.swift */; };
+		847B169F266281B100605AD2 /* BlurVisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847B169E266281B100605AD2 /* BlurVisualEffectView.swift */; };
+		847B16A2266287D800605AD2 /* BlurVisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847B16A1266287D800605AD2 /* BlurVisualEffectView.swift */; };
 		84841DB425BC413100468C6D /* TestsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84841DB325BC413100468C6D /* TestsUI.swift */; };
 		849178822599F81700CD967F /* PotoriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178592599F81600CD967F /* PotoriApp.swift */; };
 		849178832599F81700CD967F /* PotoriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178592599F81600CD967F /* PotoriApp.swift */; };
@@ -345,6 +347,8 @@
 		8475B61D25C1610E002D7915 /* NominationWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationWidget.swift; sourceTree = "<group>"; };
 		8475B68C25C18A02002D7915 /* Widget Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Widget Extension.entitlements"; sourceTree = "<group>"; };
 		8475B69225C18B69002D7915 /* Potori.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Potori.entitlements; sourceTree = "<group>"; };
+		847B169E266281B100605AD2 /* BlurVisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurVisualEffectView.swift; sourceTree = "<group>"; };
+		847B16A1266287D800605AD2 /* BlurVisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurVisualEffectView.swift; sourceTree = "<group>"; };
 		84841DB125BC413100468C6D /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84841DB325BC413100468C6D /* TestsUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsUI.swift; sourceTree = "<group>"; };
 		84841DB525BC413100468C6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -528,6 +532,7 @@
 		843BEF5A259F32AB00FC17F9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				847B169E266281B100605AD2 /* BlurVisualEffectView.swift */,
 				843BEF37259F07CF00FC17F9 /* TabNavigation.swift */,
 			);
 			path = Views;
@@ -587,6 +592,14 @@
 				84EA8F9525C15FE300BB924A /* Info.plist */,
 			);
 			path = iOS;
+			sourceTree = "<group>";
+		};
+		847B16A0266287C100605AD2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				847B16A1266287D800605AD2 /* BlurVisualEffectView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		84841DB225BC413100468C6D /* macOS */ = {
@@ -657,6 +670,7 @@
 			children = (
 				8491786B2599F81700CD967F /* macOS.entitlements */,
 				8491786A2599F81700CD967F /* Info.plist */,
+				847B16A0266287C100605AD2 /* Views */,
 			);
 			path = macOS;
 			sourceTree = "<group>";
@@ -1100,6 +1114,7 @@
 				846C48E826439B6C0017BE48 /* Image.swift in Sources */,
 				8491789B2599F92C00CD967F /* NominationListRow.swift in Sources */,
 				84C9263E265BDC0100F240F2 /* Brainstorming.swift in Sources */,
+				847B169F266281B100605AD2 /* BlurVisualEffectView.swift in Sources */,
 				846C48E3264396E30017BE48 /* Widget.intentdefinition in Sources */,
 				84B8A54725B85045000B0C0E /* DashboardCard.swift in Sources */,
 				843BEF48259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */,
@@ -1148,6 +1163,7 @@
 				84C92646265C7FFF00F240F2 /* AlertInspector.swift in Sources */,
 				84FB4D262655299200AAA9A3 /* ProgressInspector.swift in Sources */,
 				84CCEDC3259CB5470040917E /* RemoteImage.swift in Sources */,
+				847B16A2266287D800605AD2 /* BlurVisualEffectView.swift in Sources */,
 				84FB4D1E2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift in Sources */,
 				8430E27F25C3021F008F1BAC /* Dia.swift in Sources */,
 				84C9263F265BDC0100F240F2 /* Brainstorming.swift in Sources */,
