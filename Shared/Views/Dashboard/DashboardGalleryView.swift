@@ -72,7 +72,7 @@ struct DashboardGalleryView: View {
                     .lineLimit(1)
                     .font(.caption)
                     .foregroundColor(nomination.statusData.color)
-                Spacer()
+                Spacer(minLength: 0)
             }
             .padding(8)
         }
