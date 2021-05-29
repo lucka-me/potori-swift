@@ -11,7 +11,7 @@ struct FixedWidthIconLabelStyle: LabelStyle {
     func makeBody(configuration: Configuration) -> some View {
         HStack(alignment: .firstTextBaseline) {
             configuration.icon
-                .frame(width: 24, height: 24, alignment: .center)
+                .frame(width: 24, alignment: .center)
             configuration.title
         }
     }
