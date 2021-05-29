@@ -45,9 +45,10 @@ class Navigation: ObservableObject {
     
     class PanelLabel {
         static let dashboard = Label("view.dashboard", systemImage: "gauge")
+        #if os(macOS)
         static let list = Label("view.list", systemImage: "list.bullet")
         static let map = Label("view.map", systemImage: "map")
-        #if os(iOS)
+        #else
         static let preferences = Label("view.preferences", systemImage: "gearshape")
         #endif
     }
@@ -59,7 +60,7 @@ class Navigation: ObservableObject {
     #endif
     
     #if os(macOS)
-    func open(for config: ListConfiguration) {
+    fileprivate func open(for config: ListConfiguration) {
         if let panel = config.panel {
             activePanel = panel
         }
@@ -91,7 +92,7 @@ struct OpenNominationListLink<Label: View>: View {
     }
 }
 
-struct OpenNominationDetailsLink<Label: View>: View {
+struct NominationDetailsLink<Label: View>: View {
     #if os(macOS)
     @EnvironmentObject var navigation: Navigation
     #endif
@@ -116,30 +117,23 @@ struct OpenNominationDetailsLink<Label: View>: View {
     }
 }
 
-struct OpenNominationMapLink<Label: View>: View {
+struct NominationMapLink<Label: View>: View {
     #if os(macOS)
     @EnvironmentObject var navigation: Navigation
     #endif
     private let config: Navigation.ListConfiguration
-    private let plain: Bool
     private let label: () -> Label
     
-    init(_ config: Navigation.ListConfiguration, plain: Bool = true, @ViewBuilder _ label: @escaping () -> Label) {
+    init(_ config: Navigation.ListConfiguration, @ViewBuilder _ label: @escaping () -> Label) {
         self.config = .init(config.title, config.predicate, panel: .map)
-        self.plain = plain
         self.label = label
     }
     
     var body: some View {
         #if os(macOS)
-        let view = Button(action: { navigation.open(for: config) }, label: label)
+        Button(action: { navigation.open(for: config) }, label: label)
         #else
-        let view = NavigationLink(destination: NominationMap(config), label: label)
+        NavigationLink(destination: NominationMap(config), label: label)
         #endif
-        if plain {
-            view.buttonStyle(PlainButtonStyle())
-        } else {
-            view
-        }
     }
 }

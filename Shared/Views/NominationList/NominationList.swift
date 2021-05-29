@@ -69,7 +69,7 @@ struct NominationList: View {
         .navigationTitle(config.title)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                OpenNominationMapLink(config, plain: false) {
+                NominationMapLink(config) {
                     Label("view.map", systemImage: "map")
                 }
             }

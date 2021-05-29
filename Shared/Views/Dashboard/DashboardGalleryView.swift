@@ -41,7 +41,7 @@ struct DashboardGalleryView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(nominations) { nomination in
-                            OpenNominationDetailsLink(
+                            NominationDetailsLink(
                                 .init("view.dashboard.gallery", Self.predicate),
                                 nomination
                             ) {
