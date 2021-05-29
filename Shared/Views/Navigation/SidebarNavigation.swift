@@ -24,14 +24,14 @@ struct SidebarNavigation: View {
                 }
                 #if os(macOS)
                 NavigationLink(
-                    destination: NominationList(navigation.openNominations),
+                    destination: NominationList(navigation.listConfig),
                     tag: Navigation.Panel.list,
                     selection: $navigation.activePanel
                 ) {
                     Navigation.PanelLabel.list
                 }
                 NavigationLink(
-                    destination: NominationMap(navigation.openNominations).frame(minWidth: 350),
+                    destination: NominationMap(navigation.listConfig).frame(minWidth: 350),
                     tag: Navigation.Panel.map,
                     selection: $navigation.activePanel
                 ) {

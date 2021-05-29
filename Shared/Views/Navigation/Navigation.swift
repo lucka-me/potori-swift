@@ -19,7 +19,7 @@ class Navigation: ObservableObject {
         #endif
     }
     
-    struct OpenNominationsConfiguration {
+    struct ListConfiguration {
         let title: LocalizedStringKey
         let predicate: NSPredicate?
         let selection: String?
@@ -53,20 +53,17 @@ class Navigation: ObservableObject {
     }
     
     @Published var showMatchView: Bool = false
-    @Published var openNominations: OpenNominationsConfiguration = .init("view.dashboard.highlights.all")
     @Published var activePanel: Panel? = .dashboard
-    
     #if os(macOS)
-    private var openNominationsCancellable: AnyCancellable? = nil
+    @Published var listConfig: ListConfiguration = .init("view.dashboard.highlights.all")
     #endif
     
     #if os(macOS)
-    init() {
-        openNominationsCancellable = $openNominations.sink { value in
-            if let solidPanel = value.panel {
-                self.activePanel = solidPanel
-            }
+    func open(for config: ListConfiguration) {
+        if let panel = config.panel {
+            activePanel = panel
         }
+        listConfig = config
     }
     #endif
 }
@@ -75,17 +72,17 @@ struct OpenNominationListLink<Label: View>: View {
     #if os(macOS)
     @EnvironmentObject var navigation: Navigation
     #endif
-    private let config: Navigation.OpenNominationsConfiguration
+    private let config: Navigation.ListConfiguration
     private let label: () -> Label
     
-    init(_ config: Navigation.OpenNominationsConfiguration, @ViewBuilder _ label: @escaping () -> Label) {
+    init(_ config: Navigation.ListConfiguration, @ViewBuilder _ label: @escaping () -> Label) {
         self.config = .init(config.title, config.predicate, panel: .list)
         self.label = label
     }
     
     var body: some View {
         #if os(macOS)
-        let view = Button(action: { navigation.openNominations = config }, label: label)
+        let view = Button(action: { navigation.open(for: config) }, label: label)
         #else
         let view = NavigationLink(destination: NominationList(config), label: label)
             .isDetailLink(false)
@@ -98,11 +95,11 @@ struct OpenNominationDetailsLink<Label: View>: View {
     #if os(macOS)
     @EnvironmentObject var navigation: Navigation
     #endif
-    private let config: Navigation.OpenNominationsConfiguration
+    private let config: Navigation.ListConfiguration
     private let nomination: Nomination
     private let label: () -> Label
     
-    init(_ config: Navigation.OpenNominationsConfiguration, _ nomination: Nomination, @ViewBuilder _ label: @escaping () -> Label) {
+    init(_ config: Navigation.ListConfiguration, _ nomination: Nomination, @ViewBuilder _ label: @escaping () -> Label) {
         self.config = .init(config.title, config.predicate, nomination.id, panel: .list)
         self.nomination = nomination
         self.label = label
@@ -110,7 +107,7 @@ struct OpenNominationDetailsLink<Label: View>: View {
     
     var body: some View {
         #if os(macOS)
-        let view = Button(action: { navigation.openNominations = config }, label: label)
+        let view = Button(action: { navigation.open(for: config) }, label: label)
         #else
         let view = NavigationLink(destination: NominationDetails(nomination: nomination), label: label)
             .isDetailLink(false)
@@ -123,11 +120,11 @@ struct OpenNominationMapLink<Label: View>: View {
     #if os(macOS)
     @EnvironmentObject var navigation: Navigation
     #endif
-    private let config: Navigation.OpenNominationsConfiguration
+    private let config: Navigation.ListConfiguration
     private let plain: Bool
     private let label: () -> Label
     
-    init(_ config: Navigation.OpenNominationsConfiguration, plain: Bool = true, @ViewBuilder _ label: @escaping () -> Label) {
+    init(_ config: Navigation.ListConfiguration, plain: Bool = true, @ViewBuilder _ label: @escaping () -> Label) {
         self.config = .init(config.title, config.predicate, panel: .map)
         self.plain = plain
         self.label = label
@@ -135,7 +132,7 @@ struct OpenNominationMapLink<Label: View>: View {
     
     var body: some View {
         #if os(macOS)
-        let view = Button(action: { navigation.openNominations = config }, label: label)
+        let view = Button(action: { navigation.open(for: config) }, label: label)
         #else
         let view = NavigationLink(destination: NominationMap(config), label: label)
         #endif

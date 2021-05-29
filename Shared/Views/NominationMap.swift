@@ -13,13 +13,13 @@ struct NominationMap: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var rect: MKMapRect = .world
 
-    private let config: Navigation.OpenNominationsConfiguration
+    private let config: Navigation.ListConfiguration
     private let fetchRequest: FetchRequest<Nomination>
     private var nominations: [Nomination] {
         fetchRequest.wrappedValue.filter { $0.hasLngLat }
     }
     
-    init(_ configuration: Navigation.OpenNominationsConfiguration) {
+    init(_ configuration: Navigation.ListConfiguration) {
         config = configuration
         fetchRequest = .init(
             entity: Nomination.entity(),

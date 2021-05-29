@@ -15,13 +15,13 @@ struct NominationList: View {
     
     @State private var selection: String?
     
-    private let config: Navigation.OpenNominationsConfiguration
+    private let config: Navigation.ListConfiguration
     private let fetchRequest: FetchRequest<Nomination>
     private var nominations: FetchedResults<Nomination> {
         fetchRequest.wrappedValue
     }
     
-    init(_ configuration: Navigation.OpenNominationsConfiguration) {
+    init(_ configuration: Navigation.ListConfiguration) {
         config = configuration
 
         fetchRequest = .init(
