@@ -14,10 +14,11 @@ final class GoogleKit {
     
     final class Auth: ObservableObject {
         
+        static let redirectURL = "com.googleusercontent.apps.361295761775-oa7u8sbbldvaq29c5gbg74ep906pqhd8:/oauthredirect"
+        
         static let shared = Auth()
         
         private static let clientID = "361295761775-oa7u8sbbldvaq29c5gbg74ep906pqhd8.apps.googleusercontent.com"
-        private static let redirectURL = "com.googleusercontent.apps.361295761775-oa7u8sbbldvaq29c5gbg74ep906pqhd8:/oauthredirect"
         private static let authKeychainName = "auth.google"
         
         @Published var authorized: Bool = false

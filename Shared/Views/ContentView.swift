@@ -38,11 +38,15 @@ struct ContentView: View {
                 alert.alert
             }
             .onOpenURL { url in
-                if url.scheme == "potori", let host = url.host {
-                    if host == "details" {
-                        let id = url.lastPathComponent
-                        nomination = dia.firstNomination(matches: .init(format: "id == %@", id))
-                    }
+                guard
+                    url.scheme == "potori",
+                    let host = url.host
+                else {
+                    return
+                }
+                if host == "details" {
+                    let id = url.lastPathComponent
+                    nomination = dia.firstNomination(matches: .init(format: "id == %@", id))
                 }
             }
     }
@@ -69,7 +73,7 @@ struct ContentView: View {
                 .font(.largeTitle)
             Spacer()
         }
-        .padding()
+        .padding([ .top, .horizontal ])
         #endif
         NominationDetails(nomination: nomination)
             .toolbar {

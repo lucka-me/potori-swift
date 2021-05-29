@@ -10,16 +10,24 @@ import SwiftUI
 @main
 struct PotoriApp: App {
     
+    private static let matchURLs: Set<String> = [
+        "potori://details",
+        GoogleKit.Auth.redirectURL
+    ]
+    
     private let dia = Dia.shared
     private let service = Service.shared
 
     @State private var firstAppear = true
 
     var body: some Scene {
-        WindowGroup { content }
-            .commands {
-                SidebarCommands()
-            }
+        WindowGroup {
+            content
+        }
+        .commands {
+            SidebarCommands()
+        }
+        .handlesExternalEvents(matching: Self.matchURLs)
         #if os(macOS)
         Settings {
             PreferencesView()
@@ -44,6 +52,7 @@ struct PotoriApp: App {
                     URLCache.shared.diskCapacity = 100 * 1024 * 1024
                 }
             }
+            .handlesExternalEvents(preferring: Self.matchURLs, allowing: [ "*" ])
             .onOpenURL { url in
                 #if os(macOS)
                 if url.scheme != "potori" {
