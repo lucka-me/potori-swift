@@ -16,6 +16,8 @@ An app to manage Ingress nominations from Gmail inbox, available for macOS and i
 
 This is the Swift implementation of [the web app](https://github.com/lucka-me/potori).
 
+Here is the `next` branch, for the next major version.
+
 ## Requirements
 - Xcode 12+
 - macOS 11+
