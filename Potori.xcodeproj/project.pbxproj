@@ -85,6 +85,9 @@
 		844A9AAE25A4BD21003E44B5 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */; };
 		844A9AAF25A4BD21003E44B5 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */; };
 		844E157725A0659300A79C9E /* GoogleAPIClientForREST_Gmail in Frameworks */ = {isa = PBXBuildFile; productRef = 844E157625A0659300A79C9E /* GoogleAPIClientForREST_Gmail */; };
+		8460DA7E2666738900BB732E /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 8460DA7D2666738900BB732E /* MapboxMaps */; };
+		8460DA82266673FE00BB732E /* FusionMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460DA81266673FE00BB732E /* FusionMap.swift */; };
+		8460DA842667C18F00BB732E /* FusionMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460DA832667C18F00BB732E /* FusionMap.swift */; };
 		8462D088259FBA030031AD0D /* NominationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D087259FBA030031AD0D /* NominationMap.swift */; };
 		8462D089259FBA030031AD0D /* NominationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D087259FBA030031AD0D /* NominationMap.swift */; };
 		8462D0A525A0643F0031AD0D /* GoogleAPIClientForREST_Gmail in Frameworks */ = {isa = PBXBuildFile; productRef = 8462D0A425A0643F0031AD0D /* GoogleAPIClientForREST_Gmail */; };
@@ -143,8 +146,6 @@
 		849178832599F81700CD967F /* PotoriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178592599F81600CD967F /* PotoriApp.swift */; };
 		849178862599F81700CD967F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8491785B2599F81700CD967F /* Assets.xcassets */; };
 		849178872599F81700CD967F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8491785B2599F81700CD967F /* Assets.xcassets */; };
-		8491789B2599F92C00CD967F /* NominationListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8491789A2599F92C00CD967F /* NominationListRow.swift */; };
-		8491789C2599F92C00CD967F /* NominationListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8491789A2599F92C00CD967F /* NominationListRow.swift */; };
 		849178A7259A06E000CD967F /* NominationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178A6259A06E000CD967F /* NominationList.swift */; };
 		849178A8259A06E000CD967F /* NominationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178A6259A06E000CD967F /* NominationList.swift */; };
 		849178BE259A0D8D00CD967F /* NominationRAW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178BD259A0D8D00CD967F /* NominationRAW.swift */; };
@@ -212,8 +213,6 @@
 		84F97C72259B6978005D9AA4 /* NominationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F97C70259B6978005D9AA4 /* NominationDetails.swift */; };
 		84F97C78259B7474005D9AA4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F97C77259B7474005D9AA4 /* ContentView.swift */; };
 		84F97C79259B7474005D9AA4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F97C77259B7474005D9AA4 /* ContentView.swift */; };
-		84F97CBB259BADB7005D9AA4 /* NominationDetailsMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F97CBA259BADB7005D9AA4 /* NominationDetailsMap.swift */; };
-		84F97CBC259BADB7005D9AA4 /* NominationDetailsMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F97CBA259BADB7005D9AA4 /* NominationDetailsMap.swift */; };
 		84FB4D1D2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4D1C2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift */; };
 		84FB4D1E2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4D1C2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift */; };
 		84FB4D20265401C900AAA9A3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4D1F265401C900AAA9A3 /* String.swift */; };
@@ -327,6 +326,8 @@
 		843BFFF22657C88A0031963C /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		84495F2D259A140D00BA238A /* nominations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nominations.json; sourceTree = "<group>"; };
 		844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		8460DA81266673FE00BB732E /* FusionMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FusionMap.swift; sourceTree = "<group>"; };
+		8460DA832667C18F00BB732E /* FusionMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FusionMap.swift; sourceTree = "<group>"; };
 		8462D087259FBA030031AD0D /* NominationMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationMap.swift; sourceTree = "<group>"; };
 		846645EB25A8DAA200DD37D1 /* GoogleKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleKit.swift; sourceTree = "<group>"; };
 		8468A22B25A33784009B562D /* Potori.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Potori.xcdatamodel; sourceTree = "<group>"; };
@@ -359,7 +360,6 @@
 		849178682599F81700CD967F /* Potori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Potori.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8491786A2599F81700CD967F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8491786B2599F81700CD967F /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
-		8491789A2599F92C00CD967F /* NominationListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationListRow.swift; sourceTree = "<group>"; };
 		849178A6259A06E000CD967F /* NominationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationList.swift; sourceTree = "<group>"; };
 		849178BD259A0D8D00CD967F /* NominationRAW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationRAW.swift; sourceTree = "<group>"; };
 		8497C76825B81BB500B88C12 /* Reason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reason.swift; sourceTree = "<group>"; };
@@ -391,7 +391,6 @@
 		84F8F88C25FBB589002702AF /* umi.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = umi.json; path = umi/umi.json; sourceTree = "<group>"; };
 		84F97C70259B6978005D9AA4 /* NominationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationDetails.swift; sourceTree = "<group>"; };
 		84F97C77259B7474005D9AA4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		84F97CBA259BADB7005D9AA4 /* NominationDetailsMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationDetailsMap.swift; sourceTree = "<group>"; };
 		84FB4D1C2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIconLabelStyle.swift; sourceTree = "<group>"; };
 		84FB4D1F265401C900AAA9A3 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		84FB4D242655299200AAA9A3 /* ProgressInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressInspector.swift; sourceTree = "<group>"; };
@@ -413,6 +412,7 @@
 				8400355E259F7732003C97EA /* AppAuth in Frameworks */,
 				844E157725A0659300A79C9E /* GoogleAPIClientForREST_Gmail in Frameworks */,
 				8472B4D62621A9B800BF8131 /* GTMAppAuth in Frameworks */,
+				8460DA7E2666738900BB732E /* MapboxMaps in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,28 +511,11 @@
 			path = Scripts;
 			sourceTree = "<group>";
 		};
-		843BEF23259F017800FC17F9 /* NominationList */ = {
-			isa = PBXGroup;
-			children = (
-				849178A6259A06E000CD967F /* NominationList.swift */,
-				8491789A2599F92C00CD967F /* NominationListRow.swift */,
-			);
-			path = NominationList;
-			sourceTree = "<group>";
-		};
-		843BEF28259F018300FC17F9 /* NominationDetails */ = {
-			isa = PBXGroup;
-			children = (
-				84F97C70259B6978005D9AA4 /* NominationDetails.swift */,
-				84F97CBA259BADB7005D9AA4 /* NominationDetailsMap.swift */,
-			);
-			path = NominationDetails;
-			sourceTree = "<group>";
-		};
 		843BEF5A259F32AB00FC17F9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				847B169E266281B100605AD2 /* BlurVisualEffectView.swift */,
+				8460DA81266673FE00BB732E /* FusionMap.swift */,
 				843BEF37259F07CF00FC17F9 /* TabNavigation.swift */,
 			);
 			path = Views;
@@ -598,6 +581,7 @@
 			isa = PBXGroup;
 			children = (
 				847B16A1266287D800605AD2 /* BlurVisualEffectView.swift */,
+				8460DA832667C18F00BB732E /* FusionMap.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -680,13 +664,13 @@
 			children = (
 				84F97C77259B7474005D9AA4 /* ContentView.swift */,
 				84177FB825B2F079009CC4E9 /* MatchView.swift */,
+				84F97C70259B6978005D9AA4 /* NominationDetails.swift */,
+				849178A6259A06E000CD967F /* NominationList.swift */,
 				8462D087259FBA030031AD0D /* NominationMap.swift */,
 				844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */,
 				840A15E325BCA41500541ED5 /* Basic */,
 				8418510225B823900094470A /* Dashboard */,
 				8469EB4B25B9D24300A9831D /* Navigation */,
-				843BEF28259F018300FC17F9 /* NominationDetails */,
-				843BEF23259F017800FC17F9 /* NominationList */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -824,6 +808,7 @@
 				844E157625A0659300A79C9E /* GoogleAPIClientForREST_Gmail */,
 				84E97F9125A4A49B0031FE3B /* GoogleAPIClientForREST_Drive */,
 				8472B4D52621A9B800BF8131 /* GTMAppAuth */,
+				8460DA7D2666738900BB732E /* MapboxMaps */,
 			);
 			productName = "Potori (iOS)";
 			productReference = 849178602599F81700CD967F /* Potori.app */;
@@ -969,6 +954,7 @@
 				84003554259F613F003C97EA /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
 				8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */,
 				8472B4D42621A9B800BF8131 /* XCRemoteSwiftPackageReference "GTMAppAuth" */,
+				8460DA7C2666738900BB732E /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
 			);
 			productRefGroup = 849178612599F81700CD967F /* Products */;
 			projectDirPath = "";
@@ -1095,7 +1081,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8469EB1B25B88A2600A9831D /* DashboardReasonsView.swift in Sources */,
-				84F97CBB259BADB7005D9AA4 /* NominationDetailsMap.swift in Sources */,
 				84FB4D20265401C900AAA9A3 /* String.swift in Sources */,
 				846CC62925A35EFF007A8AE8 /* Nomination.swift in Sources */,
 				84FB4D1D2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift in Sources */,
@@ -1112,7 +1097,6 @@
 				844A9AAE25A4BD21003E44B5 /* PreferencesView.swift in Sources */,
 				846C48F626439F260017BE48 /* CardView.swift in Sources */,
 				846C48E826439B6C0017BE48 /* Image.swift in Sources */,
-				8491789B2599F92C00CD967F /* NominationListRow.swift in Sources */,
 				84C9263E265BDC0100F240F2 /* Brainstorming.swift in Sources */,
 				847B169F266281B100605AD2 /* BlurVisualEffectView.swift in Sources */,
 				846C48E3264396E30017BE48 /* Widget.intentdefinition in Sources */,
@@ -1126,6 +1110,7 @@
 				84F97C78259B7474005D9AA4 /* ContentView.swift in Sources */,
 				846645EC25A8DAA200DD37D1 /* GoogleKit.swift in Sources */,
 				84FB4D252655299200AAA9A3 /* ProgressInspector.swift in Sources */,
+				8460DA82266673FE00BB732E /* FusionMap.swift in Sources */,
 				84DB6ED1259A3D5D00BD915B /* Service.swift in Sources */,
 				849178A7259A06E000CD967F /* NominationList.swift in Sources */,
 				849178BE259A0D8D00CD967F /* NominationRAW.swift in Sources */,
@@ -1149,7 +1134,7 @@
 				8434023D25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */,
 				846C48E926439B6C0017BE48 /* Image.swift in Sources */,
 				8468A22D25A33784009B562D /* Potori.xcdatamodeld in Sources */,
-				84F97CBC259BADB7005D9AA4 /* NominationDetailsMap.swift in Sources */,
+				8460DA842667C18F00BB732E /* FusionMap.swift in Sources */,
 				844A9AAF25A4BD21003E44B5 /* PreferencesView.swift in Sources */,
 				8469EB2B25B93EF800A9831D /* DashboardStatusView.swift in Sources */,
 				84DB6EA4259A2B1F00BD915B /* Umi.swift in Sources */,
@@ -1157,7 +1142,6 @@
 				84F97C72259B6978005D9AA4 /* NominationDetails.swift in Sources */,
 				846C48E4264396E30017BE48 /* Widget.intentdefinition in Sources */,
 				843BFFED2656822C0031963C /* Array.swift in Sources */,
-				8491789C2599F92C00CD967F /* NominationListRow.swift in Sources */,
 				84B8A54825B85045000B0C0E /* DashboardCard.swift in Sources */,
 				8469EB3625B943C800A9831D /* DashboardGalleryView.swift in Sources */,
 				84C92646265C7FFF00F240F2 /* AlertInspector.swift in Sources */,
@@ -1895,6 +1879,14 @@
 				minimumVersion = 1.4.0;
 			};
 		};
+		8460DA7C2666738900BB732E /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mapbox/mapbox-maps-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = "10.0.0-rc.3";
+			};
+		};
 		8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/woxtu/google-api-objectivec-client-for-rest.git";
@@ -1908,7 +1900,7 @@
 			repositoryURL = "https://github.com/google/GTMAppAuth.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.1;
+				minimumVersion = 1.2.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1968,6 +1960,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
 			productName = GoogleAPIClientForREST_Gmail;
+		};
+		8460DA7D2666738900BB732E /* MapboxMaps */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8460DA7C2666738900BB732E /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */;
+			productName = MapboxMaps;
 		};
 		8462D0A425A0643F0031AD0D /* GoogleAPIClientForREST_Gmail */ = {
 			isa = XCSwiftPackageProductDependency;

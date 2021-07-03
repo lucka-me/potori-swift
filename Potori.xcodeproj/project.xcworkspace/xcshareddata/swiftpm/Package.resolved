@@ -33,8 +33,53 @@
         "repositoryURL": "https://github.com/google/GTMAppAuth.git",
         "state": {
           "branch": null,
-          "revision": "61718b0dde87463f229da82b0910f247fc1c3610",
-          "version": "1.2.1"
+          "revision": "40f4103fb52109032c05599a0c39ad43edbdf80a",
+          "version": "1.2.2"
+        }
+      },
+      {
+        "package": "MapboxCommon",
+        "repositoryURL": "https://github.com/mapbox/mapbox-common-ios.git",
+        "state": {
+          "branch": null,
+          "revision": "828fef26fb99d86622d8a0f2c423b05fae49f15e",
+          "version": "14.2.0"
+        }
+      },
+      {
+        "package": "MapboxCoreMaps",
+        "repositoryURL": "https://github.com/mapbox/mapbox-core-maps-ios.git",
+        "state": {
+          "branch": null,
+          "revision": "a4825ed338282db12f690c045f3b6a9bc769c952",
+          "version": "10.0.0-rc.3"
+        }
+      },
+      {
+        "package": "MapboxMobileEvents",
+        "repositoryURL": "https://github.com/mapbox/mapbox-events-ios.git",
+        "state": {
+          "branch": null,
+          "revision": "8e0c725271dee0a0c957b9b9738aef81b601f12b",
+          "version": "1.0.2"
+        }
+      },
+      {
+        "package": "MapboxMaps",
+        "repositoryURL": "https://github.com/mapbox/mapbox-maps-ios.git",
+        "state": {
+          "branch": null,
+          "revision": "8aaa8ff15dd188bf51300ddc6c3ab3fcefeb6cbe",
+          "version": "10.0.0-rc.3"
+        }
+      },
+      {
+        "package": "Turf",
+        "repositoryURL": "https://github.com/mapbox/turf-swift.git",
+        "state": {
+          "branch": null,
+          "revision": "e460a117d2ac6b7a79a68c83ed75cb9a8acaeb6c",
+          "version": "2.0.0-beta.1"
         }
       }
     ]

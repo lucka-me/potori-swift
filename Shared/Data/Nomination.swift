@@ -122,11 +122,8 @@ extension Nomination : Identifiable {
         URL(string: "https://intel.ingress.com/intel?ll=\(latitude),\(longitude)&z=18")!
     }
     
-    var location: CLLocationCoordinate2D {
-        CLLocationCoordinate2D(
-            latitude: hasLngLat ? latitude : Nomination.defaultLatitude,
-            longitude: hasLngLat ? longitude : Nomination.defaultLongitude
-        )
+    var coordinate: CLLocationCoordinate2D? {
+        return hasLngLat ? .init(latitude: latitude, longitude: longitude) : nil
     }
     
     var raw: NominationRAW {

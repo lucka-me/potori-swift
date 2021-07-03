@@ -19,6 +19,9 @@ struct NominationDetails: View {
     
     let nomination: Nomination
     
+    #if os(iOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
     @EnvironmentObject private var alert: AlertInspector
     @EnvironmentObject private var dia: Dia
     @State private var mode: Mode = .view
@@ -30,7 +33,7 @@ struct NominationDetails: View {
             EmptyView()
         } else {
             #if os(macOS)
-            content.frame(minWidth: 300)
+            content.frame(minWidth: 480)
             #else
             content
             #endif
@@ -49,16 +52,18 @@ struct NominationDetails: View {
                     Divider()
                 }
                 
-                LazyVGrid(columns: [ .init(.adaptive(minimum: 250), alignment: .top) ], alignment: .center) {
+                LazyVGrid(
+                    columns: .init(repeating: .init(.flexible(), alignment: .top), count: columns),
+                    alignment: .center
+                ) {
                     highlights
-                    if (mode == .view && nomination.statusCode == .rejected)
-                        || (mode == .edit && editData.status == .rejected) {
+                    if showReasons {
                         reasons
                     }
                 }
                 
                 if mode == .view && nomination.hasLngLat {
-                    NominationDetailsMap(nomination: nomination)
+                    FusionMap(nomination)
                         .clipShape(RoundedRectangle(cornerRadius: Self.radius, style: .continuous))
                         .frame(height: 200)
                 } else if mode == .edit {
@@ -233,6 +238,22 @@ struct NominationDetails: View {
                 }
             }
         }
+    }
+    
+    private var columns: Int {
+        if mode == .edit || !showReasons {
+            return 1
+        } else {
+            #if os(macOS)
+            return 2
+            #else
+            return horizontalSizeClass == .compact ? 1 : 2
+            #endif
+        }
+    }
+    
+    private var showReasons: Bool {
+        (mode == .view && nomination.statusCode == .rejected) || (mode == .edit && editData.status == .rejected)
     }
     
     private func queryLngLatFromBrainstorming() {

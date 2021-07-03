@@ -55,6 +55,9 @@
 "service.status.queryingBrainstorming"  = "正在查询Brainstorming";
 
 /* View */
+// Common Actions
+"action.dismiss" = "关闭";
+
 // Navigation
 "view.list" = "列表";
 "view.map"  = "地图";
@@ -85,7 +88,6 @@
 "view.details.edit" = "编辑";
 "view.details.save" = "保存";
 "view.details.cancel"   = "取消";
-"view.details.dismiss"  = "关闭";
 "view.details.hightlights"  = "要点";
 "view.details.confirmed"    = "确认";
 "view.details.status"   = "状态";

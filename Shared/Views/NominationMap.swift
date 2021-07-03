@@ -11,11 +11,10 @@ import MapKit
 struct NominationMap: View {
     
     @Environment(\.managedObjectContext) private var viewContext
-    @State private var rect: MKMapRect = .world
 
     private let config: Navigation.ListConfiguration
     private let fetchRequest: FetchRequest<Nomination>
-    private var nominations: [Nomination] {
+    private var nominations: [ Nomination ] {
         fetchRequest.wrappedValue.filter { $0.hasLngLat }
     }
     
@@ -29,39 +28,15 @@ struct NominationMap: View {
     }
     
     var body: some View {
-        Map(mapRect: $rect, annotationItems: nominations) { nomination in
-            MapPin(
-                coordinate: nomination.location,
-                tint: nomination.statusData.color
-            )
-        }
-        .navigationTitle(config.title)
-        .onAppear(perform: prepareRect)
-        .ignoresSafeArea()
-    }
-    
-    private func prepareRect() {
-        // X -> lng, Y -> lat
-        var minLng = 181.0
-        var maxLng = -181.0
-        var minLat = 91.0
-        var maxLat = -91.0
-        for nomination in nominations {
-            minLng = min(minLng, nomination.longitude)
-            maxLng = max(maxLng, nomination.longitude)
-            minLat = min(minLat, nomination.latitude)
-            maxLat = max(maxLat, nomination.latitude)
-        }
-        if (minLng < 181) {
-            let topLeft = MKMapPoint(CLLocationCoordinate2D(latitude: maxLat, longitude: minLng))
-            let bottomRight = MKMapPoint(CLLocationCoordinate2D(latitude: minLat, longitude: maxLng))
-            rect = MKMapRect(
-                x: topLeft.x,
-                y: topLeft.y,
-                width: bottomRight.x - topLeft.x,
-                height: bottomRight.y - topLeft.y
-            )
-        }
+        #if os(macOS)
+        FusionMap(nominations)
+            .navigationTitle(config.title)
+        #else
+        FusionMap(nominations)
+            .navigationTitle("view.map")
+            .navigationBarTitleDisplayMode(.inline)
+            .ignoresSafeArea(.container, edges: .horizontal)
+        #endif
     }
 }
 

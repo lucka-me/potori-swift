@@ -81,7 +81,7 @@ struct ContentView: View {
                     Button {
                         self.nomination = nil
                     } label: {
-                        Label("view.details.dismiss", systemImage: "xmark")
+                        Label("action.dismiss", systemImage: "xmark")
                     }
                 }
             }

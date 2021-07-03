@@ -55,6 +55,9 @@
 "service.status.queryingBrainstorming"  = "Querying Brainstorming";
 
 /* View */
+// Common actions
+"action.dismiss" = "Dismiss";
+
 // Navigation
 "view.list" = "List";
 "view.map"  = "Map";
@@ -85,7 +88,6 @@
 "view.details.edit" = "Edit";
 "view.details.save" = "Save";
 "view.details.cancel"   = "Cancel";
-"view.details.dismiss"  = "Dismiss";
 "view.details.hightlights"  = "Highlights";
 "view.details.confirmed"    = "Confirmed";
 "view.details.status"   = "Status";
