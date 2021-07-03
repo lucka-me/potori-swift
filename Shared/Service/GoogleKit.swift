@@ -47,7 +47,7 @@ final class GoogleKit {
             #elseif !EXTENSION
             currentAuthorizationFlow = OIDAuthState.authState(
                 byPresenting: getAuthRequest(),
-                presenting: UIApplication.shared.windows.first!.rootViewController!,
+                presenting: UIApplication.shared.keyRootViewController!,
                 callback: authStateCallback
             )
             #endif

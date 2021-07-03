@@ -43,7 +43,7 @@ struct RemoteImage: View {
                             let shareSheet = UIActivityViewController(
                                 activityItems: [ image ], applicationActivities: nil
                             )
-                            UIApplication.shared.windows.first?.rootViewController?.present(
+                            UIApplication.shared.keyRootViewController?.present(
                                 shareSheet, animated: true, completion: nil
                             )
                         } label: {
