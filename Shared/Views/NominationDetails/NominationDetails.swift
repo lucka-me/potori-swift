@@ -240,16 +240,18 @@ struct NominationDetails: View {
             guard mode == .edit else {
                 return
             }
-            guard let solidRecord = record else {
-                alert.push(
-                    .init(
-                        title: .init("view.details.location.brainstorming.failed"),
-                        message: .init("view.details.location.brainstorming.failed.desc")
+            DispatchQueue.main.async {
+                guard let solidRecord = record else {
+                    alert.push(
+                        .init(
+                            title: .init("view.details.location.brainstorming.failed"),
+                            message: .init("view.details.location.brainstorming.failed.desc")
+                        )
                     )
-                )
-                return
+                    return
+                }
+                editData.setLngLatFrom(solidRecord)
             }
-            editData.setLngLatFrom(solidRecord)
         }
     }
 }

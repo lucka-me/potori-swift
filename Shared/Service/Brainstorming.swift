@@ -22,7 +22,8 @@ class Brainstorming {
     
     func query(_ id: String, completionHandler: @escaping (Record?) -> Void) {
         URLSession.shared.dataTask(
-            with: "https://oprbrainstorming.firebaseio.com/c/reviews/\(id).json"
+            with: "https://oprbrainstorming.firebaseio.com/c/reviews/\(id).json",
+            cachePolicy: .useProtocolCachePolicy
         ) { data in
             guard let solidData = data else {
                 completionHandler(nil)
