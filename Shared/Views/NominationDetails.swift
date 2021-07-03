@@ -25,6 +25,7 @@ struct NominationDetails: View {
     @EnvironmentObject private var alert: AlertInspector
     @EnvironmentObject private var dia: Dia
     @State private var mode: Mode = .view
+    @State private var animationValue = true
     @ObservedObject private var editData: EditData = .init()
     
     var body: some View {
@@ -71,7 +72,7 @@ struct NominationDetails: View {
                 }
             }
             .padding()
-            .animation(.easeInOut)
+            .animation(.easeInOut, value: animationValue)
         }
         .navigationTitle(nomination.title)
         .toolbar {

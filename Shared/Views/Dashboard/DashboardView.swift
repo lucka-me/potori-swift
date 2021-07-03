@@ -16,6 +16,7 @@ struct DashboardView: View {
     #if os(iOS)
     @EnvironmentObject private var navigation: Navigation
     #endif
+    @State private var animationValue = true
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -29,7 +30,7 @@ struct DashboardView: View {
                 }
             }
             .padding(.vertical)
-            .animation(.easeInOut)
+            .animation(.easeInOut, value: animationValue)
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
