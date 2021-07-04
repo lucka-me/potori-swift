@@ -91,7 +91,7 @@ struct NominationDetails: View {
     private var editButton: some View {
         Button {
             if mode == .view {
-                editData.from(nomination)
+                editData.set(from: nomination)
                 mode = .edit
             } else {
                 editData.save(to: nomination)
@@ -252,8 +252,8 @@ struct NominationDetails: View {
             CardView.List.row {
                 let textField = TextField(
                     "view.details.location.hint",
-                    text: $editData.locationString,
-                    onCommit: editData.validateLocationString
+                    value: $editData.lngLat,
+                    formatter: LngLatFormatter()
                 )
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 #if os(macOS)
@@ -262,10 +262,6 @@ struct NominationDetails: View {
                 textField
                     .keyboardType(.numbersAndPunctuation)
                 #endif
-                if !editData.locationStringValid {
-                    Label("view.details.location.invalid", systemImage: "exclamationmark.circle")
-                        .foregroundColor(.red)
-                }
             }
             CardView.List.row(editData.setLngLatFromPastboard) {
                 Label("view.details.location.paste", systemImage: "doc.on.clipboard")
@@ -330,19 +326,20 @@ fileprivate class EditData: ObservableObject {
     @Published var resultTime: Date = Date()
     @Published var showReasons: Bool = false
     @Published var reasons: [Umi.Reason.Code] = []
-    @Published var locationString: String = ""
-    @Published var locationStringValid: Bool = true
+    @Published var lngLat: LngLat? = nil
     
-    func from(_ nomination: Nomination) {
+    private var id: String = ""
+    
+    func set(from nomination: Nomination) {
+        id = nomination.id
         status = nomination.statusCode
         resultTime = nomination.resultTime
         reasons = nomination.reasonsCode
         if nomination.hasLngLat {
-            locationString = "\(nomination.latitude),\(nomination.longitude)"
+            lngLat = .init(lng: nomination.longitude, lat: nomination.latitude)
         } else {
-            locationString = ""
+            lngLat = nil
         }
-        locationStringValid = true
     }
     
     func save(to nomination: Nomination) {
@@ -353,15 +350,12 @@ fileprivate class EditData: ObservableObject {
                 nomination.reasonsCode = reasons
             }
         }
-        if locationString.isEmpty {
-            nomination.hasLngLat = false
+        if let solidLngLat = lngLat {
+            nomination.hasLngLat = true
+            nomination.longitude = solidLngLat.lng
+            nomination.latitude = solidLngLat.lat
         } else {
-            validateLocationString()
-            if locationStringValid, let solidLngLat = lngLat {
-                nomination.hasLngLat = true
-                nomination.longitude = solidLngLat.lng
-                nomination.latitude = solidLngLat.lat
-            }
+            nomination.hasLngLat = false
         }
     }
     
@@ -386,43 +380,67 @@ fileprivate class EditData: ObservableObject {
         else {
             return
         }
-        locationString = text
-        locationStringValid = true
+        lngLat = .init(lng: lng, lat: lat)
     }
     
-    func setLngLatFrom(_ record: Brainstorming.Record) {
-        locationString = "\(record.lat),\(record.lng)"
-        locationStringValid = true
+    func setLngLat(from record: Brainstorming.Record) {
+        lngLat = .init(lng: record.lng, lat: record.lat)
     }
-    
-    func validateLocationString() {
-        if locationString.isEmpty {
-            locationStringValid = true
-            return
-        }
-        guard let _ = locationString.range(of: "^\\d+(\\.\\d+)?,\\d+(\\.\\d+)?$", options: .regularExpression) else {
-            locationStringValid = false
-            return
-        }
-        if let _ = lngLat {
-            locationStringValid = true
-            return
-        }
-        locationStringValid = false
-        return
-    }
-    
-    var lngLat: LngLat? {
-        let pair = locationString.split(separator: ",")
-        guard
-            let latString = pair.first, let lat = Double(latString),
-            let lngString = pair.last , let lng = Double(lngString)
-        else {
+}
+
+fileprivate class LngLatFormatter : Formatter {
+    override func string(for obj: Any?) -> String? {
+        guard let lngLat: LngLat = obj as? LngLat else {
             return nil
         }
-        if abs(lng) < 180 && abs(lat) < 90 {
-            return .init(lng: lng, lat: lat)
+        return "\(lngLat.lat),\(lngLat.lng)"
+    }
+    
+    override func getObjectValue(
+        _ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?,
+        for string: String,
+        errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?
+    ) -> Bool {
+        if string.isEmpty {
+            obj?.pointee = nil
+            return true
         }
-        return nil
+        let pair = string.split(separator: ",")
+        guard
+            let latString = pair.first, let lat = Double(latString), abs(lat) < 90 ,
+            let lngString = pair.last , let lng = Double(lngString), abs(lng) < 180
+        else {
+            obj?.pointee = nil
+            return false
+        }
+        obj?.pointee = LngLat(lng: lng, lat: lat) as AnyObject
+        return true
+    }
+    
+    override func isPartialStringValid(
+        _ partialString: String,
+        newEditingString newString: AutoreleasingUnsafeMutablePointer<NSString?>?,
+        errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?
+    ) -> Bool {
+        if partialString.isEmpty {
+            return true
+        }
+        guard let _ = partialString.range(of: "^\\d{1,2}(\\.\\d*)?(,(\\d{1,3}(\\.\\d*)?)?)?$", options: .regularExpression) else {
+            // Not valid at all
+            return false
+        }
+        guard let _ = partialString.range(of: "^\\d{1,2}(\\.\\d+)?,\\d{1,3}(\\.\\d+)?$", options: .regularExpression) else {
+            // Not completed
+            return true
+        }
+        // Complated, parse and check range
+        let pair = partialString.split(separator: ",")
+        guard
+            let latString = pair.first, let lat = Double(latString), abs(lat) < 90 ,
+            let lngString = pair.last , let lng = Double(lngString), abs(lng) < 180
+        else {
+            return false
+        }
+        return true
     }
 }
