@@ -58,8 +58,11 @@ struct NominationWidget: Widget {
                 return
             }
             let nomination = nominations[Int.random(in: 0 ..< nominations.count)]
-            URLSession.shared.dataTask(with: nomination.imageURL) { data in
-                completion(.init(now, image: data ?? .init(), nomination: nomination))
+            async {
+                let data = await URLSession.shared.dataTask(
+                    with: nomination.imageURL, cachePolicy: .returnCacheDataElseLoad
+                )
+                completion(.init(now, image: data, nomination: nomination))
             }
         }
     }
@@ -77,14 +80,14 @@ struct NominationWidget: Widget {
         
         init(
             _ date: Date,
-            image: Data,
+            image: Data?,
             nomination: Nomination
         ) {
             self.date = date
             empty = false
             id = nomination.id
             title = nomination.title
-            imageData = image
+            imageData = image ?? .init()
             let status = nomination.statusData
             statusIcon = status.icon
             statusColor = status.color
@@ -169,7 +172,7 @@ struct NominationWidget_Previews: PreviewProvider {
         NominationWidget.EntryView(
             entry: .init(
                 Date(),
-                image: (try? Data(contentsOf: URL(string: nomination.imageURL)!)) ?? Data(),
+                image: try? Data(contentsOf: URL(string: nomination.imageURL)!),
                 nomination: nomination
             )
         )
