@@ -257,22 +257,21 @@ struct NominationDetails: View {
     }
     
     private func queryLngLatFromBrainstorming() {
-        Brainstorming.shared.query(nomination.id) { record in
+        async {
+            let record = await Brainstorming.shared.query(nomination.id)
             guard mode == .edit else {
                 return
             }
-            DispatchQueue.main.async {
-                guard let solidRecord = record else {
-                    alert.push(
-                        .init(
-                            title: .init("view.details.location.brainstorming.failed"),
-                            message: .init("view.details.location.brainstorming.failed.desc")
-                        )
+            guard let solidRecord = record else {
+                alert.push(
+                    .init(
+                        title: .init("view.details.location.brainstorming.failed"),
+                        message: .init("view.details.location.brainstorming.failed.desc")
                     )
-                    return
-                }
-                editData.setLngLatFrom(solidRecord)
+                )
+                return
             }
+            editData.setLngLatFrom(solidRecord)
         }
     }
 }

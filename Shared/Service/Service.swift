@@ -240,21 +240,26 @@ final class Service: ObservableObject {
             saveAndSync(raws, merged: merged)
             return
         }
-        var done = 0
-        ProgressInspector.shared.set(done: done, total: list.count)
+        ProgressInspector.shared.set(done: 0, total: list.count)
         set(status: .queryingBrainstorming)
-        for nomination in list {
-            Brainstorming.shared.query(nomination.id) { record in
-                if let solidRecord = record {
-                    nomination.lngLat = .init(lng: solidRecord.lng, lat: solidRecord.lat)
-                }
-                done += 1
-                ProgressInspector.shared.set(done: done)
-                if done == list.count {
-                    self.saveAndSync(raws, merged: merged)
+        async {
+            await withTaskGroup(of: Void.self) { taskGroup in
+                for raw in list {
+                    taskGroup.async {
+                        await self.queryBrainstorming(raw)
+                    }
                 }
             }
+            saveAndSync(raws, merged: merged)
         }
+    }
+    
+    private func queryBrainstorming(_ raw: NominationRAW) async {
+        let record = await Brainstorming.shared.query(raw.id)
+        if let solidRecord = record {
+            raw.lngLat = .init(lng: solidRecord.lng, lat: solidRecord.lat)
+        }
+        ProgressInspector.shared.step()
     }
     
     private func saveAndSync(_ raws: [NominationRAW], merged: Int) {

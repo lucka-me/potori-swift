@@ -37,6 +37,12 @@ class ProgressInspector: ObservableObject {
         }
     }
     
+    func step(by count: Int = 1) {
+        DispatchQueue.main.async {
+            self.done += count
+        }
+    }
+    
     func clear() {
         set(done: 0, total: 0)
     }

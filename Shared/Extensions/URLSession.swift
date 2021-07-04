@@ -24,4 +24,20 @@ extension URLSession {
         }
         .resume()
     }
+    
+    func dataTask(
+        with urlString: String,
+        cachePolicy: NSURLRequest.CachePolicy = .useProtocolCachePolicy
+    ) async -> Data? {
+        guard let url = URL(string: urlString) else {
+            return nil
+        }
+        let request = URLRequest(url: url, cachePolicy: cachePolicy)
+        return await withCheckedContinuation { continuation in
+            dataTask(with: request) { data, _, _ in
+                continuation.resume(returning: data)
+            }
+            .resume()
+        }
+    }
 }
