@@ -263,7 +263,7 @@ struct NominationDetails: View {
                     .keyboardType(.numbersAndPunctuation)
                 #endif
             }
-            CardView.List.row(editData.setLngLatFromPastboard) {
+            CardView.List.row(setLngLatFromPasteboard) {
                 Label("view.details.location.paste", systemImage: "doc.on.clipboard")
             }
             if !Brainstorming.isBeforeEpoch(when: editData.resultTime, status: editData.status) {
@@ -290,6 +290,27 @@ struct NominationDetails: View {
         (mode == .view && nomination.statusCode == .rejected) || (mode == .edit && editData.status == .rejected)
     }
     
+    private func setLngLatFromPasteboard() {
+        #if os(iOS)
+        guard UNPasteboard.general.hasStrings else {
+            alert.push(.init(title: .init("view.details.location.paste.empty")))
+            return
+        }
+        #endif
+        guard let url = UNPasteboard.general.string else {
+            alert.push(.init(title: .init("view.details.location.paste.empty")))
+            return
+        }
+        if !editData.setLngLat(from: url) {
+            alert.push(
+                .init(
+                    title: .init("view.details.location.paste.invalid"),
+                    message: .init("view.details.location.paste.invalid.desc")
+                )
+            )
+        }
+    }
+    
     private func queryLngLatFromBrainstorming() {
         async {
             let record = await Brainstorming.shared.query(nomination.id)
@@ -305,7 +326,7 @@ struct NominationDetails: View {
                 )
                 return
             }
-            editData.setLngLatFrom(solidRecord)
+            editData.setLngLat(from: solidRecord)
         }
     }
 }
@@ -359,28 +380,20 @@ fileprivate class EditData: ObservableObject {
         }
     }
     
-    func setLngLatFromPastboard() {
-        #if os(macOS)
-        guard let url = NSPasteboard.general.string(forType: .string) else {
-            return
+    func setLngLat(from intelURL: String) -> Bool {
+        guard let range = intelURL.range(of: "ll\\=[\\d\\.\\,]+", options: .regularExpression) else {
+            return false
         }
-        #else
-        guard let url = UIPasteboard.general.string else {
-            return
-        }
-        #endif
-        guard let range = url.range(of: "ll\\=[\\d\\.\\,]+", options: .regularExpression) else {
-            return
-        }
-        let text = url[range].replacingOccurrences(of: "ll=", with: "")
+        let text = intelURL[range].replacingOccurrences(of: "ll=", with: "")
         let pair = text.split(separator: ",")
         guard
             let latString = pair.first, let lat = Double(latString), abs(lat) < 90,
             let lngString = pair.last , let lng = Double(lngString), abs(lng) < 180
         else {
-            return
+            return false
         }
         lngLat = .init(lng: lng, lat: lat)
+        return true
     }
     
     func setLngLat(from record: Brainstorming.Record) {

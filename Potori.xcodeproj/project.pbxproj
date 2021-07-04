@@ -159,6 +159,8 @@
 		8497C76A25B81BB500B88C12 /* Reason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497C76825B81BB500B88C12 /* Reason.swift */; };
 		84B8A54725B85045000B0C0E /* DashboardCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8A54625B85045000B0C0E /* DashboardCard.swift */; };
 		84B8A54825B85045000B0C0E /* DashboardCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8A54625B85045000B0C0E /* DashboardCard.swift */; };
+		84BEA0782691F92F00C1A718 /* UNPasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BEA0772691F92F00C1A718 /* UNPasteboard.swift */; };
+		84BEA0792691F92F00C1A718 /* UNPasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BEA0772691F92F00C1A718 /* UNPasteboard.swift */; };
 		84BFD364259F46530047318D /* Mari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BFD363259F46530047318D /* Mari.swift */; };
 		84BFD365259F46530047318D /* Mari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BFD363259F46530047318D /* Mari.swift */; };
 		84C769A725A706A60055A3A9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84C769AA25A706A60055A3A9 /* Localizable.strings */; };
@@ -369,6 +371,7 @@
 		849178BD259A0D8D00CD967F /* NominationRAW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationRAW.swift; sourceTree = "<group>"; };
 		8497C76825B81BB500B88C12 /* Reason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reason.swift; sourceTree = "<group>"; };
 		84B8A54625B85045000B0C0E /* DashboardCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCard.swift; sourceTree = "<group>"; };
+		84BEA0772691F92F00C1A718 /* UNPasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNPasteboard.swift; sourceTree = "<group>"; };
 		84BFD363259F46530047318D /* Mari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mari.swift; sourceTree = "<group>"; };
 		84C769A925A706A60055A3A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		84C769C325A714410055A3A9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -508,6 +511,7 @@
 				843B00122658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift */,
 				846C48E726439B6C0017BE48 /* Image.swift */,
 				84FB4D1F265401C900AAA9A3 /* String.swift */,
+				84BEA0772691F92F00C1A718 /* UNPasteboard.swift */,
 				8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */,
 				846C48EE26439BCA0017BE48 /* URLSession.swift */,
 				843BFFF22657C88A0031963C /* UserDefaults.swift */,
@@ -1120,6 +1124,7 @@
 				849178822599F81700CD967F /* PotoriApp.swift in Sources */,
 				843B00132658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */,
 				846CC5B725A359DD007A8AE8 /* NominationJSON.swift in Sources */,
+				84BEA0782691F92F00C1A718 /* UNPasteboard.swift in Sources */,
 				8430E2A225C304B9008F1BAC /* FileManager.swift in Sources */,
 				84F97C78259B7474005D9AA4 /* ContentView.swift in Sources */,
 				846645EC25A8DAA200DD37D1 /* GoogleKit.swift in Sources */,
@@ -1150,6 +1155,7 @@
 				8468A22D25A33784009B562D /* Potori.xcdatamodeld in Sources */,
 				8460DA842667C18F00BB732E /* FusionMap.swift in Sources */,
 				844A9AAF25A4BD21003E44B5 /* PreferencesView.swift in Sources */,
+				84BEA0792691F92F00C1A718 /* UNPasteboard.swift in Sources */,
 				8469EB2B25B93EF800A9831D /* DashboardStatusView.swift in Sources */,
 				84DB6EA4259A2B1F00BD915B /* Umi.swift in Sources */,
 				846CC62A25A35EFF007A8AE8 /* Nomination.swift in Sources */,

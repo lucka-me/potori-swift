@@ -103,6 +103,9 @@
 "view.details.location.hint" = "纬度,经度";
 "view.details.location.invalid" = "无效";
 "view.details.location.paste"   = "粘贴Intel地图链接";
+"view.details.location.paste.empty" = "剪贴板是空的";
+"view.details.location.paste.invalid"   = "文字无效";
+"view.details.location.paste.invalid.desc"  = "文字不是有效的Intel地图链接或没有包含位置。";
 "view.details.location.brainstorming"   = "查询Brainstorming";
 "view.details.location.brainstorming.failed"    = "查询失败";
 "view.details.location.brainstorming.failed.desc"   = "无法连接Firebase或未找到纪录。";
