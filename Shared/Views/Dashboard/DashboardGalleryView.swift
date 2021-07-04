@@ -45,7 +45,7 @@ struct DashboardGalleryView: View {
                                 .init("view.dashboard.gallery", Self.predicate),
                                 nomination
                             ) {
-                                RemoteImage(nomination.imageURL)
+                                AsyncImage(url: nomination.imageURL, placeholder: nomination.statusData.color)
                                     .scaledToFill()
                                     .frame(width: 100, height: 100, alignment: .center)
                                     .overlay(caption(nomination), alignment: .bottomLeading)

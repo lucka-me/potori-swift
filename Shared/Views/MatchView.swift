@@ -93,7 +93,7 @@ fileprivate struct MatchPackView: View {
     @ViewBuilder
     private func candidateView(_ candidate: NominationRAW) -> some View {
         VStack(alignment: .leading) {
-            RemoteImage(NominationRAW.generateImageURL(candidate.image))
+            AsyncImage(url: NominationRAW.generateImageURL(candidate.image))
                 .scaledToFill()
                 .frame(width: 150, height: 150, alignment: .center)
                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))

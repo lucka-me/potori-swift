@@ -97,7 +97,7 @@ fileprivate struct NominationListRow: View {
     
     var body: some View {
         let content = HStack(alignment: .center) {
-            RemoteImage(nomination.imageURL)
+            AsyncImage(url: nomination.imageURL)
                 .scaledToFill()
                 .frame(width: 50, height: 50)
                 .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
