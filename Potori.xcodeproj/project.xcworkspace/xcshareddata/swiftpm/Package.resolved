@@ -2,7 +2,7 @@
   "object": {
     "pins": [
       {
-        "package": "AppAuth",
+        "package": "AppAuth-iOS",
         "repositoryURL": "https://github.com/openid/AppAuth-iOS.git",
         "state": {
           "branch": null,
@@ -11,7 +11,7 @@
         }
       },
       {
-        "package": "GoogleAPIClientForREST",
+        "package": "google-api-objectivec-client-for-rest",
         "repositoryURL": "https://github.com/woxtu/google-api-objectivec-client-for-rest.git",
         "state": {
           "branch": "fix-spm",
@@ -20,12 +20,12 @@
         }
       },
       {
-        "package": "GTMSessionFetcher",
+        "package": "gtm-session-fetcher",
         "repositoryURL": "https://github.com/google/gtm-session-fetcher.git",
         "state": {
           "branch": null,
-          "revision": "91ed3d188eb95705fef3c249453b81f32dc557d1",
-          "version": "1.5.0"
+          "revision": "424886f9336a71891aa81852d0c2c08d807d21aa",
+          "version": "1.6.1"
         }
       },
       {
@@ -38,7 +38,7 @@
         }
       },
       {
-        "package": "MapboxCommon",
+        "package": "mapbox-common-ios",
         "repositoryURL": "https://github.com/mapbox/mapbox-common-ios.git",
         "state": {
           "branch": null,
@@ -47,7 +47,7 @@
         }
       },
       {
-        "package": "MapboxCoreMaps",
+        "package": "mapbox-core-maps-ios",
         "repositoryURL": "https://github.com/mapbox/mapbox-core-maps-ios.git",
         "state": {
           "branch": null,
@@ -56,7 +56,7 @@
         }
       },
       {
-        "package": "MapboxMobileEvents",
+        "package": "mapbox-events-ios",
         "repositoryURL": "https://github.com/mapbox/mapbox-events-ios.git",
         "state": {
           "branch": null,
@@ -65,7 +65,7 @@
         }
       },
       {
-        "package": "MapboxMaps",
+        "package": "mapbox-maps-ios",
         "repositoryURL": "https://github.com/mapbox/mapbox-maps-ios.git",
         "state": {
           "branch": null,
@@ -74,7 +74,7 @@
         }
       },
       {
-        "package": "Turf",
+        "package": "turf-swift",
         "repositoryURL": "https://github.com/mapbox/turf-swift.git",
         "state": {
           "branch": null,
