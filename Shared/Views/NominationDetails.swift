@@ -19,6 +19,7 @@ struct NominationDetails: View {
     
     let nomination: Nomination
     
+    @Environment(\.openURL) private var openURL
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
@@ -45,10 +46,7 @@ struct NominationDetails: View {
         ScrollView {
             VStack(alignment: .center) {
                 if mode == .view {
-                    RemoteImage(nomination.imageURL, sharable: true)
-                        .scaledToFit()
-                        .clipShape(RoundedRectangle(cornerRadius: Self.radius, style: .continuous))
-                        .frame(maxWidth: 300, maxHeight: 300)
+                    image
                     Divider()
                 }
                 
@@ -108,6 +106,46 @@ struct NominationDetails: View {
         }
     }
     
+    @ViewBuilder
+    private var image: some View {
+        AsyncImage(url: nomination.imageURL)
+            .scaledToFit()
+            .clipShape(RoundedRectangle(cornerRadius: Self.radius, style: .continuous))
+            .frame(maxWidth: 300, maxHeight: 300)
+            .contextMenu {
+                if
+                    let url = URL(string: nomination.imageURL),
+                    let data = try? Data(contentsOf: url),
+                    let unImage = UNImage(data: data)
+                {
+                    Button {
+                        openURL(url)
+                    } label: {
+                        Label("view.details.image.open", systemImage: "safari")
+                    }
+                    #if os(macOS)
+                    Button {
+                        NSPasteboard.general.clearContents()
+                        NSPasteboard.general.setData(unImage.tiffRepresentation, forType: .tiff)
+                    } label: {
+                        Label("view.details.image.copy", systemImage: "doc.on.doc")
+                    }
+                    #else
+                    Button {
+                        let shareSheet = UIActivityViewController(
+                            activityItems: [ unImage ], applicationActivities: nil
+                        )
+                        UIApplication.shared.keyRootViewController?.present(
+                            shareSheet, animated: true, completion: nil
+                        )
+                    } label: {
+                        Label("view.details.image.share", systemImage: "square.and.arrow.up")
+                    }
+                    #endif
+                }
+            }
+    }
+
     @ViewBuilder
     private var highlights: some View {
         CardView.Card {

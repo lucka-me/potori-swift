@@ -88,6 +88,9 @@
 "view.details.edit" = "Edit";
 "view.details.save" = "Save";
 "view.details.cancel"   = "Cancel";
+"view.details.image.open"   = "Open";
+"view.details.image.copy"   = "Copy";
+"view.details.image.share"  = "Share";
 "view.details.hightlights"  = "Highlights";
 "view.details.confirmed"    = "Confirmed";
 "view.details.status"   = "Status";
@@ -103,11 +106,6 @@
 "view.details.location.brainstorming"   = "Query Brainstorming";
 "view.details.location.brainstorming.failed"    = "Query Failed";
 "view.details.location.brainstorming.failed.desc"   = "Unable to connect to Firebase or no record found.";
-
-// RemoteImage
-"view.image.open"   = "Open";
-"view.image.copy"   = "Copy";
-"view.image.share"  = "Share";
 
 // Stats
 "view.stats.total"  = "Total";

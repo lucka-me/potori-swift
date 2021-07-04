@@ -32,6 +32,8 @@
 		84303DB2269104CB00A5D97E /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84303DB1269104CB00A5D97E /* UIApplication.swift */; };
 		84303DB426910C8A00A5D97E /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84303DB326910C8A00A5D97E /* AsyncImage.swift */; };
 		84303DB526910C8A00A5D97E /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84303DB326910C8A00A5D97E /* AsyncImage.swift */; };
+		84303DB626917C7100A5D97E /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84303DB326910C8A00A5D97E /* AsyncImage.swift */; };
+		84303DB726917C7200A5D97E /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84303DB326910C8A00A5D97E /* AsyncImage.swift */; };
 		8430E27E25C3021F008F1BAC /* Dia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E27D25C3021F008F1BAC /* Dia.swift */; };
 		8430E27F25C3021F008F1BAC /* Dia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E27D25C3021F008F1BAC /* Dia.swift */; };
 		8430E2A225C304B9008F1BAC /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E2A125C304B9008F1BAC /* FileManager.swift */; };
@@ -177,8 +179,6 @@
 		84C9264F265D338600F240F2 /* HighlightsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C9264B265D338600F240F2 /* HighlightsWidget.swift */; };
 		84C92652265D399300F240F2 /* Service+BackgroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C92651265D399300F240F2 /* Service+BackgroundRefresh.swift */; };
 		84C92653265D399300F240F2 /* Service+BackgroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C92651265D399300F240F2 /* Service+BackgroundRefresh.swift */; };
-		84CCEDC2259CB5470040917E /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCEDC1259CB5470040917E /* RemoteImage.swift */; };
-		84CCEDC3259CB5470040917E /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCEDC1259CB5470040917E /* RemoteImage.swift */; };
 		84DB6EA3259A2B1F00BD915B /* Umi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6EA2259A2B1F00BD915B /* Umi.swift */; };
 		84DB6EA4259A2B1F00BD915B /* Umi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6EA2259A2B1F00BD915B /* Umi.swift */; };
 		84DB6ED1259A3D5D00BD915B /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6ED0259A3D5D00BD915B /* Service.swift */; };
@@ -376,7 +376,6 @@
 		84C92644265C7FFF00F240F2 /* AlertInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertInspector.swift; sourceTree = "<group>"; };
 		84C9264B265D338600F240F2 /* HighlightsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsWidget.swift; sourceTree = "<group>"; };
 		84C92651265D399300F240F2 /* Service+BackgroundRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Service+BackgroundRefresh.swift"; sourceTree = "<group>"; };
-		84CCEDC1259CB5470040917E /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
 		84DB6EA2259A2B1F00BD915B /* Umi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Umi.swift; sourceTree = "<group>"; };
 		84DB6ED0259A3D5D00BD915B /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		84DDF8DF25C1B39100942E87 /* Widget Extension macOS.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Widget Extension macOS.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -474,7 +473,6 @@
 				846C48F526439F260017BE48 /* CardView.swift */,
 				84FB4D1C2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift */,
 				8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */,
-				84CCEDC1259CB5470040917E /* RemoteImage.swift */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -1104,7 +1102,6 @@
 				8430E27E25C3021F008F1BAC /* Dia.swift in Sources */,
 				8469EB3525B943C800A9831D /* DashboardGalleryView.swift in Sources */,
 				84F97C71259B6978005D9AA4 /* NominationDetails.swift in Sources */,
-				84CCEDC2259CB5470040917E /* RemoteImage.swift in Sources */,
 				846C48EF26439BCA0017BE48 /* URLSession.swift in Sources */,
 				84177FB925B2F079009CC4E9 /* MatchView.swift in Sources */,
 				8462D088259FBA030031AD0D /* NominationMap.swift in Sources */,
@@ -1163,7 +1160,6 @@
 				8469EB3625B943C800A9831D /* DashboardGalleryView.swift in Sources */,
 				84C92646265C7FFF00F240F2 /* AlertInspector.swift in Sources */,
 				84FB4D262655299200AAA9A3 /* ProgressInspector.swift in Sources */,
-				84CCEDC3259CB5470040917E /* RemoteImage.swift in Sources */,
 				84303DB526910C8A00A5D97E /* AsyncImage.swift in Sources */,
 				847B16A2266287D800605AD2 /* BlurVisualEffectView.swift in Sources */,
 				84FB4D1E2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift in Sources */,
@@ -1200,6 +1196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84DDF95C25C1B5B300942E87 /* NominationJSON.swift in Sources */,
+				84303DB626917C7100A5D97E /* AsyncImage.swift in Sources */,
 				84C92653265D399300F240F2 /* Service+BackgroundRefresh.swift in Sources */,
 				846C48ED26439B6C0017BE48 /* Image.swift in Sources */,
 				84DDF92C25C1B55000942E87 /* NominationWidget.swift in Sources */,
@@ -1249,6 +1246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8475B6CF25C1A4ED002D7915 /* NominationJSON.swift in Sources */,
+				84303DB726917C7200A5D97E /* AsyncImage.swift in Sources */,
 				84C92652265D399300F240F2 /* Service+BackgroundRefresh.swift in Sources */,
 				846C48EC26439B6C0017BE48 /* Image.swift in Sources */,
 				8475B61E25C1610E002D7915 /* NominationWidget.swift in Sources */,

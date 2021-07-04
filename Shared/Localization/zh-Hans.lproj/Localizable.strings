@@ -88,6 +88,9 @@
 "view.details.edit" = "编辑";
 "view.details.save" = "保存";
 "view.details.cancel"   = "取消";
+"view.details.image.open"   = "打开";
+"view.details.image.copy"   = "拷贝";
+"view.details.image.share"  = "分享";
 "view.details.hightlights"  = "要点";
 "view.details.confirmed"    = "确认";
 "view.details.status"   = "状态";
@@ -103,11 +106,6 @@
 "view.details.location.brainstorming"   = "查询Brainstorming";
 "view.details.location.brainstorming.failed"    = "查询失败";
 "view.details.location.brainstorming.failed.desc"   = "无法连接Firebase或未找到纪录。";
-
-// RemoteImage
-"view.image.open"   = "打开";
-"view.image.copy"   = "拷贝";
-"view.image.share"  = "分享";
 
 // Stats
 "view.stats.total"  = "总计";
