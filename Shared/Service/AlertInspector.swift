@@ -12,7 +12,9 @@ class AlertInspector: ObservableObject {
     var alert = Alert(title: Text(""))
     
     func push(_ alert: Alert) {
-        self.alert = alert
-        isPresented = true
+        DispatchQueue.main.async {
+            self.alert = alert
+            self.isPresented = true
+        }
     }
 }
