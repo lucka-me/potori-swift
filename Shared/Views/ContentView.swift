@@ -76,6 +76,7 @@ struct ContentView: View {
         .padding([ .top, .horizontal ])
         #endif
         NominationDetails(nomination: nomination)
+            .environmentObject(alert)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
