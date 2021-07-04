@@ -245,7 +245,7 @@ fileprivate class FusionMapModel {
                 let features = try? result.get(),
                 let feature = features.first,
                 let title = feature.feature.properties["title"] as? String,
-                let viewController = UIApplication.shared.windows.first?.rootViewController
+                let viewController = UIApplication.shared.keyRootViewController
             else {
                 notFoundHandler()
                 return
