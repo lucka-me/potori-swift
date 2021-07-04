@@ -16,12 +16,17 @@ An app to manage Ingress nominations from Gmail inbox, available for macOS and i
 
 This is the Swift implementation of [the web app](https://github.com/lucka-me/potori).
 
-Here is the `next` branch, for the next major version.
+### Future Style
+We are working on the next major release with new features and enhancements, the code is maintainced in `next` branch.
+
+- Replace SwiftUI `Map` with [Mapbox Maps SDK for iOS](https://github.com/mapbox/mapbox-maps-ios) and MapKit for macOS with more powerful features
+- Implement existing methods with concurrency (`await` and `async`) of Swift 5.5
+- Improve UI with the latest SwiftUI
 
 ## Requirements
-- Xcode 12+
-- macOS 11+
-- iOS 14+
+- Xcode 13+
+- macOS 12+
+- iOS 15+
 
 ## Build & Run
 1. Clone or download the repository
