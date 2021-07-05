@@ -9,9 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     
-    #if os(iOS)
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
     @EnvironmentObject private var dia: Dia
     @ObservedObject private var alert = AlertInspector()
     @ObservedObject private var navigation = Navigation()
@@ -57,11 +54,7 @@ struct ContentView: View {
         SidebarNavigation()
             .frame(minHeight: 300)
         #else
-        if horizontalSizeClass == .compact {
-            TabNavigation()
-        } else {
-            SidebarNavigation()
-        }
+        TabNavigation()
         #endif
     }
     

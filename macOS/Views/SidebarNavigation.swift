@@ -22,7 +22,6 @@ struct SidebarNavigation: View {
                 ) {
                     Navigation.PanelLabel.dashboard
                 }
-                #if os(macOS)
                 NavigationLink(
                     destination: NominationList(navigation.listConfig),
                     tag: Navigation.Panel.list,
@@ -37,43 +36,24 @@ struct SidebarNavigation: View {
                 ) {
                     Navigation.PanelLabel.map
                 }
-                #else
-                Section(header: Text("view.misc")) {
-                    NavigationLink(
-                        destination: PreferencesView(),
-                        tag: Navigation.Panel.preference,
-                        selection: $navigation.activePanel
-                    ) {
-                        Navigation.PanelLabel.preferences
-                    }
-                }
-                #endif
             }
             .frame(minWidth: 150)
             .listStyle(SidebarListStyle())
             .toolbar {
                 ToolbarItemGroup {
-                    #if os(macOS)
                     Button(action: toggleSidebar) {
                         Label("view.toggleSidebar", systemImage: "sidebar.left")
                     }
-                    #endif
                 }
             }
-            #if os(iOS)
             dashboard
-            #endif
         }
     }
     
     @ViewBuilder
     private var dashboard: some View {
-        #if os(macOS)
         DashboardView()
             .frame(minWidth: 350)
-        #else
-        DashboardView()
-        #endif
     }
     
     #if os(macOS)

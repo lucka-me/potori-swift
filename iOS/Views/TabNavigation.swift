@@ -20,6 +20,7 @@ struct TabNavigation: View {
                 .tabItem { Navigation.PanelLabel.preferences }
                 .tag(Navigation.Panel.preference as Navigation.Panel?)
         }
+        .navigationViewStyle(StackNavigationViewStyle.stack)
     }
 }
 

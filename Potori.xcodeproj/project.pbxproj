@@ -65,7 +65,6 @@
 		843B00152658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843B00122658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift */; };
 		843B00162658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843B00122658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift */; };
 		843BEF38259F07CF00FC17F9 /* TabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF37259F07CF00FC17F9 /* TabNavigation.swift */; };
-		843BEF48259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */; };
 		843BEF49259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */; };
 		843BFFEC2656822C0031963C /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BFFEB2656822C0031963C /* Array.swift */; };
 		843BFFED2656822C0031963C /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BFFEB2656822C0031963C /* Array.swift */; };
@@ -571,7 +570,6 @@
 			isa = PBXGroup;
 			children = (
 				8469EB4C25B9D25100A9831D /* Navigation.swift */,
-				843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -598,6 +596,7 @@
 			children = (
 				847B16A1266287D800605AD2 /* BlurVisualEffectView.swift */,
 				8460DA832667C18F00BB732E /* FusionMap.swift */,
+				843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1119,7 +1118,6 @@
 				847B169F266281B100605AD2 /* BlurVisualEffectView.swift in Sources */,
 				846C48E3264396E30017BE48 /* Widget.intentdefinition in Sources */,
 				84B8A54725B85045000B0C0E /* DashboardCard.swift in Sources */,
-				843BEF48259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */,
 				8497C76925B81BB500B88C12 /* Reason.swift in Sources */,
 				849178822599F81700CD967F /* PotoriApp.swift in Sources */,
 				843B00132658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */,
