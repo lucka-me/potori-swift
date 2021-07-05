@@ -13,22 +13,17 @@ struct NominationList: View {
     @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var service: Service
     
+    @FetchRequest(
+        entity: Nomination.entity(),
+        sortDescriptors: Nomination.sortDescriptorsByDate,
+        animation: .easeInOut
+    ) private var nominations: FetchedResults<Nomination>
     @State private var selection: String?
     
     private let config: Navigation.ListConfiguration
-    private let fetchRequest: FetchRequest<Nomination>
-    private var nominations: FetchedResults<Nomination> {
-        fetchRequest.wrappedValue
-    }
     
     init(_ configuration: Navigation.ListConfiguration) {
         config = configuration
-
-        fetchRequest = .init(
-            entity: Nomination.entity(),
-            sortDescriptors: Nomination.sortDescriptorsByDate,
-            predicate: config.predicate
-        )
     }
     
     var body: some View {
@@ -75,6 +70,7 @@ struct NominationList: View {
             }
         }
         .onAppear {
+            nominations.nsPredicate = config.predicate
             selection = config.selection
         }
     }
