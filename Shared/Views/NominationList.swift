@@ -12,47 +12,35 @@ struct NominationList: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var service: Service
-    
     @FetchRequest(
         entity: Nomination.entity(),
         sortDescriptors: Nomination.sortDescriptorsByDate,
-        animation: .easeInOut
+        animation: .default
     ) private var nominations: FetchedResults<Nomination>
     @State private var selection: String?
     
-    private let config: Navigation.ListConfiguration
+    private let configuration: Navigation.ListConfiguration
     
     init(_ configuration: Navigation.ListConfiguration) {
-        config = configuration
+        self.configuration = configuration
     }
     
     var body: some View {
-        #if os(macOS)
-        NavigationView {
-            list
-                .listStyle(PlainListStyle())
-                .frame(minWidth: 250)
-        }
-        #else
-        list.listStyle(InsetGroupedListStyle())
-        #endif
-    }
-    
-    @ViewBuilder
-    private var list: some View {
         List {
             ForEach(nominations) { nomination in
                 NavigationLink(
-                    destination: NominationDetails(nomination: nomination),
                     tag: nomination.id,
                     selection: $selection
                 ) {
-                    NominationListRow(nomination: nomination)
+                    NominationDetails(nomination: nomination)
+                } label: {
+                    NominationListRow(nomination)
                 }
                 .contextMenu { NominationContextMenu(nomination: nomination) }
             }
             .onDelete { indexSet in
-                for index in indexSet {
+                let sorted = indexSet.sorted(by: >)
+                for index in sorted {
                     if index < nominations.endIndex {
                         dia.delete(nominations[index])
                     }
@@ -61,18 +49,27 @@ struct NominationList: View {
             }
             .deleteDisabled(service.status != .idle)
         }
-        .navigationTitle(config.title)
+        .listStyle(style)
+        .navigationTitle(configuration.title)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                NominationMapLink(config) {
+                NominationMapLink(configuration) {
                     Label("view.map", systemImage: "map")
                 }
             }
         }
         .onAppear {
-            nominations.nsPredicate = config.predicate
-            selection = config.selection
+            nominations.nsPredicate = configuration.predicate
+            selection = configuration.selection
         }
+    }
+    
+    private var style: some ListStyle {
+        #if os(macOS)
+        .bordered
+        #else
+        .insetGrouped
+        #endif
     }
 }
 
@@ -89,10 +86,14 @@ struct NominationList_Previews: PreviewProvider {
 
 fileprivate struct NominationListRow: View {
     
-    var nomination: Nomination
+    private let nomination: Nomination
+    
+    init (_ nomination: Nomination) {
+        self.nomination = nomination
+    }
     
     var body: some View {
-        let content = HStack(alignment: .center) {
+        HStack(alignment: .center) {
             AsyncImage(url: nomination.imageURL)
                 .scaledToFill()
                 .frame(width: 50, height: 50)
@@ -112,7 +113,8 @@ fileprivate struct NominationListRow: View {
                 )
                 .font(.subheadline)
                 .foregroundColor(.secondary)
-            }.frame(height: 50, alignment: .top)
+            }
+            .frame(height: 50, alignment: .top)
             
             Spacer()
             
@@ -122,11 +124,5 @@ fileprivate struct NominationListRow: View {
                 .frame(width: 20, height: 20)
                 .foregroundColor(nomination.statusData.color)
         }
-        
-        #if os(macOS)
-        content
-        #else
-        content.padding(.vertical, 5)
-        #endif
     }
 }

@@ -16,29 +16,32 @@ struct SidebarNavigation: View {
         NavigationView {
             List {
                 NavigationLink(
-                    destination: dashboard,
                     tag: Navigation.Panel.dashboard,
                     selection: $navigation.activePanel
                 ) {
+                    DashboardView().frame(minWidth: 350)
+                } label: {
                     Navigation.PanelLabel.dashboard
                 }
                 NavigationLink(
-                    destination: NominationList(navigation.listConfig),
                     tag: Navigation.Panel.list,
                     selection: $navigation.activePanel
                 ) {
+                    NominationList(navigation.listConfig).frame(minWidth: 250)
+                } label: {
                     Navigation.PanelLabel.list
                 }
                 NavigationLink(
-                    destination: NominationMap(navigation.listConfig).frame(minWidth: 350),
                     tag: Navigation.Panel.map,
                     selection: $navigation.activePanel
                 ) {
+                    NominationMap(navigation.listConfig).frame(minWidth: 350)
+                } label: {
                     Navigation.PanelLabel.map
                 }
             }
+            .listStyle(.sidebar)
             .frame(minWidth: 150)
-            .listStyle(SidebarListStyle())
             .toolbar {
                 ToolbarItemGroup {
                     Button(action: toggleSidebar) {
@@ -46,21 +49,12 @@ struct SidebarNavigation: View {
                     }
                 }
             }
-            dashboard
         }
     }
     
-    @ViewBuilder
-    private var dashboard: some View {
-        DashboardView()
-            .frame(minWidth: 350)
-    }
-    
-    #if os(macOS)
     private func toggleSidebar() {
         NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
     }
-    #endif
 }
 
 #if DEBUG
