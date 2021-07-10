@@ -113,35 +113,19 @@ struct NominationDetails: View {
             .clipShape(RoundedRectangle(cornerRadius: Self.radius, style: .continuous))
             .frame(maxWidth: 300, maxHeight: 300)
             .contextMenu {
-                if
-                    let url = URL(string: nomination.imageURL),
-                    let data = try? Data(contentsOf: url),
-                    let unImage = UNImage(data: data)
-                {
+                if let url = URL(string: nomination.imageURL) {
                     Button {
                         openURL(url)
                     } label: {
                         Label("view.details.image.open", systemImage: "safari")
                     }
-                    #if os(macOS)
-                    Button {
-                        NSPasteboard.general.clearContents()
-                        NSPasteboard.general.setData(unImage.tiffRepresentation, forType: .tiff)
-                    } label: {
+                    Button(role: nil, action: shareImage) {
+                        #if os(macOS)
                         Label("view.details.image.copy", systemImage: "doc.on.doc")
-                    }
-                    #else
-                    Button {
-                        let shareSheet = UIActivityViewController(
-                            activityItems: [ unImage ], applicationActivities: nil
-                        )
-                        UIApplication.shared.keyRootViewController?.present(
-                            shareSheet, animated: true, completion: nil
-                        )
-                    } label: {
+                        #else
                         Label("view.details.image.share", systemImage: "square.and.arrow.up")
+                        #endif
                     }
-                    #endif
                 }
             }
     }
@@ -290,6 +274,29 @@ struct NominationDetails: View {
         (mode == .view && nomination.statusCode == .rejected) || (mode == .edit && editData.status == .rejected)
     }
     
+    private func shareImage() {
+        guard
+            let url = URL(string: nomination.imageURL),
+            let data = try? Data(contentsOf: url),
+            let image = UNImage(data: data)
+        else {
+            return
+        }
+        #if os(macOS)
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setData(image.tiffRepresentation, forType: .tiff)
+        #else
+        let shareSheet = UIActivityViewController(
+            activityItems: [ image ], applicationActivities: nil
+        )
+        DispatchQueue.main.async {
+            UIApplication.shared.keyRootViewController?.present(
+                shareSheet, animated: true, completion: nil
+            )
+        }
+        #endif
+    }
+    
     private func setLngLatFromPasteboard() {
         #if os(iOS)
         guard UNPasteboard.general.hasStrings else {
@@ -397,7 +404,9 @@ fileprivate class EditData: ObservableObject {
     }
     
     func setLngLat(from record: Brainstorming.Record) {
-        lngLat = .init(lng: record.lng, lat: record.lat)
+        DispatchQueue.main.async {
+            self.lngLat = .init(lng: record.lng, lat: record.lat)
+        }
     }
 }
 
