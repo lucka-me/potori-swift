@@ -9,16 +9,16 @@ import SwiftUI
 
 struct TabNavigation: View {
     
-    @EnvironmentObject private var navigation: Navigation
+    @EnvironmentObject private var navigator: PanelNavigator
     
     var body: some View {
-        TabView(selection: $navigation.activePanel) {
+        TabView(selection: $navigator.actived) {
             NavigationView { DashboardView() }
-                .tabItem { Navigation.PanelLabel.dashboard }
-                .tag(Navigation.Panel.dashboard as Navigation.Panel?)
+                .tabItem { PanelNavigator.LabelView.dashboard }
+                .tag(PanelNavigator.Tag.dashboard)
             NavigationView { PreferencesView() }
-                .tabItem { Navigation.PanelLabel.preferences }
-                .tag(Navigation.Panel.preference as Navigation.Panel?)
+                .tabItem { PanelNavigator.LabelView.preferences }
+                .tag(PanelNavigator.Tag.preference)
         }
         .navigationViewStyle(StackNavigationViewStyle.stack)
     }
@@ -27,13 +27,13 @@ struct TabNavigation: View {
 #if DEBUG
 struct TabNavigation_Previews: PreviewProvider {
     
-    static let navigation: Navigation = .init()
+    static let navigator = PanelNavigator()
 
     static var previews: some View {
         TabNavigation()
             .environmentObject(Dia.preview)
             .environmentObject(Service.shared)
-            .environmentObject(navigation)
+            .environmentObject(navigator)
             .environment(\.managedObjectContext, Dia.preview.viewContext)
     }
 }

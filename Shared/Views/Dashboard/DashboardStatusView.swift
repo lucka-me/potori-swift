@@ -11,7 +11,7 @@ struct DashboardStatusView: View {
     
     @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var service: Service
-    @EnvironmentObject private var navigation: Navigation
+    @EnvironmentObject private var panelNavigator: PanelNavigator
     @ObservedObject private var auth = GoogleKit.Auth.shared
     @ObservedObject private var progress = ProgressInspector.shared
     
@@ -33,7 +33,7 @@ struct DashboardStatusView: View {
                     Text("view.dashboard.status.empty")
                 }
             } else if service.status == .requestMatch {
-                Button("view.dashboard.status.manuallyMatch") { navigation.showMatchView.toggle() }
+                Button("view.dashboard.status.manuallyMatch") { panelNavigator.showMatchView.toggle() }
                     .buttonStyle(CardView.ButtonStyle())
                     .foregroundColor(.accentColor)
             } else {
@@ -70,13 +70,13 @@ struct DashboardStatusView: View {
 #if DEBUG
 struct DashboardStatusView_Previews: PreviewProvider {
     
-    static let navigation: Navigation = .init()
+    static let panelNavigator = PanelNavigator()
     
     static var previews: some View {
         DashboardStatusView()
             .environmentObject(Dia.preview)
             .environmentObject(Service.shared)
-            .environmentObject(navigation)
+            .environmentObject(panelNavigator)
     }
 }
 #endif

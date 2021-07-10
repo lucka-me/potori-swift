@@ -11,17 +11,17 @@ struct NominationList: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var dia: Dia
+    @EnvironmentObject private var navigator: ListNavigator
     @EnvironmentObject private var service: Service
     @FetchRequest(
         entity: Nomination.entity(),
         sortDescriptors: Nomination.sortDescriptorsByDate,
         animation: .default
     ) private var nominations: FetchedResults<Nomination>
-    @State private var selection: String?
     
-    private let configuration: Navigation.ListConfiguration
+    private let configuration: ListNavigator.Configuration?
     
-    init(_ configuration: Navigation.ListConfiguration) {
+    init(_ configuration: ListNavigator.Configuration? = nil) {
         self.configuration = configuration
     }
     
@@ -30,7 +30,7 @@ struct NominationList: View {
             ForEach(nominations) { nomination in
                 NavigationLink(
                     tag: nomination.id,
-                    selection: $selection
+                    selection: $navigator.selection
                 ) {
                     NominationDetails(nomination: nomination)
                 } label: {
@@ -50,17 +50,19 @@ struct NominationList: View {
             .deleteDisabled(service.status != .idle)
         }
         .listStyle(style)
-        .navigationTitle(configuration.title)
+        .navigationTitle(configuration?.title ?? navigator.title)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                NominationMapLink(configuration) {
+                MapLink(navigator.configuration) {
                     Label("view.map", systemImage: "map")
                 }
             }
         }
         .onAppear {
-            nominations.nsPredicate = configuration.predicate
-            selection = configuration.selection
+            if let solidConfiguration = configuration {
+                navigator.configuration = solidConfiguration
+            }
+            nominations.nsPredicate = navigator.predicate
         }
     }
     

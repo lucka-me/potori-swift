@@ -11,14 +11,16 @@ struct ContentView: View {
     
     @EnvironmentObject private var dia: Dia
     @ObservedObject private var alert = AlertInspector()
-    @ObservedObject private var navigation = Navigation()
+    @ObservedObject private var listNavigator = ListNavigator()
+    @ObservedObject private var panelNavigator = PanelNavigator()
     @State private var nomination: Nomination? = nil
 
     var body: some View {
         navigationView
             .environmentObject(alert)
-            .environmentObject(navigation)
-            .sheet(isPresented: $navigation.showMatchView) {
+            .environmentObject(panelNavigator)
+            .environmentObject(listNavigator)
+            .sheet(isPresented: $panelNavigator.showMatchView) {
                 MatchView()
             }
             .sheet(item: $nomination) { item in

@@ -11,13 +11,12 @@ struct DashboardGalleryView: View {
     
     private static let intervalPast30Day = TimeInterval(-30 * 24 * 3600)
     private static let datePast30Days = Date(timeIntervalSinceNow: Self.intervalPast30Day) as NSDate
-    private static let predicate = NSPredicate(format: "confirmedTime > %@ || resultTime > %@", datePast30Days, datePast30Days)
+    private static let predicate = NSPredicate(
+        format: "confirmedTime > %@ || resultTime > %@",
+        datePast30Days, datePast30Days
+    )
     
     @Environment(\.managedObjectContext) private var viewContext
-    #if os(macOS)
-    @EnvironmentObject var navigation: Navigation
-    #endif
-
     @FetchRequest(
         entity: Nomination.entity(),
         sortDescriptors: Nomination.sortDescriptorsByDate,
@@ -41,8 +40,8 @@ struct DashboardGalleryView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(nominations) { nomination in
-                            NominationDetailsLink(
-                                .init("view.dashboard.gallery", Self.predicate),
+                            DetailsLink(
+                                .init("view.dashboard.gallery", predicate: Self.predicate),
                                 nomination
                             ) {
                                 AsyncImage(url: nomination.imageURL, placeholder: nomination.statusData.color)
@@ -82,12 +81,9 @@ struct DashboardGalleryView: View {
 
 #if DEBUG
 struct DashboardGalleryView_Previews: PreviewProvider {
-    
-    static let navigation: Navigation = .init()
 
     static var previews: some View {
         DashboardGalleryView()
-            .environmentObject(navigation)
             .environment(\.managedObjectContext, Dia.preview.viewContext)
     }
 }

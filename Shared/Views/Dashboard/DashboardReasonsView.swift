@@ -31,7 +31,7 @@ struct DashboardReasonsView: View {
             LazyVGrid(columns: DashboardView.columns, alignment: .leading) {
                 ForEach(reasons) { reason in
                     let predicate = reason.predicate
-                    OpenNominationListLink(.init(reason.title, predicate)) {
+                    ListLink(.init(reason.title, predicate: predicate)) {
                         DashboardCard(
                             dia.countNominations(matches: predicate), reason.title,
                             systemImage: reason.icon, color: .red
@@ -39,6 +39,7 @@ struct DashboardReasonsView: View {
                     }
                 }
             }
+            .animation(.easeInOut, value: showMore)
         }
         .padding(.top, 3)
         .padding(.horizontal)
@@ -67,13 +68,10 @@ struct DashboardReasonsView: View {
 
 #if DEBUG
 struct DashboardReasonsView_Previews: PreviewProvider {
-    
-    static let navigation: Navigation = .init()
 
     static var previews: some View {
         DashboardReasonsView()
             .environmentObject(Dia.preview)
-            .environmentObject(navigation)
     }
 }
 #endif

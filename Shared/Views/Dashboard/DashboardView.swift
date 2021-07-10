@@ -13,9 +13,6 @@ struct DashboardView: View {
     
     @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var service: Service
-    #if os(iOS)
-    @EnvironmentObject private var navigation: Navigation
-    #endif
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -49,13 +46,10 @@ struct DashboardView: View {
 #if DEBUG
 struct DashboardView_Previews: PreviewProvider {
     
-    static let navigation: Navigation = .init()
-    
     static var previews: some View {
         DashboardView()
             .environmentObject(Dia.preview)
             .environmentObject(Service.shared)
-            .environmentObject(navigation)
             .environment(\.managedObjectContext, Dia.preview.viewContext)
     }
 }

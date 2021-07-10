@@ -9,10 +9,6 @@ import SwiftUI
 
 struct DashboardScannersView: View {
     
-    #if os(macOS)
-    @EnvironmentObject var navigation: Navigation
-    #endif
-    
     @EnvironmentObject private var dia: Dia
     
     var body: some View {
@@ -27,7 +23,7 @@ struct DashboardScannersView: View {
                     let predicate = scanner.predicate
                     let count = dia.countNominations(matches: predicate)
                     if count > 0 {
-                        OpenNominationListLink(.init(scanner.title, predicate)) {
+                        ListLink(.init(scanner.title, predicate: predicate)) {
                             DashboardCard(
                                 count, scanner.title,
                                 systemImage: "apps.iphone", color: .purple
@@ -45,12 +41,9 @@ struct DashboardScannersView: View {
 #if DEBUG
 struct DashboardScannersView_Previews: PreviewProvider {
     
-    static let navigation: Navigation = .init()
-    
     static var previews: some View {
         DashboardScannersView()
             .environmentObject(Dia.preview)
-            .environmentObject(navigation)
     }
 }
 #endif

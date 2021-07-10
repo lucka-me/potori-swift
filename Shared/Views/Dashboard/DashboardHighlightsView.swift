@@ -9,10 +9,6 @@ import SwiftUI
 
 struct DashboardHighlightsView: View {
     
-    #if os(macOS)
-    @EnvironmentObject var navigation: Navigation
-    #endif
-    
     @EnvironmentObject private var dia: Dia
 
     var body: some View {
@@ -24,7 +20,7 @@ struct DashboardHighlightsView: View {
             }
             
             LazyVGrid(columns: DashboardView.columns, alignment: .leading) {
-                OpenNominationListLink(.init("view.dashboard.highlights.all")) {
+                ListLink(.init("view.dashboard.highlights.all")) {
                     DashboardCard(
                         dia.countNominations(),
                         "view.dashboard.highlights.all",
@@ -34,7 +30,7 @@ struct DashboardHighlightsView: View {
                 
                 ForEach(Umi.shared.statusAll) { status in
                     let predicate = status.predicate
-                    OpenNominationListLink(.init(status.title, predicate)) {
+                    ListLink(.init(status.title, predicate: predicate)) {
                         DashboardCard(
                             dia.countNominations(matches: predicate), status.title,
                             systemImage: status.icon, color: status.color
@@ -50,13 +46,10 @@ struct DashboardHighlightsView: View {
 
 #if DEBUG
 struct DashboardHighlightsView_Previews: PreviewProvider {
-    
-    static let navigation: Navigation = .init()
-    
+
     static var previews: some View {
         DashboardHighlightsView()
             .environmentObject(Dia.preview)
-            .environmentObject(navigation)
     }
 }
 #endif
