@@ -130,11 +130,12 @@ struct NominationWidget: Widget {
                 HStack(spacing: 0) {
                     Label(entry.title, systemImage: entry.statusIcon)
                         .lineLimit(1)
+                        .foregroundColor(entry.statusColor)
                     Spacer()
                 }
-                    .padding(8)
-                    .background(ContainerRelativeShape().fill(entry.statusColor.opacity(0.5)))
-                    .padding(8)
+                .padding([ .bottom, .horizontal ], 12)
+                .padding(.top, 8)
+                .background(.ultraThinMaterial)
             }
             .background(image.scaledToFill())
             .widgetURL(URL(string: "potori://details/\(entry.id)"))

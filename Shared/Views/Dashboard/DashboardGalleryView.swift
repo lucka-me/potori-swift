@@ -63,18 +63,15 @@ struct DashboardGalleryView: View {
     
     @ViewBuilder
     private func caption(_ nomination: Nomination) -> some View {
-        ZStack {
-            BlurVisualEffectView()
-            
-            HStack {
-                Text(nomination.title)
-                    .lineLimit(1)
-                    .font(.caption)
-                    .foregroundColor(nomination.statusData.color)
-                Spacer(minLength: 0)
-            }
-            .padding(8)
+        HStack {
+            Text(nomination.title)
+                .lineLimit(1)
+                .font(.caption)
+                .foregroundColor(nomination.statusData.color)
+            Spacer(minLength: 0)
         }
+        .padding(8)
+        .background(.ultraThinMaterial)
         .fixedSize(horizontal: false, vertical: true)
     }
 }

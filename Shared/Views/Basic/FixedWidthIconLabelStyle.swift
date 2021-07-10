@@ -16,3 +16,9 @@ struct FixedWidthIconLabelStyle: LabelStyle {
         }
     }
 }
+
+extension LabelStyle where Self == FixedWidthIconLabelStyle {
+    static var fixedWidthIcon: FixedWidthIconLabelStyle {
+        .init()
+    }
+}
