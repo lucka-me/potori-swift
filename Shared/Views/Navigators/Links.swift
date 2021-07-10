@@ -36,7 +36,7 @@ struct ListLink<Label: View>: View {
     
     #if os(macOS)
     private func open() {
-        listNavigator.set(configuration)
+        listNavigator.configuration = configuration
         panelNavigator.actived = .list
     }
     #else
@@ -81,7 +81,7 @@ struct DetailsLink<Label: View>: View {
     
     #if os(macOS)
     private func open() {
-        listNavigator.set(configuration)
+        listNavigator.configuration = configuration
         panelNavigator.actived = .list
     }
     #else
@@ -120,7 +120,7 @@ struct MapLink<Label: View>: View {
     
     #if os(macOS)
     private func open() {
-        listNavigator.set(configuration)
+        listNavigator.configuration = configuration
         panelNavigator.actived = .map
     }
     #else

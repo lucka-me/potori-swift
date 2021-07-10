@@ -10,34 +10,35 @@ import Combine
 
 struct SidebarNavigation: View {
 
-    @EnvironmentObject private var navigation: Navigation
+    @EnvironmentObject private var listNavigator: ListNavigator
+    @EnvironmentObject private var panelNavigator: PanelNavigator
 
     var body: some View {
         NavigationView {
             List {
                 NavigationLink(
-                    tag: Navigation.Panel.dashboard,
-                    selection: $navigation.activePanel
+                    tag: PanelNavigator.Tag.dashboard,
+                    selection: $panelNavigator.actived
                 ) {
                     DashboardView().frame(minWidth: 350)
                 } label: {
-                    Navigation.PanelLabel.dashboard
+                    PanelNavigator.LabelView.dashboard
                 }
                 NavigationLink(
-                    tag: Navigation.Panel.list,
-                    selection: $navigation.activePanel
+                    tag: PanelNavigator.Tag.list,
+                    selection: $panelNavigator.actived
                 ) {
-                    NominationList(navigation.listConfig).frame(minWidth: 250)
+                    NominationList().frame(minWidth: 250)
                 } label: {
-                    Navigation.PanelLabel.list
+                    PanelNavigator.LabelView.list
                 }
                 NavigationLink(
-                    tag: Navigation.Panel.map,
-                    selection: $navigation.activePanel
+                    tag: PanelNavigator.Tag.map,
+                    selection: $panelNavigator.actived
                 ) {
-                    NominationMap(navigation.listConfig).frame(minWidth: 350)
+                    NominationMap(listNavigator.configuration).frame(minWidth: 350)
                 } label: {
-                    Navigation.PanelLabel.map
+                    PanelNavigator.LabelView.map
                 }
             }
             .listStyle(.sidebar)
@@ -60,13 +61,15 @@ struct SidebarNavigation: View {
 #if DEBUG
 struct SidebarNavigation_Previews: PreviewProvider {
 
-    static let navigation: Navigation = .init()
+    static let listNavigation = ListNavigator()
+    static let panelNavigation = PanelNavigator()
 
     static var previews: some View {
         SidebarNavigation()
             .environmentObject(Dia.preview)
             .environmentObject(Service.shared)
-            .environmentObject(navigation)
+            .environmentObject(listNavigation)
+            .environmentObject(panelNavigation)
             .environment(\.managedObjectContext, Dia.preview.viewContext)
     }
 }

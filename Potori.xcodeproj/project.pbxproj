@@ -701,9 +701,9 @@
 		84BEA07A2698BE1F00C1A718 /* Navigators */ = {
 			isa = PBXGroup;
 			children = (
+				84BEA07E2698BF5400C1A718 /* Links.swift */,
 				84BEA07B2698BE5700C1A718 /* ListNavigator.swift */,
 				8469EB4C25B9D25100A9831D /* PanelNavigator.swift */,
-				84BEA07E2698BF5400C1A718 /* Links.swift */,
 			);
 			path = Navigators;
 			sourceTree = "<group>";
