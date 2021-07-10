@@ -117,7 +117,7 @@ struct NominationDetails: View {
                     Button {
                         openURL(url)
                     } label: {
-                        Label("view.details.image.open", systemImage: "safari")
+                        Label("action.open", systemImage: "safari")
                     }
                     Button(role: nil, action: shareImage) {
                         #if os(macOS)

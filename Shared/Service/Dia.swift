@@ -117,11 +117,11 @@ class Dia: ObservableObject {
         }
         do {
             try viewContext.save()
-            DispatchQueue.main.async {
-                self.saveID = UUID().uuidString
-            }
         } catch {
             print("[CoreData][Save] Failed: \(error.localizedDescription)")
+        }
+        DispatchQueue.main.async {
+            self.saveID = UUID().uuidString
         }
     }
     

@@ -13,17 +13,17 @@ struct MatchView: View {
     
     var body: some View {
         #if os(macOS)
-        contents
+        content
             .frame(minWidth: 300, minHeight: 350)
         #else
         NavigationView {
-            contents
+            content
         }
         #endif
     }
     
     @ViewBuilder
-    private var contents: some View {
+    private var content: some View {
         ScrollView {
             VStack(alignment: .leading) {
                 #if os(macOS)

@@ -56,6 +56,7 @@
 
 /* View */
 // Common actions
+"action.open" = "Open";
 "action.dismiss" = "Dismiss";
 
 // Navigation
@@ -88,7 +89,6 @@
 "view.details.edit" = "Edit";
 "view.details.save" = "Save";
 "view.details.cancel"   = "Cancel";
-"view.details.image.open"   = "Open";
 "view.details.image.copy"   = "Copy";
 "view.details.image.share"  = "Share";
 "view.details.hightlights"  = "Highlights";

@@ -27,9 +27,11 @@ struct DashboardCard: View {
                 Label(title, systemImage: systemImage)
                     .lineLimit(1)
                     .foregroundColor(color)
-                    .labelStyle(FixedWidthIconLabelStyle())
+                    .labelStyle(.fixedWidthIcon)
                 Spacer()
-                Image(systemName: "chevron.right")
+                Label("action.open", systemImage: "chevron.right")
+                    .labelStyle(.iconOnly)
+                    .foregroundColor(.secondary)
             }
             Text("\(count)")
                 .lineLimit(1)

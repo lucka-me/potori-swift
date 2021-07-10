@@ -21,15 +21,27 @@ class PanelNavigator: ObservableObject {
     }
     
     class LabelView {
-        static let dashboard = Label("view.dashboard", systemImage: "gauge")
+        static var dashboard: some View {
+            Label("view.dashboard", systemImage: "gauge")
+        }
         #if os(macOS)
-        static let list = Label("view.list", systemImage: "list.bullet")
-        static let map = Label("view.map", systemImage: "map")
+        static var list: some View {
+            Label("view.list", systemImage: "list.bullet")
+        }
+        static var map: some View {
+            Label("view.map", systemImage: "map")
+        }
         #else
-        static let preferences = Label("view.preferences", systemImage: "gearshape")
+        static var preferences: some View {
+            Label("view.preferences", systemImage: "gear")
+        }
         #endif
     }
     
     @Published var showMatchView: Bool = false
+    #if os(macOS)
+    @Published var actived: Tag? = .dashboard
+    #else
     @Published var actived: Tag = .dashboard
+    #endif
 }
