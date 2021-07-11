@@ -95,11 +95,12 @@
 "view.details.status"   = "状态";
 "view.details.resulted" = "结束于";
 "view.details.scanner"  = "扫描器";
-"view.details.rejectedFor"  = "拒绝原因";
+"view.details.reasons"  = "拒绝原因";
 "view.details.hide" = "隐藏";
 "view.details.show" = "显示";
 "view.details.location" = "位置";
-"view.details.location.hint" = "纬度,经度";
+"view.details.location.coordinates" = "坐标";
+"view.details.location.coordinates.hint"    = "纬度,经度";
 "view.details.location.invalid" = "无效";
 "view.details.location.paste"   = "粘贴Intel地图链接";
 "view.details.location.paste.empty" = "剪贴板是空的";

@@ -26,7 +26,7 @@ struct NominationDetails: View {
     @EnvironmentObject private var alert: AlertInspector
     @EnvironmentObject private var dia: Dia
     @State private var mode: Mode = .view
-    @ObservedObject private var editData: EditData = .init()
+    @ObservedObject private var editorModel = EditorModel()
     
     var body: some View {
         if nomination.isFault {
@@ -43,66 +43,49 @@ struct NominationDetails: View {
     
     @ViewBuilder
     private var content: some View {
-        ScrollView {
-            VStack(alignment: .center) {
-                if mode == .view {
-                    image
-                    actions
-                }
-                
-                LazyVGrid(
-                    columns: .init(repeating: .init(.flexible(), alignment: .top), count: columns),
-                    alignment: .center
-                ) {
-                    highlights
-                    if showReasons {
-                        reasons
-                    }
-                }
-                
-                if mode == .view && nomination.hasLngLat {
-                    FusionMap(nomination)
-                        .frame(height: 200)
-                        .mask {
-                            RoundedRectangle(cornerRadius: CardView.defaultRadius, style: .continuous)
-                        }
-                } else if mode == .edit {
-                    locationEditor
-                }
+        Group {
+            if mode == .view {
+                viewer
+            } else {
+                editor
             }
-            .padding()
-            .animation(.easeInOut, value: mode)
         }
         .navigationTitle(nomination.title)
+        .animation(.easeInOut, value: mode)
+    }
+    
+    @ViewBuilder
+    private var viewer: some View {
+        ScrollView {
+            VStack(alignment: .center) {
+                image
+                actions
+                highlights
+                if nomination.statusCode == .rejected {
+                    reasons
+                }
+                
+                FusionMap(nomination)
+                    .frame(height: 200)
+                    .mask {
+                        RoundedRectangle(cornerRadius: CardView.defaultRadius, style: .continuous)
+                    }
+            }
+            .padding()
+        }
         .toolbar {
-            controlGroup
+            viewerControls
         }
     }
     
     @ViewBuilder
-    private var controlGroup: some View {
+    private var viewerControls: some View {
         ControlGroup {
-            if mode == .view {
-                Button {
-                    editData.set(from: nomination)
-                    mode = .edit
-                } label: {
-                    Label("view.details.edit", systemImage: "pencil")
-                }
-            } else {
-                Button {
-                    editData.save(to: nomination)
-                    dia.save()
-                    mode = .view
-                } label: {
-                    Label("view.details.save", systemImage: "checkmark")
-                }
-                Button {
-                    mode = .view
-                } label: {
-                    Label("view.details.cancel", systemImage: "xmark")
-                }
-                .keyboardShortcut(.cancelAction)
+            Button {
+                editorModel.set(from: nomination)
+                mode = .edit
+            } label: {
+                Label("view.details.edit", systemImage: "pencil")
             }
         }
     }
@@ -153,52 +136,24 @@ struct NominationDetails: View {
         }
         .buttonStyle(.bordered)
     }
-
+    
     @ViewBuilder
     private var highlights: some View {
-        CardView.Card {
-            CardView.List.header(Text("view.details.hightlights"))
-            CardView.List.row(
-                Label("view.details.confirmed", systemImage: "arrow.up.circle").foregroundColor(.accentColor),
+        LazyVGrid(
+            columns: .init(repeating: .init(.flexible(), alignment: .top), count: highlightsColumns),
+            alignment: .center
+        ) {
+            HighlightCard(
+                "view.details.confirmed", "arrow.up.circle", .accentColor,
                 Text(nomination.confirmedTime, style: .date)
             )
-            if mode == .view {
-                let status = nomination.statusData
-                CardView.List.row(
-                    Label(status.title, systemImage: status.icon).foregroundColor(status.color),
-                    status.code == .pending ? Text("") : Text(nomination.resultTime, style: .date)
-                )
-            } else {
-                CardView.List.row {
-                    HStack {
-                        Picker(
-                            selection: $editData.status,
-                            label: Label("view.details.status", systemImage: "pencil.circle")
-                        ) {
-                            ForEach(Umi.shared.statusAll, id: \.code) { status in
-                                Text(status.title).tag(status.code)
-                            }
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
-                    }
-                }
-                if editData.status != .pending {
-                    CardView.List.row {
-                        HStack {
-                            DatePicker(
-                                selection: $editData.resultTime,
-                                in: PartialRangeFrom(nomination.confirmedTime),
-                                displayedComponents: [ .date, .hourAndMinute ]
-                            ) {
-                                Label("view.details.resulted", systemImage: "pencil.circle")
-                            }
-                            .datePickerStyle(DefaultDatePickerStyle())
-                        }
-                    }
-                }
-            }
-            CardView.List.row(
-                Label("view.details.scanner", systemImage: "apps.iphone").foregroundColor(.purple),
+            let status = nomination.statusData
+            HighlightCard(
+                status.title, status.icon, status.color,
+                status.code == .pending ? Text(status.title) : Text(nomination.resultTime, style: .date)
+            )
+            HighlightCard(
+                "view.details.scanner", "apps.iphone", .purple,
                 Text(nomination.scannerData.title)
             )
         }
@@ -206,96 +161,145 @@ struct NominationDetails: View {
     
     @ViewBuilder
     private var reasons: some View {
-        CardView.Card {
-            if mode == .view {
-                CardView.List.header(Text("view.details.rejectedFor"))
-                if nomination.reasons.count > 0 {
-                    ForEach(nomination.reasonsData) { reason in
-                        CardView.List.row(Label(reason.title, systemImage: reason.icon))
+        HStack {
+            Text("view.details.reasons")
+                .font(.headline)
+            Spacer()
+        }
+        LazyVGrid(
+            columns: .init(repeating: .init(.flexible(), alignment: .top), count: reasonsColumns),
+            alignment: .leading
+        ) {
+            if nomination.reasons.count > 0 {
+                ForEach(nomination.reasonsData) { reason in
+                    CardView.Card {
+                        HStack {
+                            Label(reason.title, systemImage: reason.icon)
+                            Spacer()
+                        }
                     }
-                } else {
-                    let reason = Umi.shared.reason[Umi.Reason.undeclared]!
-                    CardView.List.row(Label(reason.title, systemImage: reason.icon))
                 }
             } else {
-                CardView.List.header(
-                    Text("view.details.rejectedFor"),
-                    Button(editData.showReasons ? "view.details.hide" : "view.details.show") {
-                        editData.showReasons.toggle()
-                    }
-                    .buttonStyle(BorderlessButtonStyle())
-                )
-                if editData.showReasons {
-                    reasonsSelector
+                let reason = Umi.shared.reason[Umi.Reason.undeclared]!
+                CardView.Card {
+                    Label(reason.title, systemImage: reason.icon)
                 }
             }
+        }
+        .labelStyle(.fixedWidthIcon)
+    }
+    
+    @ViewBuilder
+    private var editor: some View {
+        Form {
+            Section {
+                HStack {
+                    Label("view.details.confirmed", systemImage: "arrow.up.circle")
+                    Spacer()
+                    Text(nomination.confirmedTime, style: .date)
+                }
+                Picker(
+                    selection: $editorModel.status,
+                    label: Label("view.details.status", systemImage: "pencil.circle")
+                ) {
+                    ForEach(Umi.shared.statusAll) { status in
+                        Text(status.title).tag(status.code)
+                    }
+                }
+                .pickerStyle(.segmented)
+                if editorModel.status != .pending {
+                    DatePicker(
+                        selection: $editorModel.resultTime,
+                        in: PartialRangeFrom(nomination.confirmedTime),
+                        displayedComponents: [ .date, .hourAndMinute ]
+                    ) {
+                        Label("view.details.resulted", systemImage: "pencil.circle")
+                    }
+                    .datePickerStyle(.automatic)
+                }
+            } header: {
+                Text("view.details.hightlights")
+            }
+            if editorModel.status == .rejected {
+                Section {
+                    reasonsEditor
+                } header: {
+                    Text("view.details.reasons")
+                }
+            }
+            Section {
+                locationEditor
+            } header: {
+                Text("view.details.location")
+            }
+        }
+        .toolbar {
+            editorControls
         }
     }
     
     @ViewBuilder
-    private var reasonsSelector: some View {
-        ForEach(Umi.shared.reasonAll) { reason in
-            if reason.code != Umi.Reason.undeclared {
-                CardView.List.row {
-                    if let index = editData.reasons.firstIndex(of: reason.code) {
-                        editData.reasons.remove(at: index)
-                    } else {
-                        editData.reasons.append(reason.code)
-                    }
-                } label: {
-                    Label(reason.title, systemImage: reason.icon)
-                    Spacer()
-                    if editData.reasons.contains(reason.code) {
-                        Image(systemName: "checkmark")
-                    }
-                }
+    private var editorControls: some View {
+        ControlGroup {
+            Button {
+                editorModel.save(to: nomination)
+                dia.save()
+                mode = .view
+            } label: {
+                Label("view.details.save", systemImage: "checkmark")
+            }
+            Button {
+                mode = .view
+            } label: {
+                Label("view.details.cancel", systemImage: "xmark")
+            }
+            .keyboardShortcut(.cancelAction)
+        }
+    }
+    
+    @ViewBuilder
+    private var reasonsEditor: some View {
+        ForEach($editorModel.reasons) { $reason in
+            Toggle(isOn: $reason.selected) {
+                Label(reason.data.title, systemImage: reason.data.icon)
             }
         }
     }
     
     @ViewBuilder
     private var locationEditor: some View {
-        CardView.Card {
-            CardView.List.header(Text("view.details.location"))
-            CardView.List.row {
-                let textField = TextField(
-                    "view.details.location.hint",
-                    value: $editData.lngLat,
-                    formatter: LngLatFormatter()
-                )
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                #if os(macOS)
-                textField
-                #else
-                textField
-                    .keyboardType(.numbersAndPunctuation)
-                #endif
-            }
-            CardView.List.row(setLngLatFromPasteboard) {
-                Label("view.details.location.paste", systemImage: "doc.on.clipboard")
-            }
-            if !Brainstorming.isBeforeEpoch(when: editData.resultTime, status: editData.status) {
-                CardView.List.row(queryLngLatFromBrainstorming) {
-                    Label("view.details.location.brainstorming", systemImage: "brain")
-                }
+        TextField(
+            value: $editorModel.lngLat,
+            formatter: LngLatFormatter(),
+            prompt: Text("view.details.location.coordinates.hint")
+        ) {
+            Label("view.details.location.coordinates", systemImage: "mappin.and.ellipse")
+        }
+            .textFieldStyle(.roundedBorder)
+        Button(action: setLngLatFromPasteboard) {
+            Label("view.details.location.paste", systemImage: "doc.on.clipboard")
+        }
+        if !Brainstorming.isBeforeEpoch(when: editorModel.resultTime, status: editorModel.status) {
+            Button(action: queryLngLatFromBrainstorming) {
+                Label("view.details.location.brainstorming", systemImage: "brain")
             }
         }
     }
     
-    private var columns: Int {
-        if mode == .edit || !showReasons {
-            return 1
-        } else {
-            #if os(macOS)
-            return 2
-            #else
-            return horizontalSizeClass == .compact ? 1 : 2
-            #endif
-        }
+    private var highlightsColumns: Int {
+        #if os(macOS)
+        return 3
+        #else
+        return horizontalSizeClass == .compact ? 2 : 3
+        #endif
     }
     
-    private var showReasons: Bool {
-        (mode == .view && nomination.statusCode == .rejected) || (mode == .edit && editData.status == .rejected)
+    private var reasonsColumns: Int {
+        #if os(macOS)
+        return 4
+        #else
+        return horizontalSizeClass == .compact ? 2 : 4
+        #endif
     }
     
     private func shareImage() {
@@ -332,7 +336,7 @@ struct NominationDetails: View {
             alert.push(.init(title: .init("view.details.location.paste.empty")))
             return
         }
-        if !editData.setLngLat(from: url) {
+        if !editorModel.setLngLat(from: url) {
             alert.push(
                 .init(
                     title: .init("view.details.location.paste.invalid"),
@@ -357,7 +361,7 @@ struct NominationDetails: View {
                 )
                 return
             }
-            editData.setLngLat(from: solidRecord)
+            editorModel.setLngLat(from: solidRecord)
         }
     }
 }
@@ -373,20 +377,73 @@ struct NominationDetails_Previews: PreviewProvider {
 }
 #endif
 
-fileprivate class EditData: ObservableObject {
+fileprivate struct HighlightCard: View {
+    
+    let title: LocalizedStringKey
+    let systemImage: String
+    let color: Color
+    let text: Text
+    
+    init(
+        _ title: LocalizedStringKey,
+        _ systemImage: String,
+        _ color: Color,
+        _ text: Text
+    ) {
+        self.title = title
+        self.systemImage = systemImage
+        self.color = color
+        self.text = text
+    }
+    
+    var body: some View {
+        CardView.Card(alignment: .center) {
+            Label(title, systemImage: systemImage)
+                .labelStyle(.iconOnly)
+                .imageScale(.large)
+                .foregroundColor(color)
+                .padding(.bottom, 4)
+            HStack {
+                Spacer()
+                text
+                    .lineLimit(1)
+                Spacer()
+            }
+        }
+    }
+}
+
+fileprivate class ReasonInspector: ObservableObject, Identifiable {
+    let data: Umi.Reason
+    @Published var selected = false
+    
+    init(_ reason: Umi.Reason) {
+        data = reason
+    }
+}
+
+fileprivate class EditorModel: ObservableObject {
+    @Published var reasons: [ReasonInspector]
     @Published var status: Umi.Status.Code = .pending
     @Published var resultTime: Date = Date()
-    @Published var showReasons: Bool = false
-    @Published var reasons: [Umi.Reason.Code] = []
     @Published var lngLat: LngLat? = nil
     
-    private var id: String = ""
+    init() {
+        reasons = Umi.shared.reasonAll.compactMap { reason in
+            if reason.code == Umi.Reason.undeclared {
+                return nil
+            }
+            return .init(reason)
+        }
+    }
     
     func set(from nomination: Nomination) {
-        id = nomination.id
         status = nomination.statusCode
         resultTime = nomination.resultTime
-        reasons = nomination.reasonsCode
+        let reasonsCode = nomination.reasonsCode
+        for reason in reasons {
+            reason.selected = reasonsCode.contains(reason.data.code)
+        }
         if nomination.hasLngLat {
             lngLat = .init(lng: nomination.longitude, lat: nomination.latitude)
         } else {
@@ -399,7 +456,7 @@ fileprivate class EditData: ObservableObject {
         if status != .pending {
             nomination.resultTime = resultTime
             if status == .rejected {
-                nomination.reasonsCode = reasons
+                nomination.reasonsCode = reasons.filter { $0.selected }.map { $0.data.code }
             }
         }
         if let solidLngLat = lngLat {

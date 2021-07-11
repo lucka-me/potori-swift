@@ -95,11 +95,12 @@
 "view.details.status"   = "Status";
 "view.details.resulted" = "Resulted";
 "view.details.scanner"  = "Scanner";
-"view.details.rejectedFor"  = "Rejected For";
+"view.details.reasons"  = "Rejected For";
 "view.details.hide" = "Hide";
 "view.details.show" = "Show";
 "view.details.location" = "Location";
-"view.details.location.hint"    = "Latitude,Longitude";
+"view.details.location.coordinates" = "Coordinates";
+"view.details.location.coordinates.hint"    = "Latitude,Longitude";
 "view.details.location.invalid" = "Invalid";
 "view.details.location.paste"   = "Paste Intel Maps URL";
 "view.details.location.paste.empty" = "Pasteboard Is Empty";
