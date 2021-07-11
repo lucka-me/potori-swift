@@ -75,36 +75,35 @@ struct NominationDetails: View {
         }
         .navigationTitle(nomination.title)
         .toolbar {
-            #if os(iOS)
-            /// Prevent back button disappearing when mode changed (as 3rd view)
-            /// - References: https://stackoverflow.com/a/64994154
-            ToolbarItem(placement: .navigationBarLeading) { Text("") }
-            #endif
-            ToolbarItemGroup(placement: .primaryAction) {
-                editButton
-                if mode == .edit {
-                    Button { mode = .view } label: { Label("view.details.cancel", systemImage: "xmark") }
-                }
-            }
+            controlGroup
         }
     }
     
     @ViewBuilder
-    private var editButton: some View {
-        Button {
+    private var controlGroup: some View {
+        ControlGroup {
             if mode == .view {
-                editData.set(from: nomination)
-                mode = .edit
+                Button {
+                    editData.set(from: nomination)
+                    mode = .edit
+                } label: {
+                    Label("view.details.edit", systemImage: "pencil")
+                }
             } else {
-                editData.save(to: nomination)
-                dia.save()
-                mode = .view
+                Button {
+                    editData.save(to: nomination)
+                    dia.save()
+                    mode = .view
+                } label: {
+                    Label("view.details.save", systemImage: "checkmark")
+                }
+                Button {
+                    mode = .view
+                } label: {
+                    Label("view.details.cancel", systemImage: "xmark")
+                }
+                .keyboardShortcut(.cancelAction)
             }
-        } label: {
-            Label(
-                mode == .view ? "view.details.edit" : "view.details.save",
-                systemImage: mode == .view ? "square.and.pencil" : "checkmark"
-            )
         }
     }
     
