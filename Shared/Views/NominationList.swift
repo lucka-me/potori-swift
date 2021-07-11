@@ -99,7 +99,9 @@ fileprivate struct NominationListRow: View {
             AsyncImage(url: nomination.imageURL)
                 .scaledToFill()
                 .frame(width: 50, height: 50)
-                .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
+                .mask {
+                    RoundedRectangle(cornerRadius: 5, style: .continuous)
+                }
             VStack(alignment: .leading) {
                 HStack {
                     Text(nomination.title)

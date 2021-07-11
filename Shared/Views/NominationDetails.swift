@@ -62,8 +62,10 @@ struct NominationDetails: View {
                 
                 if mode == .view && nomination.hasLngLat {
                     FusionMap(nomination)
-                        .clipShape(RoundedRectangle(cornerRadius: Self.radius, style: .continuous))
                         .frame(height: 200)
+                        .mask {
+                            RoundedRectangle(cornerRadius: CardView.defaultRadius, style: .continuous)
+                        }
                 } else if mode == .edit {
                     locationEditor
                 }
@@ -110,8 +112,10 @@ struct NominationDetails: View {
     private var image: some View {
         AsyncImage(url: nomination.imageURL)
             .scaledToFit()
-            .clipShape(RoundedRectangle(cornerRadius: Self.radius, style: .continuous))
-            .frame(maxWidth: 300, maxHeight: 300)
+            .mask {
+                RoundedRectangle(cornerRadius: CardView.defaultRadius, style: .continuous)
+            }
+            .frame(maxHeight: 300)
             .contextMenu {
                 if let url = URL(string: nomination.imageURL) {
                     Button {

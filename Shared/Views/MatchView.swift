@@ -96,7 +96,9 @@ fileprivate struct MatchPackView: View {
             AsyncImage(url: NominationRAW.generateImageURL(candidate.image))
                 .scaledToFill()
                 .frame(width: 150, height: 150, alignment: .center)
-                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                .mask {
+                    RoundedRectangle(cornerRadius: CardView.defaultRadius, style: .continuous)
+                }
             HStack {
                 Label(dateString(candidate.confirmedTime), systemImage: "arrow.up.circle")
                 Spacer()

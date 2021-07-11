@@ -48,9 +48,8 @@ struct DashboardGalleryView: View {
                                     .scaledToFill()
                                     .frame(width: 100, height: 100, alignment: .center)
                                     .overlay(caption(nomination), alignment: .bottomLeading)
-                                    .clipShape(RoundedRectangle(cornerRadius: CardView.defaultRadius, style: .continuous))
-                                    .contextMenu {
-                                        NominationContextMenu(nomination: nomination)
+                                    .mask {
+                                        RoundedRectangle(cornerRadius: CardView.defaultRadius, style: .continuous)
                                     }
                             }
                         }
