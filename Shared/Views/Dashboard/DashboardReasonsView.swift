@@ -24,7 +24,7 @@ struct DashboardReasonsView: View {
                     Button(showMore ? "view.dashboard.reasons.less" : "view.dashboard.reasons.more") {
                         showMore.toggle()
                     }
-                    .buttonStyle(BorderlessButtonStyle())
+                    .buttonStyle(.borderless)
                 }
             }
             

@@ -48,8 +48,6 @@
 		8430E2D525C31725008F1BAC /* Potori.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8468A22A25A33784009B562D /* Potori.xcdatamodeld */; };
 		8430E2DC25C31730008F1BAC /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E2A125C304B9008F1BAC /* FileManager.swift */; };
 		8430E2DD25C31730008F1BAC /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E2A125C304B9008F1BAC /* FileManager.swift */; };
-		8434023C25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */; };
-		8434023D25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */; };
 		843B000026580B8F0031963C /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 843BFFFF26580B8F0031963C /* AppAuth */; };
 		843B000226580BA60031963C /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 843B000126580BA60031963C /* GTMAppAuth */; };
 		843B000426580BAD0031963C /* GoogleAPIClientForREST_Gmail in Frameworks */ = {isa = PBXBuildFile; productRef = 843B000326580BAD0031963C /* GoogleAPIClientForREST_Gmail */; };
@@ -324,7 +322,6 @@
 		84303DB326910C8A00A5D97E /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		8430E27D25C3021F008F1BAC /* Dia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dia.swift; sourceTree = "<group>"; };
 		8430E2A125C304B9008F1BAC /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
-		8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationContextMenu.swift; sourceTree = "<group>"; };
 		8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
 		843463E525B20E3D008A03CB /* pre-build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "pre-build.sh"; sourceTree = "<group>"; };
 		843B00122658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTMAppAuthFetcherAuthorization.swift; sourceTree = "<group>"; };
@@ -476,7 +473,6 @@
 			children = (
 				846C48F526439F260017BE48 /* CardView.swift */,
 				84FB4D1C2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift */,
-				8434023B25BECF7100DCFFCB /* NominationContextMenu.swift */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -1142,7 +1138,6 @@
 				843BFFEC2656822C0031963C /* Array.swift in Sources */,
 				8468A22C25A33784009B562D /* Potori.xcdatamodeld in Sources */,
 				840A15F725BD62D200541ED5 /* DashboardScannersView.swift in Sources */,
-				8434023C25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */,
 				84BFD364259F46530047318D /* Mari.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1151,7 +1146,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8434023D25BECF7100DCFFCB /* NominationContextMenu.swift in Sources */,
 				846C48E926439B6C0017BE48 /* Image.swift in Sources */,
 				8468A22D25A33784009B562D /* Potori.xcdatamodeld in Sources */,
 				8460DA842667C18F00BB732E /* FusionMap.swift in Sources */,

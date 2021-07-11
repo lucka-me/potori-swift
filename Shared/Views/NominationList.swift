@@ -36,7 +36,6 @@ struct NominationList: View {
                 } label: {
                     NominationListRow(nomination)
                 }
-                .contextMenu { NominationContextMenu(nomination: nomination) }
             }
             .onDelete { indexSet in
                 let sorted = indexSet.sorted(by: >)

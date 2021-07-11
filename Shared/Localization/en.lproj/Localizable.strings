@@ -82,15 +82,14 @@
 "view.dashboard.reasons.more"   = "More";
 "view.dashboard.reasons.less"   = "Less";
 
-// Nomination List
-"view.nominations.menuBrainstorming"    = "Brainstorming";
-"view.nominations.menuIntel"    = "Intel Maps";
 // Nomination Details
 "view.details.edit" = "Edit";
 "view.details.save" = "Save";
 "view.details.cancel"   = "Cancel";
 "view.details.image.copy"   = "Copy";
 "view.details.image.share"  = "Share";
+"view.details.action.intel" = "Intel Maps";
+"view.details.action.brainstorming" = "Brainstorming";
 "view.details.hightlights"  = "Highlights";
 "view.details.confirmed"    = "Confirmed";
 "view.details.status"   = "Status";

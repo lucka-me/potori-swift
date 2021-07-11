@@ -82,15 +82,14 @@
 "view.dashboard.reasons.more"   = "更多";
 "view.dashboard.reasons.less"   = "更少";
 
-// Nomination List
-"view.nominations.menuBrainstorming"    = "Brainstorming";
-"view.nominations.menuIntel"    = "Intel Maps";
 // Nomination Details
 "view.details.edit" = "编辑";
 "view.details.save" = "保存";
 "view.details.cancel"   = "取消";
 "view.details.image.copy"   = "拷贝";
 "view.details.image.share"  = "分享";
+"view.details.action.intel" = "Intel Maps";
+"view.details.action.brainstorming" = "Brainstorming";
 "view.details.hightlights"  = "要点";
 "view.details.confirmed"    = "确认";
 "view.details.status"   = "状态";

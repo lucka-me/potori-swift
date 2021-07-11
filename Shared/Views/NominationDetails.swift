@@ -47,7 +47,7 @@ struct NominationDetails: View {
             VStack(alignment: .center) {
                 if mode == .view {
                     image
-                    Divider()
+                    actions
                 }
                 
                 LazyVGrid(
@@ -132,6 +132,27 @@ struct NominationDetails: View {
                     }
                 }
             }
+    }
+    
+    @ViewBuilder
+    private var actions: some View {
+        HStack {
+            if nomination.hasLngLat {
+                Button{
+                    openURL(nomination.intelURL)
+                } label: {
+                    Label("view.details.action.intel", systemImage: "map")
+                }
+            }
+            if !Brainstorming.isBeforeEpoch(when: nomination.resultTime, status: nomination.statusCode) {
+                Button {
+                    openURL(nomination.brainstormingURL)
+                } label: {
+                    Label("view.details.action.brainstorming", systemImage: "brain")
+                }
+            }
+        }
+        .buttonStyle(.bordered)
     }
 
     @ViewBuilder
@@ -256,7 +277,7 @@ struct NominationDetails: View {
             }
             if !Brainstorming.isBeforeEpoch(when: editData.resultTime, status: editData.status) {
                 CardView.List.row(queryLngLatFromBrainstorming) {
-                    Label("view.details.location.brainstorming", systemImage: "hand.point.right")
+                    Label("view.details.location.brainstorming", systemImage: "brain")
                 }
             }
         }
