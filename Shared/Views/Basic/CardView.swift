@@ -18,25 +18,26 @@ class CardView {
     struct Card<Content: View>: View {
         
         private let radius: CGFloat
+        private let alignment: HorizontalAlignment
         private let content: () -> Content
         
-        init(radius: CGFloat = CardView.defaultRadius, @ViewBuilder _ content: @escaping () -> Content) {
+        init(
+            radius: CGFloat = CardView.defaultRadius,
+            alignment: HorizontalAlignment = .leading,
+            @ViewBuilder content: @escaping () -> Content
+        ) {
             self.radius = radius
+            self.alignment = alignment
             self.content = content
         }
         
         var body: some View {
-            ZStack(alignment: .topLeading) {
-                RoundedRectangle(cornerRadius: radius, style: .continuous)
-                    .fill(Color.gray.opacity(0.15))
-                VStack(alignment: .leading, content: content)
-                    .padding(radius)
-            }
-            .fixedSize(horizontal: false, vertical: true)
+            VStack(alignment: alignment, content: content)
+                .padding(radius)
+                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: radius, style: .continuous))
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
-    
-    
     
     class List {
         
@@ -93,7 +94,7 @@ class CardView {
         static func row<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
             Divider()
             content()
-                .labelStyle(FixedWidthIconLabelStyle())
+                .labelStyle(.fixedWidthIcon)
                 .lineLimit(1)
         }
     }
@@ -132,7 +133,7 @@ struct CardView_Previews: PreviewProvider {
             CardView.Card {
                 HStack {
                     Label("Pencil", systemImage: "pencil.circle")
-                        .labelStyle(FixedWidthIconLabelStyle())
+                        .labelStyle(.fixedWidthIcon)
                     Spacer()
                     Image(systemName: "chevron.right")
                 }
