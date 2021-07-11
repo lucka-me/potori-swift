@@ -172,18 +172,10 @@ struct NominationDetails: View {
         ) {
             if nomination.reasons.count > 0 {
                 ForEach(nomination.reasonsData) { reason in
-                    CardView.Card {
-                        HStack {
-                            Label(reason.title, systemImage: reason.icon)
-                            Spacer()
-                        }
-                    }
+                    ReasonCard(reason)
                 }
             } else {
-                let reason = Umi.shared.reason[Umi.Reason.undeclared]!
-                CardView.Card {
-                    Label(reason.title, systemImage: reason.icon)
-                }
+                ReasonCard(Umi.shared.reason[Umi.Reason.undeclared]!)
             }
         }
         .labelStyle(.fixedWidthIcon)
@@ -379,10 +371,10 @@ struct NominationDetails_Previews: PreviewProvider {
 
 fileprivate struct HighlightCard: View {
     
-    let title: LocalizedStringKey
-    let systemImage: String
-    let color: Color
-    let text: Text
+    private let title: LocalizedStringKey
+    private let systemImage: String
+    private let color: Color
+    private let text: Text
     
     init(
         _ title: LocalizedStringKey,
@@ -407,6 +399,24 @@ fileprivate struct HighlightCard: View {
                 Spacer()
                 text
                     .lineLimit(1)
+                Spacer()
+            }
+        }
+    }
+}
+
+fileprivate struct ReasonCard: View {
+    
+    private let reason: Umi.Reason
+    
+    init(_ reason: Umi.Reason) {
+        self.reason = reason
+    }
+    
+    var body: some View {
+        CardView.Card {
+            HStack {
+                Label(reason.title, systemImage: reason.icon)
                 Spacer()
             }
         }
