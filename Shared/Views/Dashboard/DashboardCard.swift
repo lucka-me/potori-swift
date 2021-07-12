@@ -22,7 +22,7 @@ struct DashboardCard: View {
     }
     
     var body: some View {
-        CardView.Card {
+        Card {
             HStack(alignment: .firstTextBaseline) {
                 Label(title, systemImage: systemImage)
                     .lineLimit(1)
@@ -42,7 +42,7 @@ struct DashboardCard: View {
 }
 
 #if DEBUG
-struct DashboardCardView_Previews: PreviewProvider {
+struct DashboardCard_Previews: PreviewProvider {
     static var previews: some View {
         DashboardCard(2000, "Title", systemImage: "info.circle")
     }

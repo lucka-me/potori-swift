@@ -127,8 +127,8 @@
 		846C48F226439BCA0017BE48 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48EE26439BCA0017BE48 /* URLSession.swift */; };
 		846C48F326439BCA0017BE48 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48EE26439BCA0017BE48 /* URLSession.swift */; };
 		846C48F426439BCA0017BE48 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48EE26439BCA0017BE48 /* URLSession.swift */; };
-		846C48F626439F260017BE48 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48F526439F260017BE48 /* CardView.swift */; };
-		846C48F726439F260017BE48 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48F526439F260017BE48 /* CardView.swift */; };
+		846C48F626439F260017BE48 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48F526439F260017BE48 /* Card.swift */; };
+		846C48F726439F260017BE48 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48F526439F260017BE48 /* Card.swift */; };
 		846CC5B725A359DD007A8AE8 /* NominationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC5B625A359DD007A8AE8 /* NominationJSON.swift */; };
 		846CC5B825A359DD007A8AE8 /* NominationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC5B625A359DD007A8AE8 /* NominationJSON.swift */; };
 		846CC62925A35EFF007A8AE8 /* Nomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC62725A35EFF007A8AE8 /* Nomination.swift */; };
@@ -347,7 +347,7 @@
 		846C48E2264396E30017BE48 /* Widget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Widget.intentdefinition; sourceTree = "<group>"; };
 		846C48E726439B6C0017BE48 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		846C48EE26439BCA0017BE48 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
-		846C48F526439F260017BE48 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		846C48F526439F260017BE48 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		846CC5B625A359DD007A8AE8 /* NominationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationJSON.swift; sourceTree = "<group>"; };
 		846CC62725A35EFF007A8AE8 /* Nomination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nomination.swift; sourceTree = "<group>"; };
 		8475B61D25C1610E002D7915 /* NominationWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationWidget.swift; sourceTree = "<group>"; };
@@ -471,7 +471,7 @@
 		840A15E325BCA41500541ED5 /* Basic */ = {
 			isa = PBXGroup;
 			children = (
-				846C48F526439F260017BE48 /* CardView.swift */,
+				846C48F526439F260017BE48 /* Card.swift */,
 				84FB4D1C2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift */,
 			);
 			path = Basic;
@@ -1109,7 +1109,7 @@
 				8469EB2A25B93EF800A9831D /* DashboardStatusView.swift in Sources */,
 				84C92645265C7FFF00F240F2 /* AlertInspector.swift in Sources */,
 				844A9AAE25A4BD21003E44B5 /* PreferencesView.swift in Sources */,
-				846C48F626439F260017BE48 /* CardView.swift in Sources */,
+				846C48F626439F260017BE48 /* Card.swift in Sources */,
 				846C48E826439B6C0017BE48 /* Image.swift in Sources */,
 				84C9263E265BDC0100F240F2 /* Brainstorming.swift in Sources */,
 				84303DB2269104CB00A5D97E /* UIApplication.swift in Sources */,
@@ -1177,7 +1177,7 @@
 				846C48F026439BCA0017BE48 /* URLSession.swift in Sources */,
 				84BEA0802698BF5400C1A718 /* Links.swift in Sources */,
 				84F735A725B83169003DE878 /* DashboardHighlightsView.swift in Sources */,
-				846C48F726439F260017BE48 /* CardView.swift in Sources */,
+				846C48F726439F260017BE48 /* Card.swift in Sources */,
 				84FB4D21265401C900AAA9A3 /* String.swift in Sources */,
 				846645ED25A8DAA200DD37D1 /* GoogleKit.swift in Sources */,
 				840A15F825BD62D200541ED5 /* DashboardScannersView.swift in Sources */,

@@ -49,7 +49,7 @@ struct DashboardGalleryView: View {
                                     .frame(width: 100, height: 100, alignment: .center)
                                     .overlay(caption(nomination), alignment: .bottomLeading)
                                     .mask {
-                                        RoundedRectangle(cornerRadius: CardView.defaultRadius, style: .continuous)
+                                        RoundedRectangle(cornerRadius: 12, style: .continuous)
                                     }
                             }
                         }

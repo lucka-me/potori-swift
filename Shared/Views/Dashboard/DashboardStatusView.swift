@@ -16,10 +16,10 @@ struct DashboardStatusView: View {
     @ObservedObject private var progress = ProgressInspector.shared
     
     var body: some View {
-        CardView.Card {
+        Card {
             if !auth.authorized {
                 Button("view.dashboard.status.linkAccount", action: auth.link)
-                    .buttonStyle(CardView.ButtonStyle())
+                    .buttonStyle(.plain)
                     .foregroundColor(.accentColor)
             } else if service.status == .idle {
                 if let latest = dia.firstNomination(sortedBy: Nomination.sortDescriptorsByDate) {
@@ -34,7 +34,7 @@ struct DashboardStatusView: View {
                 }
             } else if service.status == .requestMatch {
                 Button("view.dashboard.status.manuallyMatch") { panelNavigator.showMatchView.toggle() }
-                    .buttonStyle(CardView.ButtonStyle())
+                    .buttonStyle(.plain)
                     .foregroundColor(.accentColor)
             } else {
                 if showProgress {

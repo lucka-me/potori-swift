@@ -68,7 +68,7 @@ fileprivate struct MatchPackView: View {
     var body: some View {
         let scanner = Umi.shared.scanner[pack.target.scanner]!
         let status = Umi.shared.status[pack.target.status]!
-        CardView.Card {
+        Card {
             Text(pack.target.title)
                 .font(.title2)
             HStack {
@@ -97,7 +97,7 @@ fileprivate struct MatchPackView: View {
                 .scaledToFill()
                 .frame(width: 150, height: 150, alignment: .center)
                 .mask {
-                    RoundedRectangle(cornerRadius: CardView.defaultRadius, style: .continuous)
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
                 }
             HStack {
                 Label(dateString(candidate.confirmedTime), systemImage: "arrow.up.circle")

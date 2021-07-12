@@ -68,7 +68,7 @@ struct NominationDetails: View {
                 FusionMap(nomination)
                     .frame(height: 200)
                     .mask {
-                        RoundedRectangle(cornerRadius: CardView.defaultRadius, style: .continuous)
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
                     }
             }
             .padding()
@@ -95,7 +95,7 @@ struct NominationDetails: View {
         AsyncImage(url: nomination.imageURL)
             .scaledToFit()
             .mask {
-                RoundedRectangle(cornerRadius: CardView.defaultRadius, style: .continuous)
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
             }
             .frame(maxHeight: 300)
             .contextMenu {
@@ -389,7 +389,7 @@ fileprivate struct HighlightCard: View {
     }
     
     var body: some View {
-        CardView.Card(alignment: .center) {
+        Card(alignment: .center) {
             Label(title, systemImage: systemImage)
                 .labelStyle(.iconOnly)
                 .imageScale(.large)
@@ -414,7 +414,7 @@ fileprivate struct ReasonCard: View {
     }
     
     var body: some View {
-        CardView.Card {
+        Card {
             HStack {
                 Label(reason.title, systemImage: reason.icon)
                 Spacer()
