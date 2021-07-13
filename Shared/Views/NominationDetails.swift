@@ -64,12 +64,13 @@ struct NominationDetails: View {
                 if nomination.statusCode == .rejected {
                     reasons
                 }
-                
-                FusionMap(nomination)
-                    .frame(height: 200)
-                    .mask {
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    }
+                if nomination.hasLngLat {
+                    FusionMap(nomination)
+                        .frame(height: 200)
+                        .mask {
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        }
+                }
             }
             .padding()
         }
