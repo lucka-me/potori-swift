@@ -108,7 +108,9 @@
 "view.details.location.paste.invalid.desc"  = "文字不是有效的Intel地图链接或没有包含位置。";
 "view.details.location.brainstorming"   = "查询Brainstorming";
 "view.details.location.brainstorming.failed"    = "查询失败";
-"view.details.location.brainstorming.failed.desc"   = "无法连接Firebase或未找到纪录。";
+"view.details.location.brainstorming.failed.notFound"   = "未找到记录。";
+"view.details.location.brainstorming.failed.decode" = "无法解析回应。";
+"view.details.location.brainstorming.failed.desc %@"   = "错误：%@";
 
 // Stats
 "view.stats.total"  = "总计";

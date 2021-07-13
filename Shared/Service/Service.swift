@@ -255,7 +255,7 @@ final class Service: ObservableObject {
     }
     
     private func queryBrainstorming(_ raw: NominationRAW) async {
-        let record = await Brainstorming.shared.query(raw.id)
+        let record = try? await Brainstorming.shared.query(raw.id)
         if let solidRecord = record {
             raw.lngLat = .init(lng: solidRecord.lng, lat: solidRecord.lat)
         }

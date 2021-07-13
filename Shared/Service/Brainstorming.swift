@@ -11,6 +11,8 @@ class Brainstorming {
     
     enum ErrorType: Error {
         case invalidID
+        case notFound
+        case unableToDecode
     }
     
     struct Record: Decodable {
@@ -24,13 +26,21 @@ class Brainstorming {
     
     private init() { }
     
-    func query(_ id: String) async throws -> Record? {
+    func query(_ id: String) async throws -> Record {
         guard let url = URL(string: "https://oprbrainstorming.firebaseio.com/c/reviews/\(id).json") else {
             throw ErrorType.invalidID
         }
         let (data, _) = try await URLSession.shared.data(from: url)
         let decoder = JSONDecoder()
-        return try? decoder.decode(Record.self, from: data)
+        let record: Record
+        do {
+            record = try decoder.decode(Record.self, from: data)
+        } catch DecodingError.valueNotFound(_, _) {
+            throw ErrorType.notFound
+        } catch {
+            throw ErrorType.unableToDecode
+        }
+        return record
     }
     
     static func isBeforeEpoch(when resultTime: Date, status: Umi.Status.Code) -> Bool {

@@ -340,20 +340,38 @@ struct NominationDetails: View {
     
     private func queryLngLatFromBrainstorming() {
         async {
-            let record = await Brainstorming.shared.query(nomination.id)
-            guard mode == .edit else {
-                return
-            }
-            guard let solidRecord = record else {
+            let record: Brainstorming.Record
+            do {
+                record = try await Brainstorming.shared.query(nomination.id)
+                guard mode == .edit else {
+                    return
+                }
+            } catch Brainstorming.ErrorType.notFound {
                 alert.push(
                     .init(
                         title: .init("view.details.location.brainstorming.failed"),
-                        message: .init("view.details.location.brainstorming.failed.desc")
+                        message: .init("view.details.location.brainstorming.failed.notFound")
+                    )
+                )
+                return
+            } catch Brainstorming.ErrorType.unableToDecode {
+                alert.push(
+                    .init(
+                        title: .init("view.details.location.brainstorming.failed"),
+                        message: .init("view.details.location.brainstorming.failed.decode")
+                    )
+                )
+                return
+            } catch {
+                alert.push(
+                    .init(
+                        title: .init("view.details.location.brainstorming.failed"),
+                        message: .init("view.details.location.brainstorming.failed.other \(error.localizedDescription)")
                     )
                 )
                 return
             }
-            editorModel.setLngLat(from: solidRecord)
+            editorModel.setLngLat(from: record)
         }
     }
 }

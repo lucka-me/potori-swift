@@ -108,7 +108,9 @@
 "view.details.location.paste.invalid.desc"  = "The text is not a valid Intel Maps URL or does not contain a location.";
 "view.details.location.brainstorming"   = "Query Brainstorming";
 "view.details.location.brainstorming.failed"    = "Query Failed";
-"view.details.location.brainstorming.failed.desc"   = "Unable to connect to Firebase or no record found.";
+"view.details.location.brainstorming.failed.notFound"   = "No record found.";
+"view.details.location.brainstorming.failed.decode" = "Unable to decode response.";
+"view.details.location.brainstorming.failed.desc %@"   = "Error: %@";
 
 // Stats
 "view.stats.total"  = "Total";
