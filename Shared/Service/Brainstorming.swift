@@ -9,6 +9,10 @@ import Foundation
 
 class Brainstorming {
     
+    enum ErrorType: Error {
+        case invalidID
+    }
+    
     struct Record: Decodable {
         let lat: Double
         let lng: Double
@@ -20,13 +24,13 @@ class Brainstorming {
     
     private init() { }
     
-    func query(_ id: String) async -> Record? {
-        let data = await URLSession.shared.dataTask(with: "https://oprbrainstorming.firebaseio.com/c/reviews/\(id).json")
-        guard let solidData = data else {
-            return nil
+    func query(_ id: String) async throws -> Record? {
+        guard let url = URL(string: "https://oprbrainstorming.firebaseio.com/c/reviews/\(id).json") else {
+            throw ErrorType.invalidID
         }
+        let (data, _) = try await URLSession.shared.data(from: url)
         let decoder = JSONDecoder()
-        return try? decoder.decode(Record.self, from: solidData)
+        return try? decoder.decode(Record.self, from: data)
     }
     
     static func isBeforeEpoch(when resultTime: Date, status: Umi.Status.Code) -> Bool {

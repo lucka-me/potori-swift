@@ -121,12 +121,6 @@
 		846C48EB26439B6C0017BE48 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48E726439B6C0017BE48 /* Image.swift */; };
 		846C48EC26439B6C0017BE48 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48E726439B6C0017BE48 /* Image.swift */; };
 		846C48ED26439B6C0017BE48 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48E726439B6C0017BE48 /* Image.swift */; };
-		846C48EF26439BCA0017BE48 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48EE26439BCA0017BE48 /* URLSession.swift */; };
-		846C48F026439BCA0017BE48 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48EE26439BCA0017BE48 /* URLSession.swift */; };
-		846C48F126439BCA0017BE48 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48EE26439BCA0017BE48 /* URLSession.swift */; };
-		846C48F226439BCA0017BE48 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48EE26439BCA0017BE48 /* URLSession.swift */; };
-		846C48F326439BCA0017BE48 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48EE26439BCA0017BE48 /* URLSession.swift */; };
-		846C48F426439BCA0017BE48 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48EE26439BCA0017BE48 /* URLSession.swift */; };
 		846C48F626439F260017BE48 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48F526439F260017BE48 /* Card.swift */; };
 		846C48F726439F260017BE48 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48F526439F260017BE48 /* Card.swift */; };
 		846CC5B725A359DD007A8AE8 /* NominationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC5B625A359DD007A8AE8 /* NominationJSON.swift */; };
@@ -346,7 +340,6 @@
 		846C48E12643968B0017BE48 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Widget.strings"; sourceTree = "<group>"; };
 		846C48E2264396E30017BE48 /* Widget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Widget.intentdefinition; sourceTree = "<group>"; };
 		846C48E726439B6C0017BE48 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		846C48EE26439BCA0017BE48 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		846C48F526439F260017BE48 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		846CC5B625A359DD007A8AE8 /* NominationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationJSON.swift; sourceTree = "<group>"; };
 		846CC62725A35EFF007A8AE8 /* Nomination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nomination.swift; sourceTree = "<group>"; };
@@ -510,7 +503,6 @@
 				84FB4D1F265401C900AAA9A3 /* String.swift */,
 				84BEA0772691F92F00C1A718 /* UNPasteboard.swift */,
 				8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */,
-				846C48EE26439BCA0017BE48 /* URLSession.swift */,
 				843BFFF22657C88A0031963C /* UserDefaults.swift */,
 			);
 			path = Extensions;
@@ -1082,7 +1074,6 @@
 				843BFFEF2656822C0031963C /* Array.swift in Sources */,
 				84C92648265C7FFF00F240F2 /* AlertInspector.swift in Sources */,
 				846C48EB26439B6C0017BE48 /* Image.swift in Sources */,
-				846C48F226439BCA0017BE48 /* URLSession.swift in Sources */,
 				84E2EBA825BC42A8007B2000 /* Umi.swift in Sources */,
 				84C92641265BDC0100F240F2 /* Brainstorming.swift in Sources */,
 				843BFFF62657C88A0031963C /* UserDefaults.swift in Sources */,
@@ -1103,7 +1094,6 @@
 				8430E27E25C3021F008F1BAC /* Dia.swift in Sources */,
 				8469EB3525B943C800A9831D /* DashboardGalleryView.swift in Sources */,
 				84F97C71259B6978005D9AA4 /* NominationDetails.swift in Sources */,
-				846C48EF26439BCA0017BE48 /* URLSession.swift in Sources */,
 				84177FB925B2F079009CC4E9 /* MatchView.swift in Sources */,
 				8462D088259FBA030031AD0D /* NominationMap.swift in Sources */,
 				8469EB2A25B93EF800A9831D /* DashboardStatusView.swift in Sources */,
@@ -1174,7 +1164,6 @@
 				843B00142658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */,
 				84F7359C25B830E8003DE878 /* DashboardView.swift in Sources */,
 				843BFFF42657C88A0031963C /* UserDefaults.swift in Sources */,
-				846C48F026439BCA0017BE48 /* URLSession.swift in Sources */,
 				84BEA0802698BF5400C1A718 /* Links.swift in Sources */,
 				84F735A725B83169003DE878 /* DashboardHighlightsView.swift in Sources */,
 				846C48F726439F260017BE48 /* Card.swift in Sources */,
@@ -1215,7 +1204,6 @@
 				84DDF94025C1B58700942E87 /* NominationRAW.swift in Sources */,
 				84C9264A265C7FFF00F240F2 /* AlertInspector.swift in Sources */,
 				8430E2DD25C31730008F1BAC /* FileManager.swift in Sources */,
-				846C48F426439BCA0017BE48 /* URLSession.swift in Sources */,
 				843BFFFC26580B690031963C /* Mari.swift in Sources */,
 				843B00162658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */,
 				84DDF94725C1B59400942E87 /* Umi.swift in Sources */,
@@ -1235,7 +1223,6 @@
 				843BFFEE2656822C0031963C /* Array.swift in Sources */,
 				84C92647265C7FFF00F240F2 /* AlertInspector.swift in Sources */,
 				846C48EA26439B6C0017BE48 /* Image.swift in Sources */,
-				846C48F126439BCA0017BE48 /* URLSession.swift in Sources */,
 				841FD3D025BC4FE90089A53D /* Umi.swift in Sources */,
 				84C92640265BDC0100F240F2 /* Brainstorming.swift in Sources */,
 				843BFFF52657C88A0031963C /* UserDefaults.swift in Sources */,
@@ -1265,7 +1252,6 @@
 				8475B6C925C1A4B4002D7915 /* NominationRAW.swift in Sources */,
 				84C92649265C7FFF00F240F2 /* AlertInspector.swift in Sources */,
 				8430E2DC25C31730008F1BAC /* FileManager.swift in Sources */,
-				846C48F326439BCA0017BE48 /* URLSession.swift in Sources */,
 				843BFFFB26580B690031963C /* Mari.swift in Sources */,
 				843B00152658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */,
 				8475B66725C1750F002D7915 /* Umi.swift in Sources */,

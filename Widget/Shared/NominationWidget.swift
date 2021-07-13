@@ -58,11 +58,19 @@ struct NominationWidget: Widget {
                 return
             }
             let nomination = nominations[Int.random(in: 0 ..< nominations.count)]
+            guard let url = URL(string: nomination.imageURL) else {
+                completion(.init(now, image: nil, nomination: nomination))
+                return
+            }
             async {
-                let data = await URLSession.shared.dataTask(
-                    with: nomination.imageURL, cachePolicy: .returnCacheDataElseLoad
-                )
-                completion(.init(now, image: data, nomination: nomination))
+                do {
+                    let (data, _) = try await URLSession.shared.data(
+                        for: .init(url: url, cachePolicy: .returnCacheDataElseLoad)
+                    )
+                    completion(.init(now, image: data, nomination: nomination))
+                } catch {
+                    completion(.init(now, image: nil, nomination: nomination))
+                }
             }
         }
     }
