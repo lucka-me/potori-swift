@@ -9,114 +9,119 @@ import GoogleAPIClientForREST_Gmail
 
 class Mari {
     
-    typealias CompletionHandler = ([ NominationRAW ]) -> Void
+    enum ErrorType: Error {
+        case processing
+    }
     
     static let shared = Mari()
     
     private static let userId = "me"
     
-    private let gmailService = GTLRGmailService()
+    private let service = GTLRGmailService()
     
-    private var nominations: [ NominationRAW ] = []
     private var ignoreMailIds: [ String ] = []
     private var latest: UInt64 = 0
     
+    private var data = DataContainer()
     private var progress = MariProgressInspector()
     
     private init() {
-        gmailService.shouldFetchNextPages = true
+        service.shouldFetchNextPages = true
     }
     
-    func start(with nominations: [ NominationRAW ], completionHandler: @escaping CompletionHandler) -> Bool {
-        // Check if is processing
-        if progress.left {
-            return false
+    func start(with existings: [ NominationRAW ]) async throws -> [ NominationRAW ] {
+        guard await !progress.left else {
+            throw ErrorType.processing
         }
-        // Check auth
-        if !GoogleKit.Auth.shared.authorized {
-            return false
+        guard GoogleKit.Auth.shared.authorized else {
+            throw GTLRService.ErrorType.notAuthorized
         }
-        gmailService.authorizer = GoogleKit.Auth.shared.authorizer
-
-        progress.clear()
-        progress.onFinished = {
-            self.progress.onFinished = { }
-            completionHandler(self.nominations)
-        }
-        self.nominations = nominations
-        ignoreMailIds.removeAll()
-        ignoreMailIds = nominations.flatMap {
+        service.authorizer = GoogleKit.Auth.shared.authorizer
+        await progress.clear()
+        await data.clear()
+        ignoreMailIds = existings.flatMap {
             $0.resultMailId.isEmpty ? [$0.confirmationMailId] : [$0.confirmationMailId, $0.resultMailId]
         }
         if UserDefaults.General.queryAfterLatest {
-            latest = nominations.reduce(0) { max($0, $1.confirmedTime, $1.resultTime) }
+            latest = existings.reduce(0) { max($0, $1.confirmedTime, $1.resultTime) }
         } else {
             latest = 0
         }
-        for status in Umi.shared.statusAll {
-            for queryPair in status.queries {
-                self.queryList(with: .init(for: status, by: queryPair.value))
+        await withTaskGroup(of: Void.self) { taskGroup in
+            for status in Umi.shared.statusAll {
+                for queryPair in status.queries {
+                    taskGroup.async { [ self ] in
+                        // TODO: Catch error
+                        try? await query(for: status, by: queryPair.value)
+                    }
+                }
             }
         }
-        return true
+        return await data.read()
     }
     
-    private func queryList(with pack: QueryPack, pageToken: String? = nil) {
-        progress.addList()
-        let query = GTLRGmailQuery_UsersMessagesList.query(withUserId: Self.userId)
-        query.q = "\(pack.query.query)\(latest > 0 ? " after:\(latest)" : "")"
-        query.pageToken = pageToken
-        gmailService.executeQuery(query) { _, response, error in
-            guard
-                let solidResponse = response as? GTLRGmail_ListMessagesResponse,
-                let solidMessages = solidResponse.messages
-            else {
-                self.queryMessages(with: pack)
-                return
+    private func query(for status: Umi.Status, by queryData: Umi.Status.Query) async throws {
+        await progress.addList()
+        var ids: [ String ] = []
+        var pageToken: String? = nil
+        repeat {
+            let query = GTLRGmailQuery_UsersMessagesList.query(withUserId: Self.userId)
+            query.q = "\(queryData.query)\(latest > 0 ? " after:\(latest)" : "")"
+            query.pageToken = pageToken
+            let response: GTLRGmail_ListMessagesResponse = try await service.execute(query)
+            guard let messages = response.messages else {
+                break
             }
-            pack.ids.append(contentsOf: solidMessages.compactMap { $0.identifier })
-            guard let nextPageToken = solidResponse.nextPageToken else {
-                self.queryMessages(with: pack)
-                return
+            let filtered = messages
+                .compactMap { $0.identifier }
+                .filter { !ignoreMailIds.contains($0) }
+            ids.append(contentsOf: filtered)
+            pageToken = response.nextPageToken
+        } while pageToken != nil
+        await progress.finishList(brings: ids.count)
+        await withTaskGroup(of: Void.self) { taskGroup in
+            for id in ids {
+                taskGroup.async { [ self ] in
+                    do {
+                        let raw = try await query(message: id, for: status, by: queryData)
+                        await data.add(raw)
+                    } catch Parser.ErrorType.brokenMessage {
+                        // Handle broken message
+                    } catch Parser.ErrorType.invalidFormat {
+                        // Handle invalid format
+                    } catch {
+                        // Handle parser error
+                    }
+                    await progress.finishMessage()
+                }
             }
-            self.queryList(with: pack, pageToken: nextPageToken)
         }
     }
     
-    private func queryMessages(with pack: QueryPack) {
-        pack.ids.removeAll { ignoreMailIds.contains($0) }
-        progress.finishList(pack.ids.count)
-        for id in pack.ids {
-            let query = GTLRGmailQuery_UsersMessagesGet.query(withUserId: Self.userId, identifier: id)
-            gmailService.executeQuery(query) { _, response, _ in
-                guard let solidResponse = response as? GTLRGmail_Message else {
-                    self.progress.finishMessage()
-                    return
-                }
-                do {
-                    let nomination = try Parser.parse(solidResponse, for: pack.status.code, by: pack.query.scanner)
-                    self.nominations.append(nomination)
-                } catch Parser.ErrorType.brokenMessage {
-                    // Handle broken message
-                } catch Parser.ErrorType.invalidFormat {
-                    // Handle invalid format
-                } catch {
-                    // Handle parser error
-                }
-                self.progress.finishMessage()
-            }
-        }
+    private func query(
+        message id: String,
+        for status: Umi.Status,
+        by queryData: Umi.Status.Query
+    ) async throws -> NominationRAW {
+        let query = GTLRGmailQuery_UsersMessagesGet.query(withUserId: Self.userId, identifier: id)
+        let response: GTLRGmail_Message = try await service.execute(query)
+        return try Parser.parse(response, for: status.code, by: queryData.scanner)
     }
 }
 
-fileprivate class QueryPack {
-    let status: Umi.Status
-    let query: Umi.Status.Query
-    var ids: [ String ] = []
+fileprivate actor DataContainer {
+    private var raws: [ NominationRAW ] = []
     
-    init(for status: Umi.Status, by query: Umi.Status.Query) {
-        self.status = status
-        self.query = query
+    func clear() {
+        raws.removeAll()
+    }
+    
+    func read() -> [ NominationRAW ] {
+        raws
+    }
+    
+    func add(_ raw: NominationRAW) {
+        raws.append(raw)
     }
 }
 
@@ -134,12 +139,10 @@ fileprivate class ProgressItem {
     }
 }
 
-fileprivate class MariProgressInspector {
+fileprivate actor MariProgressInspector {
     
-    var onFinished: () -> Void = { }
-    
-    private var lists = ProgressItem()
-    private var messages = ProgressItem()
+    private let lists = ProgressItem()
+    private let messages = ProgressItem()
     
     func clear() {
         ProgressInspector.shared.clear()
@@ -152,22 +155,16 @@ fileprivate class MariProgressInspector {
         ProgressInspector.shared.set(total: lists.total)
     }
     
-    func finishList(_ bringsMessages: Int) {
+    func finishList(brings messages: Int) {
         lists.done += 1
-        messages.total += bringsMessages
+        self.messages.total += messages
         ProgressInspector.shared.set(done: lists.done, total: lists.total)
-        if !left {
-            onFinished()
-        }
     }
     
     func finishMessage() {
         messages.done += 1
         if !lists.left {
             ProgressInspector.shared.set(done: messages.done, total: messages.total)
-        }
-        if !left {
-            onFinished()
         }
     }
     

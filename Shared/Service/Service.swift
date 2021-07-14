@@ -56,10 +56,6 @@ final class Service: ObservableObject {
     
     static let shared = Service()
     
-    #if os(iOS)
-    private static let refreshTaskID = "dev.lucka.Potori.refresh"
-    #endif
-    
     @Published var status: Status = .idle
     
     let matchData = MatchData()
@@ -136,15 +132,17 @@ final class Service: ObservableObject {
     }
     
     private func processMails() {
-        let nominations = Dia.shared.nominations()
-        let raws = nominations.map { $0.raw }
-        update(status: .processingMails)
-        let started = Mari.shared.start(with: raws) { nominations in
-            self.arrange(nominations)
-        }
-        if !started {
-            update(status: .idle)
-            refreshCompletionHandler(status, 0)
+        async {
+            let nominations = Dia.shared.nominations()
+            var raws = nominations.map { $0.raw }
+            update(status: .processingMails)
+            do {
+                raws.append(contentsOf: try await Mari.shared.start(with: raws))
+                arrange(raws)
+            } catch {
+                update(status: .idle)
+                refreshCompletionHandler(status, 0)
+            }
         }
     }
     
