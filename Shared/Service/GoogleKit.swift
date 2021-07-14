@@ -127,21 +127,42 @@ final class GoogleKit {
             service.authorizer = auth
         }
         
-        func download<Content: Decodable>(
-            _ filename: String,
-            completionHandler: @escaping DownloadCompletionHandler<Content>
-        ) {
-            if !Auth.shared.authorized {
-                completionHandler(nil)
-                return
+        func download<Content: Decodable>(_ filename: String) async throws -> Content? {
+            guard Auth.shared.authorized else {
+                throw GTLRService.ErrorType.notAuthorized
             }
             service.authorizer = Auth.shared.authorizer
-            queryList(with: .init(filename: filename, completionHandler: completionHandler))
+            var ids: [ String ] = []
+            var pageToken: String? = nil
+            repeat {
+                let query = GTLRDriveQuery_FilesList.query()
+                query.q = "name = '\(filename)'"
+                query.pageToken = pageToken
+                query.spaces = Self.folder
+                query.fields = "files(id)"
+                let response: GTLRDrive_FileList = try await service.execute(query)
+                guard let files = response.files else {
+                    break
+                }
+                ids.append(contentsOf: files.compactMap { $0.identifier })
+                pageToken = response.nextPageToken
+            } while pageToken != nil
+            let decoder = JSONDecoder()
+            while let id = ids.popFirst() {
+                let query = GTLRDriveQuery_FilesGet.queryForMedia(withFileId: id)
+                let response: GTLRDataObject = try await service.execute(query)
+                if let content = try? decoder.decode(Content.self, from: response.data) {
+                    fileID[filename] = id
+                    return content
+                }
+                service.execute(GTLRDriveQuery_FilesDelete.query(withFileId: id))
+            }
+            return nil
         }
         
         func upload(_ data: Data, to filename: String, of mimeType: String) async throws {
             guard Auth.shared.authorized else {
-                return
+                throw GTLRService.ErrorType.notAuthorized
             }
             service.authorizer = Auth.shared.authorizer
             let fileObject = GTLRDrive_File()
@@ -154,50 +175,12 @@ final class GoogleKit {
                 fileObject.parents = [ Drive.folder ]
                 query = GTLRDriveQuery_FilesCreate.query(withObject: fileObject, uploadParameters: parameters)
             }
-            let response = try await service.execute(query)
-            fileID[filename] = (response as? GTLRDrive_File)?.identifier
-        }
-        
-        private func queryList<Content: Decodable>(with pack: DownloadQueryPack<Content>, pageToken: String? = nil) {
-            let query = GTLRDriveQuery_FilesList.query()
-            query.q = "name = '\(pack.filename)'"
-            query.spaces = Self.folder
-            query.fields = "files(id)"
-            service.executeQuery(query) { _, response, error in
-                guard
-                    let solidResponse = response as? GTLRDrive_FileList,
-                    let solidFiles = solidResponse.files
-                else {
-                    self.queryFiles(with: pack)
-                    return
-                }
-                pack.ids.append(contentsOf: solidFiles.compactMap { $0.identifier })
-                guard let nextPageToken = solidResponse.nextPageToken else {
-                    self.queryFiles(with: pack)
-                    return
-                }
-                self.queryList(with: pack, pageToken: nextPageToken)
-            }
-        }
-        
-        private func queryFiles<Content: Decodable>(with pack: DownloadQueryPack<Content>) {
-            guard let id = pack.ids.popFirst() else {
-                pack.completionHandler(nil)
-                return;
-            }
-            let query = GTLRDriveQuery_FilesGet.queryForMedia(withFileId: id)
-            service.executeQuery(query) { _, response, error in
-                let decoder = JSONDecoder()
-                guard
-                    let solidData = response as? GTLRDataObject,
-                    let content = try? decoder.decode(Content.self, from: solidData.data)
-                else {
-                    self.service.executeQuery(GTLRDriveQuery_FilesDelete.query(withFileId: id))
-                    self.queryFiles(with: pack)
-                    return
-                }
-                self.fileID[pack.filename] = id
-                pack.completionHandler(content)
+            do {
+                let response: GTLRDrive_File = try await service.execute(query)
+                fileID[filename] = response.identifier
+            } catch {
+                fileID[filename] = nil
+                throw error
             }
         }
     }

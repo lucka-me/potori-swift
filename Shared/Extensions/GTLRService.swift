@@ -8,14 +8,30 @@
 import GoogleAPIClientForRESTCore
 
 extension GTLRService {
-    public func execute<Query: GTLRQueryProtocol>(_ query: Query) async throws -> Any? {
+    enum ErrorType: Error {
+        case notAuthorized
+        case unableToConvertResponse
+    }
+}
+
+extension GTLRService {
+    
+    public func execute<Query: GTLRQueryProtocol>(_ query: Query) {
+        executeQuery(query)
+    }
+    
+    public func execute<Query: GTLRQueryProtocol, Response>(_ query: Query) async throws -> Response {
         return try await withCheckedThrowingContinuation { continuation in
             executeQuery(query) { _, response, error in
                 if let solidError = error {
                     continuation.resume(throwing: solidError)
                     return
                 }
-                continuation.resume(returning: response)
+                guard let typedResponse = response as? Response else {
+                    continuation.resume(throwing: ErrorType.unableToConvertResponse)
+                    return
+                }
+                continuation.resume(returning: typedResponse)
             }
         }
     }

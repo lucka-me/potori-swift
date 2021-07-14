@@ -113,14 +113,14 @@ final class Service: ObservableObject {
     }
     
     private func download(_ file: NominationFile = .standard, completionHandler: @escaping ImportCompletionHandler) {
-        self.set(status: .syncing)
-        GoogleKit.Drive.shared.download(file.rawValue) { (json: [ NominationJSON ]?) in
-            guard let solidJSON = json else {
-                completionHandler(0)
-                return
+        set(status: .syncing)
+        async {
+            var saved = 0
+            if let jsons: [ NominationJSON ] = try? await GoogleKit.Drive.shared.download(file.rawValue) {
+                let raws = jsons.map { NominationRAW(from: $0) }
+                saved = Dia.shared.save(raws, merge: true)
             }
-            let raws = solidJSON.map { NominationRAW(from: $0) }
-            completionHandler(Dia.shared.save(raws, merge: true))
+            completionHandler(saved)
         }
     }
     
