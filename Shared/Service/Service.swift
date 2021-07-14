@@ -132,7 +132,10 @@ final class Service: ObservableObject {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
         if let data = try? encoder.encode(jsons) {
-            GoogleKit.Drive.shared.upload(data, NominationFile.standard.rawValue, mimeType: "application/json") {
+            async {
+                try? await GoogleKit.Drive.shared.upload(
+                    data, to: NominationFile.standard.rawValue, of: "application/json"
+                )
                 completionHandler()
             }
         }
