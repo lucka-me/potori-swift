@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/google/gtm-session-fetcher.git",
         "state": {
           "branch": null,
-          "revision": "424886f9336a71891aa81852d0c2c08d807d21aa",
-          "version": "1.6.1"
+          "revision": "91ed3d188eb95705fef3c249453b81f32dc557d1",
+          "version": "1.5.0"
         }
       },
       {
