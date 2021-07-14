@@ -189,18 +189,3 @@ final class GoogleKit {
         
     }
 }
-
-private class DownloadQueryPack<Content: Decodable> {
-    
-    var ids: [ String ] = []
-    let filename: String
-    let completionHandler: GoogleKit.Drive.DownloadCompletionHandler<Content>
-    
-    init(
-        filename: String,
-        completionHandler: @escaping GoogleKit.Drive.DownloadCompletionHandler<Content>
-    ) {
-        self.filename = filename
-        self.completionHandler = completionHandler
-    }
-}
