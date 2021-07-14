@@ -70,9 +70,10 @@ final class Service: ObservableObject {
     
     /// Migrate data from potori.json
     func migrateFromGoogleDrive(_ completionHandler: @escaping ImportCompletionHandler) {
-        download(.legacy) { count in
-            completionHandler(count)
-            self.set(status: .idle)
+        async {
+            let count = try? await download(.legacy)
+            update(status: .idle)
+            completionHandler(count ?? 0)
         }
     }
     
@@ -85,63 +86,50 @@ final class Service: ObservableObject {
             self.refreshCompletionHandler = { _, _ in }
             completionHandler(status, count)
         }
-        if UserDefaults.Google.sync {
-            download { _ in
-                self.processMails()
+        async {
+            if UserDefaults.Google.sync {
+                let _ = try? await download()
             }
-        } else {
             processMails()
         }
         return true
     }
     
     func sync(performDownload: Bool = true, performUpload: Bool = true) {
-        if !performDownload && !performUpload {
-            return
-        }
-        if performDownload {
-            download { _ in
-                if performUpload {
-                    self.upload { self.set(status: .idle) }
-                } else {
-                    self.set(status: .idle)
-                }
-            }
-        } else {
-            upload { self.set(status: .idle) }
-        }
-    }
-    
-    private func download(_ file: NominationFile = .standard, completionHandler: @escaping ImportCompletionHandler) {
-        set(status: .syncing)
         async {
-            var saved = 0
-            if let jsons: [ NominationJSON ] = try? await GoogleKit.Drive.shared.download(file.rawValue) {
-                let raws = jsons.map { NominationRAW(from: $0) }
-                saved = Dia.shared.save(raws, merge: true)
+            if performUpload {
+                let _ = try? await download()
             }
-            completionHandler(saved)
+            if performUpload {
+                try? await upload()
+            }
+            update(status: .idle)
         }
     }
     
-    func upload(_ completionHandler: @escaping () -> Void) {
-        set(status: .syncing)
+    @discardableResult
+    private func download(_ file: NominationFile = .standard) async throws -> Int {
+        update(status: .syncing)
+        guard
+            let jsons: [ NominationJSON ] = try await GoogleKit.Drive.shared.download(file.rawValue)
+        else {
+            return 0
+        }
+        let raws = jsons.map { NominationRAW(from: $0) }
+        return Dia.shared.save(raws, merge: true)
+    }
+    
+    func upload() async throws {
+        update(status: .syncing)
         let nominations = Dia.shared.nominations()
-        let raws = nominations.map { $0.raw }
-        let jsons = raws.map { $0.json }
+        let jsons = nominations.map { $0.raw.json }
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
-        if let data = try? encoder.encode(jsons) {
-            async {
-                try? await GoogleKit.Drive.shared.upload(
-                    data, to: NominationFile.standard.rawValue, of: "application/json"
-                )
-                completionHandler()
-            }
-        }
+        let data = try encoder.encode(jsons)
+        try await GoogleKit.Drive.shared.upload(data, to: NominationFile.standard.rawValue)
     }
     
-    private func set(status: Status) {
+    private func update(status: Status) {
         DispatchQueue.main.async {
             self.status = status
         }
@@ -150,12 +138,12 @@ final class Service: ObservableObject {
     private func processMails() {
         let nominations = Dia.shared.nominations()
         let raws = nominations.map { $0.raw }
-        set(status: .processingMails)
+        update(status: .processingMails)
         let started = Mari.shared.start(with: raws) { nominations in
             self.arrange(nominations)
         }
         if !started {
-            set(status: .idle)
+            update(status: .idle)
             refreshCompletionHandler(status, 0)
         }
     }
@@ -230,7 +218,7 @@ final class Service: ObservableObject {
             self.matchData.packs = []
             self.queryBrainstorming(list, merged: merged)
         }
-        set(status: .requestMatch)
+        update(status: .requestMatch)
     }
     
     private func queryBrainstorming(_ raws: [ NominationRAW ], merged: Int) {
@@ -244,7 +232,7 @@ final class Service: ObservableObject {
             return
         }
         ProgressInspector.shared.set(done: 0, total: list.count)
-        set(status: .queryingBrainstorming)
+        update(status: .queryingBrainstorming)
         async {
             await withTaskGroup(of: Void.self) { taskGroup in
                 for raw in list {
@@ -267,13 +255,11 @@ final class Service: ObservableObject {
     
     private func saveAndSync(_ raws: [NominationRAW], merged: Int) {
         let updateCount = Dia.shared.save(raws) + merged
-        if UserDefaults.Google.sync {
-            upload {
-                self.set(status: .idle)
-                self.refreshCompletionHandler(self.status, updateCount)
+        async {
+            if UserDefaults.Google.sync {
+                try? await upload()
             }
-        } else {
-            set(status: .idle)
+            update(status: .idle)
             refreshCompletionHandler(status, updateCount)
         }
     }

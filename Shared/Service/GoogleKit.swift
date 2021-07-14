@@ -27,7 +27,7 @@ final class GoogleKit {
         private var currentAuthorizationFlow: OIDExternalUserAgentSession? = nil
         
         private init() {
-            loadAuth()
+            load()
         }
         
         var mail: String {
@@ -61,7 +61,7 @@ final class GoogleKit {
         
         func unlink() {
             authorization = nil
-            saveAuth()
+            save()
         }
         
         private func getAuthRequest() -> OIDAuthorizationRequest {
@@ -83,16 +83,16 @@ final class GoogleKit {
         private func authStateCallback(authState: OIDAuthState?, error: Error?) {
             if let solidAuthState = authState {
                 #if os(iOS)
-                self.currentAuthorizationFlow = nil
+                currentAuthorizationFlow = nil
                 #endif
-                self.authorization = GTMAppAuthFetcherAuthorization(authState: solidAuthState)
-                self.saveAuth()
+                authorization = GTMAppAuthFetcherAuthorization(authState: solidAuthState)
+                save()
             } else {
                 // Handle error
             }
         }
         
-        private func saveAuth() {
+        private func save() {
             if let solidAuth = authorization, solidAuth.canAuthorize() {
                 authorized = solidAuth.authState.isAuthorized
                 GTMAppAuthFetcherAuthorization.save(solidAuth, toSharedKeychainForName: Self.authKeychainName)
@@ -102,15 +102,13 @@ final class GoogleKit {
             }
         }
         
-        private func loadAuth() {
+        private func load() {
             authorization = GTMAppAuthFetcherAuthorization.fromSharedKeychain(forName: Self.authKeychainName)
-            saveAuth()
+            save()
         }
     }
     
     final class Drive {
-        
-        typealias DownloadCompletionHandler<Content: Decodable> = (Content?) -> Void
         
         static let shared = Drive()
         
@@ -160,14 +158,14 @@ final class GoogleKit {
             return nil
         }
         
-        func upload(_ data: Data, to filename: String, of mimeType: String) async throws {
+        func upload(_ data: Data, to filename: String) async throws {
             guard Auth.shared.authorized else {
                 throw GTLRService.ErrorType.notAuthorized
             }
             service.authorizer = Auth.shared.authorizer
             let fileObject = GTLRDrive_File()
             fileObject.name = filename
-            let parameters = GTLRUploadParameters(data: data, mimeType: mimeType)
+            let parameters = GTLRUploadParameters(data: data, mimeType: "application/json")
             let query: GTLRDriveQuery
             if let id = fileID[filename], !id.isEmpty {
                 query = GTLRDriveQuery_FilesUpdate.query(withObject: fileObject, fileId: id, uploadParameters: parameters)
