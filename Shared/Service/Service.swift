@@ -95,16 +95,16 @@ final class Service: ObservableObject {
         return true
     }
     
-    func sync(performDownload: Bool = true, performUpload: Bool = true) {
-        async {
-            if performUpload {
-                let _ = try? await download()
-            }
-            if performUpload {
-                try? await upload()
-            }
-            update(status: .idle)
+    func sync(performDownload: Bool = true, performUpload: Bool = true) async throws -> Int {
+        var count = 0
+        if performUpload {
+            count = try await download()
         }
+        if performUpload {
+            try await upload()
+        }
+        update(status: .idle)
+        return count
     }
     
     @discardableResult
@@ -176,7 +176,9 @@ final class Service: ObservableObject {
     
     private func match(_ targets: [NominationRAW], from list: [NominationRAW], merged: Int) {
         if targets.isEmpty {
-            queryBrainstorming(list, merged: merged)
+            async {
+                await queryBrainstorming(list, merged: merged)
+            }
             return
         }
         refreshCompletionHandler(status, 0)
@@ -194,7 +196,9 @@ final class Service: ObservableObject {
             }
             .filter { !$0.candidates.isEmpty }
         if packs.isEmpty {
-            queryBrainstorming(list, merged: merged)
+            async {
+                await queryBrainstorming(list, merged: merged)
+            }
             return
         }
         matchData.packs = packs
@@ -216,33 +220,35 @@ final class Service: ObservableObject {
                 }
             }
             self.matchData.packs = []
-            self.queryBrainstorming(list, merged: merged)
+            async {
+                await self.queryBrainstorming(list, merged: merged)
+            }
         }
         update(status: .requestMatch)
     }
     
-    private func queryBrainstorming(_ raws: [ NominationRAW ], merged: Int) {
+    private func queryBrainstorming(_ raws: [ NominationRAW ], merged: Int) async {
         if !UserDefaults.Brainstorming.query {
             saveAndSync(raws, merged: merged)
             return
         }
-        let list = raws.filter { $0.lngLat == nil }
+        let list = raws.filter {
+            $0.lngLat == nil && !Brainstorming.isBeforeEpoch(when: TimeInterval($0.resultTime), status: $0.status)
+        }
         if list.isEmpty {
             saveAndSync(raws, merged: merged)
             return
         }
         ProgressInspector.shared.set(done: 0, total: list.count)
         update(status: .queryingBrainstorming)
-        async {
-            await withTaskGroup(of: Void.self) { taskGroup in
-                for raw in list {
-                    taskGroup.async {
-                        await self.queryBrainstorming(raw)
-                    }
+        await withTaskGroup(of: Void.self) { taskGroup in
+            for raw in list {
+                taskGroup.async {
+                    await self.queryBrainstorming(raw)
                 }
             }
-            saveAndSync(raws, merged: merged)
         }
+        saveAndSync(raws, merged: merged)
     }
     
     private func queryBrainstorming(_ raw: NominationRAW) async {

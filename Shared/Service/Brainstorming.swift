@@ -22,7 +22,7 @@ class Brainstorming {
     
     static let shared = Brainstorming()
     
-    private static let epoch = Date(timeIntervalSince1970: 1518796800)
+    private static let epoch = TimeInterval(1518796800)
     
     private init() { }
     
@@ -43,7 +43,11 @@ class Brainstorming {
         return record
     }
     
-    static func isBeforeEpoch(when resultTime: Date, status: Umi.Status.Code) -> Bool {
+    static func isBeforeEpoch(when resultTime: TimeInterval, status: Umi.Status.Code) -> Bool {
         status != .pending && resultTime < Self.epoch
+    }
+    
+    static func isBeforeEpoch(when resultTime: Date, status: Umi.Status.Code) -> Bool {
+        isBeforeEpoch(when: resultTime.timeIntervalSince1970, status: status)
     }
 }

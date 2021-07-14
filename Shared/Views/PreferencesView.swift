@@ -140,12 +140,16 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
             Toggle("view.preferences.google.sync", isOn: $prefSync)
 
             Button("view.preferences.google.syncNow") {
-                service.sync()
+                async {
+                    try? await service.sync()
+                }
             }
             .disabled(service.status != .idle)
 
             Button("view.preferences.google.uploadNow") {
-                service.sync(performDownload: false)
+                async {
+                    try? await service.sync(performDownload: false)
+                }
             }
             .disabled(service.status != .idle)
             
