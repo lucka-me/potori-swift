@@ -174,10 +174,8 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
             do {
                 let count = try await service.migrateFromGoogleDrive()
                 alert.push(
-                    .init(
-                        title: Text("view.preferences.google.migrate"),
-                        message: Text("view.preferences.google.migrate.finished \(count)")
-                    )
+                    title: "view.preferences.google.migrate",
+                    message: "view.preferences.google.migrate.finished \(count)"
                 )
             } catch {
                 // TODO: Alert
@@ -263,12 +261,7 @@ fileprivate struct ImportExportView: View {
                 } catch {
                     message = "view.preferences.data.nominations.failure \(error.localizedDescription)"
                 }
-                alert.push(
-                    .init(
-                        title: Text(Self.stringImport),
-                        message: Text(message)
-                    )
-                )
+                alert.push(title: Self.stringImport, message: message)
             }
             .fileExporter(
                 isPresented: $isPresentedExporter,
@@ -283,12 +276,7 @@ fileprivate struct ImportExportView: View {
                 } catch {
                     message = "view.preferences.data.nominations.failure \(error.localizedDescription)"
                 }
-                alert.push(
-                    .init(
-                        title: Text(Self.stringExport),
-                        message: Text(message)
-                    )
-                )
+                alert.push(title: Self.stringExport, message: message)
             }
     }
     
@@ -327,10 +315,8 @@ fileprivate struct ImportExportView: View {
         #endif
         guard let data = json?.data(using: .utf8) else {
             alert.push(
-                .init(
-                    title: Text(Self.stringImport),
-                    message: Text("view.preferences.data.wayfarer.import.empty")
-                )
+                title: Self.stringImport,
+                message: "view.preferences.data.wayfarer.import.empty"
             )
             return
         }
@@ -342,10 +328,8 @@ fileprivate struct ImportExportView: View {
             message = "view.preferences.data.wayfarer.failure \(error.localizedDescription)"
         }
         alert.push(
-            .init(
-                title: Text(Self.stringImport),
-                message: Text(message)
-            )
+            title: Self.stringImport,
+            message: message
         )
     }
 }

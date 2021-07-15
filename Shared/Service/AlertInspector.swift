@@ -9,11 +9,15 @@ import SwiftUI
 
 class AlertInspector: ObservableObject {
     @Published var isPresented = false
-    var alert = Alert(title: Text(""))
+    var alert = Alert(title: .init(""))
     
-    func push(_ alert: Alert) {
+    func push(title: LocalizedStringKey, message: LocalizedStringKey? = nil) {
         DispatchQueue.main.async {
-            self.alert = alert
+            var messageText: Text? = nil
+            if let solidMessage = message {
+                messageText = .init(solidMessage)
+            }
+            self.alert = .init(title: .init(title), message: messageText)
             self.isPresented = true
         }
     }

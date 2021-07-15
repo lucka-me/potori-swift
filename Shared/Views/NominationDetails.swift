@@ -321,26 +321,24 @@ struct NominationDetails: View {
     private func setLngLatFromPasteboard() {
         #if os(iOS)
         guard UNPasteboard.general.hasStrings else {
-            alert.push(.init(title: .init("view.details.location.paste.empty")))
+            alert.push(title: "view.details.location.paste.empty")
             return
         }
         #endif
         guard let url = UNPasteboard.general.string else {
-            alert.push(.init(title: .init("view.details.location.paste.empty")))
+            alert.push(title: "view.details.location.paste.empty")
             return
         }
         if !editorModel.setLngLat(from: url) {
             alert.push(
-                .init(
-                    title: .init("view.details.location.paste.invalid"),
-                    message: .init("view.details.location.paste.invalid.desc")
-                )
+                title: "view.details.location.paste.invalid",
+                message: "view.details.location.paste.invalid.desc"
             )
         }
     }
     
     private func queryLngLatFromBrainstorming() {
-        async {
+        Task.init {
             let record: Brainstorming.Record
             do {
                 record = try await Brainstorming.shared.query(nomination.id)
@@ -349,26 +347,20 @@ struct NominationDetails: View {
                 }
             } catch Brainstorming.ErrorType.notFound {
                 alert.push(
-                    .init(
-                        title: .init("view.details.location.brainstorming.failed"),
-                        message: .init("view.details.location.brainstorming.failed.notFound")
-                    )
+                    title: "view.details.location.brainstorming.failed",
+                    message: "view.details.location.brainstorming.failed.notFound"
                 )
                 return
             } catch Brainstorming.ErrorType.unableToDecode {
                 alert.push(
-                    .init(
-                        title: .init("view.details.location.brainstorming.failed"),
-                        message: .init("view.details.location.brainstorming.failed.decode")
-                    )
+                    title: "view.details.location.brainstorming.failed",
+                    message: "view.details.location.brainstorming.failed.decode"
                 )
                 return
             } catch {
                 alert.push(
-                    .init(
-                        title: .init("view.details.location.brainstorming.failed"),
-                        message: .init("view.details.location.brainstorming.failed.other \(error.localizedDescription)")
-                    )
+                    title: "view.details.location.brainstorming.failed",
+                    message: "view.details.location.brainstorming.failed.other \(error.localizedDescription)"
                 )
                 return
             }
