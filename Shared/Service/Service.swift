@@ -65,12 +65,10 @@ final class Service: ObservableObject {
     private init() { }
     
     /// Migrate data from potori.json
-    func migrateFromGoogleDrive(_ completionHandler: @escaping ImportCompletionHandler) {
-        async {
-            let count = try? await download(.legacy)
-            update(status: .idle)
-            completionHandler(count ?? 0)
-        }
+    func migrateFromGoogleDrive() async throws -> Int {
+        let count = try await download(.legacy)
+        update(status: .idle)
+        return count
     }
     
     @discardableResult

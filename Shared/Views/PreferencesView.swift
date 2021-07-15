@@ -170,13 +170,18 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
     }
     
     private func migrate() {
-        service.migrateFromGoogleDrive { count in
-            alert.push(
-                .init(
-                    title: Text("view.preferences.google.migrate"),
-                    message: Text("view.preferences.google.migrate.finished \(count)")
+        Task.init {
+            do {
+                let count = try await service.migrateFromGoogleDrive()
+                alert.push(
+                    .init(
+                        title: Text("view.preferences.google.migrate"),
+                        message: Text("view.preferences.google.migrate.finished \(count)")
+                    )
                 )
-            )
+            } catch {
+                // TODO: Alert
+            }
         }
     }
 }
