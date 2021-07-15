@@ -97,6 +97,7 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
     @EnvironmentObject private var alert: AlertInspector
     @EnvironmentObject private var service: Service
     @ObservedObject private var auth = GoogleKit.Auth.shared
+    @State private var isPresentedConfirmMigrate = false
     #if os(iOS)
     @State private var isPresentedActionSheetAccount = false
     #endif
@@ -153,26 +154,22 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
             }
             .disabled(service.status != .idle)
             
-            Button("view.preferences.google.migrate", action: confirmMigrate)
+            Button("view.preferences.google.migrate") {
+                isPresentedConfirmMigrate.toggle()
+            }
             .disabled(service.status != .idle)
+            .confirmationDialog(
+                "view.preferences.google.migrate",
+                isPresented: $isPresentedConfirmMigrate
+            ) {
+                Button("view.preferences.google.migrate.alert.confirm", action: migrate)
+            } message: {
+                Text("view.preferences.google.migrate.alert")
+            }
         }
     }
     
-    private func confirmMigrate() {
-        alert.push(
-            .init(
-                title: Text("view.preferences.google.migrate"),
-                message: Text("view.preferences.google.migrate.alert"),
-                primaryButton: .destructive(
-                    Text("view.preferences.google.migrate.alert.confirm"),
-                    action: executeMigrate
-                ),
-                secondaryButton: .cancel()
-            )
-        )
-    }
-    
-    private func executeMigrate() {
+    private func migrate() {
         service.migrateFromGoogleDrive { count in
             alert.push(
                 .init(
@@ -204,28 +201,29 @@ fileprivate struct DataGroup: View, PreferenceGroup {
     @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var service: Service
     
+    @State private var isPresentedConfirmClear = false
+    
     var body: some View {
         #if os(macOS)
         ImportExportView()
         #else
         NavigationLink(destination: ImportExportView())  { Text("view.preferences.data.importExport") }
         #endif
-        Button("view.preferences.data.clearNominations", action: confirmClearAll)
-            .disabled(service.status != .idle)
-    }
-    
-    private func confirmClearAll() {
-        alert.push(
-            .init(
-                title: Text("view.preferences.data.clearNominations"),
-                message: Text("view.preferences.data.clearNominations.alert"),
-                primaryButton: Alert.Button.destructive(Text("view.preferences.data.clearNominations.clear")) {
-                    dia.clear()
-                    dia.save()
-                },
-                secondaryButton: Alert.Button.cancel()
-            )
-        )
+        Button("view.preferences.data.clearNominations") {
+            isPresentedConfirmClear.toggle()
+        }
+        .disabled(service.status != .idle)
+        .confirmationDialog(
+            "view.preferences.data.clearNominations",
+            isPresented: $isPresentedConfirmClear
+        ) {
+            Button("view.preferences.data.clearNominations.clear", role: .destructive) {
+                dia.clear()
+                dia.save()
+            }
+        } message: {
+            Text("view.preferences.data.clearNominations.alert")
+        }
     }
 }
 
