@@ -17,13 +17,13 @@ extension Service {
             do {
                 let count = try await refresh(throwWhenMatchRequired: true)
                 if count > 0 {
-                    UNUserNotificationCenter.push(
+                    UNUserNotificationCenter.current().push(
                         .init(localized: "notification.refresh.requiresMatch"),
                         .init(format: .init(localized: "notification.refresh.refreshFinished.desc"), count)
                     )
                 }
             } catch ErrorType.matchRequired {
-                UNUserNotificationCenter.push(
+                UNUserNotificationCenter.current().push(
                     .init(localized: "notification.refresh.requiresMatch"),
                     .init(localized: "notification.refresh.requiresMatch.desc")
                 )
