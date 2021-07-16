@@ -31,7 +31,13 @@ struct DashboardView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                    service.refresh()
+                    Task.init {
+                        do {
+                            let _ = try await service.refresh()
+                        } catch {
+                            // TODO: alert
+                        }
+                    }
                 } label: {
                     Label("view.dashboard.refresh", systemImage: "arrow.clockwise")
                 }

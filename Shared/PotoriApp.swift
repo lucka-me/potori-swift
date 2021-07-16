@@ -45,13 +45,12 @@ struct PotoriApp: App {
             .environmentObject(dia)
             .environmentObject(service)
             .environment(\.managedObjectContext, dia.viewContext)
-            .onAppear {
-                if firstAppear {
-                    firstAppear = false
-                    if UserDefaults.General.refreshOnOpen {
-                        service.refresh()
-                    }
-                    URLCache.shared.diskCapacity = 100 * 1024 * 1024
+            .task {
+                guard firstAppear else { return }
+                firstAppear = false
+                URLCache.shared.diskCapacity = 100 * 1024 * 1024
+                if UserDefaults.General.refreshOnOpen {
+                    let _ = try? await service.refresh()
                 }
             }
             .handlesExternalEvents(preferring: Self.matchURLs, allowing: [ "*" ])

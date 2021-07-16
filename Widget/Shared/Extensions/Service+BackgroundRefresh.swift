@@ -13,21 +13,24 @@ extension Service {
             completionHandler()
             return
         }
-        let started = refresh { status, count in
-            if status == .requestMatch {
+        Task.init {
+            do {
+                let count = try await refresh(throwWhenMatchRequired: true)
+                if count > 0 {
+                    UNUserNotificationCenter.push(
+                        .init(localized: "notification.refresh.requiresMatch"),
+                        .init(format: .init(localized: "notification.refresh.refreshFinished.desc"), count)
+                    )
+                }
+            } catch ErrorType.matchRequired {
                 UNUserNotificationCenter.push(
-                    NSLocalizedString("notification.refresh.requiresMatch", comment: "Manually Match Required"),
-                    NSLocalizedString("notification.refresh.requiresMatch.desc", comment: "Manually Match Required Description")
+                    .init(localized: "notification.refresh.requiresMatch"),
+                    .init(localized: "notification.refresh.requiresMatch.desc")
                 )
-            } else if count > 0 {
-                UNUserNotificationCenter.push(
-                    NSLocalizedString("notification.refresh.refreshFinished", comment: "Refresh Finished"),
-                    String(format: NSLocalizedString("notification.refresh.refreshFinished.desc", comment: "Refresh Finished Description"), count)
-                )
+                
+            } catch {
+                // TODO: Alert
             }
-            completionHandler()
-        }
-        if !started {
             completionHandler()
         }
     }

@@ -14,8 +14,10 @@ import UserNotifications
 
 final class Service: ObservableObject {
     
-    typealias RefreshCompletionHandler = (Status, Int) -> Void
-    typealias ImportCompletionHandler = (Int) -> Void
+    enum ErrorType: Error {
+        case processing
+        case matchRequired
+    }
     
     enum Status {
         case idle
@@ -45,7 +47,7 @@ final class Service: ObservableObject {
     }
     
     class MatchData {
-        var packs: [MatchPack] = []
+        var packs: [ MatchPack ] = []
         var callback: () -> Void = { }
     }
     
@@ -60,8 +62,6 @@ final class Service: ObservableObject {
     
     let matchData = MatchData()
     
-    private var refreshCompletionHandler: RefreshCompletionHandler = { _, _ in }
-    
     private init() { }
     
     /// Migrate data from potori.json
@@ -72,21 +72,91 @@ final class Service: ObservableObject {
     }
     
     @discardableResult
-    func refresh(completionHandler: @escaping RefreshCompletionHandler = { _, _ in }) -> Bool {
-        if status != .idle || !GoogleKit.Auth.shared.authorized {
-            return false
+    func refresh(throwWhenMatchRequired: Bool = false) async throws -> Int {
+        if status != .idle {
+            throw ErrorType.processing
         }
-        refreshCompletionHandler = { status, count in
-            self.refreshCompletionHandler = { _, _ in }
-            completionHandler(status, count)
+        if UserDefaults.Google.sync {
+            let _ = try await download()
         }
-        async {
-            if UserDefaults.Google.sync {
-                let _ = try? await download()
+        let existingNominations = Dia.shared.nominations()
+        var raws = existingNominations.map { $0.raw }
+        update(status: .processingMails)
+        do {
+            let newRaws = try await Mari.shared.start(with: raws)
+            raws.append(contentsOf: newRaws)
+        } catch {
+            update(status: .idle)
+            throw error
+        }
+        var matchTargets: [ NominationRAW ] = []
+        var mergeCount = 0
+        raws = raws.reduce(into: []) { list, raw in
+            if raw.id.isEmpty {
+                matchTargets.append(raw)
+                return
             }
-            processMails()
+            // Merge
+            var merged = false
+            for target in list {
+                if target.merge(raw) {
+                    merged = true
+                    mergeCount += 1
+                    break
+                }
+            }
+            if !merged {
+                list.append(raw)
+            }
         }
-        return true
+        if !matchTargets.isEmpty {
+            let pendings = raws.filter { $0.status == .pending }
+            let packs: [MatchPack] = matchTargets
+                .map { target in
+                    let pack = MatchPack(target)
+                    let checkScanner = target.scanner != .unknown
+                    pack.candidates = pendings.filter { candidate in
+                        target.title == candidate.title
+                            && target.resultTime > candidate.confirmedTime
+                            && (!checkScanner || candidate.scanner == .unknown || target.scanner == candidate.scanner)
+                    }
+                    return pack
+                }
+                .filter { !$0.candidates.isEmpty }
+            if !packs.isEmpty {
+                if throwWhenMatchRequired {
+                    throw ErrorType.matchRequired
+                }
+                update(status: .requestMatch)
+                await match(packs)
+            }
+        }
+        if UserDefaults.Brainstorming.query {
+            let queryList = raws.filter {
+                $0.lngLat == nil && !Brainstorming.isBeforeEpoch(when: TimeInterval($0.resultTime), status: $0.status)
+            }
+            if !queryList.isEmpty {
+                ProgressInspector.shared.set(done: 0, total: queryList.count)
+                update(status: .queryingBrainstorming)
+                await withTaskGroup(of: Void.self) { taskGroup in
+                    for raw in queryList {
+                        taskGroup.async {
+                            let record = try? await Brainstorming.shared.query(raw.id)
+                            if let solidRecord = record {
+                                raw.lngLat = .init(lng: solidRecord.lng, lat: solidRecord.lat)
+                            }
+                            ProgressInspector.shared.step()
+                        }
+                    }
+                }
+            }
+        }
+        let updateCount = Dia.shared.save(raws) + mergeCount
+        if UserDefaults.Google.sync {
+            try await upload()
+        }
+        update(status: .idle)
+        return updateCount
     }
     
     func sync(performDownload: Bool = true, performUpload: Bool = true) async throws -> Int {
@@ -129,140 +199,25 @@ final class Service: ObservableObject {
         }
     }
     
-    private func processMails() {
-        async {
-            let nominations = Dia.shared.nominations()
-            var raws = nominations.map { $0.raw }
-            update(status: .processingMails)
-            do {
-                raws.append(contentsOf: try await Mari.shared.start(with: raws))
-                arrange(raws)
-            } catch {
-                update(status: .idle)
-                refreshCompletionHandler(status, 0)
-            }
-        }
-    }
-    
-    private func arrange(_ raws: [ NominationRAW ]) {
-        var reduced: [NominationRAW] = []
-        var matchTargets: [NominationRAW] = []
-        reduced.reserveCapacity(raws.capacity)
-        var mergeCount = 0
-        reduced = raws.reduce(into: reduced) { list, raw in
-            if raw.id.isEmpty {
-                matchTargets.append(raw)
-                return
-            }
-            // Merge
-            var merged = false
-            for target in list {
-                if target.merge(raw) {
-                    merged = true
-                    mergeCount += 1
-                    break
-                }
-            }
-            if !merged {
-                list.append(raw)
-            }
-        }
-        match(matchTargets, from: reduced, merged: mergeCount)
-    }
-    
-    private func match(_ targets: [NominationRAW], from list: [NominationRAW], merged: Int) {
-        if targets.isEmpty {
-            async {
-                await queryBrainstorming(list, merged: merged)
-            }
-            return
-        }
-        refreshCompletionHandler(status, 0)
-        let pendings = list.filter { $0.status == .pending }
-        let packs: [MatchPack] = targets
-            .map { target in
-                let pack = MatchPack(target)
-                let checkScanner = target.scanner != .unknown
-                pack.candidates = pendings.filter { candidate in
-                    target.title == candidate.title
-                        && target.resultTime > candidate.confirmedTime
-                        && (!checkScanner || candidate.scanner == .unknown || target.scanner == candidate.scanner)
-                }
-                return pack
-            }
-            .filter { !$0.candidates.isEmpty }
-        if packs.isEmpty {
-            async {
-                await queryBrainstorming(list, merged: merged)
-            }
-            return
-        }
+    private func match(_ packs: [ MatchPack ]) async {
         matchData.packs = packs
-        matchData.callback = {
-            self.matchData.callback = { }
-            for pack in self.matchData.packs {
-                if pack.selected.isEmpty {
-                    continue
-                }
-                guard let selected = pack.candidates.first(where: { $0.id == pack.selected }) else {
-                    continue
-                }
-                pack.target.id = selected.id
-                pack.target.image = selected.image
-                for nomination in list {
-                    if nomination.merge(pack.target) {
-                        break
+        return await withUnsafeContinuation { continuation in
+            matchData.callback = {
+                self.matchData.callback = { }
+                for pack in self.matchData.packs {
+                    if pack.selected.isEmpty {
+                        continue
                     }
+                    guard let selected = pack.candidates.first(where: { $0.id == pack.selected }) else {
+                        continue
+                    }
+                    pack.target.id = selected.id
+                    pack.target.image = selected.image
+                    selected.merge(pack.target)
                 }
+                self.matchData.packs = []
+                continuation.resume()
             }
-            self.matchData.packs = []
-            async {
-                await self.queryBrainstorming(list, merged: merged)
-            }
-        }
-        update(status: .requestMatch)
-    }
-    
-    private func queryBrainstorming(_ raws: [ NominationRAW ], merged: Int) async {
-        if !UserDefaults.Brainstorming.query {
-            saveAndSync(raws, merged: merged)
-            return
-        }
-        let list = raws.filter {
-            $0.lngLat == nil && !Brainstorming.isBeforeEpoch(when: TimeInterval($0.resultTime), status: $0.status)
-        }
-        if list.isEmpty {
-            saveAndSync(raws, merged: merged)
-            return
-        }
-        ProgressInspector.shared.set(done: 0, total: list.count)
-        update(status: .queryingBrainstorming)
-        await withTaskGroup(of: Void.self) { taskGroup in
-            for raw in list {
-                taskGroup.async {
-                    await self.queryBrainstorming(raw)
-                }
-            }
-        }
-        saveAndSync(raws, merged: merged)
-    }
-    
-    private func queryBrainstorming(_ raw: NominationRAW) async {
-        let record = try? await Brainstorming.shared.query(raw.id)
-        if let solidRecord = record {
-            raw.lngLat = .init(lng: solidRecord.lng, lat: solidRecord.lat)
-        }
-        ProgressInspector.shared.step()
-    }
-    
-    private func saveAndSync(_ raws: [NominationRAW], merged: Int) {
-        let updateCount = Dia.shared.save(raws) + merged
-        async {
-            if UserDefaults.Google.sync {
-                try? await upload()
-            }
-            update(status: .idle)
-            refreshCompletionHandler(status, updateCount)
         }
     }
     
