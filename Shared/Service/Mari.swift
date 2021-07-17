@@ -83,7 +83,9 @@ class Mari {
             for id in ids {
                 taskGroup.async { [ self ] in
                     do {
-                        let raw = try await query(message: id, for: status, by: queryData)
+                        let query = GTLRGmailQuery_UsersMessagesGet.query(withUserId: Self.userId, identifier: id)
+                        let response: GTLRGmail_Message = try await service.execute(query)
+                        let raw = try Parser.parse(response, for: status.code, by: queryData.scanner)
                         await data.add(raw)
                     } catch Parser.ErrorType.brokenMessage {
                         // Handle broken message
@@ -96,16 +98,6 @@ class Mari {
                 }
             }
         }
-    }
-    
-    private func query(
-        message id: String,
-        for status: Umi.Status,
-        by queryData: Umi.Status.Query
-    ) async throws -> NominationRAW {
-        let query = GTLRGmailQuery_UsersMessagesGet.query(withUserId: Self.userId, identifier: id)
-        let response: GTLRGmail_Message = try await service.execute(query)
-        return try Parser.parse(response, for: status.code, by: queryData.scanner)
     }
 }
 
