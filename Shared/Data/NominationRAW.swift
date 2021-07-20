@@ -99,6 +99,7 @@ class NominationRAW {
         )
     }
     
+    @discardableResult
     func merge(_ from: NominationRAW) -> Bool {
         if id != from.id {
             return false

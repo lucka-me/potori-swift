@@ -64,13 +64,6 @@ final class Service: ObservableObject {
     
     private init() { }
     
-    /// Migrate data from potori.json
-    func migrateFromGoogleDrive() async throws -> Int {
-        let count = try await download(.legacy)
-        update(status: .idle)
-        return count
-    }
-    
     @discardableResult
     func refresh(throwWhenMatchRequired: Bool = false) async throws -> Int {
         if status != .idle {
@@ -171,6 +164,13 @@ final class Service: ObservableObject {
         return count
     }
     
+    /// Migrate data from potori.json
+    func migrateFromGoogleDrive() async throws -> Int {
+        let count = try await download(.legacy)
+        update(status: .idle)
+        return count
+    }
+    
     @discardableResult
     private func download(_ file: NominationFile = .standard) async throws -> Int {
         update(status: .syncing)
@@ -183,7 +183,7 @@ final class Service: ObservableObject {
         return Dia.shared.save(raws, merge: true)
     }
     
-    func upload() async throws {
+    private func upload() async throws {
         update(status: .syncing)
         let nominations = Dia.shared.nominations()
         let jsons = nominations.map { $0.raw.json }

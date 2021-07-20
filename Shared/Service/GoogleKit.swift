@@ -24,6 +24,8 @@ final class GoogleKit {
         @Published var authorized: Bool = false
         
         private var authorization: GTMAppAuthFetcherAuthorization? = nil
+        
+        @available(iOSApplicationExtension, unavailable)
         private var currentAuthorizationFlow: OIDExternalUserAgentSession? = nil
         
         private init() {
@@ -38,13 +40,14 @@ final class GoogleKit {
             return authorization
         }
         
+        @available(iOSApplicationExtension, unavailable)
         func link() {
             #if os(macOS)
             currentAuthorizationFlow = OIDAuthState.authState(
                 byPresenting: getAuthRequest(),
                 callback: authStateCallback
             )
-            #elseif !EXTENSION
+            #else
             currentAuthorizationFlow = OIDAuthState.authState(
                 byPresenting: getAuthRequest(),
                 presenting: UIApplication.shared.keyRootViewController!,
@@ -64,6 +67,7 @@ final class GoogleKit {
             save()
         }
         
+        @available(iOSApplicationExtension, unavailable)
         private func getAuthRequest() -> OIDAuthorizationRequest {
             return OIDAuthorizationRequest.init(
                 configuration: GTMAppAuthFetcherAuthorization.configurationForGoogle(),
@@ -80,6 +84,7 @@ final class GoogleKit {
             )
         }
         
+        @available(iOSApplicationExtension, unavailable)
         private func authStateCallback(authState: OIDAuthState?, error: Error?) {
             if let solidAuthState = authState {
                 #if os(iOS)
