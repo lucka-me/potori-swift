@@ -141,7 +141,9 @@ struct NominationDetails: View {
             }
             Spacer(minLength: 0)
         }
+        .labelStyle(.iconOnly)
         .buttonStyle(.bordered)
+        .controlSize(.large)
     }
     
     @ViewBuilder
