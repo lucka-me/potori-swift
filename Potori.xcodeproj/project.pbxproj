@@ -21,14 +21,21 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		84003556259F613F003C97EA /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 84003555259F613F003C97EA /* AppAuth */; };
-		8400355E259F7732003C97EA /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8400355D259F7732003C97EA /* AppAuth */; };
 		840A15F725BD62D200541ED5 /* DashboardScannersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A15F625BD62D200541ED5 /* DashboardScannersView.swift */; };
 		840A15F825BD62D200541ED5 /* DashboardScannersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A15F625BD62D200541ED5 /* DashboardScannersView.swift */; };
 		84177FB925B2F079009CC4E9 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84177FB825B2F079009CC4E9 /* MatchView.swift */; };
 		84177FBA25B2F079009CC4E9 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84177FB825B2F079009CC4E9 /* MatchView.swift */; };
 		841FD3C625BC4FDF0089A53D /* TestsUmi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E2EBA325BC428D007B2000 /* TestsUmi.swift */; };
 		841FD3D025BC4FE90089A53D /* Umi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB6EA2259A2B1F00BD915B /* Umi.swift */; };
+		842DBE8926B1913600A7EF1F /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 842DBE8826B1913600A7EF1F /* AppAuth */; };
+		842DBE8B26B1913600A7EF1F /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 842DBE8A26B1913600A7EF1F /* AppAuthCore */; };
+		842DBE8D26B1914300A7EF1F /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 842DBE8C26B1914300A7EF1F /* AppAuth */; };
+		842DBE8F26B1914300A7EF1F /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 842DBE8E26B1914300A7EF1F /* AppAuthCore */; };
+		842DBE9126B191CC00A7EF1F /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 842DBE9026B191CC00A7EF1F /* AppAuth */; };
+		842DBE9326B191CC00A7EF1F /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 842DBE9226B191CC00A7EF1F /* AppAuthCore */; };
+		842DBE9526B191D400A7EF1F /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 842DBE9426B191D400A7EF1F /* AppAuth */; };
+		842DBE9726B191D400A7EF1F /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 842DBE9626B191D400A7EF1F /* AppAuthCore */; };
+		842DBE9826B1927B00A7EF1F /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84303DB1269104CB00A5D97E /* UIApplication.swift */; };
 		84303DB2269104CB00A5D97E /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84303DB1269104CB00A5D97E /* UIApplication.swift */; };
 		84303DB426910C8A00A5D97E /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84303DB326910C8A00A5D97E /* AsyncImage.swift */; };
 		84303DB526910C8A00A5D97E /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84303DB326910C8A00A5D97E /* AsyncImage.swift */; };
@@ -48,11 +55,9 @@
 		8430E2D525C31725008F1BAC /* Potori.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8468A22A25A33784009B562D /* Potori.xcdatamodeld */; };
 		8430E2DC25C31730008F1BAC /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E2A125C304B9008F1BAC /* FileManager.swift */; };
 		8430E2DD25C31730008F1BAC /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E2A125C304B9008F1BAC /* FileManager.swift */; };
-		843B000026580B8F0031963C /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 843BFFFF26580B8F0031963C /* AppAuth */; };
 		843B000226580BA60031963C /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 843B000126580BA60031963C /* GTMAppAuth */; };
 		843B000426580BAD0031963C /* GoogleAPIClientForREST_Gmail in Frameworks */ = {isa = PBXBuildFile; productRef = 843B000326580BAD0031963C /* GoogleAPIClientForREST_Gmail */; };
 		843B000626580BB40031963C /* GoogleAPIClientForREST_Drive in Frameworks */ = {isa = PBXBuildFile; productRef = 843B000526580BB40031963C /* GoogleAPIClientForREST_Drive */; };
-		843B000826580BC10031963C /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 843B000726580BC10031963C /* AppAuth */; };
 		843B000A26580BC70031963C /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 843B000926580BC70031963C /* GTMAppAuth */; };
 		843B000C26580BCC0031963C /* GoogleAPIClientForREST_Gmail in Frameworks */ = {isa = PBXBuildFile; productRef = 843B000B26580BCC0031963C /* GoogleAPIClientForREST_Gmail */; };
 		843B000E26580BD20031963C /* GoogleAPIClientForREST_Drive in Frameworks */ = {isa = PBXBuildFile; productRef = 843B000D26580BD20031963C /* GoogleAPIClientForREST_Drive */; };
@@ -87,7 +92,6 @@
 		844A9AAE25A4BD21003E44B5 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */; };
 		844A9AAF25A4BD21003E44B5 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */; };
 		844E157725A0659300A79C9E /* GoogleAPIClientForREST_Gmail in Frameworks */ = {isa = PBXBuildFile; productRef = 844E157625A0659300A79C9E /* GoogleAPIClientForREST_Gmail */; };
-		8460DA7E2666738900BB732E /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 8460DA7D2666738900BB732E /* MapboxMaps */; };
 		8460DA82266673FE00BB732E /* FusionMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460DA81266673FE00BB732E /* FusionMap.swift */; };
 		8460DA842667C18F00BB732E /* FusionMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460DA832667C18F00BB732E /* FusionMap.swift */; };
 		8462D088259FBA030031AD0D /* NominationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D087259FBA030031AD0D /* NominationMap.swift */; };
@@ -146,6 +150,7 @@
 		849178BF259A0D8D00CD967F /* NominationRAW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178BD259A0D8D00CD967F /* NominationRAW.swift */; };
 		8497C76925B81BB500B88C12 /* Reason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497C76825B81BB500B88C12 /* Reason.swift */; };
 		8497C76A25B81BB500B88C12 /* Reason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497C76825B81BB500B88C12 /* Reason.swift */; };
+		84B3672C26AD3578003795B2 /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 84B3672B26AD3578003795B2 /* MapboxMaps */; };
 		84B8A54725B85045000B0C0E /* DashboardCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8A54625B85045000B0C0E /* DashboardCard.swift */; };
 		84B8A54825B85045000B0C0E /* DashboardCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8A54625B85045000B0C0E /* DashboardCard.swift */; };
 		84BEA0782691F92F00C1A718 /* UNPasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BEA0772691F92F00C1A718 /* UNPasteboard.swift */; };
@@ -411,11 +416,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842DBE8926B1913600A7EF1F /* AppAuth in Frameworks */,
+				84B3672C26AD3578003795B2 /* MapboxMaps in Frameworks */,
 				84E97F9225A4A49B0031FE3B /* GoogleAPIClientForREST_Drive in Frameworks */,
-				8400355E259F7732003C97EA /* AppAuth in Frameworks */,
 				844E157725A0659300A79C9E /* GoogleAPIClientForREST_Gmail in Frameworks */,
 				8472B4D62621A9B800BF8131 /* GTMAppAuth in Frameworks */,
-				8460DA7E2666738900BB732E /* MapboxMaps in Frameworks */,
+				842DBE8B26B1913600A7EF1F /* AppAuthCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,9 +430,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				84E97F9025A4A4900031FE3B /* GoogleAPIClientForREST_Drive in Frameworks */,
-				84003556259F613F003C97EA /* AppAuth in Frameworks */,
 				8462D0A525A0643F0031AD0D /* GoogleAPIClientForREST_Gmail in Frameworks */,
+				842DBE8D26B1914300A7EF1F /* AppAuth in Frameworks */,
 				8472B4DE2621A9CC00BF8131 /* GTMAppAuth in Frameworks */,
+				842DBE8F26B1914300A7EF1F /* AppAuthCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,9 +441,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842DBE9526B191D400A7EF1F /* AppAuth in Frameworks */,
 				843B000E26580BD20031963C /* GoogleAPIClientForREST_Drive in Frameworks */,
-				843B000826580BC10031963C /* AppAuth in Frameworks */,
 				843B000A26580BC70031963C /* GTMAppAuth in Frameworks */,
+				842DBE9726B191D400A7EF1F /* AppAuthCore in Frameworks */,
 				843B000C26580BCC0031963C /* GoogleAPIClientForREST_Gmail in Frameworks */,
 				84DDF8E125C1B39100942E87 /* SwiftUI.framework in Frameworks */,
 				84DDF8E025C1B39100942E87 /* WidgetKit.framework in Frameworks */,
@@ -454,9 +462,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842DBE9126B191CC00A7EF1F /* AppAuth in Frameworks */,
 				843B000626580BB40031963C /* GoogleAPIClientForREST_Drive in Frameworks */,
-				843B000026580B8F0031963C /* AppAuth in Frameworks */,
 				843B000226580BA60031963C /* GTMAppAuth in Frameworks */,
+				842DBE9326B191CC00A7EF1F /* AppAuthCore in Frameworks */,
 				843B000426580BAD0031963C /* GoogleAPIClientForREST_Gmail in Frameworks */,
 				84EA8F8E25C15FE200BB924A /* SwiftUI.framework in Frameworks */,
 				84EA8F8C25C15FE200BB924A /* WidgetKit.framework in Frameworks */,
@@ -816,11 +825,12 @@
 			);
 			name = iOS;
 			packageProductDependencies = (
-				8400355D259F7732003C97EA /* AppAuth */,
 				844E157625A0659300A79C9E /* GoogleAPIClientForREST_Gmail */,
 				84E97F9125A4A49B0031FE3B /* GoogleAPIClientForREST_Drive */,
 				8472B4D52621A9B800BF8131 /* GTMAppAuth */,
-				8460DA7D2666738900BB732E /* MapboxMaps */,
+				84B3672B26AD3578003795B2 /* MapboxMaps */,
+				842DBE8826B1913600A7EF1F /* AppAuth */,
+				842DBE8A26B1913600A7EF1F /* AppAuthCore */,
 			);
 			productName = "Potori (iOS)";
 			productReference = 849178602599F81700CD967F /* Potori.app */;
@@ -843,10 +853,11 @@
 			);
 			name = macOS;
 			packageProductDependencies = (
-				84003555259F613F003C97EA /* AppAuth */,
 				8462D0A425A0643F0031AD0D /* GoogleAPIClientForREST_Gmail */,
 				84E97F8F25A4A4900031FE3B /* GoogleAPIClientForREST_Drive */,
 				8472B4DD2621A9CC00BF8131 /* GTMAppAuth */,
+				842DBE8C26B1914300A7EF1F /* AppAuth */,
+				842DBE8E26B1914300A7EF1F /* AppAuthCore */,
 			);
 			productName = "Potori (macOS)";
 			productReference = 849178682599F81700CD967F /* Potori.app */;
@@ -867,10 +878,11 @@
 			);
 			name = "Widget Extension macOS";
 			packageProductDependencies = (
-				843B000726580BC10031963C /* AppAuth */,
 				843B000926580BC70031963C /* GTMAppAuth */,
 				843B000B26580BCC0031963C /* GoogleAPIClientForREST_Gmail */,
 				843B000D26580BD20031963C /* GoogleAPIClientForREST_Drive */,
+				842DBE9426B191D400A7EF1F /* AppAuth */,
+				842DBE9626B191D400A7EF1F /* AppAuthCore */,
 			);
 			productName = "Widget macOSExtension";
 			productReference = 84DDF8DF25C1B39100942E87 /* Widget Extension macOS.appex */;
@@ -909,10 +921,11 @@
 			);
 			name = "Widget Extension iOS";
 			packageProductDependencies = (
-				843BFFFF26580B8F0031963C /* AppAuth */,
 				843B000126580BA60031963C /* GTMAppAuth */,
 				843B000326580BAD0031963C /* GoogleAPIClientForREST_Gmail */,
 				843B000526580BB40031963C /* GoogleAPIClientForREST_Drive */,
+				842DBE9026B191CC00A7EF1F /* AppAuth */,
+				842DBE9226B191CC00A7EF1F /* AppAuthCore */,
 			);
 			productName = "Widget iOSExtension";
 			productReference = 84EA8F8925C15FE200BB924A /* Widget Extension iOS.appex */;
@@ -963,10 +976,10 @@
 			);
 			mainGroup = 849178532599F81600CD967F;
 			packageReferences = (
-				84003554259F613F003C97EA /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
 				8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */,
 				8472B4D42621A9B800BF8131 /* XCRemoteSwiftPackageReference "GTMAppAuth" */,
-				8460DA7C2666738900BB732E /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
+				84B3672A26AD3578003795B2 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
+				842DBE8726B1913600A7EF1F /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
 			);
 			productRefGroup = 849178612599F81700CD967F /* Products */;
 			projectDirPath = "";
@@ -1251,6 +1264,7 @@
 				8430E2D225C31722008F1BAC /* Reason.swift in Sources */,
 				84FB4D272655299200AAA9A3 /* ProgressInspector.swift in Sources */,
 				843BFFF926580B620031963C /* Service.swift in Sources */,
+				842DBE9826B1927B00A7EF1F /* UIApplication.swift in Sources */,
 				843BFFF72657C88A0031963C /* UserDefaults.swift in Sources */,
 				843BFFFD26580B6F0031963C /* GoogleKit.swift in Sources */,
 				843BFFF02656822C0031963C /* Array.swift in Sources */,
@@ -1869,20 +1883,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		84003554259F613F003C97EA /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
+		842DBE8726B1913600A7EF1F /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
+			repositoryURL = "https://github.com/cabeca/AppAuth-iOS.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.0;
-			};
-		};
-		8460DA7C2666738900BB732E /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mapbox/mapbox-maps-ios.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = "10.0.0-rc.3";
+				branch = "Support-for-Xcode-13-beta-3";
+				kind = branch;
 			};
 		};
 		8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */ = {
@@ -1901,18 +1907,54 @@
 				minimumVersion = 1.2.2;
 			};
 		};
+		84B3672A26AD3578003795B2 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mapbox/mapbox-maps-ios";
+			requirement = {
+				branch = "s2ler/xcode-13b3-fix";
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		84003555259F613F003C97EA /* AppAuth */ = {
+		842DBE8826B1913600A7EF1F /* AppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 84003554259F613F003C97EA /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			package = 842DBE8726B1913600A7EF1F /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
 			productName = AppAuth;
 		};
-		8400355D259F7732003C97EA /* AppAuth */ = {
+		842DBE8A26B1913600A7EF1F /* AppAuthCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 84003554259F613F003C97EA /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			package = 842DBE8726B1913600A7EF1F /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuthCore;
+		};
+		842DBE8C26B1914300A7EF1F /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = AppAuth;
+		};
+		842DBE8E26B1914300A7EF1F /* AppAuthCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppAuthCore;
+		};
+		842DBE9026B191CC00A7EF1F /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 842DBE8726B1913600A7EF1F /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
+		};
+		842DBE9226B191CC00A7EF1F /* AppAuthCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 842DBE8726B1913600A7EF1F /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuthCore;
+		};
+		842DBE9426B191D400A7EF1F /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 842DBE8726B1913600A7EF1F /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
+		};
+		842DBE9626B191D400A7EF1F /* AppAuthCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 842DBE8726B1913600A7EF1F /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuthCore;
 		};
 		843B000126580BA60031963C /* GTMAppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1929,11 +1971,6 @@
 			package = 8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
 			productName = GoogleAPIClientForREST_Drive;
 		};
-		843B000726580BC10031963C /* AppAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 84003554259F613F003C97EA /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
-			productName = AppAuth;
-		};
 		843B000926580BC70031963C /* GTMAppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8472B4D42621A9B800BF8131 /* XCRemoteSwiftPackageReference "GTMAppAuth" */;
@@ -1949,20 +1986,10 @@
 			package = 8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
 			productName = GoogleAPIClientForREST_Drive;
 		};
-		843BFFFF26580B8F0031963C /* AppAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 84003554259F613F003C97EA /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
-			productName = AppAuth;
-		};
 		844E157625A0659300A79C9E /* GoogleAPIClientForREST_Gmail */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
 			productName = GoogleAPIClientForREST_Gmail;
-		};
-		8460DA7D2666738900BB732E /* MapboxMaps */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8460DA7C2666738900BB732E /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */;
-			productName = MapboxMaps;
 		};
 		8462D0A425A0643F0031AD0D /* GoogleAPIClientForREST_Gmail */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1978,6 +2005,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8472B4D42621A9B800BF8131 /* XCRemoteSwiftPackageReference "GTMAppAuth" */;
 			productName = GTMAppAuth;
+		};
+		84B3672B26AD3578003795B2 /* MapboxMaps */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84B3672A26AD3578003795B2 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */;
+			productName = MapboxMaps;
 		};
 		84E97F8F25A4A4900031FE3B /* GoogleAPIClientForREST_Drive */ = {
 			isa = XCSwiftPackageProductDependency;

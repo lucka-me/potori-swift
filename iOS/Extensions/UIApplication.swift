@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIApplication {
+    @available(iOSApplicationExtension, unavailable)
     var keyRootViewController: UIViewController? {
         return connectedScenes
             .compactMap { $0 as? UIWindowScene }

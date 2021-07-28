@@ -50,7 +50,7 @@ class Mari {
         await withTaskGroup(of: Void.self) { taskGroup in
             for status in Umi.shared.statusAll {
                 for queryPair in status.queries {
-                    taskGroup.async { [ self ] in
+                    taskGroup.addTask { [ self ] in
                         // TODO: Catch error
                         try? await query(for: status, by: queryPair.value)
                     }
@@ -81,7 +81,7 @@ class Mari {
         await progress.finishList(brings: ids.count)
         await withTaskGroup(of: Void.self) { taskGroup in
             for id in ids {
-                taskGroup.async { [ self ] in
+                taskGroup.addTask { [ self ] in
                     do {
                         let query = GTLRGmailQuery_UsersMessagesGet.query(withUserId: Self.userId, identifier: id)
                         let response: GTLRGmail_Message = try await service.execute(query)

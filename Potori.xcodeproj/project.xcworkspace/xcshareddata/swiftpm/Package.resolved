@@ -2,16 +2,16 @@
   "object": {
     "pins": [
       {
-        "package": "AppAuth-iOS",
-        "repositoryURL": "https://github.com/openid/AppAuth-iOS.git",
+        "package": "AppAuth",
+        "repositoryURL": "https://github.com/cabeca/AppAuth-iOS.git",
         "state": {
-          "branch": null,
-          "revision": "01131d68346c8ae552961c768d583c715fbe1410",
-          "version": "1.4.0"
+          "branch": "Support-for-Xcode-13-beta-3",
+          "revision": "16dd1812e2c55387c80035bfa3358df6add73fa1",
+          "version": null
         }
       },
       {
-        "package": "google-api-objectivec-client-for-rest",
+        "package": "GoogleAPIClientForREST",
         "repositoryURL": "https://github.com/woxtu/google-api-objectivec-client-for-rest.git",
         "state": {
           "branch": "fix-spm",
@@ -20,12 +20,12 @@
         }
       },
       {
-        "package": "gtm-session-fetcher",
+        "package": "GTMSessionFetcher",
         "repositoryURL": "https://github.com/google/gtm-session-fetcher.git",
         "state": {
           "branch": null,
-          "revision": "91ed3d188eb95705fef3c249453b81f32dc557d1",
-          "version": "1.5.0"
+          "revision": "424886f9336a71891aa81852d0c2c08d807d21aa",
+          "version": "1.6.1"
         }
       },
       {
@@ -38,25 +38,25 @@
         }
       },
       {
-        "package": "mapbox-common-ios",
+        "package": "MapboxCommon",
         "repositoryURL": "https://github.com/mapbox/mapbox-common-ios.git",
         "state": {
           "branch": null,
-          "revision": "6f8d52b38f8eda29086cebf0772f53f96e952d5d",
-          "version": "15.0.0"
+          "revision": "b8e510896bf064cf14d12624e071839d823ce013",
+          "version": "16.0.0"
         }
       },
       {
-        "package": "mapbox-core-maps-ios",
+        "package": "MapboxCoreMaps",
         "repositoryURL": "https://github.com/mapbox/mapbox-core-maps-ios.git",
         "state": {
           "branch": null,
-          "revision": "9d38bf61a430d6068407bba71fee6bcfb4d07a1d",
-          "version": "10.0.0-rc.4"
+          "revision": "19276a02acb21e76fe6e030e2fd9d8691424f92c",
+          "version": "10.0.0-rc.5"
         }
       },
       {
-        "package": "mapbox-events-ios",
+        "package": "MapboxMobileEvents",
         "repositoryURL": "https://github.com/mapbox/mapbox-events-ios.git",
         "state": {
           "branch": null,
@@ -65,16 +65,16 @@
         }
       },
       {
-        "package": "mapbox-maps-ios",
-        "repositoryURL": "https://github.com/mapbox/mapbox-maps-ios.git",
+        "package": "MapboxMaps",
+        "repositoryURL": "https://github.com/mapbox/mapbox-maps-ios",
         "state": {
-          "branch": null,
-          "revision": "e90e894ac3d3fec8767dc6ee7e636c839c06d2d0",
-          "version": "10.0.0-rc.4"
+          "branch": "s2ler/xcode-13b3-fix",
+          "revision": "e509a189e36172f37d124bcdf30737a37169192e",
+          "version": null
         }
       },
       {
-        "package": "turf-swift",
+        "package": "Turf",
         "repositoryURL": "https://github.com/mapbox/turf-swift.git",
         "state": {
           "branch": null,

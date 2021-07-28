@@ -133,7 +133,7 @@ final class Service: ObservableObject {
                 update(status: .queryingBrainstorming)
                 await withTaskGroup(of: Void.self) { taskGroup in
                     for raw in queryList {
-                        taskGroup.async {
+                        taskGroup.addTask {
                             let record = try? await Brainstorming.shared.query(raw.id)
                             if let solidRecord = record {
                                 raw.lngLat = .init(lng: solidRecord.lng, lat: solidRecord.lat)
