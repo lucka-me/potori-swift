@@ -56,8 +56,8 @@ struct NominationDetails: View {
     
     @ViewBuilder
     private var viewer: some View {
-        ScrollView {
-            VStack(alignment: .center) {
+        List {
+            Group {
                 image
                 actions
                 highlights
@@ -72,8 +72,9 @@ struct NominationDetails: View {
                         }
                 }
             }
-            .padding()
+            .listRowSeparator(.hidden)
         }
+        .listStyle(.plain)
         .toolbar {
             viewerControls
         }
@@ -93,33 +94,37 @@ struct NominationDetails: View {
     
     @ViewBuilder
     private var image: some View {
-        AsyncImage(url: nomination.imageURL)
-            .scaledToFit()
-            .mask {
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-            }
-            .frame(maxHeight: 300)
-            .contextMenu {
-                if let url = URL(string: nomination.imageURL) {
-                    Button {
-                        openURL(url)
-                    } label: {
-                        Label("action.open", systemImage: "safari")
-                    }
-                    Button(role: nil, action: shareImage) {
-                        #if os(macOS)
-                        Label("view.details.image.copy", systemImage: "doc.on.doc")
-                        #else
-                        Label("view.details.image.share", systemImage: "square.and.arrow.up")
-                        #endif
+        HStack {
+            AsyncImage(url: nomination.imageURL)
+                .scaledToFit()
+                .mask {
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                }
+                .frame(idealWidth: .infinity, maxHeight: 300, alignment: .center)
+                .contextMenu {
+                    if let url = URL(string: nomination.imageURL) {
+                        Button {
+                            openURL(url)
+                        } label: {
+                            Label("action.open", systemImage: "safari")
+                        }
+                        Button(role: nil, action: shareImage) {
+                            #if os(macOS)
+                            Label("view.details.image.copy", systemImage: "doc.on.doc")
+                            #else
+                            Label("view.details.image.share", systemImage: "square.and.arrow.up")
+                            #endif
+                        }
                     }
                 }
-            }
+                .appendSpacers()
+        }
     }
     
     @ViewBuilder
     private var actions: some View {
         HStack {
+            Spacer(minLength: 0)
             if nomination.hasLngLat {
                 Button{
                     openURL(nomination.intelURL)
@@ -134,6 +139,7 @@ struct NominationDetails: View {
                     Label("view.details.action.brainstorming", systemImage: "brain")
                 }
             }
+            Spacer(minLength: 0)
         }
         .buttonStyle(.bordered)
     }
@@ -162,11 +168,8 @@ struct NominationDetails: View {
     
     @ViewBuilder
     private var reasons: some View {
-        HStack {
-            Text("view.details.reasons")
-                .font(.headline)
-            Spacer()
-        }
+        Text("view.details.reasons")
+            .font(.headline)
         LazyVGrid(
             columns: .init(repeating: .init(.flexible(), alignment: .top), count: reasonsColumns),
             alignment: .leading
@@ -179,7 +182,6 @@ struct NominationDetails: View {
                 ReasonCard(Umi.shared.reason[Umi.Reason.undeclared]!)
             }
         }
-        .labelStyle(.fixedWidthIcon)
     }
     
     @ViewBuilder
