@@ -22,7 +22,7 @@ struct DashboardCard: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack(alignment: .firstTextBaseline) {
                 Label(title, systemImage: systemImage)
                     .lineLimit(1)
