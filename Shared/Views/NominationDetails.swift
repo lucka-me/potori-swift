@@ -400,19 +400,19 @@ fileprivate struct HighlightCard: View {
     }
     
     var body: some View {
-        Card(alignment: .center) {
+        VStack(alignment: .center) {
             Label(title, systemImage: systemImage)
                 .labelStyle(.iconOnly)
                 .imageScale(.large)
                 .foregroundColor(color)
                 .padding(.bottom, 4)
             HStack {
-                Spacer()
                 text
                     .lineLimit(1)
-                Spacer()
+                    .appendSpacers()
             }
         }
+        .card()
     }
 }
 
@@ -425,12 +425,12 @@ fileprivate struct ReasonCard: View {
     }
     
     var body: some View {
-        Card {
-            HStack {
-                Label(reason.title, systemImage: reason.icon)
-                Spacer()
-            }
+        HStack {
+            Label(reason.title, systemImage: reason.icon)
+                .foregroundColor(.red)
+            Spacer()
         }
+        .card()
     }
 }
 

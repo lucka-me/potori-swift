@@ -22,7 +22,7 @@ struct DashboardCard: View {
     }
     
     var body: some View {
-        Card {
+        VStack {
             HStack(alignment: .firstTextBaseline) {
                 Label(title, systemImage: systemImage)
                     .lineLimit(1)
@@ -38,6 +38,7 @@ struct DashboardCard: View {
                 .font(.system(.largeTitle, design: .rounded))
                 .padding(.top, 3)
         }
+        .card()
     }
 }
 

@@ -16,7 +16,7 @@ struct DashboardStatusView: View {
     @ObservedObject private var progress = ProgressInspector.shared
     
     var body: some View {
-        Card {
+        VStack {
             if !auth.authorized {
                 Button("view.dashboard.status.linkAccount", action: auth.link)
                     .buttonStyle(.plain)
@@ -49,6 +49,7 @@ struct DashboardStatusView: View {
                 }
             }
         }
+        .card()
         .padding(.top, 3)
         .padding(.horizontal)
     }

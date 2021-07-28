@@ -68,7 +68,7 @@ fileprivate struct MatchPackView: View {
     var body: some View {
         let scanner = Umi.shared.scanner[pack.target.scanner]!
         let status = Umi.shared.status[pack.target.status]!
-        Card {
+        VStack {
             Text(pack.target.title)
                 .font(.title2)
             HStack {
@@ -88,6 +88,7 @@ fileprivate struct MatchPackView: View {
                 }
             }
         }
+        .card()
     }
     
     @ViewBuilder

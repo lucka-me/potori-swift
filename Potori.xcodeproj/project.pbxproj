@@ -36,6 +36,8 @@
 		842DBE9526B191D400A7EF1F /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 842DBE9426B191D400A7EF1F /* AppAuth */; };
 		842DBE9726B191D400A7EF1F /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 842DBE9626B191D400A7EF1F /* AppAuthCore */; };
 		842DBE9826B1927B00A7EF1F /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84303DB1269104CB00A5D97E /* UIApplication.swift */; };
+		842DBE9A26B1979100A7EF1F /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DBE9926B1979100A7EF1F /* ViewModifiers.swift */; };
+		842DBE9B26B1979100A7EF1F /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DBE9926B1979100A7EF1F /* ViewModifiers.swift */; };
 		84303DB2269104CB00A5D97E /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84303DB1269104CB00A5D97E /* UIApplication.swift */; };
 		84303DB426910C8A00A5D97E /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84303DB326910C8A00A5D97E /* AsyncImage.swift */; };
 		84303DB526910C8A00A5D97E /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84303DB326910C8A00A5D97E /* AsyncImage.swift */; };
@@ -125,8 +127,6 @@
 		846C48EB26439B6C0017BE48 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48E726439B6C0017BE48 /* Image.swift */; };
 		846C48EC26439B6C0017BE48 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48E726439B6C0017BE48 /* Image.swift */; };
 		846C48ED26439B6C0017BE48 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48E726439B6C0017BE48 /* Image.swift */; };
-		846C48F626439F260017BE48 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48F526439F260017BE48 /* Card.swift */; };
-		846C48F726439F260017BE48 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C48F526439F260017BE48 /* Card.swift */; };
 		846CC5B725A359DD007A8AE8 /* NominationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC5B625A359DD007A8AE8 /* NominationJSON.swift */; };
 		846CC5B825A359DD007A8AE8 /* NominationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC5B625A359DD007A8AE8 /* NominationJSON.swift */; };
 		846CC62925A35EFF007A8AE8 /* Nomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC62725A35EFF007A8AE8 /* Nomination.swift */; };
@@ -321,6 +321,7 @@
 		8400654625AAF3AA00ED76B4 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		840A15F625BD62D200541ED5 /* DashboardScannersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScannersView.swift; sourceTree = "<group>"; };
 		84177FB825B2F079009CC4E9 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
+		842DBE9926B1979100A7EF1F /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		84303DB1269104CB00A5D97E /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		84303DB326910C8A00A5D97E /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		8430E27D25C3021F008F1BAC /* Dia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dia.swift; sourceTree = "<group>"; };
@@ -349,7 +350,6 @@
 		846C48E12643968B0017BE48 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Widget.strings"; sourceTree = "<group>"; };
 		846C48E2264396E30017BE48 /* Widget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Widget.intentdefinition; sourceTree = "<group>"; };
 		846C48E726439B6C0017BE48 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		846C48F526439F260017BE48 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		846CC5B625A359DD007A8AE8 /* NominationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationJSON.swift; sourceTree = "<group>"; };
 		846CC62725A35EFF007A8AE8 /* Nomination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nomination.swift; sourceTree = "<group>"; };
 		8475B61D25C1610E002D7915 /* NominationWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationWidget.swift; sourceTree = "<group>"; };
@@ -478,8 +478,8 @@
 		840A15E325BCA41500541ED5 /* Basic */ = {
 			isa = PBXGroup;
 			children = (
-				846C48F526439F260017BE48 /* Card.swift */,
 				84FB4D1C2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift */,
+				842DBE9926B1979100A7EF1F /* ViewModifiers.swift */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -1118,7 +1118,6 @@
 				8469EB2A25B93EF800A9831D /* DashboardStatusView.swift in Sources */,
 				84C92645265C7FFF00F240F2 /* AlertInspector.swift in Sources */,
 				844A9AAE25A4BD21003E44B5 /* PreferencesView.swift in Sources */,
-				846C48F626439F260017BE48 /* Card.swift in Sources */,
 				846C48E826439B6C0017BE48 /* Image.swift in Sources */,
 				84C9263E265BDC0100F240F2 /* Brainstorming.swift in Sources */,
 				84303DB2269104CB00A5D97E /* UIApplication.swift in Sources */,
@@ -1141,6 +1140,7 @@
 				849178A7259A06E000CD967F /* NominationList.swift in Sources */,
 				849178BE259A0D8D00CD967F /* NominationRAW.swift in Sources */,
 				84F735A625B83169003DE878 /* DashboardHighlightsView.swift in Sources */,
+				842DBE9A26B1979100A7EF1F /* ViewModifiers.swift in Sources */,
 				8469EB4D25B9D25100A9831D /* PanelNavigator.swift in Sources */,
 				84F7359B25B830E8003DE878 /* DashboardView.swift in Sources */,
 				843BFFF32657C88A0031963C /* UserDefaults.swift in Sources */,
@@ -1186,8 +1186,8 @@
 				84F7359C25B830E8003DE878 /* DashboardView.swift in Sources */,
 				843BFFF42657C88A0031963C /* UserDefaults.swift in Sources */,
 				84BEA0802698BF5400C1A718 /* Links.swift in Sources */,
+				842DBE9B26B1979100A7EF1F /* ViewModifiers.swift in Sources */,
 				84F735A725B83169003DE878 /* DashboardHighlightsView.swift in Sources */,
-				846C48F726439F260017BE48 /* Card.swift in Sources */,
 				84FB4D21265401C900AAA9A3 /* String.swift in Sources */,
 				846645ED25A8DAA200DD37D1 /* GoogleKit.swift in Sources */,
 				840A15F825BD62D200541ED5 /* DashboardScannersView.swift in Sources */,
