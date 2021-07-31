@@ -70,16 +70,21 @@ final class Service: ObservableObject {
             throw ErrorType.processing
         }
         if UserDefaults.Google.sync {
-            let _ = try await download()
+            do {
+                try await download()
+            } catch {
+                await update(status: .idle)
+                throw error
+            }
         }
         let existingNominations = Dia.shared.nominations()
         var raws = existingNominations.map { $0.raw }
-        update(status: .processingMails)
+        await update(status: .processingMails)
         do {
             let newRaws = try await Mari.shared.start(with: raws)
             raws.append(contentsOf: newRaws)
         } catch {
-            update(status: .idle)
+            await update(status: .idle)
             throw error
         }
         var matchTargets: [ NominationRAW ] = []
@@ -118,9 +123,10 @@ final class Service: ObservableObject {
                 .filter { !$0.candidates.isEmpty }
             if !packs.isEmpty {
                 if throwWhenMatchRequired {
+                    await update(status: .idle)
                     throw ErrorType.matchRequired
                 }
-                update(status: .requestMatch)
+                await update(status: .requestMatch)
                 await match(packs)
             }
         }
@@ -130,7 +136,7 @@ final class Service: ObservableObject {
             }
             if !queryList.isEmpty {
                 ProgressInspector.shared.set(done: 0, total: queryList.count)
-                update(status: .queryingBrainstorming)
+                await update(status: .queryingBrainstorming)
                 await withTaskGroup(of: Void.self) { taskGroup in
                     for raw in queryList {
                         taskGroup.addTask {
@@ -146,34 +152,55 @@ final class Service: ObservableObject {
         }
         let updateCount = Dia.shared.save(raws) + mergeCount
         if UserDefaults.Google.sync {
-            try await upload()
+            do {
+                try await upload()
+            } catch {
+                await update(status: .idle)
+                throw error
+            }
         }
-        update(status: .idle)
+        await update(status: .idle)
         return updateCount
     }
     
     func sync(performDownload: Bool = true, performUpload: Bool = true) async throws -> Int {
         var count = 0
         if performUpload {
-            count = try await download()
+            do {
+                count = try await download()
+            } catch {
+                await update(status: .idle)
+                throw error
+            }
         }
         if performUpload {
-            try await upload()
+            do {
+                try await upload()
+            } catch {
+                await update(status: .idle)
+                throw error
+            }
         }
-        update(status: .idle)
+        await update(status: .idle)
         return count
     }
     
     /// Migrate data from potori.json
     func migrateFromGoogleDrive() async throws -> Int {
-        let count = try await download(.legacy)
-        update(status: .idle)
+        let count: Int
+        do {
+            count = try await download(.legacy)
+        } catch {
+            await update(status: .idle)
+            throw error
+        }
+        await update(status: .idle)
         return count
     }
     
     @discardableResult
     private func download(_ file: NominationFile = .standard) async throws -> Int {
-        update(status: .syncing)
+        await update(status: .syncing)
         guard
             let jsons: [ NominationJSON ] = try await GoogleKit.Drive.shared.download(file.rawValue)
         else {
@@ -184,7 +211,7 @@ final class Service: ObservableObject {
     }
     
     private func upload() async throws {
-        update(status: .syncing)
+        await update(status: .syncing)
         let nominations = Dia.shared.nominations()
         let jsons = nominations.map { $0.raw.json }
         let encoder = JSONEncoder()
@@ -193,10 +220,9 @@ final class Service: ObservableObject {
         try await GoogleKit.Drive.shared.upload(data, to: NominationFile.standard.rawValue)
     }
     
+    @MainActor
     private func update(status: Status) {
-        DispatchQueue.main.async {
-            self.status = status
-        }
+        self.status = status
     }
     
     private func match(_ packs: [ MatchPack ]) async {
