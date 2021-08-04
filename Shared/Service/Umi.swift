@@ -13,9 +13,10 @@ final class Umi {
     class Scanner {
         
         enum Code: Int16 {
-            case unknown = 0
-            case redacted = 1
-            case prime = 2
+            case unknown    = 0
+            case redacted   = 1
+            case prime      = 2
+            case go         = 3
         }
         
         fileprivate struct JSON: Codable {

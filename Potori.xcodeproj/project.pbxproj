@@ -1553,6 +1553,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.lucka.Potori;
 				PRODUCT_NAME = Potori;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1581,6 +1582,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.lucka.Potori;
 				PRODUCT_NAME = Potori;
 				PROVISIONING_PROFILE_SPECIFIER = "";
