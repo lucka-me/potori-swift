@@ -167,6 +167,12 @@ fileprivate actor MariProgressInspector {
 
 fileprivate class Parser {
     
+    private static let titleInSubjectRegex = try! NSRegularExpression(pattern: "[:：](.+)")
+    private static let titleInBodyRegex = try! NSRegularExpression(pattern: "\\– (?:The )?Pokémon GO.+(?:\\n|\\r|<\\/p>| )+<p>(.+?)<\\/p>(?:\\n|\\r)")
+    private static let imageRegex = try! NSRegularExpression(pattern: "(?:googleusercontent|ggpht)\\.com\\/([0-9a-zA-Z\\-\\_]+)")
+    private static let lngLatRegex = try! NSRegularExpression(pattern: "www\\.ingress\\.com/intel\\?ll\\=([\\.\\d]+),([\\.\\d]+)")
+    private static let mainBodyRegex = try! NSRegularExpression(pattern: "^(:?\\n|\\r|.)+?\\-(:?NianticOps| Pokémon GO)")
+    
     enum ErrorType: Error {
         case brokenMessage
         case invalidFormat
@@ -188,12 +194,6 @@ fileprivate class Parser {
             throw ErrorType.brokenMessage
         }
         
-        guard
-            var title = subject.subString(of: "[:：].+$", options: .regularExpression)
-        else {
-            throw ErrorType.invalidFormat
-        }
-        
         let nomination = NominationRAW(status, scanner)
         if status == .pending {
             nomination.confirmationMailId = id
@@ -203,17 +203,18 @@ fileprivate class Parser {
             nomination.resultMailId = id
             nomination.resultTime = date / 1000
         }
-
-        // Subject -> Title
-        nomination.title = title.removingFirst().trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // Subject / Body -> Title
+        if let title = subject.first(matches: Self.titleInSubjectRegex, at: 1)?.trimmingCharacters(in: .whitespacesAndNewlines) {
+            nomination.title = title
+        } else if scanner == .go, let title = body.first(matches: Self.titleInBodyRegex, at: 1) {
+            nomination.title = .init(title)
+        }
         
         // Body -> image, id lngLat and reason
-        // Image
-        if let imageRange = body.range(of: "(googleusercontent|ggpht)\\.com\\/[0-9a-zA-Z\\-\\_]+", options: .regularExpression) {
-            nomination.image = body[imageRange].replacingOccurrences(
-                of: "(googleusercontent|ggpht)\\.com\\/", with: "",
-                options: .regularExpression
-            )
+        // Image and ID
+        if let image = body.first(matches: Self.imageRegex, at: 1) {
+            nomination.image = .init(image)
             nomination.id = NominationRAW.generateId(nomination.image)
         }
         
@@ -230,12 +231,10 @@ fileprivate class Parser {
     
     private static func lngLat(from body: String) -> LngLat? {
         guard
-            let pair = body
-                .subString(of: "www\\.ingress\\.com/intel\\?ll\\=[\\d\\.\\,]+", options: .regularExpression)?
-                .replacingOccurrences(of: "www.ingress.com/intel?ll=", with: "")
-                .split(separator: ","),
-            let latString = pair.first,
-            let lngString = pair.last,
+            let pair = body.first(matches: Self.lngLatRegex),
+            pair.count > 2,
+            let latString = pair[1],
+            let lngString = pair[2],
             let lat = Double(latString),
             let lng = Double(lngString)
         else {
@@ -245,7 +244,7 @@ fileprivate class Parser {
     }
     
     private static func reasons(from body: String, by scanner: Umi.Scanner.Code) -> [ Umi.Reason.Code ] {
-        guard let main = body.subString(of: "^(.|\n|\r)+\\-NianticOps", options: .regularExpression) else {
+        guard let main = body.first(matches: Self.mainBodyRegex, at: 0) else {
             return []
         }
         var dictionary: [String.Index : Umi.Reason.Code] = [:]

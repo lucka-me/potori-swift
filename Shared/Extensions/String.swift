@@ -19,22 +19,30 @@ extension String {
         self.init(data: data, encoding: .utf8)
     }
     
-    mutating func removingFirst() -> Self {
-        self.removeFirst()
-        return self
+    subscript(range: NSRange) -> Substring? {
+        guard let bounded = Range(range, in: self) else { return nil }
+        return self[bounded]
+    }
+
+    func first(matches regularExpression: NSRegularExpression) -> [ Substring? ]? {
+        guard let result = regularExpression.firstMatch(in: self, range: entire) else {
+            return nil
+        }
+        return (0 ..< result.numberOfRanges).map { self[result.range(at: $0)] }
     }
     
-    func subString(
-        of aString: String,
-        options mask: CompareOptions = [],
-        range searchRange: Range<Self.Index>? = nil,
-        locale: Locale? = nil
-    ) -> String? {
+    func first(matches regularExpression: NSRegularExpression, at index: Int) -> Substring? {
         guard
-            let range = range(of: aString, options: mask, range: searchRange, locale: locale)
+            index >= 0,
+            let result = regularExpression.firstMatch(in: self, range: entire),
+            index < result.numberOfRanges
         else {
             return nil
         }
-        return .init(self[range])
+        return self[result.range(at: index)]
+    }
+    
+    private var entire: NSRange {
+        .init(startIndex..., in: self)
     }
 }

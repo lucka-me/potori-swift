@@ -16,4 +16,8 @@ extension Array {
         removeFirst()
         return element
     }
+    
+    func element(at index: Self.Index) -> Self.Element? {
+        index > 0 && index < count ? self[index] : nil
+    }
 }
