@@ -150,7 +150,7 @@
 		849178BF259A0D8D00CD967F /* NominationRAW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178BD259A0D8D00CD967F /* NominationRAW.swift */; };
 		8497C76925B81BB500B88C12 /* Reason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497C76825B81BB500B88C12 /* Reason.swift */; };
 		8497C76A25B81BB500B88C12 /* Reason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497C76825B81BB500B88C12 /* Reason.swift */; };
-		84B3672C26AD3578003795B2 /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 84B3672B26AD3578003795B2 /* MapboxMaps */; };
+		849FB8F726C698CF00388F7E /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 849FB8F626C698CF00388F7E /* MapboxMaps */; };
 		84B8A54725B85045000B0C0E /* DashboardCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8A54625B85045000B0C0E /* DashboardCard.swift */; };
 		84B8A54825B85045000B0C0E /* DashboardCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8A54625B85045000B0C0E /* DashboardCard.swift */; };
 		84BEA0782691F92F00C1A718 /* UNPasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BEA0772691F92F00C1A718 /* UNPasteboard.swift */; };
@@ -416,8 +416,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				849FB8F726C698CF00388F7E /* MapboxMaps in Frameworks */,
 				842DBE8926B1913600A7EF1F /* AppAuth in Frameworks */,
-				84B3672C26AD3578003795B2 /* MapboxMaps in Frameworks */,
 				84E97F9225A4A49B0031FE3B /* GoogleAPIClientForREST_Drive in Frameworks */,
 				844E157725A0659300A79C9E /* GoogleAPIClientForREST_Gmail in Frameworks */,
 				8472B4D62621A9B800BF8131 /* GTMAppAuth in Frameworks */,
@@ -828,9 +828,9 @@
 				844E157625A0659300A79C9E /* GoogleAPIClientForREST_Gmail */,
 				84E97F9125A4A49B0031FE3B /* GoogleAPIClientForREST_Drive */,
 				8472B4D52621A9B800BF8131 /* GTMAppAuth */,
-				84B3672B26AD3578003795B2 /* MapboxMaps */,
 				842DBE8826B1913600A7EF1F /* AppAuth */,
 				842DBE8A26B1913600A7EF1F /* AppAuthCore */,
+				849FB8F626C698CF00388F7E /* MapboxMaps */,
 			);
 			productName = "Potori (iOS)";
 			productReference = 849178602599F81700CD967F /* Potori.app */;
@@ -978,8 +978,8 @@
 			packageReferences = (
 				8462D0A325A0643F0031AD0D /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */,
 				8472B4D42621A9B800BF8131 /* XCRemoteSwiftPackageReference "GTMAppAuth" */,
-				84B3672A26AD3578003795B2 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
 				842DBE8726B1913600A7EF1F /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
+				849FB8F526C698CF00388F7E /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
 			);
 			productRefGroup = 849178612599F81700CD967F /* Products */;
 			projectDirPath = "";
@@ -1562,7 +1562,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.lucka.Potori;
 				PRODUCT_NAME = Potori;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1590,7 +1589,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.lucka.Potori;
 				PRODUCT_NAME = Potori;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1909,12 +1907,12 @@
 				minimumVersion = 1.2.2;
 			};
 		};
-		84B3672A26AD3578003795B2 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */ = {
+		849FB8F526C698CF00388F7E /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mapbox/mapbox-maps-ios";
 			requirement = {
-				branch = "s2ler/xcode-13b3-fix";
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = "10.0.0-rc.6";
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -2008,9 +2006,9 @@
 			package = 8472B4D42621A9B800BF8131 /* XCRemoteSwiftPackageReference "GTMAppAuth" */;
 			productName = GTMAppAuth;
 		};
-		84B3672B26AD3578003795B2 /* MapboxMaps */ = {
+		849FB8F626C698CF00388F7E /* MapboxMaps */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 84B3672A26AD3578003795B2 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */;
+			package = 849FB8F526C698CF00388F7E /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */;
 			productName = MapboxMaps;
 		};
 		84E97F8F25A4A4900031FE3B /* GoogleAPIClientForREST_Drive */ = {
