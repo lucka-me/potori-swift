@@ -21,17 +21,6 @@ struct DashboardStatusView: View {
                 Button("view.dashboard.status.linkAccount", action: auth.link)
                     .buttonStyle(.plain)
                     .foregroundColor(.accentColor)
-            } else if service.status == .idle {
-                if let latest = dia.firstNomination(sortedBy: Nomination.sortDescriptorsByDate) {
-                    HStack(alignment: .firstTextBaseline) {
-                        Text("view.dashboard.status.latest")
-                        Spacer()
-                        Text(DateFormatter.localizedString(from: latest.resultTime, dateStyle: .medium, timeStyle: .short))
-                    }
-                    .lineLimit(1)
-                } else {
-                    Text("view.dashboard.status.empty")
-                }
             } else if service.status == .requestMatch {
                 Button("view.dashboard.status.manuallyMatch") { panelNavigator.showMatchView.toggle() }
                     .buttonStyle(.plain)
@@ -44,11 +33,21 @@ struct DashboardStatusView: View {
                     currentValueLabel: { Text("\(progress.done) / \(progress.total)") }
                 )
             } else {
-                HStack {
+                HStack(alignment: .firstTextBaseline) {
                     Text(statusText)
                     Spacer()
-                    ProgressView()
+                    if service.status == .idle {
+                        if let latest = dia.firstNomination(sortedBy: Nomination.sortDescriptorsByDate) {
+                            Text(latest.resultTime, style: .date)
+                            Text(latest.resultTime, style: .time)
+                        } else {
+                            Text("view.dashboard.status.empty")
+                        }
+                    } else {
+                        ProgressView()
+                    }
                 }
+                .lineLimit(1)
             }
         }
         .card()
@@ -62,6 +61,7 @@ struct DashboardStatusView: View {
     
     private var statusText: LocalizedStringKey {
         switch service.status {
+            case .idle: return "view.dashboard.status.latest"
             case .syncing: return "service.status.syncing"
             case .processingMails: return "service.status.processingMails"
             case .queryingBrainstorming: return "service.status.queryingBrainstorming"
