@@ -65,7 +65,7 @@ struct FusionMap: UIViewRepresentable {
                     let annotationManager = view.annotations.makePointAnnotationManager()
                     var annotation = PointAnnotation(coordinate: coordinate)
                     annotation.image = .default
-                    annotationManager.syncAnnotations([ annotation ])
+                    annotationManager.annotations = [ annotation ]
                     self.annotationManager = annotationManager
                 }
             }
