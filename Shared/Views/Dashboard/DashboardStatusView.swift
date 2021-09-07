@@ -36,16 +36,18 @@ struct DashboardStatusView: View {
                 Button("view.dashboard.status.manuallyMatch") { panelNavigator.showMatchView.toggle() }
                     .buttonStyle(.plain)
                     .foregroundColor(.accentColor)
+            } else if showProgress {
+                ProgressView(
+                    value: Double(progress.done),
+                    total: Double(progress.total),
+                    label: { Text(statusText) },
+                    currentValueLabel: { Text("\(progress.done) / \(progress.total)") }
+                )
             } else {
-                if showProgress {
-                    ProgressView(
-                        value: Double(progress.done),
-                        total: Double(progress.total),
-                        label: { Text(statusText) },
-                        currentValueLabel: { Text("\(progress.done) / \(progress.total)") }
-                    )
-                } else {
+                HStack {
                     Text(statusText)
+                    Spacer()
+                    ProgressView()
                 }
             }
         }
