@@ -31,7 +31,7 @@ struct DashboardView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                    Task.init {
+                    Task {
                         do {
                             let _ = try await service.refresh()
                         } catch {

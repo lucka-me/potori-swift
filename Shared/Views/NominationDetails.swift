@@ -342,7 +342,7 @@ struct NominationDetails: View {
     }
     
     private func queryLngLatFromBrainstorming() {
-        Task.init {
+        Task {
             let record: Brainstorming.Record
             do {
                 record = try await Brainstorming.shared.query(nomination.id)

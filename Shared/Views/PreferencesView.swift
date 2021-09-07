@@ -141,14 +141,14 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
             Toggle("view.preferences.google.sync", isOn: $prefSync)
 
             Button("view.preferences.google.syncNow") {
-                Task.init {
+                Task {
                     try? await service.sync()
                 }
             }
             .disabled(service.status != .idle)
 
             Button("view.preferences.google.uploadNow") {
-                Task.init {
+                Task {
                     try? await service.sync(performDownload: false)
                 }
             }
@@ -170,7 +170,7 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
     }
     
     private func migrate() {
-        Task.init {
+        Task {
             do {
                 let count = try await service.migrateFromGoogleDrive()
                 alert.push(

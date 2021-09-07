@@ -62,7 +62,7 @@ struct NominationWidget: Widget {
                 completion(.init(now, image: nil, nomination: nomination))
                 return
             }
-            Task.init {
+            Task {
                 do {
                     let (data, _) = try await URLSession.shared.data(
                         for: .init(url: url, cachePolicy: .returnCacheDataElseLoad)

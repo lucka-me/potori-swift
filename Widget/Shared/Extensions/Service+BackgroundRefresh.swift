@@ -13,7 +13,7 @@ extension Service {
             completionHandler()
             return
         }
-        Task.init {
+        Task {
             do {
                 let count = try await refresh(throwWhenMatchRequired: true)
                 if count > 0 {
