@@ -23,8 +23,8 @@ struct FusionMap: UIViewRepresentable {
     fileprivate static let padding = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
     
     private static let token = "pk.eyJ1IjoibHVja2EtbWUiLCJhIjoiY2twZTQ2MDVuMDEzNzJwcDMwM3Vqbjc1ZCJ9.BgUUlHt3Wdk8aVSJr4fsvw"
-    private static let color = ColorRepresentable(color: .init(hue: 0.56, saturation: 1.00, brightness: 1.00, alpha: 100))
-    private static let colorLight = ColorRepresentable(color: .init(hue: 0.56, saturation: 0.80, brightness: 1.00, alpha: 100))
+    private static let color = StyleColor(.init(hue: 0.56, saturation: 1.00, brightness: 1.00, alpha: 100))
+    private static let colorLight = StyleColor(.init(hue: 0.56, saturation: 0.80, brightness: 1.00, alpha: 100))
     
     @Environment(\.colorScheme) private var colorScheme
     @State private var annotationManager: PointAnnotationManager? = nil
@@ -113,7 +113,6 @@ struct FusionMap: UIViewRepresentable {
     }
     
     private func addAnnotations(to view: MapView) {
-        var source = GeoJSONSource()
         let features: [ Turf.Feature ] = nominations.compactMap { nomination in
             guard let coordinate = nomination.coordinate else {
                 return nil
@@ -122,11 +121,22 @@ struct FusionMap: UIViewRepresentable {
             feature.properties = [ "title" : nomination.title ]
             return feature
         }
-        source.data = .featureCollection(.init(features: features))
+        let featureCollection = FeatureCollection(features: features)
+        
+        let style = view.mapboxMap.style
+        if style.sourceExists(withId: Self.sourceID) {
+            try? style.updateGeoJSONSource(withId: Self.sourceID, geoJSON: featureCollection)
+            return
+        }
+        
+        var source = GeoJSONSource()
+        source.data = .featureCollection(featureCollection)
         source.cluster = true
+        source.generateId = true
         source.clusterRadius = 50
         source.clusterMaxZoom = 14
-
+        try? style.addSource(source, id: Self.sourceID)
+        
         var clusteredLayer = CircleLayer(id: Self.clusteredLayerID)
         clusteredLayer.source = Self.sourceID
         clusteredLayer.filter = Exp(.has) { "point_count" }
@@ -157,17 +167,7 @@ struct FusionMap: UIViewRepresentable {
         unclusteredLayer.circleOpacity = .constant(0.6)
         unclusteredLayer.circleStrokeWidth = .constant(2)
         unclusteredLayer.circleStrokeColor = .constant(Self.color)
-
-        let style = view.mapboxMap.style
-        if style.layerExists(withId: Self.clusteredLayerID) {
-            try? style.removeLayer(withId: Self.clusteredLayerID)
-            try? style.removeLayer(withId: Self.countLayerID)
-            try? style.removeLayer(withId: Self.unclusteredLayerID)
-        }
-        if style.sourceExists(withId: Self.sourceID) {
-            try? style.removeSource(withId: Self.sourceID)
-        }
-        try? style.addSource(source, id: Self.sourceID)
+        
         try? style.addLayer(clusteredLayer)
         try? style.addLayer(countLayer)
         try? style.addLayer(unclusteredLayer, layerPosition: .below(clusteredLayer.id))
@@ -186,6 +186,7 @@ fileprivate class FusionMapModel {
     var view: MapView? = nil
     
     func addGestureRecognizers(to view: MapView) {
+        print("addGestureRecognizers")
         self.view = view
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapHandler(sender:))))
     }
@@ -201,16 +202,23 @@ fileprivate class FusionMapModel {
     private func tryTapClustered(
         at point: CGPoint, notFoundHandler: @escaping () -> Void = { }
     ) {
-        guard let solidView = view else {
-            return
-        }
-        print(solidView.mapboxMap.style.allSourceIdentifiers)
+        guard let solidView = view else { return }
         solidView.mapboxMap.queryRenderedFeatures(
             at: point, options: .init(layerIds: [ FusionMap.clusteredLayerID ], filter: nil)
         ) { tappedQueryResult in
-            guard let _ = try? tappedQueryResult.get().first else {
+            guard let feature = try? tappedQueryResult.get().first?.feature else {
                 notFoundHandler()
                 return
+            }
+            // Not work (yet)
+            solidView.mapboxMap.queryFeatureExtension(
+                for: FusionMap.sourceID,
+                feature: feature,
+                extension: "supercluster",
+                extensionField: "expansion-zoom"
+            ) { extensionResult in
+                guard let extensions = try? extensionResult.get() else { return }
+                print(extensions)
             }
             let zoom = solidView.cameraState.zoom
             let ratio = (CGFloat.pi / 2.0 - atan(zoom / 3.0)) * 0.4 + 1.0
@@ -244,7 +252,7 @@ fileprivate class FusionMapModel {
             guard
                 let features = try? result.get(),
                 let feature = features.first,
-                let title = feature.feature.properties["title"] as? String,
+                let title = feature.feature?.properties?["title"] as? String,
                 let viewController = UIApplication.shared.keyRootViewController
             else {
                 notFoundHandler()
