@@ -18,7 +18,7 @@ extension Service {
                 let count = try await refresh(throwWhenMatchRequired: true)
                 if count > 0 {
                     UNUserNotificationCenter.current().push(
-                        .init(localized: "notification.refresh.requiresMatch"),
+                        .init(localized: "notification.refresh.refreshFinished"),
                         .init(format: .init(localized: "notification.refresh.refreshFinished.desc"), count)
                     )
                 }
@@ -27,7 +27,6 @@ extension Service {
                     .init(localized: "notification.refresh.requiresMatch"),
                     .init(localized: "notification.refresh.requiresMatch.desc")
                 )
-                
             } catch {
                 // TODO: Alert
             }
