@@ -16,73 +16,116 @@ struct FusionMap: UIViewRepresentable {
         case clustring
     }
     
-    fileprivate static let sourceID = "nominations"
+    class Coordinator {
+        
+        func addGestureRecognizer(to view: MapView) {
+            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapHandler)))
+        }
+        
+        @objc private func tapHandler(sender: UITapGestureRecognizer) {
+            guard let solidView = sender.view as? MapView else { return }
+            let point = sender.location(in: solidView)
+
+            solidView.mapboxMap.queryRenderedFeatures(
+                at: point, options: .init(layerIds: [ FusionMap.clusteredLayerID ], filter: nil)
+            ) { tappedQueryResult in
+                guard let feature = try? tappedQueryResult.get().first?.feature else {
+                    return
+                }
+                // Still not working
+                solidView.mapboxMap.queryFeatureExtension(
+                    for: FusionMap.sourceID,
+                    feature: feature,
+                    extension: "supercluster",
+                    extensionField: "expansion-zoom"
+                ) { extensionResult in
+                    guard let extensions = try? extensionResult.get() else { return }
+                    print(extensions)
+                }
+                let zoom = solidView.cameraState.zoom
+                let ratio = (CGFloat.pi / 2.0 - atan(zoom / 3.0)) * 0.4 + 1.0
+                let camera = CameraOptions(
+                    center: solidView.mapboxMap.coordinate(for: point),
+                    padding: FusionMap.padding,
+                    zoom: zoom * ratio,
+                    bearing: solidView.cameraState.bearing,
+                    pitch: solidView.cameraState.pitch
+                )
+                solidView.camera.ease(to: camera, duration: 0.5)
+            }
+        }
+    }
+    
+    fileprivate static let sourceID = "annotations"
     fileprivate static let clusteredLayerID = "\(sourceID)-clustered"
     fileprivate static let countLayerID = "\(sourceID)-count"
     fileprivate static let unclusteredLayerID = "\(sourceID)-unclustered"
+    fileprivate static let titleLayerID = "\(sourceID)-title"
     fileprivate static let padding = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
     
-    private static let token = "pk.eyJ1IjoibHVja2EtbWUiLCJhIjoiY2twZTQ2MDVuMDEzNzJwcDMwM3Vqbjc1ZCJ9.BgUUlHt3Wdk8aVSJr4fsvw"
-    private static let color = StyleColor(.init(hue: 0.56, saturation: 1.00, brightness: 1.00, alpha: 100))
-    private static let colorLight = StyleColor(.init(hue: 0.56, saturation: 0.80, brightness: 1.00, alpha: 100))
+    private static let resourceOptions = ResourceOptions(accessToken: "pk.eyJ1IjoibHVja2EtbWUiLCJhIjoiY2twZTQ2MDVuMDEzNzJwcDMwM3Vqbjc1ZCJ9.BgUUlHt3Wdk8aVSJr4fsvw")
+    private static let clusterColor = StyleColor(.init(hue: 0.56, saturation: 1.00, brightness: 1.00, alpha: 100))
     
     @Environment(\.colorScheme) private var colorScheme
     @State private var annotationManager: PointAnnotationManager? = nil
     
-    private let model = FusionMapModel()
+    private let annotations: [ GeomaticData ]
+    private let features: [ Turf.Feature ]
+    private let camera: CameraOptions
     
-    private let nominations: [ Nomination ]
     private let mode: AnnotationMode
     
-    init(_ nominations: [ Nomination ]) {
-        self.nominations = nominations
+    init(_ annotations: [ GeomaticData ]) {
+        self.annotations = annotations
+        var north = -91.0
+        var south = 91.0
+        var east = -181.0
+        var west = 181.0
+        
+        self.features = annotations.map { annotation in
+            if north < annotation.latitude { north = annotation.latitude }
+            if south > annotation.latitude { south = annotation.latitude }
+            if east < annotation.longitude { east = annotation.longitude }
+            if west > annotation.longitude { west = annotation.longitude }
+            
+            var feature = Turf.Feature(geometry: .point(.init(annotation.coordinate)))
+            feature.properties = [ "title" : annotation.title ]
+            return feature
+        }
+        
+        self.camera = .init(center: .init(latitude: (north + south) / 2, longitude: (east + west) / 2))
         self.mode = .clustring
     }
     
-    init(_ nomination: Nomination) {
-        self.nominations = [ nomination ]
+    init(_ annotation: GeomaticData) {
+        self.annotations = [ annotation ]
+        self.features = []
+        self.camera = .init(center: annotation.coordinate, padding: Self.padding, zoom: 16)
         self.mode = .single
     }
     
+    func makeCoordinator() -> Coordinator {
+        .init()
+    }
+    
     func makeUIView(context: Context) -> MapView {
-        let view: MapView
-        if mode == .single {
-            view = .init(
-                frame: .zero,
-                mapInitOptions: .init(
-                    resourceOptions: .init(accessToken: Self.token),
-                    cameraOptions: .init(
-                        center: coordinates.first,
-                        padding: Self.padding,
-                        zoom: 16
-                    ),
-                    styleURI: style
-                )
-            )
-            view.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
-            view.mapboxMap.onNext(.mapLoaded) { _ in
-                if let coordinate = nominations.first?.coordinate {
+        let options = MapInitOptions(resourceOptions: Self.resourceOptions, cameraOptions: camera, styleURI: style)
+        let view = MapView(frame: .zero, mapInitOptions: options)
+        view.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
+        view.mapboxMap.onNext(.mapLoaded) { _ in
+            if mode == .single {
+                if let coordinate = annotations.first?.coordinate {
                     let annotationManager = view.annotations.makePointAnnotationManager()
                     var annotation = PointAnnotation(coordinate: coordinate)
                     annotation.image = .default
                     annotationManager.annotations = [ annotation ]
                     self.annotationManager = annotationManager
                 }
-            }
-        } else {
-            view = .init(
-                frame: .zero,
-                mapInitOptions: .init(
-                    resourceOptions: .init(accessToken: Self.token),
-                    styleURI: style
-                )
-            )
-            view.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
-            view.mapboxMap.onNext(.mapLoaded) { _ in
+            } else {
                 addAnnotations(to: view)
-                model.addGestureRecognizers(to: view)
+                context.coordinator.addGestureRecognizer(to: view)
                 let camera = view.mapboxMap.camera(
-                    for: coordinates,
+                    for: annotations.map { $0.coordinate },
                     padding: Self.padding,
                     bearing: 0,
                     pitch: 0
@@ -108,19 +151,7 @@ struct FusionMap: UIViewRepresentable {
         colorScheme == .light ? .streets : .dark
     }
     
-    private var coordinates: [ CLLocationCoordinate2D ] {
-        nominations.compactMap { $0.coordinate }
-    }
-    
     private func addAnnotations(to view: MapView) {
-        let features: [ Turf.Feature ] = nominations.compactMap { nomination in
-            guard let coordinate = nomination.coordinate else {
-                return nil
-            }
-            var feature = Turf.Feature(geometry: .point(.init(coordinate)))
-            feature.properties = [ "title" : nomination.title ]
-            return feature
-        }
         let featureCollection = FeatureCollection(features: features)
         
         let style = view.mapboxMap.style
@@ -140,10 +171,10 @@ struct FusionMap: UIViewRepresentable {
         var clusteredLayer = CircleLayer(id: Self.clusteredLayerID)
         clusteredLayer.source = Self.sourceID
         clusteredLayer.filter = Exp(.has) { "point_count" }
-        clusteredLayer.circleColor = .constant(Self.colorLight)
+        clusteredLayer.circleColor = .constant(Self.clusterColor)
         clusteredLayer.circleOpacity = .constant(0.6)
         clusteredLayer.circleStrokeWidth = .constant(4)
-        clusteredLayer.circleStrokeColor = .constant(Self.color)
+        clusteredLayer.circleStrokeColor = .constant(Self.clusterColor)
         clusteredLayer.circleRadius = .expression(Exp(.step) {
             Exp(.get) { "point_count" }
             20
@@ -162,109 +193,34 @@ struct FusionMap: UIViewRepresentable {
         var unclusteredLayer = CircleLayer(id: Self.unclusteredLayerID)
         unclusteredLayer.source = Self.sourceID
         unclusteredLayer.filter = Exp(.not) { Exp(.has) { "point_count" } }
-        unclusteredLayer.circleColor = .constant(Self.colorLight)
+        unclusteredLayer.circleColor = .constant(Self.clusterColor)
         unclusteredLayer.circleRadius = .constant(5)
         unclusteredLayer.circleOpacity = .constant(0.6)
         unclusteredLayer.circleStrokeWidth = .constant(2)
-        unclusteredLayer.circleStrokeColor = .constant(Self.color)
+        unclusteredLayer.circleStrokeColor = .constant(Self.clusterColor)
+        
+        var titleLayer = SymbolLayer(id: Self.titleLayerID)
+        titleLayer.source = Self.sourceID
+        titleLayer.filter = Exp(.has) { "title" }
+        titleLayer.textField = .expression(Exp(.get) { "title" })
+        titleLayer.textAnchor = .constant(.top)
+        titleLayer.textColor = .constant(.init(.white))
+        titleLayer.textHaloColor = .constant(.init(.black))
+        titleLayer.textHaloWidth = .constant(1)
+        titleLayer.textOffset = .constant([ 0, 0.6 ])
+        titleLayer.textSize = .constant(12)
         
         try? style.addLayer(clusteredLayer)
         try? style.addLayer(countLayer)
         try? style.addLayer(unclusteredLayer, layerPosition: .below(clusteredLayer.id))
+        try? style.addLayer(titleLayer, layerPosition: .below(unclusteredLayer.id))
     }
 }
 
 #if DEBUG
 struct UNMapView_Previews: PreviewProvider {
     static var previews: some View {
-        FusionMap([])
+        FusionMap(.init(122, 31, "Test", .blue))
     }
 }
 #endif
-
-fileprivate class FusionMapModel {
-    var view: MapView? = nil
-    
-    func addGestureRecognizers(to view: MapView) {
-        print("addGestureRecognizers")
-        self.view = view
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapHandler(sender:))))
-    }
-    
-    @objc private func tapHandler(sender: UITapGestureRecognizer) {
-        guard let solidView = view else {
-            return
-        }
-        let point = sender.location(in: solidView)
-        tryTapClustered(at: point) { self.tryTapUnclustered(at: point) }
-    }
-    
-    private func tryTapClustered(
-        at point: CGPoint, notFoundHandler: @escaping () -> Void = { }
-    ) {
-        guard let solidView = view else { return }
-        solidView.mapboxMap.queryRenderedFeatures(
-            at: point, options: .init(layerIds: [ FusionMap.clusteredLayerID ], filter: nil)
-        ) { tappedQueryResult in
-            guard let feature = try? tappedQueryResult.get().first?.feature else {
-                notFoundHandler()
-                return
-            }
-            // Not work (yet)
-            solidView.mapboxMap.queryFeatureExtension(
-                for: FusionMap.sourceID,
-                feature: feature,
-                extension: "supercluster",
-                extensionField: "expansion-zoom"
-            ) { extensionResult in
-                guard let extensions = try? extensionResult.get() else { return }
-                print(extensions)
-            }
-            let zoom = solidView.cameraState.zoom
-            let ratio = (CGFloat.pi / 2.0 - atan(zoom / 3.0)) * 0.4 + 1.0
-            let camera = CameraOptions(
-                center: solidView.mapboxMap.coordinate(for: point),
-                padding: FusionMap.padding,
-                zoom: zoom * ratio,
-                bearing: solidView.cameraState.bearing,
-                pitch: solidView.cameraState.pitch
-            )
-//            var camera = solidView.mapboxMap.camera(
-//                for: /* Requires a Turf.Geometry here but we have only a MapboxMaps.Geometry */),
-//                padding: FusionMap.padding,
-//                bearing: solidView.cameraState.bearing,
-//                pitch: solidView.cameraState.pitch
-//            )
-//            camera.zoom = zoom * ratio
-            solidView.camera.ease(to: camera, duration: 0.5)
-        }
-    }
-    
-    private func tryTapUnclustered(
-        at point: CGPoint, notFoundHandler: @escaping () -> Void = { }
-    ) {
-        guard let solidView = view else {
-            return
-        }
-        solidView.mapboxMap.queryRenderedFeatures(
-            at: point, options: .init(layerIds: [ FusionMap.unclusteredLayerID ], filter: nil)
-        ) { result in
-            guard
-                let features = try? result.get(),
-                let feature = features.first,
-                let title = feature.feature?.properties?["title"] as? String,
-                let viewController = UIApplication.shared.keyRootViewController
-            else {
-                notFoundHandler()
-                return
-            }
-            let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-            let action = UIAlertAction(
-                title: NSLocalizedString("action.dismiss", comment: "Dismiss"),
-                style: .default, handler: nil
-            )
-            alert.addAction(action)
-            viewController.present(alert, animated: true, completion: nil)
-        }
-    }
-}

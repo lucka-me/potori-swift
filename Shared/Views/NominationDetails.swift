@@ -64,8 +64,8 @@ struct NominationDetails: View {
                 if nomination.statusCode == .rejected {
                     reasons
                 }
-                if nomination.hasLngLat {
-                    FusionMap(nomination)
+                if let annotation = nomination.annotation {
+                    FusionMap(annotation)
                         .frame(height: 200)
                         .mask {
                             RoundedRectangle(cornerRadius: 12, style: .continuous)

@@ -32,7 +32,7 @@ struct NominationMap: View {
         FusionMap(nominations)
             .navigationTitle(configuration.title)
         #else
-        FusionMap(nominations)
+        FusionMap(nominations.compactMap { $0.annotation })
             .navigationTitle("view.map")
             .navigationBarTitleDisplayMode(.inline)
             .ignoresSafeArea(.container, edges: .horizontal)
