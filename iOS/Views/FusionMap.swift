@@ -89,7 +89,10 @@ struct FusionMap: UIViewRepresentable {
             if west > annotation.longitude { west = annotation.longitude }
             
             var feature = Turf.Feature(geometry: .point(.init(annotation.coordinate)))
-            feature.properties = [ "title" : annotation.title ]
+            feature.properties = [
+                "title" : annotation.title,
+                "color" : annotation.color.rgbaString
+            ]
             return feature
         }
         
@@ -193,11 +196,11 @@ struct FusionMap: UIViewRepresentable {
         var unclusteredLayer = CircleLayer(id: Self.unclusteredLayerID)
         unclusteredLayer.source = Self.sourceID
         unclusteredLayer.filter = Exp(.not) { Exp(.has) { "point_count" } }
-        unclusteredLayer.circleColor = .constant(Self.clusterColor)
+        unclusteredLayer.circleColor = .expression(Exp(.get) { "color" })
         unclusteredLayer.circleRadius = .constant(5)
         unclusteredLayer.circleOpacity = .constant(0.6)
         unclusteredLayer.circleStrokeWidth = .constant(2)
-        unclusteredLayer.circleStrokeColor = .constant(Self.clusterColor)
+        unclusteredLayer.circleStrokeColor = .expression(Exp(.get) { "color" })
         
         var titleLayer = SymbolLayer(id: Self.titleLayerID)
         titleLayer.source = Self.sourceID
@@ -224,3 +227,15 @@ struct UNMapView_Previews: PreviewProvider {
     }
 }
 #endif
+
+fileprivate extension Color {
+    var rgbaString: String {
+        let uiColor = UIColor(self)
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+        uiColor.getRed(&r, green: &g, blue: &b, alpha: &a)
+        return "rgba(\(Int(r * 255)),\(Int(g * 255)),\(Int(b * 255)),\(a * 255))"
+    }
+}
