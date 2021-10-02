@@ -14,6 +14,32 @@ struct LngLat: Codable {
 }
 
 struct NominationJSON: Codable {
+    
+    struct Document: FileDocument {
+        static var readableContentTypes: [ UTType ] = [ .json ]
+        
+        private var nominations: [ NominationJSON ]
+        
+        init(for nominations: [ NominationJSON ]) {
+            self.nominations = nominations
+        }
+        
+        init(configuration: ReadConfiguration) throws {
+            guard let data = configuration.file.regularFileContents else {
+                throw CocoaError(.fileReadCorruptFile)
+            }
+            let decoder = JSONDecoder()
+            nominations = try decoder.decode([ NominationJSON ].self, from: data)
+        }
+        
+        func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            let data = try encoder.encode(nominations)
+            return .init(regularFileWithContents: data)
+        }
+    }
+    
     var id: String
     var title: String
     var image: String
@@ -29,29 +55,4 @@ struct NominationJSON: Codable {
     var resultMailId: String?
     
     var lngLat: LngLat?
-}
-
-struct NominationJSONDocument: FileDocument {
-    static var readableContentTypes: [UTType] = [.json]
-    
-    var nominations: [NominationJSON]
-    
-    init(_ forNominations: [NominationJSON]) {
-        nominations = forNominations
-    }
-    
-    init(configuration: ReadConfiguration) throws {
-        guard let data = configuration.file.regularFileContents else {
-            throw CocoaError(.fileReadCorruptFile)
-        }
-        let decoder = JSONDecoder()
-        nominations = try decoder.decode([NominationJSON].self, from: data)
-    }
-    
-    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        let data = try encoder.encode(nominations)
-        return .init(regularFileWithContents: data)
-    }
 }

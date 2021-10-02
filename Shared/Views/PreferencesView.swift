@@ -250,7 +250,7 @@ fileprivate struct ImportExportView: View {
         content
             .fileImporter(
                 isPresented: $isPresentedImporter,
-                allowedContentTypes: NominationJSONDocument.readableContentTypes
+                allowedContentTypes: NominationJSON.Document.readableContentTypes
             ) { result in
                 let message: LocalizedStringKey
                 do {

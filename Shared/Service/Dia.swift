@@ -132,10 +132,10 @@ class Dia: ObservableObject {
         return save(raws, merge: true)
     }
     
-    func exportNominations() -> NominationJSONDocument {
+    func exportNominations() -> NominationJSON.Document {
         let nominations = nominations()
         let jsons = nominations.map { $0.raw.json }
-        return .init(jsons)
+        return .init(for: jsons)
     }
     
     func importWayfarer(_ data: Data) throws -> Int {
