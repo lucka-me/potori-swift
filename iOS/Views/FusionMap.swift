@@ -7,7 +7,8 @@
 
 import SwiftUI
 import MapboxMaps
-import Turf
+
+fileprivate typealias Task = _Concurrency.Task
 
 struct FusionMap: UIViewRepresentable {
     
@@ -18,6 +19,8 @@ struct FusionMap: UIViewRepresentable {
     
     class Coordinator {
         
+        var annotationManager: PointAnnotationManager? = nil
+        
         func addGestureRecognizer(to view: MapView) {
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapHandler)))
         }
@@ -25,33 +28,37 @@ struct FusionMap: UIViewRepresentable {
         @objc private func tapHandler(sender: UITapGestureRecognizer) {
             guard let solidView = sender.view as? MapView else { return }
             let point = sender.location(in: solidView)
-
-            solidView.mapboxMap.queryRenderedFeatures(
-                at: point, options: .init(layerIds: [ FusionMap.clusteredLayerID ], filter: nil)
-            ) { tappedQueryResult in
-                guard let feature = try? tappedQueryResult.get().first?.feature else {
+            
+            Task {
+                guard
+                    let quiredFeatures = try? await solidView.mapboxMap.queryRenderedFeatures(
+                        at: point, options: .init(layerIds: [ FusionMap.clusteredLayerID ], filter: nil)
+                    ),
+                    let feature = quiredFeatures.first?.feature
+                else {
                     return
                 }
-                // Still not working
-                solidView.mapboxMap.queryFeatureExtension(
-                    for: FusionMap.sourceID,
-                    feature: feature,
-                    extension: "supercluster",
-                    extensionField: "expansion-zoom"
-                ) { extensionResult in
-                    guard let extensions = try? extensionResult.get() else { return }
-                    print(extensions)
-                }
-                let zoom = solidView.cameraState.zoom
+                
+                let zoom = await solidView.cameraState.zoom
                 let ratio = (CGFloat.pi / 2.0 - atan(zoom / 3.0)) * 0.4 + 1.0
-                let camera = CameraOptions(
+                let camera = await CameraOptions(
                     center: solidView.mapboxMap.coordinate(for: point),
                     padding: FusionMap.padding,
                     zoom: zoom * ratio,
                     bearing: solidView.cameraState.bearing,
                     pitch: solidView.cameraState.pitch
                 )
-                solidView.camera.ease(to: camera, duration: 0.5)
+                await solidView.camera.ease(to: camera, duration: 0.5)
+                
+                guard let featureExtension = try? await solidView.mapboxMap.queryFeatureExtension(
+                    for: FusionMap.sourceID,
+                    feature: feature,
+                    extension: "supercluster",
+                    extensionField: "expansion-zoom"
+                ) else {
+                    return
+                }
+                print(featureExtension)
             }
         }
     }
@@ -67,10 +74,9 @@ struct FusionMap: UIViewRepresentable {
     private static let clusterColor = StyleColor(.init(hue: 0.56, saturation: 1.00, brightness: 1.00, alpha: 100))
     
     @Environment(\.colorScheme) private var colorScheme
-    @State private var annotationManager: PointAnnotationManager? = nil
     
     private let annotations: [ GeomaticData ]
-    private let features: [ Turf.Feature ]
+    private let features: [ Feature ]
     private let camera: CameraOptions
     
     private let mode: AnnotationMode
@@ -88,10 +94,10 @@ struct FusionMap: UIViewRepresentable {
             if east < annotation.longitude { east = annotation.longitude }
             if west > annotation.longitude { west = annotation.longitude }
             
-            var feature = Turf.Feature(geometry: .point(.init(annotation.coordinate)))
+            var feature = Feature(geometry: .point(.init(annotation.coordinate)))
             feature.properties = [
-                "title" : annotation.title,
-                "color" : annotation.color.rgbaString
+                "title" : .string(annotation.title),
+                "color" : .string(annotation.color.rgbaString)
             ]
             return feature
         }
@@ -120,9 +126,10 @@ struct FusionMap: UIViewRepresentable {
                 if let coordinate = annotations.first?.coordinate {
                     let annotationManager = view.annotations.makePointAnnotationManager()
                     var annotation = PointAnnotation(coordinate: coordinate)
-                    annotation.image = .default
+                    annotation.image = .init(image: .init(named: "Pin")!, name: "pin")
+                    annotation.iconAnchor = .bottom
                     annotationManager.annotations = [ annotation ]
-                    self.annotationManager = annotationManager
+                    context.coordinator.annotationManager = annotationManager
                 }
             } else {
                 addAnnotations(to: view)
@@ -159,7 +166,7 @@ struct FusionMap: UIViewRepresentable {
         
         let style = view.mapboxMap.style
         if style.sourceExists(withId: Self.sourceID) {
-            try? style.updateGeoJSONSource(withId: Self.sourceID, geoJSON: featureCollection)
+            try? style.updateGeoJSONSource(withId: Self.sourceID, geoJSON: .featureCollection(featureCollection))
             return
         }
         
@@ -237,5 +244,37 @@ fileprivate extension Color {
         var a: CGFloat = 0
         uiColor.getRed(&r, green: &g, blue: &b, alpha: &a)
         return "rgba(\(Int(r * 255)),\(Int(g * 255)),\(Int(b * 255)),\(a * 255))"
+    }
+}
+
+extension MapboxMap {
+    @MainActor
+    func queryRenderedFeatures(at point: CGPoint, options: RenderedQueryOptions? = nil) async throws -> [ QueriedFeature ] {
+        return try await withCheckedThrowingContinuation { continuation in
+            queryRenderedFeatures(at: point, options: options) { result in
+                continuation.resume(with: result)
+            }
+        }
+    }
+    
+    @MainActor
+    func queryFeatureExtension(
+        for sourceId: String,
+        feature: Feature,
+        extension: String,
+        extensionField: String,
+        args: [String: Any]? = nil
+    ) async throws -> FeatureExtensionValue {
+        return try await withCheckedThrowingContinuation { continuation in
+            queryFeatureExtension(
+                for: sourceId,
+                feature: feature,
+                extension: `extension`,
+                extensionField: extensionField,
+                args: args
+            ) { result in
+                continuation.resume(with: result)
+            }
+        }
     }
 }
