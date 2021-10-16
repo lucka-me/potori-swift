@@ -17,6 +17,24 @@ struct FusionMap: UIViewRepresentable {
         case clustring
     }
     
+    class AnnotationData {
+        var longitude: Double
+        var latitude: Double
+        var title: String
+        var color: Color
+        
+        init(_ longitude: Double, _ latitude: Double, _ title: String, _ color: Color) {
+            self.longitude = longitude
+            self.latitude = latitude
+            self.title = title
+            self.color = color
+        }
+        
+        var coordinate: CLLocationCoordinate2D {
+            .init(latitude: latitude, longitude: longitude)
+        }
+    }
+    
     class Coordinator {
         
         var annotationManager: PointAnnotationManager? = nil
@@ -73,13 +91,13 @@ struct FusionMap: UIViewRepresentable {
     private static let resourceOptions = ResourceOptions(accessToken: "pk.eyJ1IjoibHVja2EtbWUiLCJhIjoiY2twZTQ2MDVuMDEzNzJwcDMwM3Vqbjc1ZCJ9.BgUUlHt3Wdk8aVSJr4fsvw")
     private static let clusterColor = StyleColor(.init(hue: 0.56, saturation: 1.00, brightness: 1.00, alpha: 100))
     
-    private let annotations: [ GeomaticData ]
+    private let annotations: [ AnnotationData ]
     private let features: [ Feature ]
     private let camera: CameraOptions
     
     private let mode: AnnotationMode
     
-    init(_ annotations: [ GeomaticData ]) {
+    init(_ annotations: [ AnnotationData ]) {
         self.annotations = annotations
         var north = -91.0
         var south = 91.0
@@ -104,7 +122,7 @@ struct FusionMap: UIViewRepresentable {
         self.mode = .clustring
     }
     
-    init(_ annotation: GeomaticData) {
+    init(_ annotation: AnnotationData) {
         self.annotations = [ annotation ]
         self.features = []
         self.camera = .init(center: annotation.coordinate, padding: Self.padding, zoom: 16)

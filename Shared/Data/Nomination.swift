@@ -126,10 +126,6 @@ extension Nomination : Identifiable {
         return hasLngLat ? .init(latitude: latitude, longitude: longitude) : nil
     }
     
-    var annotation: GeomaticData? {
-        return hasLngLat ? .init(longitude, latitude, title, statusData.color) : nil
-    }
-    
     var raw: NominationRAW {
         let raw = NominationRAW()
         raw.id = id
