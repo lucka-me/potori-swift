@@ -73,8 +73,6 @@ struct FusionMap: UIViewRepresentable {
     private static let resourceOptions = ResourceOptions(accessToken: "pk.eyJ1IjoibHVja2EtbWUiLCJhIjoiY2twZTQ2MDVuMDEzNzJwcDMwM3Vqbjc1ZCJ9.BgUUlHt3Wdk8aVSJr4fsvw")
     private static let clusterColor = StyleColor(.init(hue: 0.56, saturation: 1.00, brightness: 1.00, alpha: 100))
     
-    @Environment(\.colorScheme) private var colorScheme
-    
     private let annotations: [ GeomaticData ]
     private let features: [ Feature ]
     private let camera: CameraOptions
@@ -118,7 +116,11 @@ struct FusionMap: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> MapView {
-        let options = MapInitOptions(resourceOptions: Self.resourceOptions, cameraOptions: camera, styleURI: style)
+        let options = MapInitOptions(
+            resourceOptions: Self.resourceOptions,
+            cameraOptions: camera,
+            styleURI: Self.styleURI(for: context.environment.colorScheme)
+        )
         let view = MapView(frame: .zero, mapInitOptions: options)
         view.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
         view.mapboxMap.onNext(.mapLoaded) { _ in
@@ -148,8 +150,9 @@ struct FusionMap: UIViewRepresentable {
     
     func updateUIView(_ uiView: MapView, context: Context) {
         uiView.mapboxMap.onNext(.mapLoaded) { _ in
-            if uiView.mapboxMap.style.uri != style {
-                uiView.mapboxMap.style.uri = style
+            let styleURI = Self.styleURI(for: context.environment.colorScheme)
+            if uiView.mapboxMap.style.uri != styleURI {
+                uiView.mapboxMap.style.uri = styleURI
             }
             if mode == .clustring {
                 addAnnotations(to: uiView)
@@ -157,7 +160,7 @@ struct FusionMap: UIViewRepresentable {
         }
     }
     
-    private var style: StyleURI {
+    private static func styleURI(for colorScheme: ColorScheme) -> StyleURI {
         colorScheme == .light ? .streets : .dark
     }
     
