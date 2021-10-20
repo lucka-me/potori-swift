@@ -10,35 +10,37 @@ import Combine
 
 struct SidebarNavigation: View {
 
-    @EnvironmentObject private var listNavigator: ListNavigator
-    @EnvironmentObject private var panelNavigator: PanelNavigator
+    @EnvironmentObject private var navigator: Navigator
 
     var body: some View {
         NavigationView {
             List {
                 NavigationLink(
-                    tag: PanelNavigator.Tag.dashboard,
+                    tag: Navigator.Tag.dashboard,
                     selection: $panelNavigator.actived
                 ) {
-                    DashboardView().frame(minWidth: 350)
+                    DashboardView()
+                        .frame(minWidth: 350)
                 } label: {
-                    PanelNavigator.LabelView.dashboard
+                    Label.dashboard
                 }
                 NavigationLink(
-                    tag: PanelNavigator.Tag.list,
+                    tag: Navigator.Tag.list,
                     selection: $panelNavigator.actived
                 ) {
-                    NominationList().frame(minWidth: 250)
+                    NominationList(navigator.configuration)
+                        .frame(minWidth: 250)
                 } label: {
-                    PanelNavigator.LabelView.list
+                    Label.list
                 }
                 NavigationLink(
-                    tag: PanelNavigator.Tag.map,
+                    tag: Navigator.Tag.map,
                     selection: $panelNavigator.actived
                 ) {
-                    NominationMap(listNavigator.configuration).frame(minWidth: 350)
+                    NominationMap(navigator.configuration)
+                        .frame(minWidth: 350)
                 } label: {
-                    PanelNavigator.LabelView.map
+                    Label.map
                 }
             }
             .listStyle(.sidebar)

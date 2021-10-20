@@ -34,6 +34,7 @@ struct DashboardCard: View {
                     .foregroundColor(.secondary)
             }
             Text("\(count)")
+                .foregroundColor(.primary)
                 .lineLimit(1)
                 .font(.system(.largeTitle, design: .rounded))
                 .padding(.top, 3)

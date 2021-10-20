@@ -11,7 +11,7 @@ struct SceneCommon: View {
     
     @EnvironmentObject private var dia: Dia
     @ObservedObject private var alert = AlertInspector()
-    @ObservedObject private var listNavigator = ListNavigator()
+    @ObservedObject private var navigator = Navigator()
     
     @SceneStorage(.scenePresentingMatchSheet) private var presentingMatchSheet = false
     @State private var nomination: Nomination? = nil
@@ -19,7 +19,7 @@ struct SceneCommon: View {
     var body: some View {
         ContentView()
             .environmentObject(alert)
-            .environmentObject(listNavigator)
+            .environmentObject(navigator)
             .alert(isPresented: $alert.isPresented) {
                 alert.alert
             }

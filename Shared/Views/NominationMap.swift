@@ -12,13 +12,13 @@ struct NominationMap: View {
     
     @Environment(\.managedObjectContext) private var viewContext
 
-    private let configuration: ListNavigator.Configuration
+    private let configuration: Navigator.Configuration
     private let fetchRequest: FetchRequest<Nomination>
     private var nominations: [ Nomination ] {
         fetchRequest.wrappedValue.filter { $0.hasLngLat }
     }
     
-    init(_ configuration: ListNavigator.Configuration) {
+    init(_ configuration: Navigator.Configuration) {
         self.configuration = configuration
         fetchRequest = .init(
             entity: Nomination.entity(),

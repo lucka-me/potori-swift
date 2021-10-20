@@ -11,7 +11,7 @@ struct NominationList: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var dia: Dia
-    @EnvironmentObject private var navigator: ListNavigator
+    @EnvironmentObject private var navigator: Navigator
     @EnvironmentObject private var service: Service
     @FetchRequest(
         entity: Nomination.entity(),
@@ -19,9 +19,11 @@ struct NominationList: View {
         animation: .default
     ) private var nominations: FetchedResults<Nomination>
     
-    private let configuration: ListNavigator.Configuration?
+    @State private var selection: String? = nil
     
-    init(_ configuration: ListNavigator.Configuration? = nil) {
+    private let configuration: Navigator.Configuration
+    
+    init(_ configuration: Navigator.Configuration) {
         self.configuration = configuration
     }
     
@@ -30,7 +32,7 @@ struct NominationList: View {
             ForEach(nominations) { nomination in
                 NavigationLink(
                     tag: nomination.id,
-                    selection: $navigator.selection
+                    selection: $selection
                 ) {
                     NominationDetails(nomination: nomination)
                 } label: {
@@ -49,19 +51,19 @@ struct NominationList: View {
             .deleteDisabled(service.status != .idle)
         }
         .listStyle(style)
-        .navigationTitle(configuration?.title ?? navigator.title)
+        .navigationTitle(configuration.title)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                MapLink(navigator.configuration) {
+                MapLink(configuration) {
                     Label("view.map", systemImage: "map")
                 }
             }
         }
         .onAppear {
-            if let solidConfiguration = configuration {
-                navigator.configuration = solidConfiguration
-            }
-            nominations.nsPredicate = navigator.predicate
+            nominations.nsPredicate = configuration.predicate
+            #if os(macOS)
+            selection = configuration.selection
+            #endif
         }
     }
     
