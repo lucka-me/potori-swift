@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MatchView: View {
     
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var service: Service
     
     var body: some View {
@@ -42,13 +43,10 @@ struct MatchView: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button("view.match.confirm") {
                     service.matchData.callback()
+                    dismiss()
                 }
             }
         }
-    }
-    
-    private func dateString(_ from: UInt64) -> String {
-        DateFormatter.localizedString(from: .init(timeIntervalSince1970: .init(from)), dateStyle: .medium, timeStyle: .none)
     }
 }
 

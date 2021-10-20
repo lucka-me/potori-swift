@@ -10,9 +10,6 @@ import SwiftUI
 struct ContentView: View {
     
     @EnvironmentObject private var dia: Dia
-    @ObservedObject private var alert = AlertInspector()
-    @ObservedObject private var listNavigator = ListNavigator()
-    @ObservedObject private var panelNavigator = PanelNavigator()
     
     @State private var nomination: Nomination? = nil
     @State private var presentingPreferenceSheet = false
@@ -31,9 +28,6 @@ struct ContentView: View {
                 }
         }
         .navigationViewStyle(.stack)
-        .environmentObject(alert)
-        .environmentObject(panelNavigator)
-        .environmentObject(listNavigator)
         .sheet(isPresented: $presentingPreferenceSheet) {
             NavigationView {
                 PreferencesView()
@@ -48,13 +42,9 @@ struct ContentView: View {
                     }
             }
         }
-        .sheet(isPresented: $panelNavigator.showMatchView) {
-            MatchView()
-        }
         .sheet(item: $nomination) { item in
             NavigationView {
                 NominationDetails(nomination: item)
-                    .environmentObject(alert)
                     .toolbar {
                         ToolbarItem(placement: .confirmationAction) {
                             Button {
@@ -66,9 +56,6 @@ struct ContentView: View {
                     }
             }
             .navigationViewStyle(.stack)
-        }
-        .alert(isPresented: $alert.isPresented) {
-            alert.alert
         }
         .onOpenURL { url in
             guard

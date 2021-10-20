@@ -11,9 +11,10 @@ struct DashboardStatusView: View {
     
     @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var service: Service
-    @EnvironmentObject private var panelNavigator: PanelNavigator
     @ObservedObject private var auth = GoogleKit.Auth.shared
     @ObservedObject private var progress = ProgressInspector.shared
+    
+    @SceneStorage(.scenePresentingMatchSheet) private var presentingMatchSheet = false
     
     var body: some View {
         VStack {
@@ -22,7 +23,7 @@ struct DashboardStatusView: View {
                     .buttonStyle(.plain)
                     .foregroundColor(.accentColor)
             } else if service.status == .requestMatch {
-                Button("view.dashboard.status.manuallyMatch") { panelNavigator.showMatchView.toggle() }
+                Button("view.dashboard.status.manuallyMatch") { presentingMatchSheet.toggle() }
                     .buttonStyle(.plain)
                     .foregroundColor(.accentColor)
             } else if showProgress {
@@ -73,13 +74,10 @@ struct DashboardStatusView: View {
 #if DEBUG
 struct DashboardStatusView_Previews: PreviewProvider {
     
-    static let panelNavigator = PanelNavigator()
-    
     static var previews: some View {
         DashboardStatusView()
             .environmentObject(Dia.preview)
             .environmentObject(Service.shared)
-            .environmentObject(panelNavigator)
     }
 }
 #endif

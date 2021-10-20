@@ -24,7 +24,7 @@ struct PotoriApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SceneCommon()
                 .environmentObject(dia)
                 .environmentObject(service)
                 .environment(\.managedObjectContext, dia.viewContext)

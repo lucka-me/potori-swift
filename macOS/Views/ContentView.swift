@@ -10,9 +10,8 @@ import SwiftUI
 struct ContentView: View {
     
     @EnvironmentObject private var dia: Dia
-    @ObservedObject private var alert = AlertInspector()
-    @ObservedObject private var listNavigator = ListNavigator()
     @ObservedObject private var panelNavigator = PanelNavigator()
+    
     @State private var nomination: Nomination? = nil
 
     var body: some View {
@@ -20,10 +19,6 @@ struct ContentView: View {
             .frame(minHeight: 300)
             .environmentObject(alert)
             .environmentObject(panelNavigator)
-            .environmentObject(listNavigator)
-            .sheet(isPresented: $panelNavigator.showMatchView) {
-                MatchView()
-            }
             .sheet(item: $nomination) { item in
                 VStack(alignment: .leading) {
                     HStack {
@@ -46,9 +41,6 @@ struct ContentView: View {
                         }
                 }
                 .frame(minHeight: 300)
-            }
-            .alert(isPresented: $alert.isPresented) {
-                alert.alert
             }
             .onOpenURL { url in
                 guard

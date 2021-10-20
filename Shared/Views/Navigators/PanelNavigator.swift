@@ -8,9 +8,9 @@
 import Combine
 import SwiftUI
 
+#if os(macOS)
 class PanelNavigator: ObservableObject {
-    
-    #if os(macOS)
+
     enum Tag: Hashable {
         case dashboard
         case list
@@ -29,10 +29,7 @@ class PanelNavigator: ObservableObject {
             Label("view.map", systemImage: "map")
         }
     }
-    #endif
     
-    @Published var showMatchView: Bool = false
-    #if os(macOS)
     @Published var actived: Tag? = .dashboard
-    #endif
 }
+#endif

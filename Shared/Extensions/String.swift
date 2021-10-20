@@ -46,3 +46,7 @@ extension String {
         .init(startIndex..., in: self)
     }
 }
+
+extension String {
+    static let scenePresentingMatchSheet = "scene.PresentingMatchSheet"
+}
