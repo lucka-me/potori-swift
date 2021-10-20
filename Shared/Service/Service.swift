@@ -27,7 +27,9 @@ final class Service: ObservableObject {
         case queryingBrainstorming
     }
     
-    class MatchPack: ObservableObject {
+    class MatchPack: Identifiable, ObservableObject {
+        
+        let id = UUID()
         let target: NominationRAW
         var candidates: [NominationRAW] = []
         @Published var selected: String = ""

@@ -9,9 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @EnvironmentObject private var dia: Dia
-    
-    @State private var nomination: Nomination? = nil
     @State private var presentingPreferenceSheet = false
 
     var body: some View {
@@ -29,44 +26,8 @@ struct ContentView: View {
         }
         .navigationViewStyle(.stack)
         .sheet(isPresented: $presentingPreferenceSheet) {
-            NavigationView {
+            SheetView {
                 PreferencesView()
-                    .toolbar {
-                        ToolbarItem(placement: .confirmationAction) {
-                            Button {
-                                presentingPreferenceSheet.toggle()
-                            } label: {
-                                Label.dismiss
-                            }
-                        }
-                    }
-            }
-        }
-        .sheet(item: $nomination) { item in
-            NavigationView {
-                NominationDetails(nomination: item)
-                    .toolbar {
-                        ToolbarItem(placement: .confirmationAction) {
-                            Button {
-                                self.nomination = nil
-                            } label: {
-                                Label.dismiss
-                            }
-                        }
-                    }
-            }
-            .navigationViewStyle(.stack)
-        }
-        .onOpenURL { url in
-            guard
-                url.scheme == "potori",
-                let host = url.host
-            else {
-                return
-            }
-            if host == "details" {
-                let id = url.lastPathComponent
-                nomination = dia.firstNomination(matches: .init(format: "id == %@", id))
             }
         }
     }

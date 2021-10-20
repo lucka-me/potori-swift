@@ -143,6 +143,8 @@
 		848635752720495500EA6020 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848635732720495500EA6020 /* Label.swift */; };
 		848635772720574A00EA6020 /* SceneCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848635762720574A00EA6020 /* SceneCommon.swift */; };
 		848635782720574A00EA6020 /* SceneCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848635762720574A00EA6020 /* SceneCommon.swift */; };
+		8486357A27205D1500EA6020 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8486357927205D1500EA6020 /* SheetView.swift */; };
+		8486357D27205E8800EA6020 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8486357C27205E8800EA6020 /* SheetView.swift */; };
 		849178822599F81700CD967F /* PotoriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178592599F81600CD967F /* PotoriApp.swift */; };
 		849178832599F81700CD967F /* PotoriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849178592599F81600CD967F /* PotoriApp.swift */; };
 		849178862599F81700CD967F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8491785B2599F81700CD967F /* Assets.xcassets */; };
@@ -366,6 +368,8 @@
 		84841DB525BC413100468C6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		848635732720495500EA6020 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		848635762720574A00EA6020 /* SceneCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCommon.swift; sourceTree = "<group>"; };
+		8486357927205D1500EA6020 /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
+		8486357C27205E8800EA6020 /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		849178592599F81600CD967F /* PotoriApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotoriApp.swift; sourceTree = "<group>"; };
 		8491785B2599F81700CD967F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		849178602599F81700CD967F /* Potori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Potori.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -546,6 +550,7 @@
 			children = (
 				842396C5272041DB00DFFCB0 /* ContentView.swift */,
 				8460DA81266673FE00BB732E /* FusionMap.swift */,
+				8486357927205D1500EA6020 /* SheetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -602,6 +607,7 @@
 			children = (
 				842396C7272041E700DFFCB0 /* ContentView.swift */,
 				8460DA832667C18F00BB732E /* FusionMap.swift */,
+				8486357C27205E8800EA6020 /* SheetView.swift */,
 				843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */,
 			);
 			path = Views;
@@ -1161,6 +1167,7 @@
 				843BFFEC2656822C0031963C /* Array.swift in Sources */,
 				8468A22C25A33784009B562D /* Potori.xcdatamodeld in Sources */,
 				840A15F725BD62D200541ED5 /* DashboardScannersView.swift in Sources */,
+				8486357A27205D1500EA6020 /* SheetView.swift in Sources */,
 				84BFD364259F46530047318D /* Mari.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1215,6 +1222,7 @@
 				8462D089259FBA030031AD0D /* NominationMap.swift in Sources */,
 				849178A8259A06E000CD967F /* NominationList.swift in Sources */,
 				849178BF259A0D8D00CD967F /* NominationRAW.swift in Sources */,
+				8486357D27205E8800EA6020 /* SheetView.swift in Sources */,
 				84BFD365259F46530047318D /* Mari.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,30 +13,12 @@ struct MatchView: View {
     @EnvironmentObject private var service: Service
     
     var body: some View {
-        #if os(macOS)
-        content
-            .frame(minWidth: 300, minHeight: 350)
-        #else
-        NavigationView {
-            content
-        }
-        #endif
-    }
-    
-    @ViewBuilder
-    private var content: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                #if os(macOS)
-                Text("view.match")
-                    .font(.largeTitle)
-                    .padding(.bottom)
-                #endif
-                ForEach(0 ..< service.matchData.packs.count) { index in
-                    MatchPackView(pack: service.matchData.packs[index])
+                ForEach(service.matchData.packs) { pack in
+                    MatchPackView(pack: pack)
                 }
             }
-            .padding()
         }
         .navigationTitle("view.match")
         .toolbar {

@@ -14,6 +14,7 @@ struct SceneCommon: View {
     @ObservedObject private var listNavigator = ListNavigator()
     
     @SceneStorage(.scenePresentingMatchSheet) private var presentingMatchSheet = false
+    @State private var nomination: Nomination? = nil
     
     var body: some View {
         ContentView()
@@ -23,7 +24,27 @@ struct SceneCommon: View {
                 alert.alert
             }
             .sheet(isPresented: $presentingMatchSheet) {
-                MatchView()
+                SheetView("view.match", minWidth: 300, minHeight: 350, defaultDismiss: false) {
+                    MatchView()
+                }
+            }
+            .sheet(item: $nomination) { item in
+                SheetView(item.title) {
+                    NominationDetails(nomination: item)
+                        .environmentObject(alert)
+                }
+            }
+            .onOpenURL { url in
+                guard
+                    url.scheme == "potori",
+                    let host = url.host
+                else {
+                    return
+                }
+                if host == "details" {
+                    let id = url.lastPathComponent
+                    nomination = dia.firstNomination(matches: .init(format: "id == %@", id))
+                }
             }
     }
 }
