@@ -89,7 +89,7 @@ struct FusionMap: UIViewRepresentable {
     fileprivate static let padding = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
     
     private static let resourceOptions = ResourceOptions(accessToken: "pk.eyJ1IjoibHVja2EtbWUiLCJhIjoiY2twZTQ2MDVuMDEzNzJwcDMwM3Vqbjc1ZCJ9.BgUUlHt3Wdk8aVSJr4fsvw")
-    private static let clusterColor = StyleColor(.init(hue: 0.56, saturation: 1.00, brightness: 1.00, alpha: 100))
+    private static let clusterColor = StyleColor(.init(hue: 0.56, saturation: 1.00, brightness: 1.00, alpha: 1.0))
     
     private let annotations: [ AnnotationData ]
     private let features: [ Feature ]
@@ -206,13 +206,15 @@ struct FusionMap: UIViewRepresentable {
         clusteredLayer.circleOpacity = .constant(0.6)
         clusteredLayer.circleStrokeWidth = .constant(4)
         clusteredLayer.circleStrokeColor = .constant(Self.clusterColor)
-        clusteredLayer.circleRadius = .expression(Exp(.step) {
+        clusteredLayer.circleRadius = .expression(Exp(.interpolate) {
+            Exp(.linear)
             Exp(.get) { "point_count" }
-            20
+            5
+            10
             50
             30
-            100
-            40
+            200
+            50
         })
 
         var countLayer = SymbolLayer(id: Self.countLayerID)
