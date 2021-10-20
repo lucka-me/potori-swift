@@ -10,38 +10,29 @@ import SwiftUI
 
 class PanelNavigator: ObservableObject {
     
+    #if os(macOS)
     enum Tag: Hashable {
         case dashboard
-        #if os(macOS)
         case list
         case map
-        #else
-        case preference
-        #endif
     }
     
     class LabelView {
         static var dashboard: some View {
             Label("view.dashboard", systemImage: "gauge")
         }
-        #if os(macOS)
+        
         static var list: some View {
             Label("view.list", systemImage: "list.bullet")
         }
         static var map: some View {
             Label("view.map", systemImage: "map")
         }
-        #else
-        static var preferences: some View {
-            Label("view.preferences", systemImage: "gear")
-        }
-        #endif
     }
+    #endif
     
     @Published var showMatchView: Bool = false
     #if os(macOS)
     @Published var actived: Tag? = .dashboard
-    #else
-    @Published var actived: Tag = .dashboard
     #endif
 }

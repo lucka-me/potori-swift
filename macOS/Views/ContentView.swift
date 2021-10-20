@@ -1,8 +1,8 @@
 //
 //  ContentView.swift
-//  Potori
+//  macOS
 //
-//  Created by Lucka on 29/12/2020.
+//  Created by Lucka on 20/10/2021.
 //
 
 import SwiftUI
@@ -16,7 +16,8 @@ struct ContentView: View {
     @State private var nomination: Nomination? = nil
 
     var body: some View {
-        navigationView
+        SidebarNavigation()
+            .frame(minHeight: 300)
             .environmentObject(alert)
             .environmentObject(panelNavigator)
             .environmentObject(listNavigator)
@@ -24,14 +25,27 @@ struct ContentView: View {
                 MatchView()
             }
             .sheet(item: $nomination) { item in
-                #if os(macOS)
-                detailsSheet(of: item)
-                    .frame(minHeight: 300)
-                #else
-                NavigationView {
-                    detailsSheet(of: item)
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text(nomination.title)
+                            .font(.largeTitle)
+                        Spacer()
+                    }
+                    .padding([ .top, .horizontal ])
+                    
+                    NominationDetails(nomination: nomination)
+                        .environmentObject(alert)
+                        .toolbar {
+                            ToolbarItem(placement: .confirmationAction) {
+                                Button {
+                                    self.nomination = nil
+                                } label: {
+                                    Label.dismiss
+                                }
+                            }
+                        }
                 }
-                #endif
+                .frame(minHeight: 300)
             }
             .alert(isPresented: $alert.isPresented) {
                 alert.alert
@@ -46,39 +60,6 @@ struct ContentView: View {
                 if host == "details" {
                     let id = url.lastPathComponent
                     nomination = dia.firstNomination(matches: .init(format: "id == %@", id))
-                }
-            }
-    }
-    
-    @ViewBuilder
-    private var navigationView: some View {
-        #if os(macOS)
-        SidebarNavigation()
-            .frame(minHeight: 300)
-        #else
-        TabNavigation()
-        #endif
-    }
-    
-    @ViewBuilder
-    private func detailsSheet(of nomination: Nomination) -> some View {
-        #if os(macOS)
-        HStack {
-            Text(nomination.title)
-                .font(.largeTitle)
-            Spacer()
-        }
-        .padding([ .top, .horizontal ])
-        #endif
-        NominationDetails(nomination: nomination)
-            .environmentObject(alert)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button {
-                        self.nomination = nil
-                    } label: {
-                        Label("action.dismiss", systemImage: "xmark")
-                    }
                 }
             }
     }

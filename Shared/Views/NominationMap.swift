@@ -36,6 +36,7 @@ struct NominationMap: View {
             .navigationTitle("view.map")
             .navigationBarTitleDisplayMode(.inline)
             .ignoresSafeArea(.container, edges: .horizontal)
+            .ignoresSafeArea(.container, edges: .bottom)
         #endif
     }
 }

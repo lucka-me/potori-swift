@@ -24,7 +24,26 @@ struct PotoriApp: App {
 
     var body: some Scene {
         WindowGroup {
-            content
+            ContentView()
+                .environmentObject(dia)
+                .environmentObject(service)
+                .environment(\.managedObjectContext, dia.viewContext)
+                .task {
+                    guard firstAppear else { return }
+                    firstAppear = false
+                    URLCache.shared.diskCapacity = 100 * 1024 * 1024
+                    if UserDefaults.General.refreshOnOpen {
+                        let _ = try? await service.refresh()
+                    }
+                }
+                .handlesExternalEvents(preferring: Self.matchURLs, allowing: [ "*" ])
+                .onOpenURL { url in
+                    #if os(macOS)
+                    if url.scheme != "potori" {
+                        GoogleKit.Auth.shared.onOpenURL(url)
+                    }
+                    #endif
+                }
         }
         .commands {
             SidebarCommands()
@@ -37,29 +56,5 @@ struct PotoriApp: App {
                 .environmentObject(service)
         }
         #endif
-    }
-    
-    @ViewBuilder
-    private var content: some View {
-        ContentView()
-            .environmentObject(dia)
-            .environmentObject(service)
-            .environment(\.managedObjectContext, dia.viewContext)
-            .task {
-                guard firstAppear else { return }
-                firstAppear = false
-                URLCache.shared.diskCapacity = 100 * 1024 * 1024
-                if UserDefaults.General.refreshOnOpen {
-                    let _ = try? await service.refresh()
-                }
-            }
-            .handlesExternalEvents(preferring: Self.matchURLs, allowing: [ "*" ])
-            .onOpenURL { url in
-                #if os(macOS)
-                if url.scheme != "potori" {
-                    GoogleKit.Auth.shared.onOpenURL(url)
-                }
-                #endif
-            }
     }
 }
