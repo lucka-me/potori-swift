@@ -45,38 +45,34 @@ struct FusionMap: UIViewRepresentable {
         
         @objc private func tapHandler(sender: UITapGestureRecognizer) {
             guard let solidView = sender.view as? MapView else { return }
-            let point = sender.location(in: solidView)
+            let location = sender.location(in: solidView)
             
             Task {
                 guard
                     let quiredFeatures = try? await solidView.mapboxMap.queryRenderedFeatures(
-                        at: point, options: .init(layerIds: [ FusionMap.clusteredLayerID ], filter: nil)
+                        at: location, options: .init(layerIds: [ FusionMap.clusteredLayerID ], filter: nil)
                     ),
-                    let feature = quiredFeatures.first?.feature
+                    let feature = quiredFeatures.first?.feature,
+                    case let .point(point) = feature.geometry,
+                    let featureExtension = try? await solidView.mapboxMap.queryFeatureExtension(
+                        for: FusionMap.sourceID,
+                        feature: feature,
+                        extension: "supercluster",
+                        extensionField: "expansion-zoom"
+                    ),
+                    let zoom = featureExtension.value as? Int64
                 else {
                     return
                 }
                 
-                let zoom = await solidView.cameraState.zoom
-                let ratio = (CGFloat.pi / 2.0 - atan(zoom / 3.0)) * 0.4 + 1.0
                 let camera = await CameraOptions(
-                    center: solidView.mapboxMap.coordinate(for: point),
+                    center: point.coordinates,
                     padding: FusionMap.padding,
-                    zoom: zoom * ratio,
+                    zoom: .init(zoom),
                     bearing: solidView.cameraState.bearing,
                     pitch: solidView.cameraState.pitch
                 )
                 await solidView.camera.ease(to: camera, duration: 0.5)
-                
-                guard let featureExtension = try? await solidView.mapboxMap.queryFeatureExtension(
-                    for: FusionMap.sourceID,
-                    feature: feature,
-                    extension: "supercluster",
-                    extensionField: "expansion-zoom"
-                ) else {
-                    return
-                }
-                print(featureExtension)
             }
         }
     }
