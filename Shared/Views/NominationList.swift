@@ -19,8 +19,6 @@ struct NominationList: View {
         animation: .default
     ) private var nominations: FetchedResults<Nomination>
     
-    @State private var selection: String? = nil
-    
     private let configuration: Navigator.Configuration
     
     init(_ configuration: Navigator.Configuration) {
@@ -30,12 +28,7 @@ struct NominationList: View {
     var body: some View {
         List {
             ForEach(nominations) { nomination in
-                NavigationLink(
-                    tag: nomination.id,
-                    selection: $selection
-                ) {
-                    NominationDetails(nomination: nomination)
-                } label: {
+                DetailsLink(nomination) {
                     NominationListRow(nomination)
                 }
             }
@@ -61,9 +54,6 @@ struct NominationList: View {
         }
         .onAppear {
             nominations.nsPredicate = configuration.predicate
-            #if os(macOS)
-            selection = configuration.selection
-            #endif
         }
     }
     

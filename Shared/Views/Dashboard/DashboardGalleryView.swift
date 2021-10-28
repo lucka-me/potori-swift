@@ -40,10 +40,7 @@ struct DashboardGalleryView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(nominations) { nomination in
-                            DetailsLink(
-                                .init("view.dashboard.gallery", predicate: Self.predicate),
-                                nomination
-                            ) {
+                            DetailsLink(nomination) {
                                 AsyncImage(url: nomination.imageURL, placeholder: nomination.statusData.color)
                                     .scaledToFill()
                                     .frame(width: 100, height: 100, alignment: .center)

@@ -20,7 +20,9 @@ struct NominationDetails: View {
     let nomination: Nomination
     
     @Environment(\.openURL) private var openURL
-    #if os(iOS)
+    #if os(macOS)
+    @Environment(\.dismiss) private var dismiss
+    #else
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
     @EnvironmentObject private var alert: AlertInspector
@@ -72,7 +74,7 @@ struct NominationDetails: View {
                         }
                 }
             }
-            .listRowSeparator(.hidden)
+//            .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
         .toolbar {
@@ -90,6 +92,13 @@ struct NominationDetails: View {
                 Label("view.details.edit", systemImage: "pencil")
             }
         }
+        
+        #if os(macOS)
+        ControlGroup {
+            Button { dismiss() } label: { Label.dismiss }
+        }
+        .controlGroupStyle(.navigation)
+        #endif
     }
     
     @ViewBuilder

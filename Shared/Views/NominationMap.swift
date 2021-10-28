@@ -29,7 +29,7 @@ struct NominationMap: View {
     
     var body: some View {
         #if os(macOS)
-        FusionMap(nominations)
+        FusionMap(nominations.compactMap { $0.annotation })
             .navigationTitle(configuration.title)
         #else
         FusionMap(nominations.compactMap { $0.annotation })

@@ -71,7 +71,6 @@
 		843B00142658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843B00122658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift */; };
 		843B00152658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843B00122658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift */; };
 		843B00162658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843B00122658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift */; };
-		843BEF49259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */; };
 		843BFFEC2656822C0031963C /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BFFEB2656822C0031963C /* Array.swift */; };
 		843BFFED2656822C0031963C /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BFFEB2656822C0031963C /* Array.swift */; };
 		843BFFEE2656822C0031963C /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843BFFEB2656822C0031963C /* Array.swift */; };
@@ -336,7 +335,6 @@
 		8434024225C03A9600DCFFCB /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
 		843463E525B20E3D008A03CB /* pre-build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "pre-build.sh"; sourceTree = "<group>"; };
 		843B00122658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTMAppAuthFetcherAuthorization.swift; sourceTree = "<group>"; };
-		843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarNavigation.swift; sourceTree = "<group>"; };
 		843BFFEB2656822C0031963C /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		843BFFF22657C88A0031963C /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		84495F2D259A140D00BA238A /* nominations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nominations.json; sourceTree = "<group>"; };
@@ -605,7 +603,6 @@
 				842396C7272041E700DFFCB0 /* ContentView.swift */,
 				8460DA832667C18F00BB732E /* FusionMap.swift */,
 				8486357C27205E8800EA6020 /* SheetView.swift */,
-				843BEF47259F0CD600FC17F9 /* SidebarNavigation.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1196,7 +1193,6 @@
 				8469EB1C25B88A2600A9831D /* DashboardReasonsView.swift in Sources */,
 				84177FBA25B2F079009CC4E9 /* MatchView.swift in Sources */,
 				849178832599F81700CD967F /* PotoriApp.swift in Sources */,
-				843BEF49259F0CD600FC17F9 /* SidebarNavigation.swift in Sources */,
 				843B00142658E6E70031963C /* GTMAppAuthFetcherAuthorization.swift in Sources */,
 				84F7359C25B830E8003DE878 /* DashboardView.swift in Sources */,
 				843BFFF42657C88A0031963C /* UserDefaults.swift in Sources */,
@@ -1930,7 +1926,7 @@
 			repositoryURL = "https://github.com/mapbox/mapbox-maps-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = "10.0.0-rc.6";
+				minimumVersion = "10.1.0-beta.1";
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

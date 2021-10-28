@@ -11,20 +11,34 @@ struct SheetView<Content: View>: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    let titleKey: LocalizedStringKey
+    let title: String
     let minWidth: CGFloat?
     let minHeight: CGFloat?
     let defaultDismiss: Bool
     let content: () -> Content
     
     init(
-        _ titleKey: LocalizedStringKey = "",
+        _ title: String = "",
         minWidth: CGFloat? = nil,
         minHeight: CGFloat? = 300,
         defaultDismiss: Bool = true,
         content: @escaping () -> Content
     ) {
-        self.titleKey = titleKey
+        self.title = title
+        self.minWidth = minWidth
+        self.minHeight = minHeight
+        self.defaultDismiss = defaultDismiss
+        self.content = content
+    }
+    
+    init(
+        _ titleKey: String.LocalizationValue = "",
+        minWidth: CGFloat? = nil,
+        minHeight: CGFloat? = 300,
+        defaultDismiss: Bool = true,
+        content: @escaping () -> Content
+    ) {
+        self.title = .init(localized: titleKey)
         self.minWidth = minWidth
         self.minHeight = minHeight
         self.defaultDismiss = defaultDismiss
@@ -34,20 +48,20 @@ struct SheetView<Content: View>: View {
     var body: some View {
         Group {
             HStack {
-                Text(titleKey)
+                Text(title)
                     .font(.largeTitle)
                 Spacer()
             }
             .padding([ .top, .horizontal ])
             
-            content()
-                .toolbar {
-                    if defaultDismiss {
+            if defaultDismiss {
+                content()
+                    .toolbar {
                         Button { dismiss() } label: { Label.dismiss }
-                    } else {
-                        EmptyView()
                     }
-                }
+            } else {
+                content()
+            }
         }
         .frame(minWidth: minWidth, minHeight: minHeight)
     }
