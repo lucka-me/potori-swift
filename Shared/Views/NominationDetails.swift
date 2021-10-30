@@ -31,54 +31,45 @@ struct NominationDetails: View {
     @ObservedObject private var editorModel = EditorModel()
     
     var body: some View {
-        if nomination.isFault {
-            // Prevent crash when delete
-            EmptyView()
-        } else {
-            #if os(macOS)
-            content.frame(minWidth: 480)
-            #else
-            content
-            #endif
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(alignment: .leading) {
+                if nomination.isFault {
+                    // Prevent crash when delete
+                    EmptyView()
+                } else if mode == .view {
+                    viewer
+                } else {
+                    editor
+                        .animation(.easeInOut, value: editorModel.status)
+                }
+            }
+            .padding()
         }
-    }
-    
-    @ViewBuilder
-    private var content: some View {
-        Group {
+        .toolbar {
             if mode == .view {
-                viewer
+                viewerControls
             } else {
-                editor
+                editorControls
             }
         }
-        .navigationTitle(nomination.title)
+        .navigationTitle(nomination.isFault ? "" : nomination.title)
         .animation(.easeInOut, value: mode)
     }
     
     @ViewBuilder
     private var viewer: some View {
-        List {
-            Group {
-                image
-                actions
-                highlights
-                if nomination.statusCode == .rejected {
-                    reasons
-                }
-                if let annotation = nomination.annotation {
-                    FusionMap(annotation)
-                        .frame(height: 200)
-                        .mask {
-                            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        }
-                }
-            }
-//            .listRowSeparator(.hidden)
+        image
+        actions
+        highlights
+        if nomination.statusCode == .rejected {
+            reasons
         }
-        .listStyle(.plain)
-        .toolbar {
-            viewerControls
+        if let annotation = nomination.annotation {
+            FusionMap(annotation)
+                .frame(height: 200)
+                .mask {
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                }
         }
     }
     
@@ -103,31 +94,28 @@ struct NominationDetails: View {
     
     @ViewBuilder
     private var image: some View {
-        HStack {
-            AsyncImage(url: nomination.imageURL)
-                .scaledToFit()
-                .mask {
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                }
-                .frame(idealWidth: .infinity, maxHeight: 300, alignment: .center)
-                .contextMenu {
+        AsyncImage(url: nomination.imageURL)
+            .scaledToFit()
+            .mask {
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+            }
+            .frame(maxHeight: 300, alignment: .center)
+            .contextMenu {
+                Button {
                     if let url = URL(string: nomination.imageURL) {
-                        Button {
-                            openURL(url)
-                        } label: {
-                            Label("action.open", systemImage: "safari")
-                        }
-                        Button(role: nil, action: shareImage) {
-                            #if os(macOS)
-                            Label("view.details.image.copy", systemImage: "doc.on.doc")
-                            #else
-                            Label("view.details.image.share", systemImage: "square.and.arrow.up")
-                            #endif
-                        }
+                        openURL(url)
                     }
+                } label: {
+                    Label("action.open", systemImage: "safari")
                 }
-                .appendSpacers()
-        }
+                Button(action: shareImage) {
+                    #if os(macOS)
+                    Label("view.details.image.copy", systemImage: "doc.on.doc")
+                    #else
+                    Label("view.details.image.share", systemImage: "square.and.arrow.up")
+                    #endif
+                }
+            }
     }
     
     @ViewBuilder
@@ -161,26 +149,26 @@ struct NominationDetails: View {
             columns: .init(repeating: .init(.flexible(), alignment: .top), count: highlightsColumns),
             alignment: .center
         ) {
-            HighlightCard(
-                "view.details.confirmed", "arrow.up.circle", .accentColor,
+            HighlightCard("view.details.confirmed", "arrow.up.circle", .accentColor) {
                 Text(nomination.confirmedTime, style: .date)
-            )
+            }
             let status = nomination.statusData
-            HighlightCard(
-                status.title, status.icon, status.color,
-                status.code == .pending ? Text(status.title) : Text(nomination.resultTime, style: .date)
-            )
-            HighlightCard(
-                "view.details.scanner", "apps.iphone", .purple,
+            HighlightCard(status.title, status.icon, status.color) {
+                if status.code == .pending {
+                    Text(status.title)
+                } else {
+                    Text(nomination.resultTime, style: .date)
+                }
+            }
+            HighlightCard("view.details.scanner", "apps.iphone", .purple) {
                 Text(nomination.scannerData.title)
-            )
+            }
         }
     }
     
     @ViewBuilder
     private var reasons: some View {
-        Text("view.details.reasons")
-            .font(.headline)
+        header("view.details.reasons")
         LazyVGrid(
             columns: .init(repeating: .init(.flexible(), alignment: .top), count: reasonsColumns),
             alignment: .leading
@@ -197,51 +185,53 @@ struct NominationDetails: View {
     
     @ViewBuilder
     private var editor: some View {
-        Form {
-            Section {
-                HStack {
-                    Label("view.details.confirmed", systemImage: "arrow.up.circle")
-                    Spacer()
-                    Text(nomination.confirmedTime, style: .date)
+        header("view.details.hightlights")
+        VStack(alignment: .leading) {
+            HStack {
+                Label("view.details.confirmed", systemImage: "arrow.up.circle")
+                Spacer()
+                Text(nomination.confirmedTime, style: .date)
+            }
+            Divider()
+            Picker(
+                selection: $editorModel.status,
+                label: Label("view.details.status", systemImage: "pencil.circle")
+            ) {
+                ForEach(Umi.shared.statusAll) { status in
+                    Text(status.title).tag(status.code)
                 }
-                Picker(
-                    selection: $editorModel.status,
-                    label: Label("view.details.status", systemImage: "pencil.circle")
-                ) {
-                    ForEach(Umi.shared.statusAll) { status in
-                        Text(status.title).tag(status.code)
-                    }
-                }
-                .pickerStyle(.segmented)
-                if editorModel.status != .pending {
+            }
+            .pickerStyle(.segmented)
+        }
+        .labelStyle(.fixedSizeIcon)
+        .card()
+        
+        if editorModel.status != .pending {
+            VStack(alignment: .leading) {
+                Label("view.details.resulted", systemImage: "pencil.circle")
+                    .labelStyle(.fixedSizeIcon)
+                HStack(spacing: 0) {
+                    Spacer(minLength: 0)
                     DatePicker(
+                        "view.details.resulted",
                         selection: $editorModel.resultTime,
                         in: PartialRangeFrom(nomination.confirmedTime),
                         displayedComponents: [ .date, .hourAndMinute ]
-                    ) {
-                        Label("view.details.resulted", systemImage: "pencil.circle")
-                    }
-                    .datePickerStyle(.automatic)
-                }
-            } header: {
-                Text("view.details.hightlights")
-            }
-            if editorModel.status == .rejected {
-                Section {
-                    reasonsEditor
-                } header: {
-                    Text("view.details.reasons")
+                    )
+                        .labelsHidden()
+                        .datePickerStyle(.automatic)
                 }
             }
-            Section {
-                locationEditor
-            } header: {
-                Text("view.details.location")
-            }
+            .card()
         }
-        .toolbar {
-            editorControls
+
+        if editorModel.status == .rejected {
+            header("view.details.reasons")
+            reasonsEditor
         }
+        
+        header("view.details.location")
+        locationEditor
     }
     
     @ViewBuilder
@@ -265,31 +255,52 @@ struct NominationDetails: View {
     
     @ViewBuilder
     private var reasonsEditor: some View {
-        ForEach($editorModel.reasons) { $reason in
-            Toggle(isOn: $reason.selected) {
-                Label(reason.data.title, systemImage: reason.data.icon)
+        LazyVGrid(
+            columns: .init(repeating: .init(.flexible(), alignment: .top), count: reasonsColumns),
+            alignment: .leading
+        ) {
+            ForEach($editorModel.reasons) { $reason in
+                Toggle(isOn: $reason.selected) {
+                    ReasonCard(reason.data, selected: reason.selected)
+                }
+                .toggleStyle(.plainButton)
             }
         }
     }
     
     @ViewBuilder
     private var locationEditor: some View {
-        TextField(
-            value: $editorModel.lngLat,
-            formatter: LngLatFormatter(),
-            prompt: Text("view.details.location.coordinates.hint")
-        ) {
-            Label("view.details.location.coordinates", systemImage: "mappin.and.ellipse")
-        }
-            .textFieldStyle(.roundedBorder)
-        Button(action: setLngLatFromPasteboard) {
-            Label("view.details.location.paste", systemImage: "doc.on.clipboard")
-        }
-        if !Brainstorming.isBeforeEpoch(when: editorModel.resultTime, status: editorModel.status) {
-            Button(action: queryLngLatFromBrainstorming) {
-                Label("view.details.location.brainstorming", systemImage: "brain")
+        VStack(alignment: .leading) {
+            TextField(
+                "view.details.location.coordinates",
+                value: $editorModel.lngLat,
+                formatter: LngLatFormatter(),
+                prompt: Text("view.details.location.coordinates.hint")
+            )
+                .textFieldStyle(.roundedBorder)
+                .submitLabel(.done)
+            Divider()
+            Button(action: setLngLatFromPasteboard) {
+                Label("view.details.location.paste", systemImage: "doc.on.clipboard")
+            }
+            if !Brainstorming.isBeforeEpoch(when: editorModel.resultTime, status: editorModel.status) {
+                Divider()
+                Button(action: queryLngLatFromBrainstorming) {
+                    Label("view.details.location.brainstorming", systemImage: "brain")
+                }
             }
         }
+        .buttonStyle(.borderless)
+        .labelStyle(.fixedSizeIcon)
+        .card()
+    }
+    
+    @ViewBuilder
+    private func header(_ titleKey: LocalizedStringKey) -> some View {
+        Text(titleKey)
+            .foregroundColor(.secondary)
+            .padding(.top, 4)
+            .padding(.leading)
     }
     
     private var highlightsColumns: Int {
@@ -355,9 +366,7 @@ struct NominationDetails: View {
             let record: Brainstorming.Record
             do {
                 record = try await Brainstorming.shared.query(nomination.id)
-                guard mode == .edit else {
-                    return
-                }
+                guard mode == .edit else { return }
             } catch Brainstorming.ErrorType.notFound {
                 alert.push(
                     title: "view.details.location.brainstorming.failed",
@@ -393,23 +402,23 @@ struct NominationDetails_Previews: PreviewProvider {
 }
 #endif
 
-fileprivate struct HighlightCard: View {
+fileprivate struct HighlightCard<Content: View>: View {
     
     private let title: LocalizedStringKey
     private let systemImage: String
     private let color: Color
-    private let text: Text
+    private let content: () -> Content
     
     init(
         _ title: LocalizedStringKey,
         _ systemImage: String,
         _ color: Color,
-        _ text: Text
+        @ViewBuilder content: @escaping () -> Content
     ) {
         self.title = title
         self.systemImage = systemImage
         self.color = color
-        self.text = text
+        self.content = content
     }
     
     var body: some View {
@@ -419,12 +428,10 @@ fileprivate struct HighlightCard: View {
                 .imageScale(.large)
                 .foregroundColor(color)
                 .padding(.bottom, 4)
-            HStack {
-                text
-                    .lineLimit(1)
-                    .appendSpacers()
-            }
+            content()
+                .lineLimit(1)
         }
+        .frame(minWidth: 0, maxWidth: .infinity)
         .card()
     }
 }
@@ -432,18 +439,19 @@ fileprivate struct HighlightCard: View {
 fileprivate struct ReasonCard: View {
     
     private let reason: Umi.Reason
+    private let selected: Bool
     
-    init(_ reason: Umi.Reason) {
+    init(_ reason: Umi.Reason, selected: Bool = false) {
         self.reason = reason
+        self.selected = selected
     }
     
     var body: some View {
-        HStack {
-            Label(reason.title, systemImage: reason.icon)
-                .foregroundColor(.red)
-            Spacer()
-        }
-        .card()
+        Label(reason.title, systemImage: reason.icon)
+            .foregroundColor(selected ? .primary : .red)
+            .labelStyle(.fixedSizeIcon)
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+            .card(color: selected ? .red : .clear)
     }
 }
 

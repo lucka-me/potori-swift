@@ -34,7 +34,11 @@ struct SceneCommon: View {
                 }
             }
             .sheet(item: $navigator.selection) { nomination in
-                SheetView(nomination.title, minHeight: 350, defaultDismiss: Self.nominationSheetUseDefaultDismiss) {
+                SheetView(
+                    nomination.title,
+                    minWidth: 450, minHeight: 350,
+                    defaultDismiss: Self.nominationSheetUseDefaultDismiss
+                ) {
                     NominationDetails(nomination: nomination)
                         .environmentObject(alert)
                 }
