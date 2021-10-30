@@ -27,7 +27,7 @@ struct DashboardCard: View {
                 Label(title, systemImage: systemImage)
                     .lineLimit(1)
                     .foregroundColor(color)
-                    .labelStyle(.fixedWidthIcon)
+                    .labelStyle(.fixedSizeIcon)
                 Spacer()
                 Label("action.open", systemImage: "chevron.right")
                     .labelStyle(.iconOnly)

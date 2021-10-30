@@ -224,8 +224,8 @@
 		84F8F8AA25FBB5A9002702AF /* umi.json in Resources */ = {isa = PBXBuildFile; fileRef = 84F8F88C25FBB589002702AF /* umi.json */; };
 		84F97C71259B6978005D9AA4 /* NominationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F97C70259B6978005D9AA4 /* NominationDetails.swift */; };
 		84F97C72259B6978005D9AA4 /* NominationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F97C70259B6978005D9AA4 /* NominationDetails.swift */; };
-		84FB4D1D2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4D1C2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift */; };
-		84FB4D1E2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4D1C2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift */; };
+		84FB4D1D2652D51300AAA9A3 /* FixedSizeIconLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4D1C2652D51300AAA9A3 /* FixedSizeIconLabelStyle.swift */; };
+		84FB4D1E2652D51300AAA9A3 /* FixedSizeIconLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4D1C2652D51300AAA9A3 /* FixedSizeIconLabelStyle.swift */; };
 		84FB4D20265401C900AAA9A3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4D1F265401C900AAA9A3 /* String.swift */; };
 		84FB4D21265401C900AAA9A3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4D1F265401C900AAA9A3 /* String.swift */; };
 		84FB4D22265401C900AAA9A3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4D1F265401C900AAA9A3 /* String.swift */; };
@@ -406,7 +406,7 @@
 		84F735A525B83169003DE878 /* DashboardHighlightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardHighlightsView.swift; sourceTree = "<group>"; };
 		84F8F88C25FBB589002702AF /* umi.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = umi.json; path = umi/umi.json; sourceTree = "<group>"; };
 		84F97C70259B6978005D9AA4 /* NominationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominationDetails.swift; sourceTree = "<group>"; };
-		84FB4D1C2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIconLabelStyle.swift; sourceTree = "<group>"; };
+		84FB4D1C2652D51300AAA9A3 /* FixedSizeIconLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedSizeIconLabelStyle.swift; sourceTree = "<group>"; };
 		84FB4D1F265401C900AAA9A3 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		84FB4D242655299200AAA9A3 /* ProgressInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressInspector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -485,7 +485,7 @@
 		840A15E325BCA41500541ED5 /* Basic */ = {
 			isa = PBXGroup;
 			children = (
-				84FB4D1C2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift */,
+				84FB4D1C2652D51300AAA9A3 /* FixedSizeIconLabelStyle.swift */,
 				842DBE9926B1979100A7EF1F /* ViewModifiers.swift */,
 			);
 			path = Basic;
@@ -1119,7 +1119,7 @@
 				84A841B4271AD8D9008AFA85 /* Nomination+FusionMap.swift in Sources */,
 				84303DB426910C8A00A5D97E /* AsyncImage.swift in Sources */,
 				846CC62925A35EFF007A8AE8 /* Nomination.swift in Sources */,
-				84FB4D1D2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift in Sources */,
+				84FB4D1D2652D51300AAA9A3 /* FixedSizeIconLabelStyle.swift in Sources */,
 				84DB6EA3259A2B1F00BD915B /* Umi.swift in Sources */,
 				8430E27E25C3021F008F1BAC /* Dia.swift in Sources */,
 				8469EB3525B943C800A9831D /* DashboardGalleryView.swift in Sources */,
@@ -1184,7 +1184,7 @@
 				84C92646265C7FFF00F240F2 /* AlertInspector.swift in Sources */,
 				84FB4D262655299200AAA9A3 /* ProgressInspector.swift in Sources */,
 				84303DB526910C8A00A5D97E /* AsyncImage.swift in Sources */,
-				84FB4D1E2652D51300AAA9A3 /* FixedWidthIconLabelStyle.swift in Sources */,
+				84FB4D1E2652D51300AAA9A3 /* FixedSizeIconLabelStyle.swift in Sources */,
 				8430E27F25C3021F008F1BAC /* Dia.swift in Sources */,
 				84E96794269F07F30024625E /* GTLRService.swift in Sources */,
 				848635782720574A00EA6020 /* SceneCommon.swift in Sources */,
