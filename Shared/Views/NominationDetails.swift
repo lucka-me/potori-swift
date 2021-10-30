@@ -226,11 +226,10 @@ struct NominationDetails: View {
         }
 
         if editorModel.status == .rejected {
-            header("view.details.reasons")
             reasonsEditor
+                .animation(.default, value: editorModel.showReasons)
         }
         
-        header("view.details.location")
         locationEditor
     }
     
@@ -251,25 +250,42 @@ struct NominationDetails: View {
             }
             .keyboardShortcut(.cancelAction)
         }
+        .disabled(editorModel.queryingBrainstorming)
     }
     
     @ViewBuilder
     private var reasonsEditor: some View {
-        LazyVGrid(
-            columns: .init(repeating: .init(.flexible(), alignment: .top), count: reasonsColumns),
-            alignment: .leading
-        ) {
-            ForEach($editorModel.reasons) { $reason in
-                Toggle(isOn: $reason.selected) {
-                    ReasonCard(reason.data, selected: reason.selected)
+        header("view.details.reasons") {
+            Button {
+                editorModel.showReasons.toggle()
+            } label: {
+                if editorModel.showReasons {
+                    Label("view.details.reasons.collapse", systemImage: "chevron.up")
+                } else {
+                    Label("view.details.reasons.expand", systemImage: "chevron.down")
                 }
-                .toggleStyle(.plainButton)
+            }
+            .labelStyle(.iconOnly)
+            .buttonStyle(.borderless)
+        }
+        if editorModel.showReasons {
+            LazyVGrid(
+                columns: .init(repeating: .init(.flexible(), alignment: .top), count: reasonsColumns),
+                alignment: .leading
+            ) {
+                ForEach($editorModel.reasons) { $reason in
+                    Toggle(isOn: $reason.selected) {
+                        ReasonCard(reason.data, selected: reason.selected)
+                    }
+                    .toggleStyle(.plainButton)
+                }
             }
         }
     }
     
     @ViewBuilder
     private var locationEditor: some View {
+        header("view.details.location")
         VStack(alignment: .leading) {
             TextField(
                 "view.details.location.coordinates",
@@ -287,9 +303,16 @@ struct NominationDetails: View {
                 Divider()
                 Button(action: queryLngLatFromBrainstorming) {
                     Label("view.details.location.brainstorming", systemImage: "brain")
+                        .opacity(editorModel.queryingBrainstorming ? 0 : 1)
+                        .overlay(alignment: .leading) {
+                            if editorModel.queryingBrainstorming {
+                                ProgressView()
+                            }
+                        }
                 }
             }
         }
+        .disabled(editorModel.queryingBrainstorming)
         .buttonStyle(.borderless)
         .labelStyle(.fixedSizeIcon)
         .card()
@@ -300,7 +323,22 @@ struct NominationDetails: View {
         Text(titleKey)
             .foregroundColor(.secondary)
             .padding(.top, 4)
-            .padding(.leading)
+            .padding(.horizontal)
+    }
+    
+    @ViewBuilder
+    private func header<Trailing: View>(
+        _ titleKey: LocalizedStringKey,
+        @ViewBuilder trailing: () -> Trailing
+    ) -> some View {
+        HStack(alignment: .firstTextBaseline) {
+            Text(titleKey)
+            Spacer()
+            trailing()
+        }
+        .foregroundColor(.secondary)
+        .padding(.top, 4)
+        .padding(.horizontal)
     }
     
     private var highlightsColumns: Int {
@@ -363,10 +401,8 @@ struct NominationDetails: View {
     
     private func queryLngLatFromBrainstorming() {
         Task {
-            let record: Brainstorming.Record
             do {
-                record = try await Brainstorming.shared.query(nomination.id)
-                guard mode == .edit else { return }
+                try await editorModel.queryLngLatFromBrainstorming()
             } catch Brainstorming.ErrorType.notFound {
                 alert.push(
                     title: "view.details.location.brainstorming.failed",
@@ -386,7 +422,6 @@ struct NominationDetails: View {
                 )
                 return
             }
-            editorModel.setLngLat(from: record)
         }
     }
 }
@@ -465,10 +500,15 @@ fileprivate class ReasonInspector: ObservableObject, Identifiable {
 }
 
 fileprivate class EditorModel: ObservableObject {
+    
+    private var id: String = ""
     @Published var reasons: [ReasonInspector]
     @Published var status: Umi.Status.Code = .pending
     @Published var resultTime: Date = Date()
     @Published var lngLat: LngLat? = nil
+    
+    @Published var showReasons = false
+    @Published var queryingBrainstorming = false
     
     init() {
         reasons = Umi.shared.reasonAll.compactMap { reason in
@@ -480,12 +520,15 @@ fileprivate class EditorModel: ObservableObject {
     }
     
     func set(from nomination: Nomination) {
+        queryingBrainstorming = false
+        id = nomination.id
         status = nomination.statusCode
         resultTime = nomination.resultTime
         let reasonsCode = nomination.reasonsCode
         for reason in reasons {
             reason.selected = reasonsCode.contains(reason.data.code)
         }
+        showReasons = !reasonsCode.isEmpty
         if nomination.hasLngLat {
             lngLat = .init(lng: nomination.longitude, lat: nomination.latitude)
         } else {
@@ -494,6 +537,7 @@ fileprivate class EditorModel: ObservableObject {
     }
     
     func save(to nomination: Nomination) {
+        queryingBrainstorming = false
         nomination.statusCode = status
         if status != .pending {
             nomination.resultTime = resultTime
@@ -508,6 +552,18 @@ fileprivate class EditorModel: ObservableObject {
         } else {
             nomination.hasLngLat = false
         }
+    }
+    
+    func queryLngLatFromBrainstorming() async throws {
+        queryingBrainstorming = true
+        defer {
+            DispatchQueue.main.async { [ weak self ] in
+                self?.queryingBrainstorming = false
+            }
+        }
+        let record = try await Brainstorming.shared.query(id)
+        if !queryingBrainstorming { return }
+        setLngLat(from: record)
     }
     
     func setLngLat(from intelURL: String) -> Bool {

@@ -96,8 +96,8 @@
 "view.details.resulted" = "Resulted";
 "view.details.scanner"  = "Scanner";
 "view.details.reasons"  = "Rejected For";
-"view.details.hide" = "Hide";
-"view.details.show" = "Show";
+"view.details.collapse" = "Collapse";
+"view.details.expand"   = "Expand";
 "view.details.location" = "Location";
 "view.details.location.coordinates" = "Coordinates";
 "view.details.location.coordinates.hint"    = "Latitude,Longitude";

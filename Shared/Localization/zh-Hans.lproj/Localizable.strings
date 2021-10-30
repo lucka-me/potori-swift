@@ -96,8 +96,8 @@
 "view.details.resulted" = "结束于";
 "view.details.scanner"  = "扫描器";
 "view.details.reasons"  = "拒绝原因";
-"view.details.hide" = "隐藏";
-"view.details.show" = "显示";
+"view.details.collapse" = "收起";
+"view.details.expand"   = "展开";
 "view.details.location" = "位置";
 "view.details.location.coordinates" = "坐标";
 "view.details.location.coordinates.hint"    = "纬度,经度";
