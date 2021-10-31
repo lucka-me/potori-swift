@@ -18,8 +18,10 @@ struct SceneCommon: View {
         ContentView()
             .environmentObject(alert)
             .environmentObject(navigator)
-            .alert(isPresented: $alert.isPresented) {
-                alert.alert
+            .alert(alert.titleKey, isPresented: $alert.isPresented) {
+                
+            } message: {
+                Text(alert.message)
             }
             .sheet(isPresented: $presentingMatchSheet) {
                 SheetView("view.match", minWidth: 300, minHeight: 350, defaultDismiss: false) {

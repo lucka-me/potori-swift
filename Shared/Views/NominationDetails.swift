@@ -372,17 +372,17 @@ struct NominationDetails: View {
     private func setLngLatFromPasteboard() {
         #if os(iOS)
         guard UNPasteboard.general.hasStrings else {
-            alert.push(title: "view.details.location.paste.empty")
+            alert.push("view.details.location.paste.empty")
             return
         }
         #endif
         guard let url = UNPasteboard.general.string else {
-            alert.push(title: "view.details.location.paste.empty")
+            alert.push("view.details.location.paste.empty")
             return
         }
         if !editorModel.setLngLat(from: url) {
             alert.push(
-                title: "view.details.location.paste.invalid",
+                "view.details.location.paste.invalid",
                 message: "view.details.location.paste.invalid.desc"
             )
         }
@@ -394,19 +394,19 @@ struct NominationDetails: View {
                 try await editorModel.queryLngLatFromBrainstorming()
             } catch Brainstorming.ErrorType.notFound {
                 alert.push(
-                    title: "view.details.location.brainstorming.failed",
+                    "view.details.location.brainstorming.failed",
                     message: "view.details.location.brainstorming.failed.notFound"
                 )
                 return
             } catch Brainstorming.ErrorType.unableToDecode {
                 alert.push(
-                    title: "view.details.location.brainstorming.failed",
+                    "view.details.location.brainstorming.failed",
                     message: "view.details.location.brainstorming.failed.decode"
                 )
                 return
             } catch {
                 alert.push(
-                    title: "view.details.location.brainstorming.failed",
+                    "view.details.location.brainstorming.failed",
                     message: "view.details.location.brainstorming.failed.other \(error.localizedDescription)"
                 )
                 return

@@ -134,7 +134,7 @@ fileprivate struct GoogleSection: View, PreferenceSection {
             do {
                 let count = try await service.migrateFromGoogleDrive()
                 alert.push(
-                    title: "view.preferences.google.migrate",
+                    "view.preferences.google.migrate",
                     message: "view.preferences.google.migrate.finished \(count)"
                 )
             } catch {
@@ -208,9 +208,9 @@ fileprivate struct ImportExportView: View {
                     let count = try dia.importNominations(data)
                     message = "view.preferences.data.nominations.import.success \(count)"
                 } catch {
-                    message = "view.preferences.data.nominations.failure \(error.localizedDescription)"
+                    message = .init(error.localizedDescription)
                 }
-                alert.push(title: Self.stringImport, message: message)
+                alert.push(Self.stringImport, message: message)
             }
             .fileExporter(
                 isPresented: $isPresentedExporter,
@@ -223,9 +223,9 @@ fileprivate struct ImportExportView: View {
                     let _ = try result.get()
                     message = "view.preferences.data.nominations.export.success"
                 } catch {
-                    message = "view.preferences.data.nominations.failure \(error.localizedDescription)"
+                    message = .init(error.localizedDescription)
                 }
-                alert.push(title: Self.stringExport, message: message)
+                alert.push(Self.stringExport, message: message)
             }
     }
     
@@ -254,7 +254,7 @@ fileprivate struct ImportExportView: View {
                     } else {
                         message = "view.preferences.data.wayfarer.import.empty"
                     }
-                    alert.push(title: Self.stringImport, message: message)
+                    alert.push(Self.stringImport, message: message)
                 }
                 Link(
                     "view.preferences.data.wayfarer.link",
