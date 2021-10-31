@@ -92,8 +92,8 @@ struct FusionMap: NSViewRepresentable {
     }
     
     func updateNSView(_ nsView: MKMapView, context: Context) {
-//        nsView.removeAnnotations(nsView.annotations)
-//        addAnnotations(to: nsView)
+        nsView.removeAnnotations(nsView.annotations)
+        addAnnotations(to: nsView)
     }
     
     private func addAnnotations(to view: MKMapView) {
@@ -151,7 +151,7 @@ fileprivate class ClusterAnnotationView: MKAnnotationView {
     
     private static let textAttributes = [
         NSAttributedString.Key.foregroundColor: NSColor.black,
-        NSAttributedString.Key.font: NSFont.systemFont(ofSize: NSFont.systemFontSize)
+        NSAttributedString.Key.font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
     ]
     
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
@@ -168,12 +168,14 @@ fileprivate class ClusterAnnotationView: MKAnnotationView {
         guard let cluster = annotation as? MKClusterAnnotation else { return }
         let count = cluster.memberAnnotations.count
         let size: CGFloat
-        if count < 50 {
-            size = 40
-        } else if count < 100 {
-            size = 60
+        if count <= 5 {
+            size = 20.0
+        } else if count <= 50 {
+            size = 20.0 + 40.0 * CGFloat(count - 5) / 45
+        } else if count <= 200 {
+            size = 60.0 + 40.0 * CGFloat(count - 50) / 150
         } else {
-            size = 80
+            size = 100.0
         }
         image = .init(size: .init(width: size, height: size), flipped: false) { rect in
             Self.strokeColor.setStroke()
