@@ -92,7 +92,6 @@
 		84495F2E259A140D00BA238A /* nominations.json in Resources */ = {isa = PBXBuildFile; fileRef = 84495F2D259A140D00BA238A /* nominations.json */; };
 		84495F2F259A140D00BA238A /* nominations.json in Resources */ = {isa = PBXBuildFile; fileRef = 84495F2D259A140D00BA238A /* nominations.json */; };
 		844A9AAE25A4BD21003E44B5 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */; };
-		844A9AAF25A4BD21003E44B5 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */; };
 		844E157725A0659300A79C9E /* GoogleAPIClientForREST_Gmail in Frameworks */ = {isa = PBXBuildFile; productRef = 844E157625A0659300A79C9E /* GoogleAPIClientForREST_Gmail */; };
 		8462D088259FBA030031AD0D /* NominationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D087259FBA030031AD0D /* NominationMap.swift */; };
 		8462D089259FBA030031AD0D /* NominationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462D087259FBA030031AD0D /* NominationMap.swift */; };
@@ -549,6 +548,7 @@
 			children = (
 				842396C5272041DB00DFFCB0 /* ContentView.swift */,
 				8460DA81266673FE00BB732E /* FusionMap.swift */,
+				844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */,
 				8486357927205D1500EA6020 /* SheetView.swift */,
 			);
 			path = Views;
@@ -703,7 +703,6 @@
 				84F97C70259B6978005D9AA4 /* NominationDetails.swift */,
 				849178A6259A06E000CD967F /* NominationList.swift */,
 				8462D087259FBA030031AD0D /* NominationMap.swift */,
-				844A9AAD25A4BD21003E44B5 /* PreferencesView.swift */,
 				848635762720574A00EA6020 /* SceneCommon.swift */,
 				840A15E325BCA41500541ED5 /* Basic */,
 				8418510225B823900094470A /* Dashboard */,
@@ -1176,7 +1175,6 @@
 			files = (
 				846C48E926439B6C0017BE48 /* Image.swift in Sources */,
 				8468A22D25A33784009B562D /* Potori.xcdatamodeld in Sources */,
-				844A9AAF25A4BD21003E44B5 /* PreferencesView.swift in Sources */,
 				84A841BA271B1B5E008AFA85 /* FusionMap.swift in Sources */,
 				84BEA0792691F92F00C1A718 /* UNPasteboard.swift in Sources */,
 				8469EB2B25B93EF800A9831D /* DashboardStatusView.swift in Sources */,

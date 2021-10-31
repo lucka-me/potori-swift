@@ -1,6 +1,6 @@
 //
 //  Preferences.swift
-//  Potori
+//  iOS
 //
 //  Created by Lucka on 5/1/2021.
 //
@@ -9,44 +9,21 @@ import SwiftUI
 
 struct PreferencesView : View {
     
-    #if os(macOS)
-    @ObservedObject private var alert = AlertInspector()
-    #endif
-    
     var body: some View {
-        #if os(macOS)
-        TabView { groups }
-            .frame(minWidth: 400, minHeight: 300)
-            .padding()
-            .alert(isPresented: $alert.isPresented) {
-                alert.alert
-            }
-        #else
-        Form { groups }
-            .navigationTitle("view.preferences")
-            .listStyle(InsetGroupedListStyle())
-        #endif
+        Form {
+            section { GeneralSection() }
+            section { GoogleSection() }
+            section { BrainstormingSection() }
+            section { DataSection() }
+            section { AboutSection() }
+        }
+        .navigationTitle("view.preferences")
+        .listStyle(.insetGrouped)
     }
     
     @ViewBuilder
-    private var groups: some View {
-        group { GeneralGroup()  }
-        group { GoogleGroup()   }
-        group { BrainstormingGroup()    }
-        group { DataGroup()     }
-        group { AboutGroup()    }
-    }
-    
-    @ViewBuilder
-    private func group<Group: PreferenceGroup>(_ group: () -> Group) -> some View {
-        let content = group()
-        #if os(macOS)
-        Form(content: { content })
-            .environmentObject(alert)
-            .tabItem { Label(content.title, systemImage: content.icon) }
-        #else
-        Section(header: Text(content.title)) { content }
-        #endif
+    private func section<Content: PreferenceSection>(content: () -> Content) -> some View {
+        Section(Content.title, content: content)
     }
 }
 
@@ -60,14 +37,12 @@ struct Preferences_Previews: PreviewProvider {
 }
 #endif
 
-fileprivate protocol PreferenceGroup: View {
-    var title: LocalizedStringKey { get }
-    var icon: String { get }
+fileprivate protocol PreferenceSection: View {
+    static var title: LocalizedStringKey { get }
 }
 
-fileprivate struct GeneralGroup: View, PreferenceGroup {
-    let title: LocalizedStringKey = "view.preferences.general"
-    let icon: String = "gearshape"
+fileprivate struct GeneralSection: View, PreferenceSection {
+    static let title: LocalizedStringKey = "view.preferences.general"
     
     @AppStorage(UserDefaults.General.keyRefreshOnOpen, store: .shared) var prefRefreshOnOpen = false
     @AppStorage(UserDefaults.General.keyBackgroundRefresh, store: .shared) var prefBackgroundRefresh = false
@@ -80,7 +55,7 @@ fileprivate struct GeneralGroup: View, PreferenceGroup {
     }
 }
 
-fileprivate struct GoogleGroup: View, PreferenceGroup {
+fileprivate struct GoogleSection: View, PreferenceSection {
     
     private enum MigrateAlert: Identifiable {
         case confirm
@@ -89,32 +64,17 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
         var id: Int { self.hashValue }
     }
     
-    let title: LocalizedStringKey = "view.preferences.google"
-    let icon: String = "person.crop.circle"
+    static let title: LocalizedStringKey = "view.preferences.google"
     
     @AppStorage(UserDefaults.Google.keySync, store: .shared) var prefSync = false
     
     @EnvironmentObject private var alert: AlertInspector
     @EnvironmentObject private var service: Service
     @ObservedObject private var auth = GoogleKit.Auth.shared
-    @State private var isPresentedConfirmMigrate = false
-    #if os(iOS)
     @State private var isPresentedActionSheetAccount = false
-    #endif
+    @State private var isPresentedConfirmMigrate = false
     
     var body: some View {
-        #if os(macOS)
-        HStack(alignment: .firstTextBaseline) {
-            Text("view.preferences.google.account")
-                .font(.headline)
-            auth.authorized ? Text(auth.mail) : Text("view.preferences.google.notLinked")
-        }
-        .lineLimit(1)
-        Button(
-            auth.authorized ? "view.preferences.google.unlink" : "view.preferences.google.link",
-            action: auth.authorized ? auth.unlink : auth.link
-        )
-        #else
         Button {
             isPresentedActionSheetAccount.toggle()
         } label: {
@@ -136,7 +96,7 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
                 ]
             )
         }
-        #endif
+        
         if auth.authorized {
             Toggle("view.preferences.google.sync", isOn: $prefSync)
 
@@ -184,9 +144,8 @@ fileprivate struct GoogleGroup: View, PreferenceGroup {
     }
 }
 
-fileprivate struct BrainstormingGroup: View, PreferenceGroup {
-    let title = LocalizedStringKey("view.preferences.brainstorming")
-    let icon = "hand.point.right"
+fileprivate struct BrainstormingSection: View, PreferenceSection {
+    static let title = LocalizedStringKey("view.preferences.brainstorming")
     
     @AppStorage(UserDefaults.Brainstorming.keyQuery, store: .shared) var prefQuery = false
     
@@ -195,10 +154,9 @@ fileprivate struct BrainstormingGroup: View, PreferenceGroup {
     }
 }
 
-fileprivate struct DataGroup: View, PreferenceGroup {
+fileprivate struct DataSection: View, PreferenceSection {
     
-    let title: LocalizedStringKey = "view.preferences.data"
-    let icon: String = "tray.2"
+    static let title: LocalizedStringKey = "view.preferences.data"
     
     @EnvironmentObject private var alert: AlertInspector
     @EnvironmentObject private var dia: Dia
@@ -207,11 +165,7 @@ fileprivate struct DataGroup: View, PreferenceGroup {
     @State private var isPresentedConfirmClear = false
     
     var body: some View {
-        #if os(macOS)
-        ImportExportView()
-        #else
         NavigationLink(destination: ImportExportView())  { Text("view.preferences.data.importExport") }
-        #endif
         Button("view.preferences.data.clearNominations") {
             isPresentedConfirmClear.toggle()
         }
@@ -230,11 +184,6 @@ fileprivate struct DataGroup: View, PreferenceGroup {
     }
 }
 
-
-/// Import / Export part of Preferences / Data
-///
-/// - macOS: Buttons,
-/// - iOS: List that should be passed to `NavigationLink`, since the sheets could not be attached to list items
 fileprivate struct ImportExportView: View {
     
     private static let stringImport: LocalizedStringKey = "view.preferences.data.import"
@@ -282,62 +231,45 @@ fileprivate struct ImportExportView: View {
     
     @ViewBuilder
     private var content: some View {
-        #if os(macOS)
-        sections
-        #else
-        List { sections }
-            .listStyle(InsetGroupedListStyle())
-            .navigationTitle("view.preferences.data.importExport")
-        #endif
-    }
-    
-    @ViewBuilder
-    private var sections: some View {
-        Section(header: Text("view.preferences.data.nominations")) {
-            Button("view.preferences.data.import") {
-                isPresentedImporter = true
+        List {
+            Section(header: Text("view.preferences.data.nominations")) {
+                Button("view.preferences.data.import") {
+                    isPresentedImporter = true
+                }
+                Button("view.preferences.data.export") {
+                    isPresentedExporter = true
+                }
             }
-            Button("view.preferences.data.export") {
-                isPresentedExporter = true
+            Section(header: Text("view.preferences.data.wayfarer")) {
+                Button("view.preferences.data.import") {
+                    let json = UIPasteboard.general.string
+                    let message: LocalizedStringKey
+                    if let data = json?.data(using: .utf8) {
+                        do {
+                            let count = try dia.importWayfarer(data)
+                            message = "view.preferences.data.wayfarer.import.success \(count)"
+                        } catch {
+                            message = .init(error.localizedDescription)
+                        }
+                    } else {
+                        message = "view.preferences.data.wayfarer.import.empty"
+                    }
+                    alert.push(title: Self.stringImport, message: message)
+                }
+                Link(
+                    "view.preferences.data.wayfarer.link",
+                    destination: URL(string: "https://wayfarer.nianticlabs.com/api/v1/vault/manage")!
+                )
             }
         }
-        Section(header: Text("view.preferences.data.wayfarer")) {
-            Button("view.preferences.data.import", action: importWayfarer)
-            Link("view.preferences.data.wayfarer.link", destination: URL(string: "https://wayfarer.nianticlabs.com/api/v1/vault/manage")!)
-        }
-    }
-    
-    private func importWayfarer() {
-        #if os(macOS)
-        let json = NSPasteboard.general.string(forType: .string)
-        #else
-        let json = UIPasteboard.general.string
-        #endif
-        guard let data = json?.data(using: .utf8) else {
-            alert.push(
-                title: Self.stringImport,
-                message: "view.preferences.data.wayfarer.import.empty"
-            )
-            return
-        }
-        let message: LocalizedStringKey
-        do {
-            let count = try dia.importWayfarer(data)
-            message = "view.preferences.data.wayfarer.import.success \(count)"
-        } catch {
-            message = .init(error.localizedDescription)
-        }
-        alert.push(
-            title: Self.stringImport,
-            message: message
-        )
+        .listStyle(.insetGrouped)
+        .navigationTitle("view.preferences.data.importExport")
     }
 }
 
-fileprivate struct AboutGroup: View, PreferenceGroup {
+fileprivate struct AboutSection: View, PreferenceSection {
     
-    let title: LocalizedStringKey = "view.preferences.about"
-    let icon: String = "info.circle"
+    static let title: LocalizedStringKey = "view.preferences.about"
     
     var body: some View {
         if
@@ -346,17 +278,13 @@ fileprivate struct AboutGroup: View, PreferenceGroup {
             let build = infoDict["CFBundleVersion"] as? String {
             HStack {
                 Text("view.preferences.about.appVersion")
-                #if os(iOS)
                 Spacer()
-                #endif
                 Text("\(version) (\(build))")
             }
         }
         HStack {
             Text("view.preferences.about.dataVersion")
-            #if os(iOS)
             Spacer()
-            #endif
             Text(Umi.shared.version)
         }
         Link("view.preferences.about.repo", destination: URL(string: "https://github.com/lucka-me/potori-swift")!)
