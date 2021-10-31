@@ -31,10 +31,7 @@ struct NominationDetails: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading) {
-                if nomination.isFault {
-                    // Prevent crash when delete
-                    EmptyView()
-                } else if mode == .view {
+                if mode == .view {
                     viewer
                 } else {
                     editor
