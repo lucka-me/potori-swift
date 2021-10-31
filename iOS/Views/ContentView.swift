@@ -11,15 +11,14 @@ struct ContentView: View {
     
     @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var navigator: Navigator
-    @State private var presentingPreferenceSheet = false
 
     var body: some View {
         NavigationView {
             DashboardView()
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
-                            presentingPreferenceSheet.toggle()
+                        NavigationLink {
+                            PreferencesView()
                         } label: {
                             Label.preferences
                         }
@@ -27,11 +26,6 @@ struct ContentView: View {
                 }
         }
         .navigationViewStyle(.stack)
-        .sheet(isPresented: $presentingPreferenceSheet) {
-            SheetView {
-                PreferencesView()
-            }
-        }
         .sheet(item: $navigator.selection) { nomination in
             SheetView(nomination.title) {
                 NominationDetails(nomination: nomination)
