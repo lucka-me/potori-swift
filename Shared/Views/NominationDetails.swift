@@ -20,9 +20,7 @@ struct NominationDetails: View {
     let nomination: Nomination
     
     @Environment(\.openURL) private var openURL
-    #if os(macOS)
-    @Environment(\.dismiss) private var dismiss
-    #else
+    #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
     @EnvironmentObject private var alert: AlertInspector
@@ -83,13 +81,6 @@ struct NominationDetails: View {
                 Label("view.details.edit", systemImage: "pencil")
             }
         }
-        
-        #if os(macOS)
-        ControlGroup {
-            Button { dismiss() } label: { Label.dismiss }
-        }
-        .controlGroupStyle(.navigation)
-        #endif
     }
     
     @ViewBuilder
@@ -193,15 +184,13 @@ struct NominationDetails: View {
                 Text(nomination.confirmedTime, style: .date)
             }
             Divider()
-            Picker(
-                selection: $editorModel.status,
-                label: Label("view.details.status", systemImage: "pencil.circle")
-            ) {
+            Picker("view.details.status", selection: $editorModel.status) {
                 ForEach(Umi.shared.statusAll) { status in
                     Text(status.title).tag(status.code)
                 }
             }
             .pickerStyle(.segmented)
+            .labelsHidden()
         }
         .labelStyle(.fixedSizeIcon)
         .card()

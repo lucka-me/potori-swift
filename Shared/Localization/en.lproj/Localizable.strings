@@ -83,6 +83,8 @@
 "view.dashboard.reasons.less"   = "Less";
 
 // Nomination Details
+"view.details"  = "Details";
+"view.details.notFound" = "Not Found";
 "view.details.edit" = "Edit";
 "view.details.save" = "Save";
 "view.details.cancel"   = "Cancel";

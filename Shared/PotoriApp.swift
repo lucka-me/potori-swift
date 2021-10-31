@@ -10,12 +10,17 @@ import SwiftUI
 @main
 struct PotoriApp: App {
     
-    /// Prevent opening new window when opend by URL
-    /// - SeeAlso [Stack Overflow](https://stackoverflow.com/a/66664474/10276204)
-    private static let matchURLs: Set<String> = [
+    #if os(macOS)
+    private static let majorMatchURLs: Set<String> = [
+        GoogleKit.Auth.redirectURL
+    ]
+    private static let detailsMatchURLs: Set<String> = [ "potori://details" ]
+    #else
+    private static let majorMatchURLs: Set<String> = [
         "potori://details",
         GoogleKit.Auth.redirectURL
     ]
+    #endif
     
     private let dia = Dia.shared
     private let service = Service.shared
@@ -36,7 +41,9 @@ struct PotoriApp: App {
                         let _ = try? await service.refresh()
                     }
                 }
-                .handlesExternalEvents(preferring: Self.matchURLs, allowing: [ "*" ])
+            /// Prevent opening new window when opend by URL
+            /// - SeeAlso [Stack Overflow](https://stackoverflow.com/a/66664474/10276204)
+                .handlesExternalEvents(preferring: Self.majorMatchURLs, allowing: Self.majorMatchURLs)
                 .onOpenURL { url in
                     #if os(macOS)
                     if url.scheme != "potori" {
@@ -48,8 +55,16 @@ struct PotoriApp: App {
         .commands {
             SidebarCommands()
         }
-        .handlesExternalEvents(matching: Self.matchURLs)
+        .handlesExternalEvents(matching: Self.majorMatchURLs)
+        
         #if os(macOS)
+        
+        WindowGroup("view.details") {
+            DetailsSceneView()
+                .environmentObject(dia)
+        }
+        .handlesExternalEvents(matching: Self.detailsMatchURLs)
+        
         Settings {
             PreferencesView()
                 .environmentObject(dia)

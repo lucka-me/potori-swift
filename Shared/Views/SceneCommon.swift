@@ -9,13 +9,6 @@ import SwiftUI
 
 struct SceneCommon: View {
     
-    #if os(macOS)
-    static private let nominationSheetUseDefaultDismiss = false
-    #else
-    static private let nominationSheetUseDefaultDismiss = true
-    #endif
-    
-    @EnvironmentObject private var dia: Dia
     @ObservedObject private var alert = AlertInspector()
     @ObservedObject private var navigator = Navigator()
     
@@ -31,28 +24,6 @@ struct SceneCommon: View {
             .sheet(isPresented: $presentingMatchSheet) {
                 SheetView("view.match", minWidth: 300, minHeight: 350, defaultDismiss: false) {
                     MatchView()
-                }
-            }
-            .sheet(item: $navigator.selection) { nomination in
-                SheetView(
-                    nomination.title,
-                    minWidth: 450, minHeight: 350,
-                    defaultDismiss: Self.nominationSheetUseDefaultDismiss
-                ) {
-                    NominationDetails(nomination: nomination)
-                        .environmentObject(alert)
-                }
-            }
-            .onOpenURL { url in
-                guard
-                    url.scheme == "potori",
-                    let host = url.host
-                else {
-                    return
-                }
-                if host == "details" {
-                    let id = url.lastPathComponent
-                    navigator.selection = dia.firstNomination(matches: .init(format: "id == %@", id))
                 }
             }
     }

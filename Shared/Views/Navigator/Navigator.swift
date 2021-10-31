@@ -30,11 +30,14 @@ class Navigator: ObservableObject {
         }
     }
     
-    @Published var selection: Nomination? = nil
     #if os(macOS)
     @Published var actived: Tag? = .dashboard
     @Published var configuration: Configuration = .init()
+    #else
+    @Published var selection: Nomination? = nil
+    #endif
     
+    #if os(macOS)
     func open(_ panel: Tag, with configuration: Configuration?) {
         if let solidConfiguration = configuration {
             self.configuration = solidConfiguration

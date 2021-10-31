@@ -30,9 +30,11 @@ struct ListLink<Label: View>: View {
 }
 
 struct DetailsLink<Label: View>: View {
+
     #if os(macOS)
-    @EnvironmentObject private var navigator: Navigator
+    @Environment(\.openURL) private var openURL
     #endif
+    
     private let nomination: Nomination
     private let label: () -> Label
     
@@ -43,7 +45,14 @@ struct DetailsLink<Label: View>: View {
     
     var body: some View {
         #if os(macOS)
-        Button(action: { navigator.selection = nomination }, label: label)
+        Button(
+            action: {
+                if let url = URL(string: "potori://details/\(nomination.id)") {
+                    openURL(url)
+                }
+            },
+            label: label
+        )
             .contentShape(Rectangle())
             .buttonStyle(.plain)
         #else

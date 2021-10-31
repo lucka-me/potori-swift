@@ -83,6 +83,8 @@
 "view.dashboard.reasons.less"   = "更少";
 
 // Nomination Details
+"view.details"  = "详情";
+"view.details.notFound" = "未找到";
 "view.details.edit" = "编辑";
 "view.details.save" = "保存";
 "view.details.cancel"   = "取消";
