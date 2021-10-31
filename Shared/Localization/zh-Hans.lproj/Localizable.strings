@@ -56,8 +56,9 @@
 
 /* View */
 // Common Actions
-"action.open" = "打开";
-"action.dismiss" = "关闭";
+"action.open"   = "打开";
+"action.cancel" = "取消";
+"action.dismiss"    = "关闭";
 
 // Navigation
 "view.list" = "列表";
@@ -87,7 +88,6 @@
 "view.details.notFound" = "未找到";
 "view.details.edit" = "编辑";
 "view.details.save" = "保存";
-"view.details.cancel"   = "取消";
 "view.details.image.copy"   = "拷贝";
 "view.details.image.share"  = "分享";
 "view.details.action.intel" = "Intel Maps";
@@ -158,6 +158,7 @@
 "view.preferences.about"    = "关于";
 "view.preferences.about.appVersion"     = "应用版本";
 "view.preferences.about.dataVersion"    = "数据版本";
+"view.preferences.about.dataVersion %@" = "数据版本：%@";
 "view.preferences.about.repo"   = "代码仓库";
 "view.preferences.about.privacy"    = "隐私";
 "view.preferences.about.telegram"   = "Telegram频道";

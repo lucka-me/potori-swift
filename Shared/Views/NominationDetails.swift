@@ -235,7 +235,7 @@ struct NominationDetails: View {
             Button {
                 mode = .view
             } label: {
-                Label("view.details.cancel", systemImage: "xmark")
+                Label("action.cancel", systemImage: "xmark")
             }
             .keyboardShortcut(.cancelAction)
         }

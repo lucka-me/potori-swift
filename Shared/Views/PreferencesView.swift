@@ -325,7 +325,7 @@ fileprivate struct ImportExportView: View {
             let count = try dia.importWayfarer(data)
             message = "view.preferences.data.wayfarer.import.success \(count)"
         } catch {
-            message = "view.preferences.data.wayfarer.failure \(error.localizedDescription)"
+            message = .init(error.localizedDescription)
         }
         alert.push(
             title: Self.stringImport,

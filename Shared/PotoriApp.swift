@@ -54,22 +54,19 @@ struct PotoriApp: App {
         }
         .commands {
             SidebarCommands()
+            
+            #if os(macOS)
+            PotoriCommands()
+            #endif
         }
         .handlesExternalEvents(matching: Self.majorMatchURLs)
         
         #if os(macOS)
-        
         WindowGroup("view.details") {
             DetailsSceneView()
                 .environmentObject(dia)
         }
         .handlesExternalEvents(matching: Self.detailsMatchURLs)
-        
-        Settings {
-            PreferencesView()
-                .environmentObject(dia)
-                .environmentObject(service)
-        }
         #endif
     }
 }

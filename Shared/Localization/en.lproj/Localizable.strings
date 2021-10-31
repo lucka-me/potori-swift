@@ -56,8 +56,9 @@
 
 /* View */
 // Common actions
-"action.open" = "Open";
-"action.dismiss" = "Dismiss";
+"action.open"   = "Open";
+"action.cancel" = "Cancel";
+"action.dismiss"    = "Dismiss";
 
 // Navigation
 "view.list" = "List";
@@ -87,7 +88,6 @@
 "view.details.notFound" = "Not Found";
 "view.details.edit" = "Edit";
 "view.details.save" = "Save";
-"view.details.cancel"   = "Cancel";
 "view.details.image.copy"   = "Copy";
 "view.details.image.share"  = "Share";
 "view.details.action.intel" = "Intel Maps";
@@ -158,6 +158,7 @@
 "view.preferences.about"    = "About";
 "view.preferences.about.appVersion"     = "App Version";
 "view.preferences.about.dataVersion"    = "Data Version";
+"view.preferences.about.dataVersion %@" = "Data Version: %@";
 "view.preferences.about.repo"   = "Code Repository";
 "view.preferences.about.privacy"    = "Privacy";
 "view.preferences.about.telegram"   = "Telegram Channel";
