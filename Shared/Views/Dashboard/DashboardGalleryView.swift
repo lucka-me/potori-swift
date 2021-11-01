@@ -9,18 +9,14 @@ import SwiftUI
 
 struct DashboardGalleryView: View {
     
-    private static let intervalPast30Day = TimeInterval(-30 * 24 * 3600)
-    private static let datePast30Days = Date(timeIntervalSinceNow: Self.intervalPast30Day) as NSDate
-    private static let predicate = NSPredicate(
-        format: "confirmedTime > %@ || resultTime > %@",
-        datePast30Days, datePast30Days
-    )
+    private static var datePast30Days: NSDate {
+        .init(timeIntervalSinceNow: -30 * 24 * 3600)
+    }
     
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
-        entity: Nomination.entity(),
         sortDescriptors: Nomination.sortDescriptorsByDate,
-        predicate: Self.predicate
+        predicate: .init(format: "confirmedTime > %@ || resultTime > %@", datePast30Days, datePast30Days)
     ) private var nominations: FetchedResults<Nomination>
     
     var body: some View {

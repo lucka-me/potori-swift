@@ -7,11 +7,6 @@
 
 import Foundation
 
-#if os(iOS)
-import BackgroundTasks
-import UserNotifications
-#endif
-
 final class Service: ObservableObject {
     
     enum ErrorType: Error {

@@ -200,7 +200,7 @@ fileprivate class ClusterAnnotationView: MKAnnotationView {
     }
 }
 
-class UnclusteredAnnotationView: MKMarkerAnnotationView {
+fileprivate class UnclusteredAnnotationView: MKMarkerAnnotationView {
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)

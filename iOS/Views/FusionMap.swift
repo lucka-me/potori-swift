@@ -8,8 +8,6 @@
 import SwiftUI
 import MapboxMaps
 
-fileprivate typealias Task = _Concurrency.Task
-
 struct FusionMap: UIViewRepresentable {
     
     private enum AnnotationMode {

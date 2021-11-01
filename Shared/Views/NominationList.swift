@@ -13,11 +13,8 @@ struct NominationList: View {
     @EnvironmentObject private var dia: Dia
     @EnvironmentObject private var navigator: Navigator
     @EnvironmentObject private var service: Service
-    @FetchRequest(
-        entity: Nomination.entity(),
-        sortDescriptors: Nomination.sortDescriptorsByDate,
-        animation: .default
-    ) private var nominations: FetchedResults<Nomination>
+    @FetchRequest(sortDescriptors: Nomination.sortDescriptorsByDate)
+    private var nominations: FetchedResults<Nomination>
     
     private let configuration: Navigator.Configuration
     
