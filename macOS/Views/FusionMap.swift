@@ -33,6 +33,22 @@ struct FusionMap: NSViewRepresentable {
         }
     }
     
+    class Coordinator: NSObject, MKMapViewDelegate {
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            if let _ = annotation as? FusionMap.AnnotationData {
+                return UnclusteredAnnotationView(
+                    annotation: annotation, reuseIdentifier: UnclusteredAnnotationView.reuseIdentifier
+                )
+            }
+            if let _ = annotation as? MKClusterAnnotation {
+                return ClusterAnnotationView(
+                    annotation: annotation, reuseIdentifier: ClusterAnnotationView.reuseIdentifier
+                )
+            }
+            return nil
+        }
+    }
+    
     private let annotations: [ AnnotationData ]
     private let camera: CameraRepresentable
     
@@ -75,6 +91,10 @@ struct FusionMap: NSViewRepresentable {
         self.mode = .single
     }
     
+    func makeCoordinator() -> Coordinator {
+        .init()
+    }
+    
     func makeNSView(context: Context) -> MKMapView {
         let view = MKMapView()
         camera.set(to: view)
@@ -84,8 +104,9 @@ struct FusionMap: NSViewRepresentable {
         if mode == .clustring {
             view.showsCompass = true
             view.showsZoomControls = true
-            view.register(ClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
+            view.delegate = context.coordinator
             view.register(UnclusteredAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+            view.register(ClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
         }
         addAnnotations(to: view)
         return view
@@ -146,6 +167,8 @@ fileprivate struct ClusterCamera: CameraRepresentable {
 
 fileprivate class ClusterAnnotationView: MKAnnotationView {
     
+    fileprivate static let reuseIdentifier = "clusteredAnnotation"
+    
     private static let fillColor = NSColor(hue: 0.56, saturation: 1.0, brightness: 1.0, alpha: 0.6)
     private static let strokeColor = NSColor(hue: 0.56, saturation: 1.0, brightness: 1.0, alpha: 1.0)
     
@@ -201,6 +224,8 @@ fileprivate class ClusterAnnotationView: MKAnnotationView {
 }
 
 fileprivate class UnclusteredAnnotationView: MKMarkerAnnotationView {
+    
+    fileprivate static let reuseIdentifier = "unclusteredAnnotation"
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
