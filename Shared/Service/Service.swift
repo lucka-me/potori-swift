@@ -147,7 +147,7 @@ final class Service: ObservableObject {
                 }
             }
         }
-        let updateCount = Dia.shared.save(raws) + mergeCount
+        let updateCount = await Dia.shared.save(raws) + mergeCount
         if UserDefaults.Google.sync {
             do {
                 try await upload()
@@ -204,7 +204,7 @@ final class Service: ObservableObject {
             return 0
         }
         let raws = jsons.map { NominationRAW(from: $0) }
-        return Dia.shared.save(raws, merge: true)
+        return await Dia.shared.save(raws, merge: true)
     }
     
     private func upload() async throws {

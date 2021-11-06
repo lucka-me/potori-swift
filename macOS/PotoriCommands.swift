@@ -138,16 +138,18 @@ fileprivate struct DataCommands: Commands {
                 isPresented: $isPresentedImporter,
                 allowedContentTypes: NominationJSON.Document.readableContentTypes
             ) { result in
-                let message: String
-                do {
-                    let url = try result.get()
-                    let data = try Data(contentsOf: url)
-                    let count = try dia.importNominations(data)
-                    message = .init(format: .init(localized: "view.preferences.data.nominations.import.success"), count)
-                } catch {
-                    message = error.localizedDescription
+                Task {
+                    let message: String
+                    do {
+                        let url = try result.get()
+                        let data = try Data(contentsOf: url)
+                        let count = try await dia.importNominations(data)
+                        message = .init(format: .init(localized: "view.preferences.data.nominations.import.success"), count)
+                    } catch {
+                        message = error.localizedDescription
+                    }
+                    showAlert(title: .init(localized: "view.preferences.data.import"), message: message)
                 }
-                showAlert(title: .init(localized: "view.preferences.data.import"), message: message)
             }
             .fileExporter(
                 isPresented: $isPresentedExporter,
@@ -168,18 +170,20 @@ fileprivate struct DataCommands: Commands {
             Menu("view.preferences.data.wayfarer") {
                 Button("view.preferences.data.import") {
                     let json = NSPasteboard.general.string(forType: .string)
-                    let message: String
-                    if let data = json?.data(using: .utf8) {
-                        do {
-                            let count = try dia.importWayfarer(data)
-                            message = .init(format: .init(localized: "view.preferences.data.wayfarer.import.success"), count)
-                        } catch {
-                            message = error.localizedDescription
+                    Task {
+                        let message: String
+                        if let data = json?.data(using: .utf8) {
+                            do {
+                                let count = try await dia.importWayfarer(data)
+                                message = .init(format: .init(localized: "view.preferences.data.wayfarer.import.success"), count)
+                            } catch {
+                                message = error.localizedDescription
+                            }
+                        } else {
+                            message = .init(localized: "view.preferences.data.wayfarer.import.empty")
                         }
-                    } else {
-                        message = .init(localized: "view.preferences.data.wayfarer.import.empty")
+                        showAlert(title: .init(localized: "view.preferences.data.import"), message: message)
                     }
-                    showAlert(title: .init(localized: "view.preferences.data.import"), message: message)
                 }
                 Link(
                     "view.preferences.data.wayfarer.link",
@@ -210,6 +214,7 @@ fileprivate extension Commands {
     
     typealias ButtonAction = () -> Void
     
+    @MainActor
     func showAlert(title: String, message: String) {
         let alert = NSAlert()
         alert.messageText = title
@@ -217,6 +222,7 @@ fileprivate extension Commands {
         alert.runModal()
     }
     
+    @MainActor
     func showConfirmationDialog(
         title: String,
         message: String,

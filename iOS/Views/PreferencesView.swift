@@ -201,16 +201,18 @@ fileprivate struct ImportExportView: View {
                 isPresented: $isPresentedImporter,
                 allowedContentTypes: NominationJSON.Document.readableContentTypes
             ) { result in
-                let message: LocalizedStringKey
-                do {
-                    let url = try result.get()
-                    let data = try Data(contentsOf: url)
-                    let count = try dia.importNominations(data)
-                    message = "view.preferences.data.nominations.import.success \(count)"
-                } catch {
-                    message = .init(error.localizedDescription)
+                Task {
+                    let message: LocalizedStringKey
+                    do {
+                        let url = try result.get()
+                        let data = try Data(contentsOf: url)
+                        let count = try await dia.importNominations(data)
+                        message = "view.preferences.data.nominations.import.success \(count)"
+                    } catch {
+                        message = .init(error.localizedDescription)
+                    }
+                    alert.push(Self.stringImport, message: message)
                 }
-                alert.push(Self.stringImport, message: message)
             }
             .fileExporter(
                 isPresented: $isPresentedExporter,
@@ -243,18 +245,20 @@ fileprivate struct ImportExportView: View {
             Section(header: Text("view.preferences.data.wayfarer")) {
                 Button("view.preferences.data.import") {
                     let json = UIPasteboard.general.string
-                    let message: LocalizedStringKey
-                    if let data = json?.data(using: .utf8) {
-                        do {
-                            let count = try dia.importWayfarer(data)
-                            message = "view.preferences.data.wayfarer.import.success \(count)"
-                        } catch {
-                            message = .init(error.localizedDescription)
+                    Task {
+                        let message: LocalizedStringKey
+                        if let data = json?.data(using: .utf8) {
+                            do {
+                                let count = try await dia.importWayfarer(data)
+                                message = "view.preferences.data.wayfarer.import.success \(count)"
+                            } catch {
+                                message = .init(error.localizedDescription)
+                            }
+                        } else {
+                            message = "view.preferences.data.wayfarer.import.empty"
                         }
-                    } else {
-                        message = "view.preferences.data.wayfarer.import.empty"
+                        alert.push(Self.stringImport, message: message)
                     }
-                    alert.push(Self.stringImport, message: message)
                 }
                 Link(
                     "view.preferences.data.wayfarer.link",

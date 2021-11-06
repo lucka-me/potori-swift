@@ -87,7 +87,7 @@ class Dia: ObservableObject {
     }
     
     @discardableResult
-    func save(_ raws: [ NominationRAW ], merge: Bool = false) -> Int {
+    func save(_ raws: [ NominationRAW ], merge: Bool = false) async -> Int {
         let existings = nominations()
         var count = 0
         for raw in raws {
@@ -106,30 +106,27 @@ class Dia: ObservableObject {
                 count += 1
             }
         }
-        save()
+        await save()
         return count
     }
     
     /// Save changes and refresh the UI by refreshing saveID
+    @MainActor
     func save() {
-        if !viewContext.hasChanges {
-            return
-        }
+        if !viewContext.hasChanges { return }
         do {
             try viewContext.save()
         } catch {
             print("[CoreData][Save] Failed: \(error.localizedDescription)")
         }
-        DispatchQueue.main.async {
-            self.saveID = UUID().uuidString
-        }
+        saveID = UUID().uuidString
     }
     
-    func importNominations(_ data: Data) throws -> Int {
+    func importNominations(_ data: Data) async throws -> Int {
         let decoder = JSONDecoder()
         let jsonList = try decoder.decode([ NominationJSON ].self, from: data)
         let raws = jsonList.map { NominationRAW(from: $0) }
-        return save(raws, merge: true)
+        return await save(raws, merge: true)
     }
     
     func exportNominations() -> NominationJSON.Document {
@@ -138,7 +135,7 @@ class Dia: ObservableObject {
         return .init(for: jsons)
     }
     
-    func importWayfarer(_ data: Data) throws -> Int {
+    func importWayfarer(_ data: Data) async throws -> Int {
         let decoder = JSONDecoder()
         let response = try decoder.decode(WayfarerResponse.self, from: data)
         let nominations = nominations()
@@ -157,7 +154,9 @@ class Dia: ObservableObject {
             nomination.hasLngLat = true
             count += 1
         }
-        save()
+        if count > 0 {
+            await save()
+        }
         return count
     }
     
