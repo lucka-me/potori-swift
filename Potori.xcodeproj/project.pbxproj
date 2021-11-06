@@ -690,8 +690,8 @@
 			children = (
 				8491786B2599F81700CD967F /* macOS.entitlements */,
 				8491786A2599F81700CD967F /* Info.plist */,
-				847B16A0266287C100605AD2 /* Views */,
 				84C89252272E510600111FFA /* PotoriCommands.swift */,
+				847B16A0266287C100605AD2 /* Views */,
 			);
 			path = macOS;
 			sourceTree = "<group>";
