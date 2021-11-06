@@ -14,6 +14,8 @@
 "data.undeclared"   = "Undeclared";
 "data.duplicated"   = "Duplicated";
 "data.close"    = "Too Close";
+"data.cultural" = "Cultural";
+"data.niantic"  = "Niantic";
 
 "data.criteriaBodypart" = "Body Part";
 "data.criteriaCriteria" = "Other Criteria";
